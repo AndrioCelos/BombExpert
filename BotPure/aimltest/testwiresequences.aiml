@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<aiml version='2.1'>
+	<category>
+		<pattern>XTest WireSequences</pattern>
+		<template>
+			<think>
+				<srai>defuse wire sequences</srai>
+				<test name='Wire Sequence 1-1' expected='Cut the wire.'>red charlie</test>
+				<test name='Wire Sequence 1-2' expected='Cut both wires.'>red bravo next red alfa</test>
+				<test name='Wire Sequence 1-3' expected='Cut all wires.'>red alfa next red bravo next red charlie</test>
+
+				<srai>new sequence</srai>
+				<test name='Wire Sequence 2-1' expected='Do not cut the wire.'>blue alfa</test>
+				<test name='Wire Sequence 2-2' expected='Do not cut those wires.'>blue bravo next red bravo</test>
+				<test name='Wire Sequence 2-3' expected='Cut the red wire.'>red bravo next blue charlie</test>
+
+				<srai>new sequence</srai>
+				<test name='Wire Sequence 3-1' expected='Cut both black wires.'>black alfa next black alfa next blue alfa</test>
+				<test name='Wire Sequence 3-2' expected='Cut the red wire. Cut the black wire.'>red charlie next blue bravo next black bravo</test>
+				<test name='Wire Sequence 3-3' expected='Cut the red wire. Cut the second black wire.'>black bravo next red bravo next black bravo</test>
+
+				<srai>new sequence</srai>
+				<test name='Wire Sequence 4-1' expected='Cut the second red wire.'>red bravo next red bravo next red bravo</test>
+				<test name='Wire Sequence 4-2' expected='Cut the first red wire. Cut the third red wire.'>red charlie next red charlie next red charlie</test>
+				<test name='Wire Sequence 4-3' expected='Cut all wires.'>red bravo next red bravo next red bravo</test>
+			</think>
+		</template>
+	</category>
+</aiml>

@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml>
+	<category>
+		<pattern>defuse who is on first</pattern>
+		<template>
+			<think><set name='topic'>Bomb WhosOnFirst Display</set></think>
+			<oob>SetGrammar whosonfirst</oob> Read the text on the top of the module.
+		</template>
+	</category>
+	<category>
+		<pattern>defuse who is on first *</pattern>
+		<template>
+			<think><set name='topic'>Bomb WhosOnFirst Display</set></think>
+			<sr/>
+		</template>
+	</category>
+	<category>
+		<pattern>defuse who's on first</pattern>
+		<template><srai>defuse who is on first</srai></template>
+	</category>
+	<category>
+		<pattern>defuse who's on first *</pattern>
+		<template><srai>defuse who is on first <star/></srai></template>
+	</category>
+	<category>
+		<pattern>defuse words</pattern>
+		<template><srai>defuse who is on first</srai></template>
+	</category>
+	<category>
+		<pattern>defuse words *</pattern>
+		<template><srai>defuse who is on first <star/></srai></template>
+	</category>
+
+	<topic name='Bomb WhosOnFirst ^'>
+		<category>
+			<pattern>Parse *</pattern>
+			<template><srai>Parse2 <star/></srai></template>
+		</category>
+		<category>
+			<pattern>Parse <set>NATO</set></pattern>
+			<template><srai>Parse2 <srai>DecodeNato <star/></srai></srai></template>
+		</category>
+		<category>
+			<pattern>Parse <set>NATO</set> <set>NATO</set></pattern>
+			<template><srai>Parse2 <srai>DecodeNato <star/> <star index='2'/></srai></srai></template>
+		</category>
+		<category>
+			<pattern>Parse <set>NATO</set> <set>NATO</set> <set>NATO</set></pattern>
+			<template><srai>Parse2 <srai>DecodeNato <star/> <star index='2'/> <star index='3'/></srai></srai></template>
+		</category>
+		<category>
+			<pattern>Parse <set>NATO</set> <set>NATO</set> <set>NATO</set> <set>NATO</set></pattern>
+			<template><srai>Parse2 <srai>DecodeNato <star/> <star index='2'/> <star index='3'/> <star index='4'/></srai></srai></template>
+		</category>
+		<category>
+			<pattern>Parse <set>NATO</set> <set>NATO</set> <set>NATO</set> <set>NATO</set> <set>NATO</set></pattern>
+			<template><srai>Parse2 <srai>DecodeNato <star/> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/></srai></srai></template>
+		</category>
+		<category>
+			<pattern>Parse <set>NATO</set> <set>NATO</set> <set>NATO</set> <set>NATO</set> <set>NATO</set> <set>NATO</set></pattern>
+			<template><srai>Parse2 <srai>DecodeNato <star/> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/> <star index='6'/></srai></srai></template>
+		</category>
+		<category>
+			<pattern>Parse <set>NATO</set> <set>NATO</set> <set>NATO</set> <set>NATO</set> <set>NATO</set> <set>NATO</set> <set>NATO</set></pattern>
+			<template><srai>Parse2 <srai>DecodeNato <star/> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/> <star index='6'/> <star index='7'/></srai></srai></template>
+		</category>
+		<category>
+			<pattern>Parse it is *</pattern>
+			<template><srai>Parse <star/></srai></template>
+		</category>
+		<category>
+			<pattern>Parse it says *</pattern>
+			<template><srai>Parse <star/></srai></template>
+		</category>
+		<category>
+			<pattern>Parse the word is *</pattern>
+			<template><srai>Parse <star/></srai></template>
+		</category>
+		<category>
+			<pattern>Parse it says blank</pattern>
+			<template><srai>Parse2 blank</srai></template>
+		</category>
+		<category>
+			<pattern>Parse the word is blank</pattern>
+			<template><srai>Parse2 blank</srai></template>
+		</category>
+		<category>
+			<pattern>Parse it says nothing</pattern>
+			<template><srai>Parse2 nothing</srai></template>
+		</category>
+		<category>
+			<pattern>Parse the word is nothing</pattern>
+			<template><srai>Parse2 nothing</srai></template>
+		</category>
+		<category>
+			<pattern>Parse * with *</pattern>
+			<template><srai>Parse <star/> <star index='2'/></srai></template>
+		</category>
+		<category>
+			<pattern>Parse * with a *</pattern>
+			<template><srai>Parse <star/> <star index='2'/></srai></template>
+		</category>
+		<category>
+			<pattern>Parse * with an *</pattern>
+			<template><srai>Parse <star/> <star index='2'/></srai></template>
+		</category>
+		<category>
+			<pattern>Parse blank</pattern>
+			<template>Error Please specify 'word blank', 'literally blank' or 'nil'.</template>
+		</category>
+		<category>
+			<pattern>Parse nothing</pattern>
+			<template>Error Please specify 'word nothing', 'literally blank' or 'nil'.</template>
+		</category>
+		<category>
+			<pattern>Parse led</pattern>
+			<template>Error Please spell the word.</template>
+		</category>
+		<category>
+			<pattern>Parse lead</pattern>
+			<template>Error Please spell the word.</template>
+		</category>
+		<category>
+			<pattern>Parse leed</pattern>
+			<template>Error Please spell the word.</template>
+		</category>
+		<category>
+			<pattern>Parse red</pattern>
+			<template>Error Please spell the word.</template>
+		</category>
+		<category>
+			<pattern>Parse read</pattern>
+			<template>Error Please spell the word.</template>
+		</category>
+		<category>
+			<pattern>Parse reed</pattern>
+			<template>Error Please spell the word.</template>
+		</category>
+		<category>
+			<pattern>Parse you</pattern>
+			<template>Error Please specify 'word you' or 'letter u'.</template>
+		</category>
+		<category>
+			<pattern>Parse u</pattern>
+			<template>Error Please specify 'word you' or 'letter u'.</template>
+		</category>
+		<category>
+			<pattern>Parse your</pattern>
+			<template>Error Please specify 'your no apostrophe' or 'you're apostrophe'.</template>
+		</category>
+		<category>
+			<pattern>Parse you're</pattern>
+			<template>Error Please specify 'your no apostrophe' or 'you're apostrophe'.</template>
+		</category>
+		<category>
+			<pattern>Parse you are</pattern>
+			<template>Error Please specify 'words you are' or 'letters u r'.</template>
+		</category>
+		<category>
+			<pattern>Parse ur</pattern>
+			<template>Error Please specify 'words you are' or 'letters u r'.</template>
+		</category>
+		<category>
+			<pattern>Parse u r</pattern>
+			<template>Error Please specify 'words you are' or 'letters u r'.</template>
+		</category>
+		<category>
+			<pattern>Parse there</pattern>
+			<template>Error Please spell the word or specify 'they're apostrophe'.</template>
+		</category>
+		<category>
+			<pattern>Parse their</pattern>
+			<template>Error Please spell the word or specify 'they're apostrophe'.</template>
+		</category>
+		<category>
+			<pattern>Parse they're</pattern>
+			<template>Error Please spell the word or specify 'they're apostrophe'.</template>
+		</category>
+		<category>
+			<pattern>Parse see</pattern>
+			<template>Error Please spell the word or specify 'letter c'.</template>
+		</category>
+		<category>
+			<pattern>Parse c</pattern>
+			<template>Error Please spell the word or specify 'letter c'.</template>
+		</category>
+		<category>
+			<pattern>Parse cee</pattern>
+			<template>Error Please spell the word or specify 'letter c'.</template>
+		</category>
+		<category>
+			<pattern>Parse sea</pattern>
+			<template>Error Please spell the word or specify 'letter c'.</template>
+		</category>
+		<category>
+			<pattern>Parse what</pattern>
+			<template>Error Please specify 'what question' or 'what no question'.</template>
+		</category>
+		<category>
+			<pattern>Parse2 *</pattern>
+			<template><map name='WhosOnFirstParse'><star/></map></template>
+		</category>
+
+		<category>
+			<pattern>*</pattern>
+			<topic>Bomb WhosOnFirst Display</topic>
+			<template><srai>HandleDisplay <srai>Parse <star/></srai></srai></template>
+		</category>
+
+		<category>
+			<pattern>HandleDisplay Error *</pattern>
+			<template><star/></template>
+		</category>
+		<category>
+			<pattern>HandleDisplay unknown</pattern>
+			<template>That does not sound like a possible label. Try again.</template>
+		</category>
+		<category>
+			<pattern>HandleDisplay *</pattern>
+			<template>
+				<think>
+					<set var='result'><map name='WhosOnFirstButton'><star/></map></set>
+				</think>
+				<condition var='result'>
+					<li value='unknown'>That does not sound like a possible label. Try again.</li>
+					<li>
+						<think><set name='topic'>Bomb WhosOnFirst Button</set></think>
+						Read the text on the <get var='result'/> button.
+					</li>
+				</condition>
+			</template>
+		</category>
+
+		<category>
+			<pattern>*</pattern>
+			<topic>Bomb WhosOnFirst Button</topic>
+			<template><srai>HandleButton <srai>Parse <star/></srai></srai></template>
+		</category>
+
+		<category>
+			<pattern>HandleButton Error *</pattern>
+			<template><star/></template>
+		</category>
+		<category>
+			<pattern>HandleButton unknown</pattern>
+			<template>That does not sound like a possible label. Try again.</template>
+		</category>
+		<category>
+			<pattern>HandleButton *</pattern>
+			<template>
+				<think>
+					<set var='list'><map name='WhosOnFirstList'><star/></map></set>
+				</think>
+				<condition var='list'>
+					<li value='unknown'>That does not sound like a possible label. Try again.</li>
+					<li>
+						<think>
+							<set name='topic'>Bomb WhosOnFirst</set>
+							<set var='result'>nil</set>
+							<condition var='list'>
+								<li value='nil'></li>
+								<li>
+									<set var='label'><map name='WhosOnFirstButtonDescription'><srai>XFirst <get var='list'/></srai></map></set>
+									<set var='list'><srai>XRest <get var='list'/></srai></set>
+									<condition var='result'>
+										<li value='nil'><set var='result'><get var='label'/></set></li>
+										<li><set var='result'><get var='result'/>... <get var='label'/></set></li>
+									</condition>
+									<loop/>
+								</li>
+							</condition>
+						</think>
+						Press the first of these that exists: <get var='result'/>
+					</li>
+				</condition>
+			</template>
+		</category>
+
+		<category>
+			<pattern>next set ^</pattern>
+			<template><srai>defuse who is on first <star/></srai></template>
+		</category>
+		<category>
+			<pattern>new set ^</pattern>
+			<template><srai>defuse who is on first <star/></srai></template>
+		</category>
+	</topic>
+</aiml>

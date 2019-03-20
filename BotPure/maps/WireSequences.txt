@@ -1,0 +1,29 @@
+red 1  :C
+red 2  :B
+red 3  :A
+red 4  :A C
+red 5  :B
+red 6  :A C
+red 7  :A B C
+red 8  :A B
+red 9  :B
+
+blue 1 :B
+blue 2 :A C
+blue 3 :B
+blue 4 :A
+blue 5 :B
+blue 6 :B C
+blue 7 :C
+blue 8 :A C
+blue 9 :A
+
+black 1:A B C
+black 2:A C
+black 3:B
+black 4:A C
+black 5:B
+black 6:B C
+black 7:A B
+black 8:C
+black 9:C

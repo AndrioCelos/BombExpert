@@ -1,0 +1,26 @@
+<grammar version='1.0' xml:lang='en-AU' root='root' xmlns='http://www.w3.org/2001/06/grammar'>
+	<rule id='root'>
+		<one-of>
+			<item><ruleref uri='bomb.xml'/></item>
+			<item>
+				<one-of>
+					<item> new </item>
+					<item> next </item>
+					<item> reset </item>
+				</one-of>
+				<one-of>
+					<item> memory </item>
+					<item> set </item>
+				</one-of>
+			</item>
+			<item repeat='5'>
+				<one-of>
+					<item> 1 </item>
+					<item> 2 </item>
+					<item> 3 </item>
+					<item> 4 </item>
+				</one-of>
+			</item>
+		</one-of>
+	</rule>
+</grammar>

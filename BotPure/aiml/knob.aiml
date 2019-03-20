@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml>
+	<category>
+		<pattern>defuse knob</pattern>
+		<template>
+			<think>
+				<set name='topic'>Bomb Knob</set>
+			</think>
+			<oob>SetGrammar knob</oob> Read the lights on the left side of the module: 'on' or 'off' in reading order.
+		</template>
+	</category>
+	<category>
+		<pattern>defuse knob on *</pattern>
+		<template><srai>Knob HandleInput on <star/></srai></template>
+	</category>
+	<category>
+		<pattern>defuse knob off *</pattern>
+		<template><srai>Knob HandleInput off <star/></srai></template>
+	</category>
+
+	<topic name='Bomb Knob'>
+		<category>
+			<pattern>on *</pattern>
+			<template>
+				<srai>Knob HandleInput on <star/></srai>
+			</template>
+		</category>
+		<category>
+			<pattern>off *</pattern>
+			<template>
+				<srai>Knob HandleInput off <star/></srai>
+			</template>
+		</category>
+		<category>
+			<pattern>all off</pattern>
+			<template>
+				<srai>Knob HandleInput off off off off off off</srai>
+			</template>
+		</category>
+	</topic>
+
+	<category>
+		<pattern>Knob HandleInput *</pattern>
+		<template>
+			<think>
+				<set var='input'><star/></set>
+				<condition var='input'>
+					<li value='off off on on on on'><set var='result'>up</set></li>
+					<li value='on off on off on on'><set var='result'>up</set></li>
+					<li value='off on on on on on'><set var='result'>down</set></li>
+					<li value='on off on off on off'><set var='result'>down</set></li>
+					<li value='off off off on off off'><set var='result'>left</set></li>
+					<li value='off off off off off off'><set var='result'>left</set></li>
+					<li value='on off on on on on'><set var='result'>right</set></li>
+					<li><set var='result'>unknown</set></li>
+				</condition>
+			</think>
+			<condition var='result'>
+				<li value='unknown'>I do not recognise that pattern. Try again.</li>
+				<li>Turn the knob to the <get var='result'/> position, with respect to the 'Up' label.</li>
+			</condition>
+		</template>
+	</category>
+</aiml>

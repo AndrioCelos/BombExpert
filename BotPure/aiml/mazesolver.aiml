@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<aiml>
+	<category>
+		<!-- Usage: Solve <circle X> <circle Y> <start X> <start Y> <goal X> <goal Y> -->
+		<pattern>MazeSolver Solve <set>number</set> <set>number</set> <set>number</set> <set>number</set> <set>number</set> <set>number</set></pattern>
+		<template>
+			<think>  <!-- A lot of thinking will happen here. -->
+				<set name='MazeSolverGoalX'><star index='5'/></set>
+				<set name='MazeSolverGoalY'><star index='6'/></set>
+
+				<!-- Reset the closed set. -->
+				<set var='closedX1Y1'></set>
+				<set var='closedX1Y2'></set>
+				<set var='closedX1Y3'></set>
+				<set var='closedX1Y4'></set>
+				<set var='closedX1Y5'></set>
+				<set var='closedX1Y6'></set>
+				<set var='closedX2Y1'></set>
+				<set var='closedX2Y2'></set>
+				<set var='closedX2Y3'></set>
+				<set var='closedX2Y4'></set>
+				<set var='closedX2Y5'></set>
+				<set var='closedX2Y6'></set>
+				<set var='closedX3Y1'></set>
+				<set var='closedX3Y2'></set>
+				<set var='closedX3Y3'></set>
+				<set var='closedX3Y4'></set>
+				<set var='closedX3Y5'></set>
+				<set var='closedX3Y6'></set>
+				<set var='closedX4Y1'></set>
+				<set var='closedX4Y2'></set>
+				<set var='closedX4Y3'></set>
+				<set var='closedX4Y4'></set>
+				<set var='closedX4Y5'></set>
+				<set var='closedX4Y6'></set>
+				<set var='closedX5Y1'></set>
+				<set var='closedX5Y2'></set>
+				<set var='closedX5Y3'></set>
+				<set var='closedX5Y4'></set>
+				<set var='closedX5Y5'></set>
+				<set var='closedX5Y6'></set>
+				<set var='closedX6Y1'></set>
+				<set var='closedX6Y2'></set>
+				<set var='closedX6Y3'></set>
+				<set var='closedX6Y4'></set>
+				<set var='closedX6Y5'></set>
+				<set var='closedX6Y6'></set>
+
+				<!-- Find which maze this is. -->
+				<set name='MazeSolverIndex'><map name='MazeMarkers'><star/> <star index='2'/></map></set>
+				<condition name='MazeSolverIndex'>
+					<li value='unknown'>
+						<set name='MazeSolverOpen'>NoMaze</set>
+					</li>
+					<li>
+						<!-- Initialise the open set. -->
+						<set name='MazeSolverOpen'><star index='3'/> <star index='4'/> Start</set>
+					</li>
+				</condition>
+
+				<!-- Breadth-first search. -->
+				<condition name='MazeSolverOpen'>
+					<li value='nil'><set var='result'>NoPath</set></li>
+					<li value='NoMaze'><set var='result'>NoMaze</set></li>
+					<li value='GoalFound'></li>
+					<li>
+						<srai>MazeSolver OpenSetDequeue <get name='MazeSolverOpen'/></srai>
+						<set><var>closedX<get name='MazeSolverX'/>Y<get name='MazeSolverY'/></var><get name='MazeSolverDir'/></set>
+
+						<!-- Have we reached the goal? -->
+						<set var='goal'><srai>MazeSolver GoalCheck</srai></set>
+						<condition var='goal'>
+							<li value='yes'>
+								<set var='result'></set>
+								<set name='MazeSolverOpen'>GoalFound</set>  <!-- Stop looping -->
+							</li>
+							<li>
+								<!-- Search around the current position. -->
+								<set var='cannotgowhere'>
+									<map name='MazeData'><get name='MazeSolverIndex'/> <get name='MazeSolverX'/> <get name='MazeSolverY'/></map> <map name='ReverseDirection'><get name='MazeSolverDir'/></map>
+								</set>
+
+								<set var='cannotgo'><srai>XContains North <get var='cannotgowhere'/></srai></set>
+								<condition var='cannotgo' value='false'>
+									<set name='MazeSolverOpen'><srai>XAppend <get name='MazeSolverX'/> <get name='MazeSolverOpen'/></srai> <map name='predecessor'><get name='MazeSolverY'/></map> North</set>
+								</condition>
+
+								<set var='cannotgo'><srai>XContains South <get var='cannotgowhere'/></srai></set>
+								<condition var='cannotgo' value='false'>
+									<set name='MazeSolverOpen'><srai>XAppend <get name='MazeSolverX'/> <get name='MazeSolverOpen'/></srai> <map name='successor'><get name='MazeSolverY'/></map> South</set>
+								</condition>
+
+								<set var='cannotgo'><srai>XContains West <get var='cannotgowhere'/></srai></set>
+								<condition var='cannotgo' value='false'>
+									<set name='MazeSolverOpen'><srai>XAppend <map name='predecessor'><get name='MazeSolverX'/></map> <get name='MazeSolverOpen'/></srai> <get name='MazeSolverY'/> West</set>
+								</condition>
+
+								<set var='cannotgo'><srai>XContains East <get var='cannotgowhere'/></srai></set>
+								<condition var='cannotgo' value='false'>
+									<set name='MazeSolverOpen'><srai>XAppend <map name='successor'><get name='MazeSolverX'/></map> <get name='MazeSolverOpen'/></srai> <get name='MazeSolverY'/> East</set>
+								</condition>
+							</li>
+						</condition>
+						<loop/>
+					</li>
+				</condition>
+
+				<!-- If we reached the goal, retrace the path. -->
+				<condition name='MazeSolverOpen'>
+					<li value='GoalFound'>
+						<set name='MazeSolverDir'><get><var>closedX<get name='MazeSolverX'/>Y<get name='MazeSolverY'/></var></get></set>
+						<condition name='MazeSolverDir'>
+							<li value='Start'>
+								<set name='MazeSolverOpen'>PathFound</set>  <!-- Stop looping -->
+							</li>
+							<li>
+								<set var='result'><get name='MazeSolverDir'/>... <get var='result'/></set>
+								<!-- The value is which direction we moved to get here, so reverse it. -->
+								<condition name='MazeSolverDir'>
+									<li value='North'><set name='MazeSolverY'><map name='successor'><get name='MazeSolverY'/></map></set></li>
+									<li value='South'><set name='MazeSolverY'><map name='predecessor'><get name='MazeSolverY'/></map></set></li>
+									<li value='West'><set name='MazeSolverX'><map name='successor'><get name='MazeSolverX'/></map></set></li>
+									<li value='East'><set name='MazeSolverX'><map name='predecessor'><get name='MazeSolverX'/></map></set></li>
+								</condition>
+							</li>
+						</condition>
+						<loop/>
+					</li>
+					<li></li>
+				</condition>
+			</think>
+			<!-- Finally output something. -->
+			<get var='result'/>
+		</template>
+	</category>
+
+	<category>
+		<pattern>MazeSolver OpenSetDequeue * * * ^</pattern>
+		<template>
+			<think>
+				<set name='MazeSolverX'><star index='1'/></set>
+				<set name='MazeSolverY'><star index='2'/></set>
+				<set name='MazeSolverDir'><star index='3'/></set>
+				<set name='MazeSolverOpen'><star index='4'/></set>
+			</think>
+		</template>
+	</category>
+
+	<category>
+		<pattern>MazeSolver GoalCheck</pattern>
+		<template>
+			<condition name='MazeSolverX'>
+				<li><value><get name='MazeSolverGoalX'/></value>
+					<condition name='MazeSolverY'>
+						<li><value><get name='MazeSolverGoalY'/></value>Yes</li>
+						<li>No</li>
+					</condition>
+				</li>
+				<li>No</li>
+			</condition>
+		</template>
+	</category>
+</aiml>

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml>
+	<category>
+		<pattern>defuse button</pattern>
+		<template>
+			<think><set name='topic'>bomb button</set></think>
+			<oob>SetGrammar button</oob> Tell me the colour and label of the button.
+		</template>
+	</category>
+
+	<topic name='bomb button'>
+		<category>
+			<pattern>new button</pattern>
+			<template>OK.</template>
+		</category>
+
+		<category>
+			<pattern><set>BombColours</set> <set>ButtonLabels</set></pattern>
+			<template>
+				<think>
+					<set name='BombButton'><star/> <star index='2'/></set>
+				</think>
+				<srai>SolveAndTellButton</srai>
+			</template>
+		</category>
+		<category>
+			<pattern><set>ButtonLabels</set> <set>BombColours</set></pattern>
+			<template><srai><star index='2'/> <star/></srai></template>
+		</category>
+		<category>
+			<pattern>SolveAndTellButton</pattern>
+			<template>
+				<think>
+					<set var='result'><srai>SolveButton <get name='BombButton'/></srai></set>
+				</think>
+				<condition var='result'>
+					<li value='NeedBatteryCount'>How many batteries are there on the sides of the bomb?</li>
+					<li value='NeedIndicatorLitCAR'>Look on the sides of the bomb. Is there a lit indicator that says CAR?</li>
+					<li value='NeedIndicatorLitFRK'>Look on the sides of the bomb. Is there a lit indicator that says FRK?</li>
+					<li value='Tap'>Press and release the button.</li>
+					<li value='Hold'>Press and hold the button. Keep holding it, and tell me what colour light appears.</li>
+				</condition>
+			</template>
+		</category>
+
+		<!-- Usage: SolveButton [colour] [label] -->
+		<category>
+			<pattern>SolveButton <set>BombColours</set> <set>ButtonLabels</set></pattern>
+			<template>
+				<think>
+					<set var='colour'><star/></set>
+					<set var='label'><star index='2'/></set>
+					<!-- If the button is blue and the button says "Abort", hold the button and refer to "Releasing a Held Button". -->
+					<condition var='colour' value='blue'>
+						<condition var='label' value='Abort'>
+							<set var='result'>Hold</set>
+						</condition>
+					</condition>
+
+					<condition var='result' value='unknown'>
+						<!-- If there is more than 1 battery on the bomb and the button says "Detonate", press and immediately release the button. -->
+						<condition var='label' value='Detonate'>
+							<condition name='BombBatteryCount'>
+								<li value='unknown'><set var='result'>NeedBatteryCount</set></li>
+								<li value='0'></li>
+								<li value='1'></li>
+								<li><set var='result'>Tap</set></li>
+							</condition>
+						</condition>
+					</condition>
+
+					<condition var='result' value='unknown'>
+						<!-- If the button is white and there is a lit indicator with label CAR, hold the button and refer to "Releasing a Held Button". -->
+						<condition var='colour' value='white'>
+							<condition name='BombIndicatorLitCAR'>
+								<li value='unknown'><set var='result'>NeedIndicatorLitCAR</set></li>
+								<li value='true'><set var='result'>Hold</set></li>
+							</condition>
+						</condition>
+					</condition>
+
+					<condition var='result' value='unknown'>
+						<!-- If there are more than 2 batteries on the bomb and there is a lit indicator with label FRK, press and immediately release the button. -->
+						<condition name='BombBatteryCount'>
+							<li value='unknown'><set var='result'>NeedBatteryCount</set></li>
+							<li value='0'></li>
+							<li value='1'></li>
+							<li value='2'></li>
+							<li>
+								<condition name='BombIndicatorLitFRK'>
+									<li value='unknown'><set var='result'>NeedIndicatorLitFRK</set></li>
+									<li value='true'><set var='result'>Tap</set></li>
+								</condition>
+							</li>
+						</condition>
+					</condition>
+
+					<condition var='result' value='unknown'>
+						<!-- If the button is yellow, hold the button and refer to "Releasing a Held Button". -->
+						<condition var='colour' value='yellow'>
+							<set var='result'>Hold</set>
+						</condition>
+					</condition>
+
+					<condition var='result' value='unknown'>
+						<!-- If the button is red and the button says "Hold", press and immediately release the button. -->
+						<condition var='colour' value='red'>
+							<condition var='label' value='Hold'>
+								<set var='result'>Tap</set>
+							</condition>
+						</condition>
+					</condition>
+
+					<condition var='result' value='unknown'>
+						<!-- If none of the above apply, hold the button and refer to "Releasing a Held Button". -->
+						<set var='result'>Hold</set>
+					</condition>
+				</think>
+				<get var='result'/>
+			</template>
+		</category>
+
+		<category>
+			<pattern>blue</pattern>
+			<that>Keep holding it, and tell me what colour light appears.</that>
+			<template>When any digit on the timer is a 4, release the button.</template>
+		</category>
+		<category>
+			<pattern>yellow</pattern>
+			<that>Keep holding it, and tell me what colour light appears.</that>
+			<template>When any digit on the timer is a 5, release the button.</template>
+		</category>
+		<category>
+			<pattern><set>BombColours</set></pattern>
+			<that>Keep holding it, and tell me what colour light appears.</that>
+			<template>When any digit on the timer is a 1, release the button.</template>
+		</category>
+
+		<category>
+			<pattern><set>number</set></pattern>
+			<that>How many batteries are there on the sides of the bomb?</that>
+			<template>
+				<think><set name='BombBatteryCount'><star/></set></think>
+				<srai>SolveAndTellButton</srai>
+			</template>
+		</category>
+		<category>
+			<pattern>none</pattern>
+			<that>How many *</that>
+			<template><srai>0</srai></template>
+		</category>
+
+		<category>
+			<pattern><set>YesOrNo</set></pattern>
+			<that>Is there a lit indicator that says CAR?</that>
+			<template>
+				<think><set name='BombIndicatorLitCAR'><map name='ParseBoolean'><star/></map></set></think>
+				<srai>SolveAndTellButton</srai>
+			</template>
+		</category>
+		<category>
+			<pattern><set>YesOrNo</set></pattern>
+			<that>Is there a lit indicator that says FRK?</that>
+			<template>
+				<think><set name='BombIndicatorLitFRK'><map name='ParseBoolean'><star/></map></set></think>
+				<srai>SolveAndTellButton</srai>
+			</template>
+		</category>
+	</topic>
+</aiml>

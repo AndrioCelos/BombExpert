@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml>
+	<category>
+		<pattern>new bomb</pattern>
+		<template>
+			<think>
+				<set name='topic'>bomb</set>
+				<set name='BombStrikeCount'>0</set>
+				<set name='BombSerialNumber'>unknown</set>
+				<set name='BombSerialNumberIsOdd'>unknown</set>
+				<set name='BombSerialNumberHasVowel'>unknown</set>
+				<set name='BombPortParallel'>unknown</set>
+				<set name='BombBatteryCount'>unknown</set>
+			</think>
+			<oob>SetGrammar bomb</oob> OK
+		</template>
+	</category>
+	<category>
+		<pattern>strike <set>number</set></pattern>
+		<topic>bomb *</topic>
+		<template>
+			<think><set name='BombStrikeCount'><star/></set></think>
+			OK
+		</template>
+	</category>
+	<category>
+		<pattern>strike zero</pattern>  <!-- In case the user said a strike by mistake. -->
+		<topic>bomb *</topic>
+		<template>
+			<think><set name='BombStrikeCount'>0</set></think>
+			OK
+		</template>
+	</category>
+	<category>
+		<pattern>strike one</pattern>
+		<topic>bomb *</topic>
+		<template>
+			<think><set name='BombStrikeCount'>1</set></think>
+			OK
+		</template>
+	</category>
+	<category>
+		<pattern>strike two</pattern>
+		<topic>bomb *</topic>
+		<template>
+			<think><set name='BombStrikeCount'>2</set></think>
+			OK
+		</template>
+	</category>
+
+	<category>
+		<pattern>verification code</pattern>
+		<template>The verification code is 2 4 1.</template>
+	</category>
+	<category>
+		<pattern>verify code</pattern>
+		<template><srai>verification code</srai></template>
+	</category>
+
+	<!-- Recursive categories for decoding NATO alphabet strings, such as 'Alpha Bravo Charlie' -->
+	<category>
+		<pattern>DecodeNato <set>NATO</set></pattern>
+		<template><map name='NATO'><star/></map></template>
+	</category>
+	<category>
+		<pattern>DecodeNato <set>NATO</set> *</pattern>
+		<template><map name='NATO'><star/></map><srai>DecodeNato <star index='2'/></srai></template>
+	</category>
+
+	<!-- Bomb edgework info -->
+	<!--
+		List of edgework predicates:
+		* Marked ones are planned; only mods use them, anyway.
+		Booleans can be 'true' or 'false'.
+		Any predicate may be 'unknown'; most are askable.
+
+		BombStrikeCount           Integer
+		BombSerialNumber*         String: the serial number as one word
+		BombSerialNumberIsOdd     Boolean
+		BombSerialNumberHasVowel  Boolean
+		BombBatteryCount          Integer
+		BombBatteryCountAA*       Integer
+		BombBatteryCountD*        Integer
+		BombBatteryHolderCount*   Integer
+		BombPortPlateCount*       Integer
+		BombPortPlate[n]*         String: list of port types (e.g. Serial Parallel)
+		BombPortCount[type]*      Integer
+		BombPort[type]            Boolean: true if at least one such port is present
+		BombIndicatorCount*       Integer
+		BombIndicators            String: list of indicator labels
+		BombIndicatorLit[label]   Boolean
+	-->
+	<category>
+		<pattern>bomb serial odd</pattern>
+		<template><set name='BombSerialNumberIsOdd'>True</set></template>
+	</category>
+	<category>
+		<pattern>bomb serial even</pattern>
+		<template><set name='BombSerialNumberIsOdd'>False</set></template>
+	</category>
+	<category>
+		<pattern>bomb serial vowel</pattern>
+		<template><set name='BombSerialNumberHasVowel'>True</set></template>
+	</category>
+	<category>
+		<pattern>bomb serial no vowel</pattern>
+		<template><set name='BombSerialNumberHasVowel'>False</set></template>
+	</category>
+	<category>
+		<pattern>bomb serial *</pattern>
+		<template><srai>SetBombSerialNumber <star/></srai></template>
+	</category>
+
+	<category>
+		<pattern>SetBombSerialNumber *</pattern>
+		<template>
+			<set name='BombSerialNumberHasVowel'>False</set>
+			<srai>CheckBombSerialNumber <explode><star/></explode></srai>
+		</template>
+	</category>
+	<category>
+		<pattern>SetBombSerialNumber * *</pattern>
+		<template>
+			<set name='BombSerialNumberHasVowel'>False</set>
+			<srai>CheckBombSerialNumber <star/> <star index='2'/></srai>
+		</template>
+	</category>
+	<category>
+		<pattern>CheckBombSerialNumber</pattern>
+		<template></template>
+	</category>
+	<category>
+		<pattern>CheckBombSerialNumber <set>NATO</set> ^</pattern>
+		<template>
+			<srai>CheckBombSerialNumber <map name='NATO'><star/></map> <star index='2'/></srai>
+		</template>
+	</category>
+	<category>
+		<pattern>CheckBombSerialNumber <set>vowel</set> ^</pattern>
+		<template>
+			<set name='BombSerialNumberHasVowel'>True</set>
+			<srai>CheckBombSerialNumber <star index='2'/></srai>
+		</template>
+	</category>
+	<category>
+		<pattern>CheckBombSerialNumber * ^</pattern>  <!-- Because of the depth-first search, the * will always match one word. -->
+		<template>
+			<srai>CheckBombSerialNumber <star index='2'/></srai>
+		</template>
+	</category>
+
+	<category>
+		<pattern>bomb parallel <set>YesOrNo</set></pattern>
+		<template><set name='BombPortParallel'><map name='ParseBoolean'><star/></map></set></template>
+	</category>
+	<category>
+		<pattern>bomb parallel <set>YesOrNo</set></pattern>
+		<template><set name='BombPortParallel'><map name='ParseBoolean'><star/></map></set></template>
+	</category>
+	<category>
+		<pattern>bomb parallel <set>YesOrNo</set></pattern>
+		<template><set name='BombPortParallel'><map name='ParseBoolean'><star/></map></set></template>
+	</category>
+
+	<category>
+		<pattern>bomb battery <set>number</set></pattern>
+		<template><set name='BombBatteryCount'><star/></set></template>
+	</category>
+	<category>
+		<pattern>bomb battery *</pattern>
+		<template><set name='BombBatteryCount'><map name='NATO'><star/></map></set></template>
+	</category>
+
+	<!-- Verification -->
+	<category>
+		<pattern>verify light *</pattern>
+		<template><get><name>BombLight<star/></name></get></template>
+	</category>
+
+	<category>
+		<pattern>verify serial</pattern>
+		<template>
+			The serial number is <get name='BombSerialNumber'/>.
+			<condition name='BombSerialNumberIsOdd'>
+				<li value='true'>The serial number is odd.</li>
+				<li value='false'>The serial number is even.</li>
+			</condition>
+			<condition name='BombSerialNumberHasVowel'>
+				<li value='true'>The serial number has a vowel.</li>
+				<li value='false'>The serial number does not have a vowel.</li>
+			</condition>
+		</template>
+	</category>
+
+	<category>
+		<pattern>verify batteries</pattern>
+		<template><get name='BombBatteryCount'/></template>
+	</category>
+
+	<category>
+		<pattern>verify strikes</pattern>
+		<template><get name='BombStrikeCount'/></template>
+	</category>
+</aiml>

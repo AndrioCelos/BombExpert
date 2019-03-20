@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<aiml version='2.1'>
+	<category>
+		<pattern>XTest MorseCode</pattern>
+		<template>
+			<think>
+				<srai>defuse morse code</srai>
+				<test name="Morse Code Conversation 1" expected='More than one word matches. Please try again.'>dot dot dot space dash space dot dash dot</test>
+				<test name="Morse Code Conversation 2" expected="The word is 'vector'. Tune the module to 3.595 MHz, then press TX.">dot dot dot dash</test>
+				<test name="Morse Code Conversation 3" expected="The word is 'break'. Tune the module to 3.572 MHz, then press TX.">start dash dot dot dot space dot dash dot space dot</test>
+				<test name="Morse Code Conversation 4" expected="No possible word matches. Please try again.">start dash dot dot dot space dot dash dash</test>
+				<test name="Morse Code Conversation 5" expected="Your input does not seem to be valid Morse code. Please try again.">start dash dot dot dot space dot dot dash dash</test>
+			</think>
+		</template>
+	</category>
+</aiml>

@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<aiml version='2.1'>
+	<category>
+		<pattern>XTest WiresTests</pattern>
+		<template>
+			<think>
+				<srai>new bomb</srai>
+				<set name='topic'>Bomb Wires</set>
+
+				<!-- Tests are named by [number of wires]-[manual rule number]-[test number] -->
+				<test name='Wires 3-1-1' expected='2'>SolveWires blue blue white</test>
+				<test name='Wires 3-2-1' expected='3'>SolveWires red blue white</test>
+				<test name='Wires 3-3-1' expected='3'>SolveWires blue red blue</test>
+				<test name='Wires 3-3-2' expected='2'>SolveWires blue blue red</test>
+				<test name='Wires 3-4-1' expected='3'>SolveWires red white blue</test>
+
+				<test name='Wires 4-1-1' expected='NeedSerialNumberParity'>SolveWires red red white yellow</test>
+				<set name='BombSerialNumberIsOdd'>true</set>
+				<test name='Wires 4-1-2' expected='2'>SolveWires red red white yellow</test>
+				<set name='BombSerialNumberIsOdd'>false</set>
+				<test name='Wires 4-2-1' expected='1'>SolveWires yellow yellow yellow yellow</test>
+				<test name='Wires 4-3-1' expected='1'>SolveWires red red white blue</test>
+				<test name='Wires 4-4-1' expected='4'>SolveWires yellow yellow blue blue</test>
+				<test name='Wires 4-5-1' expected='2'>SolveWires red red white yellow</test>
+
+				<set name='BombSerialNumberIsOdd'>unknown</set>
+				<test name='Wires 5-1-1' expected='NeedSerialNumberParity'>SolveWires white white white white black</test>
+				<set name='BombSerialNumberIsOdd'>true</set>
+				<test name='Wires 5-1-2' expected='4'>SolveWires white white white white black</test>
+				<set name='BombSerialNumberIsOdd'>false</set>
+				<test name='Wires 5-2-1' expected='1'>SolveWires yellow yellow red black black</test>
+				<test name='Wires 5-3-1' expected='2'>SolveWires red red yellow yellow yellow</test>
+				<test name='Wires 5-4-1' expected='1'>SolveWires red yellow black black black</test>
+
+				<set name='BombSerialNumberIsOdd'>unknown</set>
+				<test name='Wires 6-1-1' expected='NeedSerialNumberParity'>SolveWires white white white white white white</test>
+				<set name='BombSerialNumberIsOdd'>true</set>
+				<test name='Wires 6-1-2' expected='3'>SolveWires white white white white white white</test>
+				<set name='BombSerialNumberIsOdd'>false</set>
+				<test name='Wires 6-2-1' expected='4'>SolveWires yellow white white white white white</test>
+				<test name='Wires 6-3-1' expected='6'>SolveWires white white white white white white</test>
+				<test name='Wires 6-3-2' expected='6'>SolveWires yellow yellow white white white white</test>
+				<test name='Wires 6-4-1' expected='4'>SolveWires yellow yellow white white white red</test>
+			</think>
+		</template>
+	</category>
+</aiml>

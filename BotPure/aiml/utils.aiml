@@ -1,0 +1,301 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<aiml version='2.1'>
+	<!-- Usage: XItem [n] [list ...] -->
+	<!-- Returns the nth element of the list. The list may be up to 7 words. -->
+	<category>
+		<pattern>XItem <set>number</set> *</pattern>
+		<template><star><index><map name='successor'><star/></map></index></star></template>
+	</category>
+	<category>
+		<pattern>XItem <set>number</set> * *</pattern>
+		<template><star><index><map name='successor'><star/></map></index></star></template>
+	</category>
+	<category>
+		<pattern>XItem <set>number</set> * * *</pattern>
+		<template><star><index><map name='successor'><star/></map></index></star></template>
+	</category>
+	<category>
+		<pattern>XItem <set>number</set> * * * *</pattern>
+		<template><star><index><map name='successor'><star/></map></index></star></template>
+	</category>
+	<category>
+		<pattern>XItem <set>number</set> * * * * *</pattern>
+		<template><star><index><map name='successor'><star/></map></index></star></template>
+	</category>
+	<category>
+		<pattern>XItem <set>number</set> * * * * * *</pattern>
+		<template><star><index><map name='successor'><star/></map></index></star></template>
+	</category>
+	<category>
+		<pattern>XItem <set>number</set> * * * * * * *</pattern>
+		<template><star><index><map name='successor'><star/></map></index></star></template>
+	</category>
+
+
+	<!-- Usage: XContains [element] [list ...] -->
+	<!-- Returns true if the element is in the list; false otherwise. The set may be up to 7 words. -->
+	<!-- (I chose not to use a recursive algorithm for performance reasons.) -->
+	<category>
+		<pattern>XContains *</pattern>
+		<template>false</template>
+	</category>
+	<category>
+		<pattern>XContains * *</pattern>
+		<template>
+			<think><set var='needle'><star/></set></think>
+			<condition var='needle'>
+				<li><value><star index='2'/></value>true</li>
+				<li>false</li>
+			</condition>
+		</template>
+	</category>
+	<category>
+		<pattern>XContains * * *</pattern>
+		<template>
+			<think><set var='needle'><star/></set></think>
+			<condition var='needle'>
+				<li><value><star index='2'/></value>true</li>
+				<li><value><star index='3'/></value>true</li>
+				<li>false</li>
+			</condition>
+		</template>
+	</category>
+	<category>
+		<pattern>XContains * * * *</pattern>
+		<template>
+			<think><set var='needle'><star/></set></think>
+			<condition var='needle'>
+				<li><value><star index='2'/></value>true</li>
+				<li><value><star index='3'/></value>true</li>
+				<li><value><star index='4'/></value>true</li>
+				<li>false</li>
+			</condition>
+		</template>
+	</category>
+	<category>
+		<pattern>XContains * * * * *</pattern>
+		<template>
+			<think><set var='needle'><star/></set></think>
+			<condition var='needle'>
+				<li><value><star index='2'/></value>true</li>
+				<li><value><star index='3'/></value>true</li>
+				<li><value><star index='4'/></value>true</li>
+				<li><value><star index='5'/></value>true</li>
+				<li>false</li>
+			</condition>
+		</template>
+	</category>
+	<category>
+		<pattern>XContains * * * * * *</pattern>
+		<template>
+			<think><set var='needle'><star/></set></think>
+			<condition var='needle'>
+				<li><value><star index='2'/></value>true</li>
+				<li><value><star index='3'/></value>true</li>
+				<li><value><star index='4'/></value>true</li>
+				<li><value><star index='5'/></value>true</li>
+				<li><value><star index='6'/></value>true</li>
+				<li>false</li>
+			</condition>
+		</template>
+	</category>
+	<category>
+		<pattern>XContains * * * * * * *</pattern>
+		<template>
+			<think><set var='needle'><star/></set></think>
+			<condition var='needle'>
+				<li><value><star index='2'/></value>true</li>
+				<li><value><star index='3'/></value>true</li>
+				<li><value><star index='4'/></value>true</li>
+				<li><value><star index='5'/></value>true</li>
+				<li><value><star index='6'/></value>true</li>
+				<li><value><star index='7'/></value>true</li>
+				<li>false</li>
+			</condition>
+		</template>
+	</category>
+	<category>
+		<pattern>XContains * * * * * * * *</pattern>
+		<template>
+			<think><set var='needle'><star/></set></think>
+			<condition var='needle'>
+				<li><value><star index='2'/></value>true</li>
+				<li><value><star index='3'/></value>true</li>
+				<li><value><star index='4'/></value>true</li>
+				<li><value><star index='5'/></value>true</li>
+				<li><value><star index='6'/></value>true</li>
+				<li><value><star index='7'/></value>true</li>
+				<li><value><star index='8'/></value>true</li>
+				<li>false</li>
+			</condition>
+		</template>
+	</category>
+
+	<!-- Usage: XFirst [list ...] -->
+	<!-- Returns the first word of the list (equivalent to Program AB's <first> tag). -->
+	<category>
+		<pattern>XFirst * ^</pattern>
+		<template><star/></template>
+	</category>
+	<category>
+		<pattern>XFirst</pattern>
+		<template>nil</template>
+	</category>
+
+	<!-- Usage: XRest [list ...] -->
+	<!-- Returns the part of the list after the first word (equivalent to Program AB's <rest> tag). -->
+	<category>
+		<pattern>XRest _ *</pattern>
+		<template><star index='2'/></template>
+	</category>
+	<category>
+		<pattern>XRest ^</pattern>
+		<template>nil</template>
+	</category>
+
+	<!-- Usage: XPrepend [element] [list ...] -->
+	<!-- Returns the list with the specified element prepended. -->
+	<category>
+		<pattern>XPrepend * nil</pattern>
+		<template><star/></template>
+	</category>
+	<category>
+		<pattern>XPrepend * ^</pattern>
+		<template><star/> <star index='2'/></template>
+	</category>
+
+	<!-- Usage: XAppend [element] [list ...] -->
+	<!-- Returns the list with the specified element appended. -->
+	<category>
+		<pattern>XAppend * nil</pattern>
+		<template><star/></template>
+	</category>
+	<category>
+		<pattern>XAppend * ^</pattern>
+		<template><star index='2'/> <star/></template>
+	</category>
+
+	<!-- Usage: XCountMatch [element] [list ...] -->
+	<!-- Returns the number of times the specified element occurs in the list. -->
+	<category>
+		<pattern>XCountMatch *</pattern>
+		<template>0</template>
+	</category>
+	<category>
+		<pattern>XCountMatch * *</pattern>
+		<template>
+			<think>
+				<set var='list'><star index='2'/></set>
+				<set var='count'>0</set>
+				<set var='needle'><star/></set>
+				<condition var='list'>
+					<li value='nil'></li>
+					<li>
+						<condition var='needle'>
+							<value><srai>XFirst <get var='list'/></srai></value>
+							<set var='count'><map name='successor'><get var='count'/></map></set>
+						</condition>
+						<set var='list'><srai>XRest <get var='list'/></srai></set>
+						<loop/>
+					</li>
+				</condition>
+			</think>
+			<get var='count'/>
+		</template>
+	</category>
+
+	<!-- Usage: XIndex [element] [list ...] -->
+	<!-- Returns the index of the first occurrence of the specified element in the list, or 0 if not found. -->
+	<category>
+		<pattern>XIndex *</pattern>
+		<template>0</template>
+	</category>
+	<category>
+		<pattern>XIndex * *</pattern>
+		<template>
+			<think>
+				<set var='list'><star index='2'/></set>
+				<set var='index'>1</set>
+				<set var='result'>0</set>
+				<set var='needle'><star/></set>
+				<condition var='list'>
+					<li value='nil'></li>
+					<li>
+						<condition var='needle'>
+							<li>
+								<value><srai>XFirst <get var='list'/></srai></value>
+								<set var='result'><get var='index'/></set>
+								<set var='list'>nil</set>
+							</li>
+							<li>
+								<set var='list'><srai>XRest <get var='list'/></srai></set>
+								<set var='index'><map name='successor'><get var='index'/></map></set>
+							</li>
+						</condition>
+						<loop/>
+					</li>
+				</condition>
+			</think>
+			<get var='result'/>
+		</template>
+	</category>
+
+	<!-- Usage: XLastIndex [element] [list ...] -->
+	<!-- Returns the index of the last occurrence of the specified element in the list, or 0 if not found. -->
+	<category>
+		<pattern>XLastIndex *</pattern>
+		<template>0</template>
+	</category>
+	<category>
+		<pattern>XLastIndex * *</pattern>
+		<template>
+			<think>
+				<set var='list'><star index='2'/></set>
+				<set var='result'>0</set>
+				<set var='i'>1</set>
+				<set var='needle'><star/></set>
+				<condition var='list'>
+					<li value='nil'></li>
+					<li>
+						<condition var='needle'>
+							<value><srai>XFirst <get var='list'/></srai></value>
+							<set var='result'><get var='i'/></set>
+						</condition>
+						<set var='list'><srai>XRest <get var='list'/></srai></set>
+						<set var='i'><map name='successor'><get var='i'/></map></set>
+						<loop/>
+					</li>
+				</condition>
+			</think>
+			<get var='result'/>
+		</template>
+	</category>
+
+	<!-- Usage: XCompareDigits [a] [b] -->
+	<!-- Returns -1 if a < b, 0 if a = b, 1 if a > b. O(max(a, b)). a and b must be non-negative. -->
+	<category>
+		<pattern>XCompareDigits * *</pattern>
+		<template>
+			<think>
+				<set var='a'><star/></set>
+				<set var='b'><star index='2'/></set>
+			</think>
+			<condition>
+				<li var='a' value='0'>
+					<condition var='b'>
+						<li value='0'>0</li>
+						<li>-1</li>
+					</condition>
+				</li>
+				<li var='b' value='0'>1</li>
+				<li>
+					<think>
+						<set var='a'><map name='predecessor'><get var='a'/></map></set>
+						<set var='b'><map name='predecessor'><get var='b'/></map></set>
+					</think>
+					<loop/>
+				</li>
+			</condition>
+		</template>
+	</category>
+</aiml>

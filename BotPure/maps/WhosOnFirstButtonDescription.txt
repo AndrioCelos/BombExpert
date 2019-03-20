@@ -1,0 +1,28 @@
+BLANK  :BLANK
+DONE   :DONE
+FIRST  :FIRST
+HOLD   :HOLD
+LEFT   :LEFT
+LIKE   :LIKE
+MIDDLE :MIDDLE
+NEXT   :NEXT
+NO     :NO
+NOTHING:NOTHING
+OKAY   :OKAY
+PRESS  :PRESS
+READY  :READY
+RIGHT  :RIGHT
+SURE   :SURE
+U      :letter U
+UH_HUH :letters U H H U H
+UH_UH  :letters U H U H
+UHHH   :letters U triple H
+UR     :letters U R
+WAIT   :WAIT
+WHAT   :WHAT no question mark
+WHATQ  :WHAT question mark
+YES    :YES
+YOU    :YOU
+YOU_ARE:words YOU ARE
+YOU_RE :YOU'RE with apostrophe
+YOUR   :YOUR

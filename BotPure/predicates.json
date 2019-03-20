@@ -1,0 +1,10 @@
+{
+	// Bomb properties: the 'new bomb' category should reset these.
+	"BombBatteryCount": "unknown",
+	"BombLightCAR": "unknown",
+	"BombLightFRK": "unknown",
+	"BombSerialNumber": "unknown",
+	"BombSerialNumberIsOdd": "unknown",
+	"BombSerialNumberHasVowel": "unknown",
+	"BombStrikeCount": "0"
+}

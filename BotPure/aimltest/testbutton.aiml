@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<aiml version='2.1'>
+	<category>
+		<pattern>XTest ButtonTests 1</pattern>
+		<template>
+			<think>
+				<set name='topic'>Bomb Button</set>
+
+				<test name='Button Initial 1-1' expected='Hold'>SolveButton blue Abort</test>
+				<test name='Button Initial 2-1' expected='NeedBatteryCount'>SolveButton red Detonate</test>
+				<set name='BombBatteryCount'>2</set>
+				<test name='Button Initial 2-2' expected='Tap'>SolveButton red Detonate</test>
+				<set name='BombBatteryCount'>1</set>
+				<test name='Button Initial 3-1' expected='NeedIndicatorLitCAR'>SolveButton white Detonate</test>
+				<set name='BombIndicatorLitCAR'>true</set>
+				<test name='Button Initial 3-2' expected='Hold'>SolveButton white Detonate</test>
+				<set name='BombIndicatorLitCAR'>false</set>
+				<set name='BombBatteryCount'>unknown</set>
+				<test name='Button Initial 4-1' expected='NeedBatteryCount'>SolveButton red Hold</test>
+				<set name='BombBatteryCount'>3</set>
+				<test name='Button Initial 4-2' expected='NeedIndicatorLitFRK'>SolveButton red Hold</test>
+				<set name='BombIndicatorLitFRK'>true</set>
+				<set name='BombBatteryCount'>2</set>
+				<test name='Button Initial 5-1' expected='Hold'>SolveButton yellow Hold</test>
+				<set name='BombBatteryCount'>3</set>
+				<set name='BombIndicatorLitFRK'>false</set>
+				<test name='Button Initial 6-1' expected='Tap'>SolveButton red Hold</test>
+				<test name='Button Initial 7-1' expected='Hold'>SolveButton red Press</test>
+			</think>
+			<!-- Simulate this question so that the {that} will match for the next tests. -->
+			Keep holding it, and tell me what colour light appears.
+		</template>
+	</category>
+	<category>
+		<pattern>XTest ButtonTests 2</pattern>
+		<template>
+			<think>
+				<test name='Button Holding 1' expected='When any digit on the timer is a 4, release the button.'>
+					blue
+				</test>
+				<test name='Button Holding 2' expected='When any digit on the timer is a 1, release the button.'>
+					white
+				</test>
+				<test name='Button Holding 3' expected='When any digit on the timer is a 5, release the button.'>
+					yellow
+				</test>
+				<test name='Button Holding 4' expected='When any digit on the timer is a 1, release the button.'>
+					red
+				</test>
+			</think>
+		</template>
+	</category>
+</aiml>

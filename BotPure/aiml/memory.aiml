@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml>
+	<category>
+		<pattern>defuse memory</pattern>
+		<template>
+			<think>
+				<set name='topic'>Bomb Memory</set>
+				<set name='BombMemoryStage'>1</set>
+			</think>
+			<oob>SetGrammar memory</oob> Read me the number on the display and the numbers on the buttons, left to right.
+		</template>
+	</category>
+	<category>
+		<pattern>reset memory</pattern>
+		<template>
+			<think>
+				<set name='BombMemoryStage'>1</set>
+			</think>
+			<p>OK</p>
+		</template>
+	</category>
+
+	<topic name='Bomb Memory ^'>
+		<category>
+			<pattern><set>number</set></pattern>
+			<template><srai><explode><star/></explode></srai></template>
+		</category>
+		<category>
+			<pattern><set>number</set> <set>number</set> <set>number</set> <set>number</set> <set>number</set></pattern>
+			<template>
+				<think>
+					<set var='display'><star/></set>
+					<condition name='BombMemoryStage'>
+						<li value='1'>
+							<condition var='display'>
+								<li value='1'><set var='pos'>2</set></li>
+								<li value='2'><set var='pos'>2</set></li>
+								<li value='3'><set var='pos'>3</set></li>
+								<li value='4'><set var='pos'>4</set></li>
+							</condition>
+						</li>
+						<li value='2'>
+							<condition var='display'>
+								<li value='1'><set var='pos'><srai>MemoryFindNumber 4 <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/></srai></set></li>
+								<li value='2'><set var='pos'><get name='MemoryPos1'/></set></li>
+								<li value='3'><set var='pos'>1</set></li>
+								<li value='4'><set var='pos'><get name='MemoryPos1'/></set></li>
+							</condition>
+						</li>
+						<li value='3'>
+							<condition var='display'>
+								<li value='1'><set var='pos'><srai>MemoryFindNumber <get name='MemoryLabel2'/> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/></srai></set></li>
+								<li value='2'><set var='pos'><srai>MemoryFindNumber <get name='MemoryLabel1'/> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/></srai></set></li>
+								<li value='3'><set var='pos'>3</set></li>
+								<li value='4'><set var='pos'><srai>MemoryFindNumber 4 <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/></srai></set></li>
+							</condition>
+						</li>
+						<li value='4'>
+							<condition var='display'>
+								<li value='1'><set var='pos'><get name='MemoryPos1'/></set></li>
+								<li value='2'><set var='pos'>1</set></li>
+								<li value='3'><set var='pos'><get name='MemoryPos2'/></set></li>
+								<li value='4'><set var='pos'><get name='MemoryPos2'/></set></li>
+							</condition>
+						</li>
+						<li value='5'>
+							<condition var='display'>
+								<li value='1'><set var='pos'><srai>MemoryFindNumber <get name='MemoryLabel1'/> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/></srai></set></li>
+								<li value='2'><set var='pos'><srai>MemoryFindNumber <get name='MemoryLabel2'/> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/></srai></set></li>
+								<li value='3'><set var='pos'><srai>MemoryFindNumber <get name='MemoryLabel4'/> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/></srai></set></li>
+								<li value='4'><set var='pos'><srai>MemoryFindNumber <get name='MemoryLabel3'/> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/></srai></set></li>
+							</condition>
+						</li>
+					</condition>
+					<set var='label'><star><index><map name='successor'><get var='pos'/></map></index></star></set>
+					<set><name>MemoryPos<get name='BombMemoryStage'/></name><get var='pos'/></set>
+					<set><name>MemoryLabel<get name='BombMemoryStage'/></name><get var='label'/></set>
+					<set name='BombMemoryStage'><map name='successor'><get name='BombMemoryStage'/></map></set>
+				</think>
+				Press <get var='label'/>.
+			</template>
+		</category>
+		<category>
+			<pattern>MemoryFindNumber <set>number</set> <set>number</set> <set>number</set> <set>number</set> <set>number</set></pattern>
+			<template>
+				<think><set var='needle'><star/></set></think>
+				<condition var='needle'>
+					<li><value><star index='2'/></value>1</li>
+					<li><value><star index='3'/></value>2</li>
+					<li><value><star index='4'/></value>3</li>
+					<li><value><star index='5'/></value>4</li>
+					<li>unknown</li>
+				</condition>
+			</template>
+		</category>
+
+		<category>
+			<pattern>next set</pattern>
+			<template><think><set name='BombMemoryStage'>1</set></think></template>
+		</category>
+		<category>
+			<pattern>next memory</pattern>
+			<template><srai>next set</srai></template>
+		</category>
+		<category>
+			<pattern>next module</pattern>
+			<template><srai>next set</srai></template>
+		</category>
+		<category>
+			<pattern>new set</pattern>
+			<template><think><set name='BombMemoryStage'>1</set></think></template>
+		</category>
+		<category>
+			<pattern>new memory</pattern>
+			<template><srai>next set</srai></template>
+		</category>
+		<category>
+			<pattern>new module</pattern>
+			<template><srai>next set</srai></template>
+		</category>
+	</topic>
+</aiml>

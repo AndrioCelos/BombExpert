@@ -1,0 +1,23 @@
+# This map identifies the maze from the position of a green circle.
+# Only any one green circle is needed.
+# Keys are of the form '<x> <y>'. Top left is (1, 1).
+# Maze numbers are in reading order in the manual, starting with 1.
+
+1 2:1
+6 3:1
+5 2:2
+2 4:2
+4 4:3
+6 4:3
+1 1:4
+1 4:4
+5 3:5
+4 6:5
+5 1:6
+3 5:6
+2 1:7
+2 6:7
+4 1:8
+3 4:8
+3 2:9
+1 5:9

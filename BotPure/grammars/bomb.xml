@@ -1,0 +1,133 @@
+<grammar version='1.0' xml:lang='en-AU' root='bombRoot' xmlns='http://www.w3.org/2001/06/grammar'>
+	<rule id='bombRoot' scope='public'>
+		<one-of>
+			<item><ruleref uri='#defuse'/></item>
+			<item> say again </item>
+			<item>
+				<item> strike </item>
+				<one-of>
+					<item> zero </item>
+					<item> one </item>
+					<item> two </item>
+					<item> three </item>
+				</one-of>
+			</item>
+			<item>
+				<item> verify </item>
+				<one-of>
+					<item> code </item>
+					<item> serial </item>
+					<item> batteries </item>
+					<item> light freak </item>
+					<item> light car </item>
+				</one-of>
+			</item>
+			<item> new bomb </item>
+			<item> verification code </item>
+		</one-of>
+	</rule>
+	<rule id='defuse'>
+		<item> defuse </item>
+		<ruleref uri='#module'/>
+	</rule>
+	<rule id='module'>
+		<one-of>
+			<item> wires </item>
+			<item> simple wires </item>
+			<item> button </item>
+			<item> keypad </item>
+			<item> simon </item>
+			<item> simon says </item>
+			<item> who's on first <!--<item repeat='0-1'><ruleref uri='whosonfirst.xml#label'/></item>--> </item>
+			<item> words </item>
+			<item> memory </item>
+			<item> Morse </item>
+			<item> Morse code </item>
+			<item> complicated </item>
+			<item> complicated wires </item>
+			<item> wire sequences </item>
+			<item> panels </item>
+			<item> wire panels </item>
+			<item> maze </item>
+			<item> password </item>
+			<item> knob <!--<item repeat='0-1'><ruleref uri='knob.xml#lights'/></item>--> </item>
+		</one-of>
+	</rule>
+	<rule id='colour' scope='public'>
+		<one-of>
+			<item> red </item>
+			<item> yellow </item>
+			<item> green </item>
+			<item> blue </item>
+			<item> white </item>
+			<item> black </item>
+		</one-of>
+	</rule>
+	<rule id='letter' scope='public'>
+		<one-of>
+			<item> alfa </item>
+			<item> bravo </item>
+			<item> charlie </item>
+			<item> delta </item>
+			<item> echo </item>
+			<item> foxtrot </item>
+			<item> golf </item>
+			<item> hotel </item>
+			<item> india </item>
+			<item> juliet </item>
+			<item> kilo </item>
+			<item> lima </item>
+			<item> mike </item>
+			<item> november </item>
+			<item> oscar </item>
+			<item> papa </item>
+			<item> quebec </item>
+			<item> romeo </item>
+			<item> sierra </item>
+			<item> tango </item>
+			<item> uniform </item>
+			<item> victor </item>
+			<item> whiskey </item>
+			<item> x-ray </item>
+			<item> yankee </item>
+			<item> zulu </item>
+		</one-of>
+	</rule>
+	<rule id='digit' scope='public'>
+		<one-of>
+			<item> 0 </item>
+			<item> 1 </item>
+			<item> 2 </item>
+			<item> 3 </item>
+			<item> 4 </item>
+			<item> 5 </item>
+			<item> 6 </item>
+			<item> 7 </item>
+			<item> 8 </item>
+			<item> 9 </item>
+		</one-of>
+	</rule>
+	<rule id='number' scope='public'>
+		<one-of>
+			<item> none </item>
+			<item> 0 </item>
+			<item> 1 </item>
+			<item> 2 </item>
+			<item> 3 </item>
+			<item> 4 </item>
+			<item> 5 </item>
+			<item> 6 </item>
+			<item> 7 </item>
+			<item> 8 </item>
+			<item> 9 </item>
+		</one-of>
+	</rule>
+	<rule id='yesorno' scope='public'>
+		<one-of>
+			<item> yes </item>
+			<item> no </item>
+			<item> affirmative </item>
+			<item> negative </item>
+		</one-of>
+	</rule>
+</grammar>

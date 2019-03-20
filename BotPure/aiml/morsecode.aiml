@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml>
+	<category>
+		<pattern>defuse morse ^</pattern>
+		<template>
+			<think>	<set name='topic'>Bomb MorseCode</set></think>
+			<oob>SetGrammar morsecode</oob> Tell me part of the sequence of dashes, dots, spaces and the start of the word. Three letters after the start is enough.
+		</template>
+	</category>
+
+	<topic name='Bomb MorseCode ^'>
+		<category>
+			<pattern>*</pattern>
+			<template>
+				<think>
+					<set var='input'><star/></set>
+					<set var='query'>MorseCodeSearch</set>
+					<set var='letter'>nil</set>
+					<condition var='end'>
+						<li value='true'></li>
+						<li>
+							<set var='token'><srai>XFirst <get var='input'/></srai></set>
+							<set var='input'><srai>XRest <get var='input'/></srai></set>
+							<condition var='token' value='nil'>
+								<set var='end'>true</set>
+								<set var='token'>space</set>
+							</condition>
+							<condition var='token'>
+								<li value='dash'><set var='letter'><srai>XAppend dash <get var='letter'/></srai></set></li>
+								<li value='dah'><set var='letter'><srai>XAppend dash <get var='letter'/></srai></set></li>
+								<li value='long'><set var='letter'><srai>XAppend dash <get var='letter'/></srai></set></li>
+								<li value='dot'><set var='letter'><srai>XAppend dot <get var='letter'/></srai></set></li>
+								<li value='dit'><set var='letter'><srai>XAppend dot <get var='letter'/></srai></set></li>
+								<li value='di'><set var='letter'><srai>XAppend dot <get var='letter'/></srai></set></li>
+								<li value='short'><set var='letter'><srai>XAppend dot <get var='letter'/></srai></set></li>
+								<li value='start'>
+									<condition var='letter'>
+										<li value='nil'>
+											<set var='query'><get var='query'/> ~</set>
+										</li>
+										<li>
+											<set var='letter'><map name='MorseDecode'><get var='letter'/></map></set>
+											<condition var='letter' value='unknown'>
+												<set var='result'>BadMorseCode</set>
+												<set var='end'>true</set>
+											</condition>
+											<set var='query'><get var='query'/> <get var='letter'/> ~</set>
+											<set var='letter'>nil</set>
+										</li>
+									</condition>
+								</li>
+								<li value='space'>
+									<condition var='letter'>
+										<li value='nil'></li>
+										<li>
+											<set var='letter'><map name='MorseDecode'><get var='letter'/></map></set>
+											<condition var='letter' value='unknown'>
+												<set var='result'>BadMorseCode</set>
+												<set var='end'>true</set>
+											</condition>
+											<set var='query'><get var='query'/> <get var='letter'/></set>
+											<set var='letter'>nil</set>
+										</li>
+									</condition>
+								</li>
+								<li value='nil'>
+									<condition var='letter'>
+										<li value='nil'></li>
+										<li>
+											<set var='letter'><map name='MorseDecode'><get var='letter'/></map></set>
+											<condition var='letter' value='unknown'>
+												<set var='result'>BadMorseCode</set>
+												<set var='end'>true</set>
+											</condition>
+											<set var='query'><get var='query'/> <get var='letter'/></set>
+										</li>
+									</condition>
+									<set var='result'><srai><get var='query'/></srai></set>
+								</li>
+							</condition>
+
+							<condition var='end' value='true'>
+								<condition var='result' value='unknown'>
+									<!-- Find the word. -->
+									<set var='result'><srai><get var='query'/></srai></set>
+								</condition>
+							</condition>
+							<loop/>
+						</li>
+					</condition>
+				</think>
+				<condition var='result'>
+					<li value='BadMorseCode'>Your input does not seem to be valid Morse code. Please try again.</li>
+					<li value='MultipleWords'>More than one word matches. Please try again.</li>
+					<li value='unknown'>No possible word matches. Please try again.</li>
+					<li>The word is '<get var='result'/>'. Tune the module to <map name='MorseFrequency'><get var='result'/></map> MHz, then press TX.</li>
+				</condition>
+			</template>
+		</category>
+	</topic>
+</aiml>

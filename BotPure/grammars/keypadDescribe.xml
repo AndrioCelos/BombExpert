@@ -1,0 +1,123 @@
+<grammar version='1.0' xml:lang='en-AU' root='root' xmlns='http://www.w3.org/2001/06/grammar'>
+	<rule id='root'>
+		<one-of>
+			<item><ruleref uri='bomb.xml'/></item>
+			<item>
+				<one-of>
+					<item> new </item>
+					<item> next </item>
+					<item> reset </item>
+				</one-of>
+				<one-of>
+					<item> set </item>
+					<item> keypad </item>
+				</one-of>
+			</item>
+			<item repeat='0-1'>
+				<one-of>
+					<item> a </item>
+					<item> an </item>
+					<item> the </item>
+				</one-of>
+				<ruleref uri='#glyphDescription'/>
+			</item>
+			<item> back </item>
+			<item> go back </item>
+		</one-of>
+	</rule>
+	<rule id='glyphDescription'>
+		<one-of>
+			<item>
+				<item repeat='0-1'>
+					<one-of>
+						<item> tennis </item>
+						<item> ping pong </item>
+					</one-of>
+				</item>
+				<one-of>
+					<item> racket </item>
+					<item> paddle </item>
+				</one-of>
+			</item>
+			<item> illuminati </item>
+			<item> pyramid </item>
+			<item> a with t </item>
+			<item> lambda </item>
+			<item> half life </item>
+			<item> sideways <item repeat='0-1'> letter </item> T </item>
+			<item> upside down <item repeat='0-1'> letter </item> Y </item>
+			<item> lightning <item repeat='0-1'> bolt </item></item>
+			<item> spaceship </item>
+			<item> kitty </item>
+			<item> cat </item>
+			<item> dog </item>
+			<item> spearman </item>
+			<item> <item repeat='0-1'> curvy </item> <item repeat='0-1'> letter </item> H </item>
+			<item> backward <item repeat='0-1'> letter </item> C </item>
+			<item> <item repeat='0-1'> backward </item> <item repeat='0-1'> letter </item> E </item>
+			<item> <item repeat='0-1'> backward </item> euro </item>
+			<item> pube </item>
+			<item> curly fry </item>
+			<item> loop the loop </item>
+			<item> sideways spring </item>
+			<item> curly <item repeat='0-1'> letter </item> O </item>
+			<item> white star </item>
+			<item> clear star </item>
+			<item> <item repeat='0-1'> upside down </item> question mark </item>
+			<item> copyright </item>
+			<item> <item repeat='0-1'> letter </item> c with a circle </item>
+			<item> boobs </item>
+			<item> butt </item>
+			<item> game controller </item>
+			<item> <item repeat='0-1'> letter </item> W </item>
+			<item> ink blot </item>
+			<item> double <item repeat='0-1'> letter </item> K </item>
+			<item> backward <item repeat='0-1'> letter </item> K </item>
+			<item> mirrored <item repeat='0-1'> letter </item> K </item>
+			<item> X and I </item>
+			<item> white power </item>
+			<item>
+				<one-of>
+					<item> broken </item>
+					<item> half <item repeat='0-1'> an </item> </item>
+				</one-of>
+				<one-of>
+					<item> 3 </item>
+					<item> R </item>
+				</one-of>
+			</item>
+			<item> 6 </item>
+			<item> flat 6 </item>
+			<item> paragraph </item>
+			<item> backward <item repeat='0-1'> letter </item> P </item>
+			<item> B T </item>
+			<item> T B </item>
+			<item> tampa bay </item>
+			<item> psi </item>
+			<item> trident </item>
+			<item> Jew candle </item>
+			<item> menorah </item>
+			<item> smiley <item repeat='0-1'> face </item></item>
+			<item> smiley face </item>
+			<item> <item repeat='0-1'> broken </item> hash <item repeat='0-1'> tag </item> </item>
+			<item> <item repeat='0-1'> broken </item> pound sign </item>
+			<item> <item repeat='0-1'> square </item> puzzle piece </item>
+			<item> <item repeat='0-1'> square </item> jigsaw piece </item>
+			<item> <item repeat='0-1'> forward </item> <item repeat='0-1'> letter </item> C </item>
+			<item> <item repeat='0-1'> letters </item> a e </item>
+			<item> snake </item>
+			<item> black star </item>
+			<item> filled star </item>
+			<item>
+				<item repeat='0-1'>
+					<item> backward </item>
+					<item> upside down </item>
+				</item>
+				<item repeat='0-1'> letter </item> N
+			</item>
+			<item> <item repeat='0-1'> letter </item> omega </item>
+			<item> <item repeat='0-1'> letter </item> O with feet </item>
+			<item> horseshoe </item>
+		</one-of>
+	</rule>
+</grammar>

@@ -1,0 +1,16 @@
+nil                :C
+Red                :S
+Blue               :S
+Red Blue           :S
+Star               :C
+Red Star           :C
+Blue Star          :D
+Red Blue Star      :P
+Light              :D
+Red Light          :B
+Blue Light         :P
+Red Blue Light     :S
+Star Light         :B
+Red Star Light     :B
+Blue Star Light    :P
+Red Blue Star Light:D

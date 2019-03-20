@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<aiml version='2.1'>
+	<category>
+		<pattern>XTest ComplicatedWires 1</pattern>
+		<template>
+			<think>
+				<srai>new bomb</srai>
+				<srai>defuse complicated wires</srai>
+			</think>
+			<test name='Complicated Wires 1-1' expected='Look on the sides of the bomb for a serial number. Is the last digit odd?'>white next red next blue next red blue</test>
+		</template>
+	</category>
+	<category>
+		<pattern>XTest ComplicatedWires 2</pattern>
+		<template>
+			<think>
+				<test name='Complicated Wires 1-2' expected='Cut the first wire.'>yes</test>
+			</think>
+			<test name='Complicated Wires 2-1' expected='Does the bomb have a long parallel port on the side?'>star light next star red blue</test>
+		</template>
+	</category>
+	<category>
+		<pattern>XTest ComplicatedWires 3</pattern>
+		<template>
+			<test name='Complicated Wires 2-2' expected='How many batteries are there on the sides of the bomb?'>yes</test>
+		</template>
+	</category>
+	<category>
+		<pattern>XTest ComplicatedWires 4</pattern>
+		<template>
+			<think>
+				<test name='Complicated Wires 2-3' expected='Cut both wires.'>2</test>
+				<test name='Complicated Wires 3' expected='Cut all wires.'>star next star next star</test>
+				<test name='Complicated Wires 4' expected='Cut the following wires: the first wire, the second wire, the third wire.'>star next star next star next blue</test>
+			</think>
+		</template>
+	</category>
+</aiml>

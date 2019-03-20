@@ -1,0 +1,155 @@
+<grammar version='1.0' xml:lang='en-AU' root='root' xmlns='http://www.w3.org/2001/06/grammar'>
+	<rule id='root'>
+		<one-of>
+			<item><ruleref uri='bomb.xml'/></item>
+			<item>
+				<one-of>
+					<item> new </item>
+					<item> next </item>
+					<item> reset </item>
+				</one-of>
+				<one-of>
+					<item> set </item>
+				</one-of>
+				<item repeat='0-1'><ruleref uri='#label'/></item>
+			</item>
+			<item>
+				<ruleref uri='#label'/>
+			</item>
+			<item> got it </item>
+			<item> back </item>
+			<item> go back </item>
+		</one-of>
+	</rule>
+	<rule id='label' scope='public'>
+		<item repeat='0-1'>
+			<one-of>
+				<item> it says </item>
+				<item> it says the word </item>
+				<item> the word </item>
+				<item> the word is </item>
+			</one-of>
+		</item>
+		<one-of>
+			<item repeat='1-7'><ruleref uri='bomb.xml#letter'/></item>
+			<item repeat='1-7'><ruleref uri='#letter'/></item>
+			<item> yes </item>
+			<item> first </item>
+			<item> display </item>
+			<item> okay </item>
+			<item> says </item>
+			<item> nothing </item>
+			<item> literally blank </item>
+			<item> literal blank </item>
+			<item> literally nothing </item>
+			<item> literal nothing </item>
+			<item> empty </item>
+			<item> nil </item>
+			<item> blank </item>
+			<item> no </item>
+			<item> led </item>
+			<item> led no A </item>
+			<item> lead </item>
+			<item> lead guitar </item>
+			<item> lead A </item>
+			<item> read </item>
+			<item> read A </item>
+			<item> reed instrument </item>
+			<item> red </item>
+			<item> red colour </item>
+			<item> colour red </item>
+			<item> r double e d </item>
+			<item> Leeds England </item>
+			<item> l double e d </item>
+			<item> hold </item>
+			<item> hold on </item>
+			<item> you </item>
+			<item> you are </item>
+			<item> words you are </item>
+			<item> you are two words </item>
+			<item> you are words </item>
+			<item> you space are </item>
+			<item> your </item>
+			<item> your possessive </item>
+			<item> your one word </item>
+			<item> your no apostrophe </item>
+			<item> word your </item>
+			<item> y o u apostrophe r e </item>
+			<item> you apostrophe are </item>
+			<item> you're <item repeat='0-1'> with </item> apostrophe </item>
+			<item> you're contraction </item>
+			<item> letter U </item>
+			<item> U letter </item>
+			<item> there </item>
+			<item> there location </item>
+			<item> there two Es </item>
+			<item> there two E </item>
+			<item> they're <item repeat='0-1'> with </item> apostrophe </item>
+			<item> they're contraction </item>
+			<item> they apostrophe are </item>
+			<item> t h e y apostrophe r e </item>
+			<item> their with i </item>
+			<item> they are </item>
+			<item> words they are </item>
+			<item> they are two words </item>
+			<item> they space are </item>
+			<item> see </item>
+			<item> word see </item>
+			<item> see a movie </item>
+			<item> letter c </item>
+			<item> c letter </item>
+			<item> Cee Spain </item>
+			<item> ready </item>
+			<item> what </item>
+			<item> what no question <item repeat='0-1'> mark </item> </item>
+			<item> uhhh </item>
+			<item> u triple h </item>
+			<item> left </item>
+			<item> right  </item>
+			<item> middle </item>
+			<item> wait </item>
+			<item> press </item>
+			<item> uh huh <item repeat='0-1'> positive </item> </item>
+			<item> uh uh <item repeat='0-1'> negative </item> </item>
+			<item> staccato </item>
+			<item> what question <item repeat='0-1'> mark </item> </item>
+			<item> sure </item>
+			<item> like </item>
+			<item> done </item>
+			<item> next </item>
+			<item> letters u r </item>
+			<item> u r two letters </item>
+			<item> u r letters </item>
+		</one-of>
+	</rule>
+	<rule id='letter'>
+		<one-of>
+			<item> a </item>
+			<item> b </item>
+			<item> c </item>
+			<item> d </item>
+			<item> e </item>
+			<item> f </item>
+			<item> g </item>
+			<item> h </item>
+			<item> i </item>
+			<item> j </item>
+			<item> k </item>
+			<item> l </item>
+			<item> m </item>
+			<item> n </item>
+			<item> o </item>
+			<item> p </item>
+			<item> q </item>
+			<item> r </item>
+			<item> s </item>
+			<item> t </item>
+			<item> u </item>
+			<item> v </item>
+			<item> w </item>
+			<item> x </item>
+			<item> y </item>
+			<item> z </item>
+		</one-of>
+	</rule>
+</grammar>

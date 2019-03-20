@@ -1,0 +1,19 @@
+<grammar version='1.0' xml:lang='en-AU' root='root' xmlns='http://www.w3.org/2001/06/grammar'>
+	<rule id='root'>
+		<one-of>
+			<item><ruleref uri='bomb.xml'/></item>
+			<item><ruleref uri='#lights'/></item>
+		</one-of>
+	</rule>
+	<rule id='lights' scope='public'>
+		<one-of>
+			<item> all off </item>
+			<item repeat='6'>
+				<one-of>
+					<item> on </item>
+					<item> off </item>
+				</one-of>
+			</item>
+		</one-of>
+	</rule>
+</grammar>

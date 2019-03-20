@@ -1,0 +1,249 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<aiml>
+	<category>
+		<pattern>defuse wires</pattern>
+		<template>
+			<think><set name='topic'>bomb wires</set></think>
+			<oob>SetGrammar wires</oob>
+			Tell me the colours of the wires from top to bottom.
+		</template>
+	</category>
+	<category>
+		<pattern>defuse wires *</pattern>
+		<template>
+			<think><set name='topic'>bomb wires</set></think>
+			<sr/>
+		</template>
+	</category>
+	<category>
+		<pattern>defuse simple wires ^</pattern>
+		<template><srai>defuse wires <star/></srai></template>
+	</category>
+
+	<topic name='Bomb Wires ^'>
+		<category>
+			<pattern>new wires</pattern>
+			<template>OK.</template>
+		</category>
+
+		<category>
+			<pattern><set>BombColours</set> <set>BombColours</set> <set>BombColours</set></pattern>
+			<template><srai>SolveAndTellWires 3 <star index='1'/> <star index='2'/> <star index='3'/></srai></template>
+		</category>
+		<category>
+			<pattern><set>BombColours</set> <set>BombColours</set> <set>BombColours</set> <set>BombColours</set></pattern>
+			<template><srai>SolveAndTellWires 4 <star index='1'/> <star index='2'/> <star index='3'/> <star index='4'/></srai></template>
+		</category>
+		<category>
+			<pattern><set>BombColours</set> <set>BombColours</set> <set>BombColours</set> <set>BombColours</set> <set>BombColours</set></pattern>
+			<template><srai>SolveAndTellWires 5 <star index='1'/> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/></srai></template>
+		</category>
+		<category>
+			<pattern><set>BombColours</set> <set>BombColours</set> <set>BombColours</set> <set>BombColours</set> <set>BombColours</set> <set>BombColours</set></pattern>
+			<template><srai>SolveAndTellWires 6 <star index='1'/> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/> <star index='6'/></srai></template>
+		</category>
+
+		<category>
+			<pattern>SolveAndTellWires <set>number</set> *</pattern>
+			<template>
+				<think><set var='result'><srai>SolveWires <star index='2'/></srai></set></think>
+				<condition var='result'>
+					<li value='NeedSerialNumberParity'>
+						<think><set name='topic'>Bomb Wires Serial</set></think>
+						Look on the sides of the bomb for a serial number. Is the last digit odd?
+					</li>
+					<li><value><star/></value>Cut the last wire.</li>
+					<li value='1'>Cut the first wire.</li>
+					<li value='2'>Cut the second wire.</li>
+					<li value='3'>Cut the third wire.</li>
+					<li value='4'>Cut the fourth wire.</li>
+					<li value='5'>Cut the fifth wire.</li>
+				</condition>
+			</template>
+		</category>
+
+		<category>
+			<pattern><set>YesOrNo</set></pattern>
+			<topic>Bomb Wires Serial</topic>
+			<template>
+				<think>
+					<set name='BombSerialNumberIsOdd'><map name='ParseBoolean'><star/></map></set>
+					<set name='topic'>Bomb Wires</set>
+				</think>
+				<srai><get name='BombWires'/></srai>
+			</template>
+		</category>
+
+		<!-- Usage: SolveWires [3-6 colours] -->
+		<!-- Returns the number of the wire that should be cut, or 'NeedSerialNumberParity' if this info is needed. -->
+		<category>
+			<!-- 3 wires -->
+			<pattern>SolveWires <set>BombColours</set> <set>BombColours</set> <set>BombColours</set></pattern>
+			<template>
+				<think>
+					<set name='BombWires'><star/> <star index='2'/> <star index='3'/></set>
+					<!-- If there are no red wires, cut the second wire. -->
+					<set var='temp'><srai>XContains red <star/> <star index='2'/> <star index='3'/></srai></set>
+					<condition var='temp'>
+						<li value='false'><set var='result'>2</set></li>
+						<li>
+							<!-- Otherwise, if the last wire is white, cut the last wire. -->
+							<set var='temp'><star index='3'/></set>
+							<condition var='temp'>
+								<li value='white'><set var='result'>3</set></li>
+								<li>
+									<!-- Otherwise, if there is more than one blue wire, cut the last blue wire. -->
+									<set var='temp'><srai>XCountMatch blue <star/> <star index='2'/> <star index='3'/></srai></set>
+									<condition var='temp'>
+										<li value='2'><set var='result'><srai>XLastIndex blue <star/> <star index='2'/> <star index='3'/></srai></set></li>
+										<li value='3'><set var='result'><srai>XLastIndex blue <star/> <star index='2'/> <star index='3'/></srai></set></li>
+										<li>
+											<!-- Otherwise, cut the last wire. -->
+											<set var='result'>3</set>
+										</li>
+									</condition>
+								</li>
+							</condition>
+						</li>
+					</condition>
+				</think>
+				<get var='result'/>
+			</template>
+		</category>
+		<category>
+			<!-- 4 wires -->
+			<pattern>SolveWires <set>BombColours</set> <set>BombColours</set> <set>BombColours</set> <set>BombColours</set></pattern>
+			<template>
+				<think>
+					<set name='BombWires'><star/> <star index='2'/> <star index='3'/> <star index='4'/></set>
+					<set var='result'>unknown</set>
+					<!-- If there is more than one red wire and the last digit of the serial number is odd, cut the last red wire. -->
+					<set var='temp'><srai>XCompareDigits <srai>XCountMatch red <star/> <star index='2'/> <star index='3'/> <star index='4'/></srai> 1</srai></set>
+					<condition var='temp' value='1'>
+						<condition name='BombSerialNumberIsOdd'>
+							<li value='true'><set var='result'><srai>XLastIndex red <star/> <star index='2'/> <star index='3'/> <star index='4'/></srai></set></li>
+							<li value='unknown'><set var='result'>NeedSerialNumberParity</set></li>
+						</condition>
+					</condition>
+
+					<!-- Otherwise, if the last wire is yellow and there are no red wires, cut the first wire. -->
+					<condition var='result' value='unknown'>
+						<set var='temp'><star index='4'/></set>
+						<condition var='temp' value='yellow'>
+							<set var='temp'><srai>XContains red <star/> <star index='2'/> <star index='3'/> <star index='4'/></srai></set>
+							<condition var='temp' value='false'>
+								<set var='result'>1</set>
+							</condition>
+						</condition>
+					</condition>
+
+					<!-- Otherwise, if there is exactly one blue wire, cut the first wire. -->
+					<condition var='result' value='unknown'>
+						<set var='temp'><srai>XCountMatch blue <star/> <star index='2'/> <star index='3'/> <star index='4'/></srai></set>
+						<condition var='temp' value='1'><set var='result'>1</set></condition>
+					</condition>
+
+					<!-- Otherwise, if there is more than one yellow wire, cut the last wire. -->
+					<condition var='result' value='unknown'>
+						<set var='temp'><srai>XCompareDigits <srai>XCountMatch yellow <star/> <star index='2'/> <star index='3'/> <star index='4'/></srai> 1</srai></set>
+						<condition var='temp' value='1'>
+							<set var='result'>4</set>
+						</condition>
+					</condition>
+
+					<!-- Otherwise, cut the second wire. -->
+					<condition var='result' value='unknown'>
+						<set var='result'>2</set>
+					</condition>
+				</think>
+				<get var='result'/>
+			</template>
+		</category>
+		<category>
+			<!-- 5 wires -->
+			<pattern>SolveWires <set>BombColours</set> <set>BombColours</set> <set>BombColours</set> <set>BombColours</set> <set>BombColours</set></pattern>
+			<template>
+				<think>
+					<set name='BombWires'><star/> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/></set>
+					<set var='result'>unknown</set>
+					<!-- If the last wire is black and the last digit of the serial number is odd, cut the fourth wire. -->
+					<set var='temp'><star index='5'/></set>
+					<condition var='temp' value='black'>
+						<condition name='BombSerialNumberIsOdd'>
+							<li value='true'><set var='result'>4</set></li>
+							<li value='unknown'><set var='result'>NeedSerialNumberParity</set></li>
+						</condition>
+					</condition>
+
+					<!-- Otherwise, if there is exactly one red wire and there is more than one yellow wire, cut the first wire. -->
+					<condition var='result' value='unknown'>
+						<set var='temp'><srai>XCountMatch red <star/> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/></srai></set>
+						<condition var='temp' value='1'>
+							<set var='temp'><srai>XCompareDigits <srai>XCountMatch yellow <star/> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/></srai> 1</srai></set>
+							<condition var='temp' value='1'>
+								<set var='result'>1</set>
+							</condition>
+						</condition>
+					</condition>
+
+					<!-- Otherwise, if there are no black wires, cut the second wire. -->
+					<condition var='result' value='unknown'>
+						<set var='temp'><srai>XContains black <star/> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/></srai></set>
+						<condition var='temp' value='false'>
+							<set var='result'>2</set>
+						</condition>
+					</condition>
+
+					<!-- Otherwise, cut the first wire. -->
+					<condition var='result' value='unknown'>
+						<set var='result'>1</set>
+					</condition>
+				</think>
+				<get var='result'/>
+			</template>
+		</category>
+		<category>
+			<!-- 6 wires -->
+			<pattern>SolveWires <set>BombColours</set> <set>BombColours</set> <set>BombColours</set> <set>BombColours</set> <set>BombColours</set> <set>BombColours</set></pattern>
+			<template>
+				<think>
+					<set name='BombWires'><star/> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/> <star index='6'/></set>
+					<set var='result'>unknown</set>
+					<!-- If there are no yellow wires and the last digit of the serial number is odd, cut the third wire. -->
+					<set var='temp'><srai>XContains yellow <star/> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/> <star index='6'/></srai></set>
+					<condition var='temp' value='false'>
+						<condition name='BombSerialNumberIsOdd'>
+							<li value='true'><set var='result'>3</set></li>
+							<li value='unknown'><set var='result'>NeedSerialNumberParity</set></li>
+						</condition>
+					</condition>
+
+					<!-- Otherwise, if there is exactly one yellow wire and there is more than one white wire, cut the fourth wire. -->
+					<condition var='result' value='unknown'>
+						<set var='temp'><srai>XCountMatch yellow <star/> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/> <star index='6'/></srai></set>
+						<condition var='temp' value='1'>
+							<set var='temp'><srai>XCompareDigits <srai>XCountMatch white <star/> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/> <star index='6'/></srai> 1</srai></set>
+							<condition var='temp' value='1'>
+								<set var='result'>4</set>
+							</condition>
+						</condition>
+					</condition>
+
+					<!-- Otherwise, if there are no red wires, cut the last wire. -->
+					<condition var='result' value='unknown'>
+						<set var='temp'><srai>XContains red <star/> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/> <star index='6'/></srai></set>
+						<condition var='temp' value='false'>
+							<set var='result'>6</set>
+						</condition>
+					</condition>
+
+					<!-- Otherwise, cut the fourth wire. -->
+					<condition var='result' value='unknown'>
+						<set var='result'>4</set>
+					</condition>
+				</think>
+				<get var='result'/>
+			</template>
+		</category>
+	</topic>
+</aiml>

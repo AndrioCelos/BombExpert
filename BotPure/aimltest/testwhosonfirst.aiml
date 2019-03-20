@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<aiml version='2.1'>
+	<category>
+		<pattern>XTest WhosOnFirst</pattern>
+		<template>
+			<think>
+				<srai>defuse who's on first</srai>
+				<test name="Who's On First Parse  1" expected='YES'>Parse yes</test>
+				<test name="Who's On First Parse  2" expected="Error Please specify 'word nothing', 'literally blank' or 'nil'.">Parse nothing</test>
+				<test name="Who's On First Parse  3" expected='NOTHING'>Parse the word is nothing</test>
+				<test name="Who's On First Parse  4" expected='NOTHING'>Parse word nothing</test>
+				<test name="Who's On First Parse  5" expected='nil'>Parse literally nothing</test>
+				<test name="Who's On First Parse  6" expected='U'>Parse uniform</test>
+				<test name="Who's On First Parse  7" expected="YOU'RE">Parse yankee oscar uniform romeo echo</test>
+				<test name="Who's On First Parse  8" expected="YOU'RE">Parse you're with an apostrophe</test>
+
+				<test name="Who's On First Conversation 1" expected='Read the text on the top right button.'>the letter c</test>
+				<test name="Who's On First Conversation 2" expected='Press the first of these that exists: DONE... letter U... letters U R'>uniform romeo</test>
+			</think>
+		</template>
+	</category>
+</aiml>

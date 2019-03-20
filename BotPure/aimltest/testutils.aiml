@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<aiml version='2.1'>
+	<category>
+		<pattern>XTest UtilsTests 1</pattern>
+		<template>
+			<think>
+				<test name='CompareDigits 1' expected='0'>XCompareDigits 9 9</test>
+				<test name='CompareDigits 2' expected='-1'>XCompareDigits 8 9</test>
+				<test name='CompareDigits 3' expected='1'>XCompareDigits 9 8</test>
+			</think>
+		</template>
+	</category>
+</aiml>

@@ -1,0 +1,217 @@
+# This map attempts to parse a user description of the display or button text.
+
+yes:YES
+
+first:FIRST
+
+display:DISPLAY
+
+okay:OKAY
+ok:OKAY
+
+says:SAYS
+
+nothing:NOTHING
+word nothing:NOTHING
+nothing word:NOTHING
+
+nil:nil
+empty:nil
+:nil
+literal blank:nil
+literally blank:nil
+literal nothing:nil
+literally nothing:nil
+
+blank:BLANK
+word blank:BLANK
+blank word:BLANK
+
+no:NO
+
+led:LED
+led no a:LED
+led no alfa:LED
+led no alpha:LED
+lead no a:LED
+lead no alfa:LED
+lead no alpha:LED
+l e d:LED
+
+lead:LEAD
+l e a d: LEAD
+lead a:LEAD
+lead alfa:LEAD
+lead alpha:LEAD
+led a:LEAD
+led alfa:LEAD
+led alpha:LEAD
+
+read:READ
+r e a d: READ
+read a:READ
+read alfa:READ
+read alpha:READ
+red a:READ
+red alfa:READ
+red alpha:READ
+
+red:RED
+colour red:RED
+color red:RED
+red colour:RED
+red color:RED
+colour read:RED
+color read:RED
+r e d:RED
+
+reed:REED
+r double e d:REED
+romeo double echo delta:REED
+r e e d: REED
+
+leed:LEED
+l double e d:LEED
+lima double echo delta:LEED
+l e e d:LEED
+Leeds England:LEED
+
+hold:HOLD
+
+hold on:HOLD_ON
+
+you:YOU
+word you:YOU
+word u:YOU
+y o u:YOU
+
+you are:YOU_ARE
+youare:YOU_ARE
+yankee oscar uniform space alfa romeo echo:YOU_ARE
+yankee oscar uniform space alpha romeo echo:YOU_ARE
+words you are:YOU_ARE
+words u r:YOU_ARE
+you are two words:YOU_ARE
+u r two words:YOU_ARE
+
+your:YOUR
+your one word:YOUR
+your no apostrophe:YOUR
+y o u r:YOUR
+
+you're:YOU_RE
+youre:YOU_RE
+y o u r e:YOU_RE
+y o u apostrophe r e:YOU_RE
+yankee oscar uniform apostrophe romeo echo:YOU_RE
+you apostrophe are:YOU_RE
+u apostrophe r:YOU_RE
+you're apostrophe:YOU_RE
+you are apostrophe:YOU_RE
+your apostrophe:YOU_RE
+
+u:U
+letter u:U
+the letter u:U
+letter uniform:U
+the letter uniform:U
+u letter:U
+uniform letter:U
+
+ur:UR
+u r:UR
+letters u r:UR
+the letters u r:UR
+letters uniform romeo:UR
+the letters uniform romeo:UR
+u r letters:UR
+uniform romeo letters:UR
+
+there:THERE
+there two e:THERE
+there two es:THERE
+their two e:THERE
+their two es:THERE
+they're two e:THERE
+they're two es:THERE
+t h e r e:THERE
+
+they're:THEY_RE
+theyre:THEY_RE
+they are apostrophe:THEY_RE
+they're apostrophe:THEY_RE
+they apostrophe are:THEY_RE
+
+their:THEIR
+t h e i r:THEIR
+
+they are:THEY_ARE
+words they are:THEY_ARE
+they are two words:THEY_ARE
+they are words:THEY_ARE
+they space are:THEY_ARE
+theyare:THEY_ARE
+tango hotel echo yankee space alfa romeo echo:THEY_ARE
+tango hotel echo yankee space alpha romeo echo:THEY_ARE
+
+see:SEE
+s e e:SEE
+word see:SEE
+see a movie:SEE
+
+c:C
+letter c:C
+the letter c:C
+letter see:C
+the letter see:C
+letter sea:C
+the letter sea:C
+c letter:C
+see letter:C
+sea letter:C
+
+cee:CEE
+Cee Spain:CEE
+c e e:CEE
+
+ready:READY
+
+what no question:WHAT
+what no question mark:WHAT
+
+uhhh:UHHH
+u triple h:UHHH
+uniform triple hotel:UHHH
+u h h h:UHHH
+
+left:LEFT
+
+right:RIGHT
+
+middle:MIDDLE
+
+wait:WAIT
+
+press:PRESS
+
+uh huh:UH_HUH
+uh uh positive:UH_HUH
+uh huh positive:UH_HUH
+u h h u h:UH_HUH
+
+uh uh:UH_UH
+uh uh negative:UH_UH
+uh huh negative:UH_UH
+u h u h:UH_UH
+staccato:UH_UH
+
+what question:WHATQ
+what question mark:WHATQ
+
+sure:SURE
+
+like:LIKE
+
+done:DONE
+
+next:NEXT

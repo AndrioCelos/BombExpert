@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml>
+	<category>
+		<pattern>defuse complicated wires</pattern>
+		<template>
+			<think><set name='topic'>Bomb ComplicatedWires</set></think>
+			<oob>SetGrammar complicatedwires</oob>
+			For each wire, left to right, say these key words if they apply: Red, Blue, Light, Star. Say 'next' after each wire.
+		</template>
+	</category>
+	<category>
+		<pattern>defuse complicated</pattern>
+		<template><srai>defuse complicated wires</srai></template>
+	</category>
+
+	<topic name='Bomb ComplicatedWires'>
+		<category>
+			<pattern>red *</pattern>
+			<template>
+				<srai>ProcessInput red <star/></srai>
+			</template>
+		</category>
+		<category>
+			<pattern>blue *</pattern>
+			<template>
+				<srai>ProcessInput blue <star/></srai>
+			</template>
+		</category>
+		<category>
+			<pattern>light *</pattern>
+			<template>
+				<srai>ProcessInput light <star/></srai>
+			</template>
+		</category>
+		<category>
+			<pattern>star *</pattern>
+			<template>
+				<srai>ProcessInput star <star/></srai>
+			</template>
+		</category>
+		<category>
+			<pattern>white *</pattern>
+			<template>
+				<srai>ProcessInput white <star/></srai>
+			</template>
+		</category>
+		<category>
+			<pattern>nothing *</pattern>
+			<template>
+				<srai>ProcessInput nothing <star/></srai>
+			</template>
+		</category>
+
+		<category>
+			<pattern>ProcessInput *</pattern>
+			<template>
+				<think>
+					<set name='BombComplicatedWires'><star/></set>
+					<set var='input'><star/></set>
+					<set var='red'>false</set>
+					<set var='blue'>false</set>
+					<set var='light'>false</set>
+					<set var='star'>false</set>
+					<set var='flags'>nil</set>
+					<set var='toCut'>nil</set>
+					<set var='toCutCount'>0</set>
+					<set var='toNotCutCount'>0</set>
+					<set var='wire'>0</set>
+					<condition var='end'>
+						<li value='true'></li>
+						<li>
+							<set var='token'><srai>XFirst <get var='input'/></srai></set>
+							<set var='input'><srai>XRest <get var='input'/></srai></set>
+							<condition var='token' value='nil'>
+								<set var='end'>true</set>
+								<set var='token'>next</set>
+							</condition>
+							<condition var='token'>
+								<li value='red'><set var='red'>true</set></li>
+								<li value='blue'><set var='blue'>true</set></li>
+								<li value='light'><set var='light'>true</set></li>
+								<li value='star'><set var='star'>true</set></li>
+								<li value='next'>
+									<set var='wire'><map name='successor'><get var='wire'/></map></set>
+									<set var='flags'>nil</set>
+									<condition var='red' value='true'><set var='flags'><srai>XAppend red <get var='flags'/></srai></set></condition>
+									<condition var='blue' value='true'><set var='flags'><srai>XAppend blue <get var='flags'/></srai></set></condition>
+									<condition var='star' value='true'><set var='flags'><srai>XAppend star <get var='flags'/></srai></set></condition>
+									<condition var='light' value='true'><set var='flags'><srai>XAppend light <get var='flags'/></srai></set></condition>
+									<set var='cut'><map name='ComplicatedWires'><get var='flags'/></map></set>
+									<condition var='cut'>
+										<li value='S'>
+											<condition name='BombSerialNumberIsOdd'>
+												<li value='true'><set var='cut'>false</set></li>
+												<li value='false'><set var='cut'>true</set></li>
+												<li value='unknown'><set var='result'>NeedSerialNumberIsOdd</set></li>
+											</condition>
+										</li>
+										<li value='P'>
+											<condition name='BombPortParallel'>
+												<li value='true'><set var='cut'>true</set></li>
+												<li value='false'><set var='cut'>false</set></li>
+												<li value='unknown'><set var='result'>NeedPortParallel</set></li>
+											</condition>
+										</li>
+										<li value='B'>
+											<condition name='BombBatteryCount'>
+												<li value='0'><set var='cut'>false</set></li>
+												<li value='1'><set var='cut'>false</set></li>
+												<li value='unknown'><set var='result'>NeedBatteryCount</set></li>
+												<li><set var='cut'>true</set></li>
+											</condition>
+										</li>
+										<li value='C'><set var='cut'>true</set></li>
+										<li value='D'><set var='cut'>false</set></li>
+									</condition>
+									<condition var='cut'>
+										<li value='true'>
+											<set var='toCut'><srai>XAppend <get var='wire'/> <get var='toCut'/></srai></set>
+											<set var='toCutCount'><map name='successor'><get var='toCutCount'/></map></set>
+										</li>
+										<li>
+											<set var='toNotCutCount'><map name='successor'><get var='toNotCutCount'/></map></set>
+										</li>
+									</condition>
+									<set var='red'>false</set>
+									<set var='blue'>false</set>
+									<set var='light'>false</set>
+									<set var='star'>false</set>
+								</li>
+							</condition>
+							<loop/>
+						</li>
+					</condition>
+				</think>
+				<condition var='result'>
+					<li value='NeedPortParallel'>Does the bomb have a long parallel port on the side?</li>
+					<li value='NeedSerialNumberIsOdd'>Look on the sides of the bomb for a serial number. Is the last digit odd?</li>
+					<li value='NeedBatteryCount'>How many batteries are there on the sides of the bomb?</li>
+					<li>
+						<condition var='toNotCutCount'>
+							<li value='0'>
+								<condition var='toCutCount'>
+									<li value='1'>Cut the wire.</li>
+									<li value='2'>Cut both wires.</li>
+									<li>Cut all wires.</li>
+								</condition>
+							</li>
+							<li>
+								<condition var='toCutCount'>
+									<li value='0'>
+										<condition var='toNotCutCount'>
+											<li value='1'>Do not cut the wire.</li>
+											<li>Do not cut those wires.</li>
+										</condition>
+									</li>
+									<li value='1'>
+										<condition var='toCut'>
+											<li><value><get var='wire'/></value>Cut the last wire.</li>
+											<li value='1'>Cut the first wire.</li>
+											<li value='2'>Cut the second wire.</li>
+											<li value='3'>Cut the third wire.</li>
+											<li value='4'>Cut the fourth wire.</li>
+											<li value='5'>Cut the fifth wire.</li>
+										</condition>
+									</li>
+									<li>
+										<think><set var='wire'>0</set></think>
+										<think>
+											<set var='result'>:</set>
+											<condition var='toCut'>
+												<li value='nil'></li>
+												<li>
+													<set var='wire'><map name='successor'><get var='wire'/></map></set>
+													<condition var='wire'>
+														<li value='1'></li>
+														<li><set var='result'><get var='result'/>,</set></li>
+													</condition>
+													<set var='token'><srai>XFirst <get var='toCut'/></srai></set>
+													<set var='toCut'><srai>XRest <get var='toCut'/></srai></set>
+													<condition var='token'>
+														<li value='1'><set var='result'><get var='result'/> the first wire</set></li>
+														<li value='2'><set var='result'><get var='result'/> the second wire</set></li>
+														<li value='3'><set var='result'><get var='result'/> the third wire</set></li>
+														<li value='4'><set var='result'><get var='result'/> the fourth wire</set></li>
+														<li value='5'><set var='result'><get var='result'/> the fifth wire</set></li>
+														<li value='6'><set var='result'><get var='result'/> the sixth wire</set></li>
+													</condition>
+													<loop/>
+												</li>
+											</condition>
+										</think>
+										Cut the following wires<get var='result'/>.
+									</li>
+								</condition>
+							</li>
+						</condition>
+					</li>
+				</condition>
+			</template>
+		</category>
+
+		<!-- Sometimes we'll need more information... -->
+		<category>
+			<pattern><set>number</set></pattern>
+			<that>How many batteries are there on the sides of the bomb?</that>
+			<template>
+				<think><set name='BombBatteryCount'><star/></set></think>
+				<srai>ProcessInput <get name='BombComplicatedWires'/></srai>
+			</template>
+		</category>
+		<category>
+			<pattern>none</pattern>
+			<that>How many *</that>
+			<template><srai>0</srai></template>
+		</category>
+
+		<category>
+			<pattern><set>YesOrNo</set></pattern>
+			<that>Does the bomb have a long parallel port on the side?</that>
+			<template>
+				<think><set name='BombPortParallel'><map name='ParseBoolean'><star/></map></set></think>
+				<srai>ProcessInput <get name='BombComplicatedWires'/></srai>
+			</template>
+		</category>
+
+		<category>
+			<pattern><set>YesOrNo</set></pattern>
+			<that>Is the last digit odd?</that>
+			<template>
+				<think><set name='BombSerialNumberIsOdd'><map name='ParseBoolean'><star/></map></set></think>
+				<srai>ProcessInput <get name='BombComplicatedWires'/></srai>
+			</template>
+		</category>
+	</topic>
+</aiml>

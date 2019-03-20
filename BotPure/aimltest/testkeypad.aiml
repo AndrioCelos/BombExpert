@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<aiml version='2.1'>
+	<category>
+		<pattern>XTest KeypadTests 1</pattern>
+		<template>
+			<think>
+				<set name='topic'>Bomb Keypad</set>
+
+				<test name='Keypad Find Column 1' expected='1'>FindColumn Balloon Lambda Spaceship BackwardC</test>
+				<test name='Keypad Find Column 2' expected='2'>FindColumn Euro Balloon BackwardC CurlyFry</test>
+				<test name='Keypad Find Column 3' expected='3'>FindColumn WhiteStar Lambda DoubleK CurlyFry</test>
+				<test name='Keypad Find Column 4' expected='4'>FindColumn Paragraph Six DoubleK SmileyFace</test>
+				<test name='Keypad Find Column 5' expected='5'>FindColumn Psi Paragraph P SmileyFace</test>
+				<test name='Keypad Find Column 6' expected='6'>FindColumn Six Euro Psi Omega</test>
+				<test name='Keypad Find Column 7' expected='NoColumn'>FindColumn Hash Ae N BlackStar</test>
+
+				<set name='BombKeypadGlyph1'>WhiteStar</set>
+				<set name='BombKeypadGlyph2'>QuestionMark</set>
+				<set name='BombKeypadGlyph3'>Balloon</set>
+				<set name='BombKeypadGlyph4'>Euro</set>
+				<test name='Keypad Order Glyphs' expected='Euro Balloon WhiteStar QuestionMark'>OrderGlyphs 2</test>
+			</think>
+		</template>
+	</category>
+
+	<category>
+		<pattern>XTest KeypadTests 2</pattern>
+		<template>
+			<think>
+				<srai>defuse keypad</srai>
+				<srai>white star</srai>
+				<srai>upside-down question mark</srai>
+				<srai>balloon</srai>
+				<test name='Keypad Stage 1 Conversation 1' expected='Press the backward E. Then say OK.'>backward E</test>
+				<test name='Keypad Stage 1 Conversation 2' expected='Press the balloon. Then say OK.'>OK</test>
+				<test name='Keypad Stage 1 Conversation 3' expected='Press the white star. Then say OK.'>OK</test>
+				<test name='Keypad Stage 1 Conversation 4' expected='Press the upside-down question mark. Then say OK.'>OK</test>
+				<test name='Keypad Stage 1 Conversation 5' expected='The keypad should be finished now.'>OK</test>
+			</think>
+		</template>
+	</category>
+</aiml>

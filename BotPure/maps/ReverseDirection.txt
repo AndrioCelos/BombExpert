@@ -1,0 +1,5 @@
+Start:Finish
+North:South
+South:North
+West:East
+East:West

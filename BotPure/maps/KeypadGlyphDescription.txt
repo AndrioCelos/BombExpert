@@ -1,0 +1,27 @@
+Balloon     : balloon
+Pyramid     : pyramid
+Lambda      : letter lambda
+Lightning   : squiggly lightning bolt
+Spaceship   : spaceship, or triangle on a tripod
+H           : curly letter H
+BackwardC   : backward letter C
+Euro        : backward Euro symbol
+CurlyFry    : curly fry, or sideways digit 6
+WhiteStar   : white star
+QuestionMark: upside-down question mark
+Copyright   : copyright symbol, or circled letter C
+Butt        : butt, or letter W
+DoubleK     : two letter K back-to-back
+HalfR       : half a letter R or digit three
+Six         : flat-topped digit six
+Paragraph   : paragraph symbol, or backward filled P
+P           : upside-down letter P
+SmileyFace  : smiley face
+Psi         : letter Psi, or trident
+C           : letter C
+Snake       : snake, or squiggly digit 3 with a V on top
+BlackStar   : black star
+Hash        : square puzzle piece
+Ae          : letter a e
+N           : upside-down letter N
+Omega       : letter Omega

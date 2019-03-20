@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml>
+	<category>
+		<pattern>say again</pattern>
+		<template><response/></template>
+	</category>
+	<category>
+		<pattern>SraixFailed</pattern>
+		<template>Oh dear. Something went wrong with the solver.</template>
+	</category>
+</aiml>

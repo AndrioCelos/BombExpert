@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<aiml version='2.1'>
+	<category>
+		<pattern>XTest Mazes 1</pattern>
+		<template>
+			<think>
+				<srai>defuse mazes</srai>
+
+				<test name='Maze Solver 1' expected='East'>MazeSolver Solve 1 2 1 1 2 1</test>
+				<test name='Maze Solver 2' expected='North East East South South South South West North North West South South South East East East North North North East South South South East North North North North North West South West North'>
+					MazeSolver Solve 6 4 1 2 4 1
+				</test>
+				<test name='Maze Solver 3' expected='NoMaze'>MazeSolver Solve 6 6 5 5 4 4</test>
+			</think>
+			Locate a green circle.
+		</template>
+	</category>
+
+	<category>
+		<pattern>XTest Mazes 2</pattern>
+		<template>
+			<test name='Maze Conversation 1' expected='Locate the white dot.'>2 6</test>
+		</template>
+	</category>
+
+	<category>
+		<pattern>XTest Mazes 3</pattern>
+		<template>
+			<test name='Maze Conversation 2' expected='Locate the red triangle.'>1 1</test>
+		</template>
+	</category>
+
+	<category>
+		<pattern>XTest Mazes 4</pattern>
+		<template>
+			<test name='Maze Conversation 3' expected='South South East North East'>3 2</test>
+		</template>
+	</category>
+</aiml>
