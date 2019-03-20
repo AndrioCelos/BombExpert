@@ -1,27 +1,30 @@
-Balloon     : balloon
-Pyramid     : pyramid
-Lambda      : letter lambda
-Lightning   : squiggly lightning bolt
-Spaceship   : spaceship, or triangle on a tripod
-H           : curly letter H
-BackwardC   : backward letter C
-Euro        : backward Euro symbol
-CurlyFry    : curly fry, or sideways digit 6
-WhiteStar   : white star
-QuestionMark: upside-down question mark
-Copyright   : copyright symbol, or circled letter C
-Butt        : butt, or letter W
-DoubleK     : two letter K back-to-back
-HalfR       : half a letter R or digit three
-Six         : flat-topped digit six
-Paragraph   : paragraph symbol, or backward filled P
-P           : upside-down letter P
+Copyright   : copyright symbol
+FilledStar  : black star
+HollowStar  : white star
 SmileyFace  : smiley face
-Psi         : letter Psi, or trident
-C           : letter C
-Snake       : snake, or squiggly digit 3 with a V on top
-BlackStar   : black star
-Hash        : square puzzle piece
-Ae          : letter a e
-N           : upside-down letter N
-Omega       : letter Omega
+DoubleK     : double Ks back-to-back
+Omega       : Omega
+SquidKnife  : squid with a knife, or spaceship
+Pumpkin     : pumpkin
+HookN       : curly H
+Teepee      : tent
+Six         : flat-topped six
+SquigglyN   : squiggly lightning bolt
+AT          : pyramid, or A and T
+Ae          : a e
+MeltedThree : melted three
+Euro        : backward E
+Circle      : circle of hills
+NWithHat    : upside-down N with a hat
+Dragon      : dragon, or snake
+QuestionMark: upside-down question mark
+Paragraph   : paragraph mark, or backward filled P
+RightC      : forward C
+LeftC       : backward C
+Pitchfork   : letter Psi, or trident
+Cursive     : cursive loop
+Tracks      : square train track, or hash sign
+Balloon     : balloon
+WeirdNose   : zeta, or nose
+Lambda      : lambda, or upside-down Y
+BT          : B and T

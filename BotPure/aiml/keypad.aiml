@@ -41,11 +41,11 @@
 		<!-- Returns a list of glyphs that appear on exactly n columns. -->
 		<category>
 			<pattern>XGlyphs 1</pattern>
-			<template>Pyramid Lightning Copyright Butt HalfR C Snake BlackStar Hash Ae N Omega</template>
+			<template>Copyright FilledStar Omega Pumpkin SquigglyN AT Ae MeltedThree NWithHat Dragon RightC Tracks</template>
 		</category>
 		<category>
 			<pattern>XGlyphs 2</pattern>
-			<template>Balloon Lambda Spaceship H BackwardC Euro CurlyFry WhiteStar QuestionMark DoubleK Six Paragraph P SmileyFace Psi</template>
+			<template>HollowStar SmileyFace DoubleK SquidKnife HookN Six Euro QuestionMark Paragraph LeftC Pitchfork Cursive Balloon UpsideDownY BT</template>
 		</category>
 
 		<!-- Usage: KeypadCheckGlyphDescription [user description ...] -->

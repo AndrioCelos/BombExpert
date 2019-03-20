@@ -1,6 +1,6 @@
-1:Balloon Pyramid Lambda Lightning Spaceship H BackwardC
-2:Euro Balloon BackwardC CurlyFry WhiteStar H QuestionMark
-3:Copyright Butt CurlyFry DoubleK HalfR Lambda WhiteStar
-4:Six Paragraph P Spaceship DoubleK QuestionMark SmileyFace
-5:Psi SmileyFace P C Paragraph Snake BlackStar
-6:Six Euro Hash Ae Psi N Omega
+1:Balloon AT UpsideDownY SquigglyN SquidKnife HookedN LeftC
+2:Euro Balloon LeftC Cursive HollowStar HookedN QuestionMark
+3:Copyright Pumpkin Cursive DoubleK MeltedThree UpsideDownY HollowStar
+4:Six Paragraph BT SquidKnife DoubleK QuestionMark SmileyFace
+5:Pitchfork SmileyFace BT RightC Paragraph Dragon FilledStar
+6:Six Euro Tracks Ae Pitchfork NWithHat Omega
