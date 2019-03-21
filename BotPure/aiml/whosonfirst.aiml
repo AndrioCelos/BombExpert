@@ -65,7 +65,23 @@
 			<template><srai>Parse2 <srai>DecodeNato <star/> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/> <star index='6'/> <star index='7'/></srai></srai></template>
 		</category>
 		<category>
+			<pattern>Parse the *</pattern>
+			<template><srai>Parse <star/></srai></template>
+		</category>
+		<category>
 			<pattern>Parse it is *</pattern>
+			<template><srai>Parse <star/></srai></template>
+		</category>
+		<category>
+			<pattern>Parse word is *</pattern>
+			<template><srai>Parse <star/></srai></template>
+		</category>
+		<category>
+			<pattern>Parse display is *</pattern>
+			<template><srai>Parse <star/></srai></template>
+		</category>
+		<category>
+			<pattern>Parse label is *</pattern>
 			<template><srai>Parse <star/></srai></template>
 		</category>
 		<category>
@@ -73,7 +89,15 @@
 			<template><srai>Parse <star/></srai></template>
 		</category>
 		<category>
-			<pattern>Parse the word is *</pattern>
+			<pattern>Parse word says *</pattern>
+			<template><srai>Parse <star/></srai></template>
+		</category>
+		<category>
+			<pattern>Parse display says *</pattern>
+			<template><srai>Parse <star/></srai></template>
+		</category>
+		<category>
+			<pattern>Parse label says *</pattern>
 			<template><srai>Parse <star/></srai></template>
 		</category>
 		<category>
@@ -81,7 +105,19 @@
 			<template><srai>Parse2 blank</srai></template>
 		</category>
 		<category>
-			<pattern>Parse the word is blank</pattern>
+			<pattern>Parse word is blank</pattern>
+			<template><srai>Parse2 blank</srai></template>
+		</category>
+		<category>
+			<pattern>Parse display says blank</pattern>
+			<template><srai>Parse2 blank</srai></template>
+		</category>
+		<category>
+			<pattern>Parse label is blank</pattern>
+			<template><srai>Parse2 blank</srai></template>
+		</category>
+		<category>
+			<pattern>Parse label says blank</pattern>
 			<template><srai>Parse2 blank</srai></template>
 		</category>
 		<category>
@@ -90,6 +126,14 @@
 		</category>
 		<category>
 			<pattern>Parse the word is nothing</pattern>
+			<template><srai>Parse2 nothing</srai></template>
+		</category>
+		<category>
+			<pattern>Parse display says nothing</pattern>
+			<template><srai>Parse2 nothing</srai></template>
+		</category>
+		<category>
+			<pattern>Parse label says nothing</pattern>
 			<template><srai>Parse2 nothing</srai></template>
 		</category>
 		<category>
@@ -106,43 +150,43 @@
 		</category>
 		<category>
 			<pattern>Parse blank</pattern>
-			<template>Error Please specify 'word blank', 'literally blank' or 'nil'.</template>
+			<template>Error Please specify 'word blank' or 'empty'.</template>
 		</category>
 		<category>
 			<pattern>Parse nothing</pattern>
-			<template>Error Please specify 'word nothing', 'literally blank' or 'nil'.</template>
+			<template>Error Please specify 'word nothing' or 'empty'.</template>
 		</category>
 		<category>
 			<pattern>Parse led</pattern>
-			<template>Error Please spell the word.</template>
+			<template>Error Please spell it or specify 'led no A', 'lead A' or 'leed language'.</template>
 		</category>
 		<category>
 			<pattern>Parse lead</pattern>
-			<template>Error Please spell the word.</template>
+			<template>Error Please spell it or specify 'led no A', 'lead A' or 'leed language'.</template>
 		</category>
 		<category>
 			<pattern>Parse leed</pattern>
-			<template>Error Please spell the word.</template>
+			<template>Error Please spell it or specify 'led no A', 'lead A' or 'leed language'.</template>
 		</category>
 		<category>
 			<pattern>Parse red</pattern>
-			<template>Error Please spell the word.</template>
+			<template>Error Please spell it or specify 'red colour', 'read a book' or 'reed instrument'.</template>
 		</category>
 		<category>
 			<pattern>Parse read</pattern>
-			<template>Error Please spell the word.</template>
+			<template>Error Please spell it or specify 'red colour', 'read a book' or 'reed instrument'.</template>
 		</category>
 		<category>
 			<pattern>Parse reed</pattern>
-			<template>Error Please spell the word.</template>
+			<template>Error Please spell it or specify 'red colour', 'read a book' or 'reed instrument'.</template>
 		</category>
 		<category>
 			<pattern>Parse you</pattern>
-			<template>Error Please specify 'word you' or 'letter u'.</template>
+			<template>Error Please spell it or specify 'word you' or 'letter u'.</template>
 		</category>
 		<category>
 			<pattern>Parse u</pattern>
-			<template>Error Please specify 'word you' or 'letter u'.</template>
+			<template>Error Please spell it or specify 'word you' or 'letter u'.</template>
 		</category>
 		<category>
 			<pattern>Parse your</pattern>
@@ -166,31 +210,31 @@
 		</category>
 		<category>
 			<pattern>Parse there</pattern>
-			<template>Error Please spell the word or specify 'they're apostrophe'.</template>
+			<template>Error Please spell it or specify 'there location', 'their possessive' or 'they're apostrophe'.</template>
 		</category>
 		<category>
 			<pattern>Parse their</pattern>
-			<template>Error Please spell the word or specify 'they're apostrophe'.</template>
+			<template>Error Please spell it or specify 'there location', 'their possessive' or 'they're apostrophe'.</template>
 		</category>
 		<category>
 			<pattern>Parse they're</pattern>
-			<template>Error Please spell the word or specify 'they're apostrophe'.</template>
+			<template>Error Please spell it or specify 'there location', 'their possessive' or 'they're apostrophe'.</template>
 		</category>
 		<category>
 			<pattern>Parse see</pattern>
-			<template>Error Please spell the word or specify 'letter c'.</template>
+			<template>Error Please spell it or specify 'word see', 'letter c' or 'Cee Spain'.</template>
 		</category>
 		<category>
 			<pattern>Parse c</pattern>
-			<template>Error Please spell the word or specify 'letter c'.</template>
+			<template>Error Please spell it or specify 'word see', 'letter c' or 'Cee Spain'.</template>
 		</category>
 		<category>
 			<pattern>Parse cee</pattern>
-			<template>Error Please spell the word or specify 'letter c'.</template>
+			<template>Error Please spell it or specify 'word see', 'letter c' or 'Cee Spain'.</template>
 		</category>
 		<category>
-			<pattern>Parse sea</pattern>
-			<template>Error Please spell the word or specify 'letter c'.</template>
+			<pattern>Parse sea</pattern>  <!-- Not a possible display, but here in case of confused speech recognition -->
+			<template>Error Please spell it or specify 'word see', 'letter c' or 'Cee Spain'.</template>
 		</category>
 		<category>
 			<pattern>Parse what</pattern>

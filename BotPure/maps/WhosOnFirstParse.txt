@@ -39,6 +39,7 @@ lead no alpha:LED
 l e d:LED
 
 lead:LEAD
+lead guitar:LEAD
 l e a d: LEAD
 lead a:LEAD
 lead alfa:LEAD
@@ -48,6 +49,7 @@ led alfa:LEAD
 led alpha:LEAD
 
 read:READ
+read a book:READ
 r e a d: READ
 read a:READ
 read alfa:READ
@@ -66,15 +68,21 @@ color read:RED
 r e d:RED
 
 reed:REED
+reed instrument:REED
 r double e d:REED
 romeo double echo delta:REED
 r e e d: REED
 
 leed:LEED
+leed language:LEED
+leed two E:LEED
+leed two Es:LEED
+lead two E:LEED
+lead two Es:LEED
+Leeds England:LEED
 l double e d:LEED
 lima double echo delta:LEED
 l e e d:LEED
-Leeds England:LEED
 
 hold:HOLD
 
@@ -82,52 +90,68 @@ hold on:HOLD_ON
 
 you:YOU
 word you:YOU
+you word:YOU
 word u:YOU
+u word:YOU
 y o u:YOU
 
 you are:YOU_ARE
+words you are:YOU_ARE
+you are words:YOU_ARE
+you are two words:YOU_ARE
+words u r:YOU_ARE
+u r words:YOU_ARE
+u r two words:YOU_ARE
+you space are:YOU_ARE
+u space r:YOU ARE
 youare:YOU_ARE
 yankee oscar uniform space alfa romeo echo:YOU_ARE
 yankee oscar uniform space alpha romeo echo:YOU_ARE
-words you are:YOU_ARE
-words u r:YOU_ARE
-you are two words:YOU_ARE
-u r two words:YOU_ARE
 
 your:YOUR
+your possessive:YOUR
+word your:YOUR
+your word:YOUR
 your one word:YOUR
 your no apostrophe:YOUR
 y o u r:YOUR
 
 you're:YOU_RE
 youre:YOU_RE
+your apostrophe:YOU_RE
+you're apostrophe:YOU_RE
+you are apostrophe:YOU_RE
+your with apostrophe:YOU_RE
+you're with apostrophe:YOU_RE
+you are with apostrophe:YOU_RE
+your contraction:YOU_RE
+you are contraction:YOU_RE
 y o u r e:YOU_RE
 y o u apostrophe r e:YOU_RE
 yankee oscar uniform apostrophe romeo echo:YOU_RE
 you apostrophe are:YOU_RE
 u apostrophe r:YOU_RE
-you're apostrophe:YOU_RE
-you are apostrophe:YOU_RE
-your apostrophe:YOU_RE
 
 u:U
 letter u:U
-the letter u:U
 letter uniform:U
-the letter uniform:U
 u letter:U
 uniform letter:U
 
 ur:UR
 u r:UR
 letters u r:UR
-the letters u r:UR
 letters uniform romeo:UR
 the letters uniform romeo:UR
 u r letters:UR
+u r two letters:UR
 uniform romeo letters:UR
+uniform romeo two letters:UR
 
 there:THERE
+there location:THERE
+their location:THERE
+they're location:THERE
 there two e:THERE
 there two es:THERE
 their two e:THERE
@@ -140,9 +164,26 @@ they're:THEY_RE
 theyre:THEY_RE
 they are apostrophe:THEY_RE
 they're apostrophe:THEY_RE
+there apostrophe:THEY_RE
+their apostrophe:THEY_RE
+they are with apostrophe:THEY_RE
+they're with apostrophe:THEY_RE
+there with apostrophe:THEY_RE
+their with apostrophe:THEY_RE
+they are contraction:THEY_RE
+they're contraction:THEY_RE
+there contraction:THEY_RE
+their contraction:THEY_RE
 they apostrophe are:THEY_RE
+t h e y apostrophe r e:THEY_RE
+tango hotel echo yankee apostrophe romeo echo:THEY_RE
 
 their:THEIR
+their possessive:THEIR
+their with I:THEIR
+there with I:THEIR
+they're with I:THEIR
+they are with I:THEIR
 t h e i r:THEIR
 
 they are:THEY_ARE
@@ -161,22 +202,22 @@ see a movie:SEE
 
 c:C
 letter c:C
-the letter c:C
 letter see:C
-the letter see:C
 letter sea:C
-the letter sea:C
 c letter:C
 see letter:C
 sea letter:C
 
 cee:CEE
 Cee Spain:CEE
+c Spain:CEE
+see Spain:CEE
 c e e:CEE
 
 ready:READY
 
 what no question:WHAT
+what statement:WHAT
 what no question mark:WHAT
 
 uhhh:UHHH
@@ -207,6 +248,8 @@ staccato:UH_UH
 
 what question:WHATQ
 what question mark:WHATQ
+what with question mark:WHATQ
+what with a question mark:WHATQ
 
 sure:SURE
 

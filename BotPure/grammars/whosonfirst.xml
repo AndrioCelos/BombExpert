@@ -23,29 +23,51 @@
 	</rule>
 	<rule id='label' scope='public'>
 		<item repeat='0-1'>
+			<item repeat='0-1'> the </item>
 			<one-of>
-				<item> it says </item>
-				<item> it says the word </item>
-				<item> the word </item>
-				<item> the word is </item>
+				<item> it </item>
+				<item> word </item>
+				<item> display </item>
+				<item> label </item>
+			</one-of>
+			<one-of>
+				<item> is </item>
+				<item> says </item>
 			</one-of>
 		</item>
+		<item repeat='0-1'> the </item>
 		<one-of>
-			<item repeat='1-7'><ruleref uri='bomb.xml#letter'/></item>
-			<item repeat='1-7'><ruleref uri='#letter'/></item>
+			<item repeat='1-8'>
+				<one-of>
+					<ruleref uri='bomb.xml#letter'/>
+					<item> space </item>
+					<item> apostrophe </item>
+					<item> double </item>
+					<item> triple </item>
+				</item>
+			</one-of>
+			<item repeat='1-8'>
+				<one-of>
+					<ruleref uri='#letter'/>
+					<item> space </item>
+					<item> apostrophe </item>
+					<item> double </item>
+					<item> triple </item>
+				</item>
+			</one-of>
 			<item> yes </item>
 			<item> first </item>
 			<item> display </item>
 			<item> okay </item>
 			<item> says </item>
-			<item> nothing </item>
+			<item> nothing <item repeat='0-1'> word </item></item>
 			<item> literally blank </item>
 			<item> literal blank </item>
 			<item> literally nothing </item>
 			<item> literal nothing </item>
 			<item> empty </item>
 			<item> nil </item>
-			<item> blank </item>
+			<item> blank <item repeat='0-1'> word </item></item>
 			<item> no </item>
 			<item> led </item>
 			<item> led no A </item>
@@ -53,12 +75,17 @@
 			<item> lead guitar </item>
 			<item> lead A </item>
 			<item> read </item>
+			<item> read a book</item>
 			<item> read A </item>
 			<item> reed instrument </item>
 			<item> red </item>
 			<item> red colour </item>
 			<item> colour red </item>
+			<item> reed instrument </item>
 			<item> r double e d </item>
+			<item> leed language </item>
+			<item> leed two Es </item>
+			<item> leed two E </item>
 			<item> Leeds England </item>
 			<item> l double e d </item>
 			<item> hold </item>
@@ -71,6 +98,7 @@
 			<item> you space are </item>
 			<item> your </item>
 			<item> your possessive </item>
+			<item> your word </item>
 			<item> your one word </item>
 			<item> your no apostrophe </item>
 			<item> word your </item>
@@ -80,6 +108,9 @@
 			<item> you're contraction </item>
 			<item> letter U </item>
 			<item> U letter </item>
+			<item> letters u r </item>
+			<item> u r two letters </item>
+			<item> u r letters </item>
 			<item> there </item>
 			<item> there location </item>
 			<item> there two Es </item>
@@ -88,9 +119,11 @@
 			<item> they're contraction </item>
 			<item> they apostrophe are </item>
 			<item> t h e y apostrophe r e </item>
-			<item> their with i </item>
+			<item> their possessive </item>
+			<item> their with I </item>
 			<item> they are </item>
 			<item> words they are </item>
+			<item> they are words </item>
 			<item> they are two words </item>
 			<item> they space are </item>
 			<item> see </item>
@@ -101,9 +134,9 @@
 			<item> Cee Spain </item>
 			<item> ready </item>
 			<item> what </item>
+			<item> what statement </item>
 			<item> what no question <item repeat='0-1'> mark </item> </item>
 			<item> uhhh </item>
-			<item> u triple h </item>
 			<item> left </item>
 			<item> right  </item>
 			<item> middle </item>
@@ -117,9 +150,6 @@
 			<item> like </item>
 			<item> done </item>
 			<item> next </item>
-			<item> letters u r </item>
-			<item> u r two letters </item>
-			<item> u r letters </item>
 		</one-of>
 	</rule>
 	<rule id='letter'>
