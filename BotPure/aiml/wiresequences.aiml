@@ -54,7 +54,7 @@
 			<template><srai>reset wire sequences</srai></template>
 		</category>
 		<category>
-			<pattern>new sequences</pattern>
+			<pattern>next sequence</pattern>
 			<template><srai>reset wire sequences</srai></template>
 		</category>
 
@@ -134,9 +134,12 @@
 						<li>
 							<set var='token'><srai>XFirst <get var='input'/></srai></set>
 							<set var='input'><srai>XRest <get var='input'/></srai></set>
-							<condition var='token' value='nil'>
-								<set var='end'>true</set>
-								<set var='token'>next</set>
+							<condition var='token'>
+								<li value='nil'>
+									<set var='end'>true</set>
+									<set var='token'>next</set>
+								</li>
+								<li value='then'><set var='token'>next</set></li>
 							</condition>
 							<condition var='token'>
 								<li value='red'><set var='colour'>red</set></li>

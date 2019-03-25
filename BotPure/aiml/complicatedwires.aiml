@@ -75,6 +75,9 @@
 								<set var='end'>true</set>
 								<set var='token'>next</set>
 							</condition>
+							<condition var='token' value='then'>
+								<set var='token'>next</set>
+							</condition>
 							<condition var='token'>
 								<li value='red'><set var='red'>true</set></li>
 								<li value='blue'><set var='blue'>true</set></li>

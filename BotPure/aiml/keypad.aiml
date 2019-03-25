@@ -29,6 +29,10 @@
 		<pattern>new keypad</pattern>
 		<template>OK. <srai>defuse keypad</srai></template>
 	</category>
+	<category>
+		<pattern>next keypad</pattern>
+		<template>OK. <srai>defuse keypad</srai></template>
+	</category>
 
 	<topic name='bomb keypad ^'>
 		<category>
@@ -61,7 +65,7 @@
 							<li value='1'>
 								<!-- First time: ask them to rephrase. -->
 								<think><set name='BombKeypadTry'>2</set></think>
-								<p>I do not recognise that description. Please try rephrasing it.</p>
+								I do not recognise that description. Please try rephrasing it.
 							</li>
 							<li>
 								<!-- Second time: start asking about specific glyphs. -->
@@ -70,6 +74,7 @@
 									<set name='topic'>bomb keypad</set>
 									<set name='BombKeypadToAsk'><srai>XGlyphs 2</srai></set>
 								</think>
+								<oob>SetGrammar keypadOK</oob>
 								<srai>KeypadPrompt</srai>
 							</li>
 						</condition>

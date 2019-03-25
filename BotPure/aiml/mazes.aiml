@@ -20,6 +20,10 @@
 			<pattern>new maze</pattern>
 			<template><srai>defuse mazes</srai></template>
 		</category>
+		<category>
+			<pattern>next maze</pattern>
+			<template><srai>defuse mazes</srai></template>
+		</category>
 
 		<category>
 			<pattern><set>number</set> <set>number</set></pattern>

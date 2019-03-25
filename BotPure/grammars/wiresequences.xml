@@ -16,7 +16,10 @@
 			<item>
 				<item><ruleref uri='#wireflags'/></item>
 				<item repeat='0-2'>
-					<item repeat='0-1'> next </item>
+					<one-of>
+						<item> then </item>
+						<item> next </item>
+					</one-of>
 					<ruleref uri='#wireflags'/>
 				</item>
 			</item>
