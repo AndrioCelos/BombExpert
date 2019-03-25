@@ -129,8 +129,8 @@
 
 			<item><item repeat='0-1'> upside down </item> question mark </item>
 
-			<item> pilcrow <ruleref='#sign'/> </item>
-			<item> paragraph <ruleref='#sign'/> </item>
+			<item> pilcrow <ruleref uri='#sign'/> </item>
+			<item> paragraph <ruleref uri='#sign'/> </item>
 			<item> blind <item repeat='0-1'> letter </item> P </item>
 			<item> backward <item repeat='0-1'> letter </item> P </item>
 
@@ -162,9 +162,9 @@
 
 			<item> thousands </item>
 			<item> tracks </item>
-			<item><item repeat='0-1'> does </item> not equal <ruleref='#sign'/> </item>
-			<item><item repeat='0-1'> broken </item> hash <item repeat='0-1'> tag </item> <ruleref='#sign'/> </item>
-			<item><item repeat='0-1'> broken </item> pound <ruleref='#sign'/> </item>
+			<item><item repeat='0-1'> does </item> not equal <ruleref uri='#sign'/> </item>
+			<item><item repeat='0-1'> broken </item> hash <item repeat='0-1'> tag </item> <ruleref uri='#sign'/> </item>
+			<item><item repeat='0-1'> broken </item> pound <ruleref uri='#sign'/> </item>
 			<item> squares </item>
 			<item><item repeat='0-1'> square </item> jigsaw piece </item>
 			<item><item repeat='0-1'> square </item> puzzle piece </item>

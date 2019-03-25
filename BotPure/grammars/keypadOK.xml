@@ -13,6 +13,8 @@
 					<item> keypad </item>
 				</one-of>
 			</item>
+			<item> yes </item>
+			<item> no </item>
 			<item> OK </item>
 		</one-of>
 	</rule>

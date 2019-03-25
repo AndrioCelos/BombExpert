@@ -47,7 +47,7 @@
 	<category>
 		<pattern>GetKeypadGlyphName *</pattern>
 		<template>
-			<set var='glyph'>GetKeypadGlyphName2<star/>
+			<set var='glyph'><srai>GetKeypadGlyphName2 <star/></srai></set>
 			<think><set><name>KeypadGlyphDescription<get var='glyph'/></name><star/></set></think>
 		</template>
 	</category>
@@ -65,6 +65,10 @@
 		Tries to match the specified description with prefixes removed to a glyph name.
 	-->
 	<category>
+		<pattern>GetKeypadGlyphName2 ^</pattern>
+		<template>unknown</template>
+	</category>
+	<category>
 		<pattern>GetKeypadGlyphName2 copyright ^</pattern>
 		<template>Copyright</template>
 	</category>
@@ -79,32 +83,32 @@
 
 	<category>
 		<pattern>GetKeypadGlyphName2 black star</pattern>
-		<template>BlackStar</template>
+		<template>FilledStar</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 filled star</pattern>
-		<template>BlackStar</template>
+		<template>FilledStar</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 full star</pattern>
-		<template>BlackStar</template>
+		<template>FilledStar</template>
 	</category>
 
 	<category>
 		<pattern>GetKeypadGlyphName2 white star</pattern>
-		<template>WhiteStar</template>
+		<template>HollowStar</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 hollow star</pattern>
-		<template>WhiteStar</template>
+		<template>HollowStar</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 clear star</pattern>
-		<template>WhiteStar</template>
+		<template>HollowStar</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 empty star</pattern>
-		<template>WhiteStar</template>
+		<template>HollowStar</template>
 	</category>
 
 	<category>
@@ -164,102 +168,102 @@
 
 	<category>
 		<pattern>GetKeypadGlyphName2 iotified big yus</pattern>
-		<template>Spaceship</template>
+		<template>SquidKnife</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 squid ^ knife</pattern>
-		<template>Spaceship</template>
+		<template>SquidKnife</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 ^ spaceship ^</pattern>
-		<template>Spaceship</template>
+		<template>SquidKnife</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 kitty ^</pattern>
-		<template>Spaceship</template>
+		<template>SquidKnife</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 cat ^</pattern>
-		<template>Spaceship</template>
+		<template>SquidKnife</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 dog ^</pattern>
-		<template>Spaceship</template>
+		<template>SquidKnife</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 spearman</pattern>
-		<template>Spaceship</template>
+		<template>SquidKnife</template>
 	</category>
 
 	<category>
 		<pattern>GetKeypadGlyphName2 omega with titlo ^</pattern>
-		<template>Butt</template>
+		<template>Pumpkin</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 pumpkin ^</pattern>
-		<template>Butt</template>
+		<template>Pumpkin</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 ^ controller ^</pattern>
-		<template>Butt</template>
+		<template>Pumpkin</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 butt ^</pattern>
-		<template>Butt</template>
+		<template>Pumpkin</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 bum ^</pattern>
-		<template>Butt</template>
+		<template>Pumpkin</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 boobs ^</pattern>
-		<template>Butt</template>
+		<template>Pumpkin</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 ^ W ^</pattern>
-		<template>Butt</template>
+		<template>Pumpkin</template>
 	</category>
 
 	<category>
 		<pattern>GetKeypadGlyphName2 kai</pattern>
-		<template>H</template>
+		<template>HookN</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 hooked ^ N</pattern>
-		<template>H</template>
+		<template>HookN</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 N ^ hook</pattern>
-		<template>H</template>
+		<template>HookN</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 ^ H ^</pattern>
-		<template>H</template>
+		<template>HookN</template>
 	</category>
 
 	<category>
 		<pattern>GetKeypadGlyphName2 gangia</pattern>
-		<template>Tipi</template>
+		<template>Teepee</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 tipi</pattern>
-		<template>Tipi</template>
+		<template>Teepee</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 teepee</pattern>
-		<template>Tipi</template>
+		<template>Teepee</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 tent</pattern>
-		<template>Tipi</template>
+		<template>Teepee</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 underlined ^ X</pattern>
-		<template>Tipi</template>
+		<template>Teepee</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 X ^ underline</pattern>
-		<template>H</template>
+		<template>Teepee</template>
 	</category>
 
 	<category>
@@ -277,36 +281,36 @@
 
 	<category>
 		<pattern>GetKeypadGlyphName2 archaic koppa</pattern>
-		<template>Lightning</template>
+		<template>SquigglyN</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 ^ lightning ^</pattern>
-		<template>Lightning</template>
+		<template>SquigglyN</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 squiggly ^ N ^</pattern>
-		<template>Lightning</template>
+		<template>SquigglyN</template>
 	</category>
 
 	<category>
 		<pattern>GetKeypadGlyphName2 little yus</pattern>
-		<template>Pyramid</template>
+		<template>AT</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 ^ A ^ T ^</pattern>
-		<template>Pyramid</template>
+		<template>AT</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 ^ T ^ A ^</pattern>
-		<template>Pyramid</template>
+		<template>AT</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 ^ pyramid ^</pattern>
-		<template>Pyramid</template>
+		<template>AT</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 ^ illuminati ^</pattern>
-		<template>Pyramid</template>
+		<template>AT</template>
 	</category>
 
 	<category>
@@ -324,35 +328,35 @@
 
 	<category>
 		<pattern>GetKeypadGlyphName2 komi dzje</pattern>
-		<template>HalfR</template>
+		<template>MeltedThree</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 ^ R ^</pattern>
-		<template>HalfR</template>
+		<template>MeltedThree</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 ^ half 3 ^</pattern>
-		<template>HalfR</template>
+		<template>MeltedThree</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 ^ half three ^</pattern>
-		<template>HalfR</template>
+		<template>MeltedThree</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 ^ melted 3 ^</pattern>
-		<template>HalfR</template>
+		<template>MeltedThree</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 ^ melted three ^</pattern>
-		<template>HalfR</template>
+		<template>MeltedThree</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 ^ broken 3 ^</pattern>
-		<template>HalfR</template>
+		<template>MeltedThree</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 ^ broken three ^</pattern>
-		<template>HalfR</template>
+		<template>MeltedThree</template>
 	</category>
 
 	<category>
@@ -379,36 +383,36 @@
 
 	<category>
 		<pattern>GetKeypadGlyphName2 short I with tail</pattern>
-		<template>N</template>
+		<template>NWithHat</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 ^ N with hat</pattern>
-		<template>N</template>
+		<template>NWithHat</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 ^ upside down N ^</pattern>
-		<template>N</template>
+		<template>NWithHat</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 ^ backward N ^</pattern>
-		<template>N</template>
+		<template>NWithHat</template>
 	</category>
 
 	<category>
 		<pattern>GetKeypadGlyphName2 ksi</pattern>
-		<template>Snake</template>
+		<template>Dragon</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 dragon</pattern>
-		<template>Snake</template>
+		<template>Dragon</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 alien</pattern>
-		<template>Snake</template>
+		<template>Dragon</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 snake</pattern>
-		<template>Snake</template>
+		<template>Dragon</template>
 	</category>
 
 	<category>
@@ -435,65 +439,65 @@
 
 	<category>
 		<pattern>GetKeypadGlyphName2 lunate sigma</pattern>
-		<template>C</template>
+		<template>RightC</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 right C</pattern>
-		<template>C</template>
+		<template>RightC</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 forward C</pattern>
-		<template>C</template>
+		<template>RightC</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 ^ C ^ dot ^</pattern>
-		<template>C</template>
+		<template>RightC</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 ^ C ^ square ^</pattern>
-		<template>C</template>
+		<template>RightC</template>
 	</category>
 
 	<category>
 		<pattern>GetKeypadGlyphName2 inverted lunate sigma</pattern>
-		<template>C</template>
+		<template>LeftC</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 left C ^</pattern>
-		<template>C</template>
+		<template>LeftC</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 backward C ^</pattern>
-		<template>C</template>
+		<template>LeftC</template>
 	</category>
 
 	<category>
 		<pattern>GetKeypadGlyphName2 ^ psi ^</pattern>
-		<template>Psi</template>
+		<template>Pitchfork</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 ^ pitchfork ^</pattern>
-		<template>Psi</template>
+		<template>Pitchfork</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 ^ menorah ^</pattern>
-		<template>Psi</template>
+		<template>Pitchfork</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 ^ trident ^</pattern>
-		<template>Psi</template>
+		<template>Pitchfork</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 ^ candelabrum ^</pattern>
-		<template>Psi</template>
+		<template>Pitchfork</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 ^ Jewish candle ^</pattern>
-		<template>Psi</template>
+		<template>Pitchfork</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 ^ Jewish candles ^</pattern>
-		<template>Psi</template>
+		<template>Pitchfork</template>
 	</category>
 
 	<category>
@@ -511,60 +515,64 @@
 
 	<category>
 		<pattern>GetKeypadGlyphName2 abkhasian ha</pattern>
-		<template>CurlyFry</template>
+		<template>Cursive</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 cursive</pattern>
-		<template>CurlyFry</template>
+		<template>Cursive</template>
+	</category>
+	<category>
+		<pattern>GetKeypadGlyphName2 cursive loop</pattern>
+		<template>Cursive</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 wisp</pattern>
-		<template>CurlyFry</template>
+		<template>Cursive</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 curly fry</pattern>
-		<template>CurlyFry</template>
+		<template>Cursive</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 loop the loop</pattern>
-		<template>CurlyFry</template>
+		<template>Cursive</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 ^ spring</pattern>
-		<template>CurlyFry</template>
+		<template>Cursive</template>
 	</category>
 
 	<category>
 		<pattern>GetKeypadGlyphName2 thousands</pattern>
-		<template>Hash</template>
+		<template>Tracks</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 ^ tracks ^</pattern>
-		<template>Hash</template>
+		<template>Tracks</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 ^ not equal ^</pattern>
-		<template>Hash</template>
+		<template>Tracks</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 ^ hash ^</pattern>
-		<template>Hash</template>
+		<template>Tracks</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 ^ hashtag ^</pattern>
-		<template>Hash</template>
+		<template>Tracks</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 ^ pound ^</pattern>
-		<template>Hash</template>
+		<template>Tracks</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 ^ jigsaw piece ^</pattern>
-		<template>Hash</template>
+		<template>Tracks</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 ^ puzzle piece ^</pattern>
-		<template>Hash</template>
+		<template>Tracks</template>
 	</category>
 
 	<category>
@@ -611,59 +619,59 @@
 
 	<category>
 		<pattern>GetKeypadGlyphName2 ^ lambda ^</pattern>
-		<template>Lambda</template>
+		<template>UpsideDownY</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 upside down ^ Y ^</pattern>
-		<template>Lambda</template>
+		<template>UpsideDownY</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 crossed ^ Y ^</pattern>
-		<template>Lambda</template>
+		<template>UpsideDownY</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 curly ^ Y ^</pattern>
-		<template>Lambda</template>
+		<template>UpsideDownY</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 ^ sideways ^ T ^</pattern>
-		<template>Lambda</template>
+		<template>UpsideDownY</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 Half Life ^</pattern>
-		<template>Lambda</template>
+		<template>UpsideDownY</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 Half dash Life ^</pattern>
-		<template>Lambda</template>
+		<template>UpsideDownY</template>
 	</category>
 
 	<category>
 		<pattern>GetKeypadGlyphName2 yat</pattern>
-		<template>P</template>
+		<template>BT</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 ^ B ^ T</pattern>
-		<template>P</template>
+		<template>BT</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 ^ T ^ B</pattern>
-		<template>P</template>
+		<template>BT</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 ^ P ^ T</pattern>
-		<template>P</template>
+		<template>BT</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 ^ T ^ P</pattern>
-		<template>P</template>
+		<template>BT</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 upside down ^ P ^</pattern>
-		<template>P</template>
+		<template>BT</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 tampa bay ^</pattern>
-		<template>P</template>
+		<template>BT</template>
 	</category>
 </aiml>
