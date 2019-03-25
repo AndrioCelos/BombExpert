@@ -295,6 +295,7 @@
 				<think>
 					<set var='list'><map name='WhosOnFirstList'><star/></map></set>
 				</think>
+				<map name='WhosOnFirstButtonDescription'><star/></map>?
 				<condition var='list'>
 					<li value='unknown'>That does not sound like a possible label. Try again.</li>
 					<li>

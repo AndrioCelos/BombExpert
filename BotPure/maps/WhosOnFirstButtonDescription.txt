@@ -14,9 +14,9 @@ READY  :READY
 RIGHT  :RIGHT
 SURE   :SURE
 U      :letter U
-UH_HUH :letters U H H U H
-UH_UH  :letters U H U H
-UHHH   :letters U triple H
+UH_HUH :UH HUH positive
+UH_UH  :UH UH negative
+UHHH   :U triple H
 UR     :letters U R
 WAIT   :WAIT
 WHAT   :WHAT no question mark
@@ -25,4 +25,4 @@ YES    :YES
 YOU    :YOU
 YOU_ARE:words YOU ARE
 YOU_RE :YOU'RE with apostrophe
-YOUR   :YOUR
+YOUR   :YOUR no apostrophe

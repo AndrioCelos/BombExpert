@@ -124,6 +124,7 @@ you are apostrophe:YOU_RE
 your with apostrophe:YOU_RE
 you're with apostrophe:YOU_RE
 you are with apostrophe:YOU_RE
+you're contraction:YOU_RE
 your contraction:YOU_RE
 you are contraction:YOU_RE
 y o u r e:YOU_RE
@@ -170,8 +171,8 @@ they are with apostrophe:THEY_RE
 they're with apostrophe:THEY_RE
 there with apostrophe:THEY_RE
 their with apostrophe:THEY_RE
-they are contraction:THEY_RE
 they're contraction:THEY_RE
+they are contraction:THEY_RE
 there contraction:THEY_RE
 their contraction:THEY_RE
 they apostrophe are:THEY_RE
