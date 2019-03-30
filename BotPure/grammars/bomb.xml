@@ -1,5 +1,5 @@
-<grammar version='1.0' xml:lang='en-AU' root='bombRoot' xmlns='http://www.w3.org/2001/06/grammar'>
-	<rule id='bombRoot' scope='public'>
+<grammar version='1.0' xml:lang='en' root='root' xmlns='http://www.w3.org/2001/06/grammar'>
+	<rule id='root' scope='public'>
 		<one-of>
 			<item><ruleref uri='#defuse'/></item>
 			<item> say again </item>
