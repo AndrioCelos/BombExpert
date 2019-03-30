@@ -4,7 +4,7 @@
 		<pattern>defuse button</pattern>
 		<template>
 			<think><set name='topic'>bomb button</set></think>
-			<oob>SetGrammar button</oob> Tell me the colour and label of the button.
+			<oob>SetGrammar button</oob><oob>SetPartialInput false</oob> Tell me the colour and label of the button.
 		</template>
 	</category>
 

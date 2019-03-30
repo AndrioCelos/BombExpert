@@ -4,7 +4,7 @@
 		<pattern>defuse who is on first</pattern>
 		<template>
 			<think><set name='topic'>Bomb WhosOnFirst Display</set></think>
-			<oob>SetGrammar whosonfirst</oob> Read the text on the top of the module.
+			<oob>SetGrammar whosonfirst</oob><oob>SetPartialInput false</oob> Read the text on the top of the module.
 		</template>
 	</category>
 	<category>

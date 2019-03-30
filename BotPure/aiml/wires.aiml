@@ -4,7 +4,7 @@
 		<pattern>defuse wires</pattern>
 		<template>
 			<think><set name='topic'>bomb wires</set></think>
-			<oob>SetGrammar wires</oob>
+			<oob>SetGrammar wires</oob><oob>SetPartialInput false</oob>
 			Tell me the colours of the wires from top to bottom.
 		</template>
 	</category>

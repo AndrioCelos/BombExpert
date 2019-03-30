@@ -7,7 +7,7 @@
 				<set name='topic'>Bomb WireSequences</set>
 				<srai>reset wire sequences</srai>
 			</think>
-			<oob>SetGrammar wiresequences</oob> For each wire in order from 1 to 3, say what colour it is and what letter it connects to.
+			<oob>SetGrammar wiresequences</oob><oob>SetPartialInput false</oob> For each wire in order from 1 to 3, say what colour it is and what letter it connects to.
 		</template>
 	</category>
 	<category>

@@ -7,7 +7,7 @@
 				<set name='topic'>Bomb Mazes</set>
 				<srai>reset mazes</srai>
 			</think>
-			<oob>SetGrammar maze</oob> Locate a green circle.
+			<oob>SetGrammar maze</oob><oob>SetPartialInput false</oob> Locate a green circle.
 		</template>
 	</category>
 	<category>

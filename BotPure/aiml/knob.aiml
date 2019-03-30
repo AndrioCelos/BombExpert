@@ -6,7 +6,8 @@
 			<think>
 				<set name='topic'>Bomb Knob</set>
 			</think>
-			<oob>SetGrammar knob</oob> Read the lights on the left side of the module: 'on' or 'off' in reading order.
+			<oob>SetGrammar knob</oob><oob>SetPartialInput false</oob>
+			Read the lights on the left side of the module: 'on' or 'off' in reading order.
 		</template>
 	</category>
 	<category>

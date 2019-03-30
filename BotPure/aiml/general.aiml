@@ -8,4 +8,13 @@
 		<pattern>SraixFailed</pattern>
 		<template>Oh dear. Something went wrong with the solver.</template>
 	</category>
+
+	<category>
+		<pattern>PartialInput</pattern>
+		<template></template>
+	</category>
+	<category>
+		<pattern>PartialInput *</pattern>
+		<template></template>
+	</category>
 </aiml>

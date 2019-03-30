@@ -12,7 +12,7 @@
 				<set name='BombPortParallel'>unknown</set>
 				<set name='BombBatteryCount'>unknown</set>
 			</think>
-			<oob>SetGrammar bomb</oob> OK
+			<oob>SetGrammar bomb</oob><oob>SetPartialInput false</oob> OK
 		</template>
 	</category>
 	<category>

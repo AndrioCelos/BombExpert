@@ -4,13 +4,26 @@
 		<pattern>defuse morse ^</pattern>
 		<template>
 			<think>	<set name='topic'>Bomb MorseCode</set></think>
-			<oob>SetGrammar morsecode</oob> Tell me part of the sequence of dashes, dots, spaces and the start of the word. Three letters after the start is enough.
+			<oob>SetGrammar morsecode</oob><oob>SetPartialInput true</oob> Tell me part of the sequence of dashes, dots, spaces and the start of the word. Three letters after the start is enough.
 		</template>
 	</category>
 
 	<topic name='Bomb MorseCode ^'>
 		<category>
 			<pattern>*</pattern>
+			<template>
+				<think><set var='result'><srai>MorseCodeInput <star/></srai></set></think>
+				<condition var='result'>
+					<li value='BadMorseCode'>Your input does not seem to be valid Morse code. Please try again.</li>
+					<li value='MultipleWords'>More than one word matches. Please try again.</li>
+					<li value='unknown'>No possible word matches. Please try again.</li>
+					<li>The word is '<srai>XFirst <get var='result'/></srai>'. Tune the module to <srai>XItem 2 <get var='result'/></srai> MHz, then press TX.</li>
+				</condition>
+			</template>
+		</category>
+
+		<category>
+			<pattern>MorseCodeInput *</pattern>
 			<template>
 				<think>
 					<set var='input'><star/></set>
@@ -81,19 +94,42 @@
 
 							<condition var='end' value='true'>
 								<condition var='result' value='unknown'>
-									<!-- Find the word. -->
+									<!-- Find the word and frequency. -->
 									<set var='result'><srai><get var='query'/></srai></set>
+									<condition var='result'>
+										<li value='BadMorseCode'></li>
+										<li value='MultipleWords'></li>
+										<li value='unknown'></li>
+										<li><set var='result'><get var='result'/> <map name='MorseFrequency'><get var='result'/></map></set></li>
+									</condition>
 								</condition>
 							</condition>
 							<loop/>
 						</li>
 					</condition>
 				</think>
+				<get var='result'/>
+			</template>
+		</category>
+
+		<category>
+			<pattern>PartialInput * space</pattern>
+			<template><srai>PartialInput2 <star/> space</srai></template>
+		</category>
+		<category>
+			<pattern>PartialInput * start</pattern>
+			<template><srai>PartialInput2 <star/> start</srai></template>
+		</category>
+
+		<category>
+			<pattern>PartialInput2 *</pattern>
+			<template>
+				<think><set var='result'><srai>MorseCodeInput <star/></srai></set></think>
 				<condition var='result'>
-					<li value='BadMorseCode'>Your input does not seem to be valid Morse code. Please try again.</li>
-					<li value='MultipleWords'>More than one word matches. Please try again.</li>
+					<li value='BadMorseCode'></li>
+					<li value='MultipleWords'></li>
 					<li value='unknown'>No possible word matches. Please try again.</li>
-					<li>The word is '<get var='result'/>'. Tune the module to <map name='MorseFrequency'><get var='result'/></map> MHz, then press TX.</li>
+					<li>The word is '<srai>XFirst <get var='result'/></srai>'. Tune the module to <srai>XItem 2 <get var='result'/></srai> MHz, then press TX.</li>
 				</condition>
 			</template>
 		</category>

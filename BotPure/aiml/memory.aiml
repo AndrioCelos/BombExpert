@@ -7,7 +7,8 @@
 				<set name='topic'>Bomb Memory</set>
 				<set name='BombMemoryStage'>1</set>
 			</think>
-			<oob>SetGrammar memory</oob> Read me the number on the display and the numbers on the buttons, left to right.
+			<oob>SetGrammar memory</oob><oob>SetPartialInput false</oob>
+			Read me the number on the display and the numbers on the buttons, left to right.
 		</template>
 	</category>
 	<category>

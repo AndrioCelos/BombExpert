@@ -4,7 +4,7 @@
 		<pattern>defuse complicated wires</pattern>
 		<template>
 			<think><set name='topic'>Bomb ComplicatedWires</set></think>
-			<oob>SetGrammar complicatedwires</oob>
+			<oob>SetGrammar complicatedwires</oob><oob>SetPartialInput false</oob>
 			For each wire, left to right, say these key words if they apply: Red, Blue, Light, Star. Say 'next' after each wire.
 		</template>
 	</category>

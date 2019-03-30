@@ -7,7 +7,7 @@
 				<set name='topic'>bomb keypad describe</set>
 				<srai>reset keypad</srai>
 			</think>
-			<oob>SetGrammar KeypadDescribe</oob> Describe one of the glyphs on the keypad.
+			<oob>SetGrammar KeypadDescribe</oob><oob>SetPartialInput false</oob> Describe one of the glyphs on the keypad.
 		</template>
 	</category>
 	<category>

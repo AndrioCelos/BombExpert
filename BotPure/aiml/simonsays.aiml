@@ -4,7 +4,7 @@
 		<pattern>defuse simon ^</pattern>
 		<template>
 			<think><set name='topic'>bomb SimonSays</set></think>
-			<oob>SetGrammar simonsays</oob>
+			<oob>SetGrammar simonsays</oob><oob>SetPartialInput false</oob>
 			<condition name='BombSerialNumberHasVowel'>
 				<li value='*'>Tell me which colours flash, in order.</li>
 				<li>Look on the sides of the bomb for a serial number. Does it contain a vowel?</li>
