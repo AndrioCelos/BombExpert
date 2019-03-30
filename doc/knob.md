@@ -6,6 +6,8 @@ List the states of the six lights on the left side of the module, as `on` or `of
 
 ## Example conversation
 
+![Example knob](images/exampleknob.png)
+
 >**Defuser**: Defuse knob\
 >**Bot**: Read the lights on the left side of the module: 'on' or 'off' in reading order.\
 >**Defuser**: Off off off on off off\

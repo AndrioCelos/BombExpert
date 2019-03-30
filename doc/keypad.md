@@ -8,22 +8,24 @@ Say `new keypad` to start working on a new module.
 
 ## Example conversation
 
+![Example keypad](images/examplekeypad.png)
+
 >**Defuser**: Defuse keypad\
 >**Bot**: Describe one of the glyphs on the keypad.\
->**Defuser**: A white star\
+>**Defuser**: A backward C with a dot\
 >**Bot**: OK. Describe the second glyph.\
->**Defuser**: A balloon\
+>**Defuser**: A backward E with dots\
 >**Bot**: OK. Describe the third glyph.\
->**Defuser**: A backward E\
+>**Defuser**: A loop the loop\
 >**Bot**: OK. Describe the last glyph.\
->**Defuser**: A curvy H\
+>**Defuser**: An upside-down question mark\
 >**Bot**: Press the backward E. Then say OK.\
 >**Defuser**: OK\
->**Bot**: Press the balloon. Then say OK.\
+>**Bot**: Press the backward C. Then say OK.\
 >**Defuser**: OK\
->**Bot**: Press the white star. Then say OK.\
+>**Bot**: Press the cursive loop. Then say OK.\
 >**Defuser**: OK\
->**Bot**: Press the curvy H. Then say OK.
+>**Bot**: Press the upside-down question mark. Then say OK.
 
 ## Glyph reference
 

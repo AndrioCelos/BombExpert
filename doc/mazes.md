@@ -10,11 +10,13 @@ Say `new maze` to start working on a new module.
 
 ## Example conversation
 
+![Example maze](images/examplemaze.png)
+
 >**Defuser**: Defuse maze\
 >**Bot**: Locate a green circle.\
->**Defuser**: 1 2\
+>**Defuser**: 3 4\
 >**Bot**: Locate the white dot.\
->**Defuser**: 3 1\
+>**Defuser**: 5 1\
 >**Bot**: Locate the red triangle.\
->**Defuser**: 6 2\
->**Bot**: South, West, South, East, South, East, North, East, East, North
+>**Defuser**: 2 3\
+>**Bot**: Take these steps: East, South 3 times, West, North, West 3 times.

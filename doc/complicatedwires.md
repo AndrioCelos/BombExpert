@@ -8,9 +8,11 @@ If there are multiple complicated wires modules, you can then list the wires on 
 
 # Example conversation
 
+![Example complicated wires](images/examplecomplicatedwires.png)
+
 >**Defuser**: Defuse complicated wires\
 >**Bot**: For each wire, left to right, say these key words if they apply: Red, Blue, Light, Star. Say 'next' after each wire.\
->**Defuser**: Red star, next, light, next, nothing, next, red light\
+>**Defuser**: Red light star, then red blue light star, then red blue light star, then nothing\
 >**Bot**: How many batteries are there on the sides of the bomb?\
 >**Defuser**: 3\
->**Bot**: Cut the following wires: the first wire, the third wire, the fourth wire.
+>**Bot**: Cut the following wires: the first wire, the fourth wire.

@@ -10,6 +10,8 @@ If there are multiple Button modules, you can then describe the next one.
 
 ## Example conversation
 
+![Example button](images/examplebutton.png)
+
 >**Defuser**: Defuse button\
 >**Bot**: Tell me the colour and label of the button.\
 >**Defuser**: White Detonate\

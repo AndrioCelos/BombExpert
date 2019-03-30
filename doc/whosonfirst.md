@@ -8,6 +8,8 @@ Say `next set` to start the next stage or a new module. As a short cut, you may 
 
 ## Example conversation
 
+![Example Who's on First](images/examplewhosonfirst.png)
+
 >**Defuser**: Defuse Who's on First\
 >**Bot**: Read the text on the top of the module.\
 >**Defuser**: No\

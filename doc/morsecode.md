@@ -10,6 +10,8 @@ Use the following key words: `dash`, `long`, `dot`, `short`, `space`, `start`. `
 
 ## Example conversation
 
+![Example Morse code](images/examplemorsecode.png)
+
 >**Defuser**: Defuse Morse code\
 >**Bot**: Tell me part of the sequence of dashes, dots, spaces and the start of the word. Three letters after the start is enough.\
 >**Defuser**: start dash dot dot dot space dot dash dot space dot\

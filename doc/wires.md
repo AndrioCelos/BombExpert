@@ -8,6 +8,8 @@ If there are multiple Wires modules, you can then list the wires on the next one
 
 ## Example conversation
 
+![Example wires](images/examplewires.png)
+
 >**Defuser**: Defuse wires\
 >**Bot**: Tell me the colours of the wires from top to bottom.\
 >**Defuser**: Red Red White Yellow\

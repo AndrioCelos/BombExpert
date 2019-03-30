@@ -10,6 +10,8 @@ Be sure to update the number of strikes when needed by saying `strike zero`, `st
 
 ## Example conversation
 
+![Example Simon Says](images/examplesimonsays.png)
+
 >**Defuser**: Defuse Simon Says\
 >**Bot**: Look on the sides of the bomb for a serial number. Does it contain a vowel?\
 >**Defuser**: Yes\
