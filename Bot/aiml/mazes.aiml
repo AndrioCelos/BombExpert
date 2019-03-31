@@ -61,7 +61,49 @@
 				<condition var='result'>
 					<li value='NoPath'>I could not find a path. Please try again.</li>
 					<li value='NoMaze'>That green circle position does not seem right. Please try again.</li>
-					<li><get var='result'/></li>
+					<li>
+						<think>
+							<set var='steps'>nil</set>
+							<condition var='result'>
+								<li value='nil'></li>
+								<li>
+									<set var='direction'><srai>XFirst <get var='result'/></srai></set>
+									<set var='result'><srai>XRest <get var='result'/></srai></set>
+									<set var='break'>false</set>
+									<set var='count'>1</set>
+
+									<!-- Count repeated steps in the same direction. -->
+									<condition var='break'>
+										<li value='true'></li>
+										<li>
+											<set var='direction2'><srai>XFirst <get var='result'/></srai></set>
+											<condition var='direction2'>
+												<li value='nil'><set var='break'>true</set></li>
+												<li><value><get var='direction'/></value>
+													<set var='count'><map name='successor'><get var='count'/></map></set>
+													<set var='result'><srai>XRest <get var='result'/></srai></set>
+												</li>
+												<li><set var='break'>true</set>	</li>
+											</condition>
+											<loop/>
+										</li>
+									</condition>
+
+									<condition var='count'>
+										<li value='1'><set var='step'><get var='direction'/></set></li>
+										<li><set var='step'><get var='direction'/> <get var='count'/> times</set></li>
+									</condition>
+
+									<condition var='steps'>
+										<li value='nil'><set var='steps'><get var='step'/></set></li>
+										<li><set var='steps'><get var='steps'/>, <get var='step'/></set></li>
+									</condition>
+									<loop/>
+								</li>
+							</condition>
+						</think>
+						Take these steps: <get var='steps'/>.
+					</li>
 				</condition>
 			</template>
 		</category>
