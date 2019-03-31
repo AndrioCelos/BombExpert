@@ -56,6 +56,23 @@
 			<template>
 				<think>
 					<set name='BombComplicatedWires'><star/></set>
+					<set var='result'><srai>SolveComplicatedWires <star/></srai></set>
+					<set var='code'><srai>XFirst <get var='result'/></srai></set>
+					<set var='detail'><srai>XRest <get var='result'/></srai></set>
+				</think>
+				<condition var='code'>
+					<li value='NeedBatteryCount'>How many batteries are there on the sides of the bomb?</li>
+					<li value='NeedPortParallel'>Does the bomb have a long parallel port on the side?</li>
+					<li value='NeedSerialNumberIsOdd'>Is the last digit of the serial number of the bomb odd?</li>
+					<li><get var='result'/></li>
+				</condition>
+			</template>
+		</category>
+
+		<category>
+			<pattern>SolveComplicatedWires *</pattern>
+			<template>
+				<think>
 					<set var='input'><star/></set>
 					<set var='red'>false</set>
 					<set var='blue'>false</set>
@@ -103,7 +120,7 @@
 											<condition name='BombPortParallel'>
 												<li value='true'><set var='cut'>true</set></li>
 												<li value='false'><set var='cut'>false</set></li>
-												<li value='unknown'><set var='result'>NeedPortParallel</set></li>
+												<li value='unknown'><set var='result'>NeedPort Parallel</set></li>
 											</condition>
 										</li>
 										<li value='B'>
@@ -137,9 +154,9 @@
 					</condition>
 				</think>
 				<condition var='result'>
-					<li value='NeedPortParallel'>Does the bomb have a long parallel port on the side?</li>
-					<li value='NeedSerialNumberIsOdd'>Look on the sides of the bomb for a serial number. Is the last digit odd?</li>
-					<li value='NeedBatteryCount'>How many batteries are there on the sides of the bomb?</li>
+					<li value='NeedPort Parallel'><get var='result'/></li>
+					<li value='NeedSerialNumberIsOdd'><get var='result'/></li>
+					<li value='NeedBatteryCount'><get var='result'/></li>
 					<li>
 						<condition var='toNotCutCount'>
 							<li value='0'>
@@ -229,7 +246,7 @@
 
 		<category>
 			<pattern><set>YesOrNo</set></pattern>
-			<that>Is the last digit odd?</that>
+			<that>Is the last digit of the serial number of the bomb odd?</that>
 			<template>
 				<think><set name='BombSerialNumberIsOdd'><map name='ParseBoolean'><star/></map></set></think>
 				<srai>ProcessInput <get name='BombComplicatedWires'/></srai>

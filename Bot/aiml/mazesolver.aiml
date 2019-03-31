@@ -115,7 +115,7 @@
 								<set name='MazeSolverOpen'>PathFound</set>  <!-- Stop looping -->
 							</li>
 							<li>
-								<set var='result'><get name='MazeSolverDir'/>... <get var='result'/></set>
+								<set var='result'><get name='MazeSolverDir'/> <get var='result'/></set>
 								<!-- The value is which direction we moved to get here, so reverse it. -->
 								<condition name='MazeSolverDir'>
 									<li value='North'><set name='MazeSolverY'><map name='successor'><get name='MazeSolverY'/></map></set></li>

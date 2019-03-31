@@ -3,10 +3,7 @@
 	<category>
 		<pattern>defuse mazes</pattern>
 		<template>
-			<think>
-				<set name='topic'>Bomb Mazes</set>
-				<srai>reset mazes</srai>
-			</think>
+			<think><set name='topic'>Bomb Mazes</set></think>
 			<oob>SetGrammar maze</oob><oob>SetPartialInput false</oob> Locate a green circle.
 		</template>
 	</category>
@@ -54,7 +51,7 @@
 				<think>
 					<set var='result'>
 						<srai>
-							MazeSolver Solve
+							SolveMaze
 							<get name='MazeCircleX'/> <get name='MazeCircleY'/>
 							<get name='MazeStartX'/> <get name='MazeStartY'/>
 							<star index='1'/> <star index='2'/>
@@ -67,6 +64,11 @@
 					<li><get var='result'/></li>
 				</condition>
 			</template>
+		</category>
+
+		<category>
+			<pattern>SolveMaze *</pattern>
+			<template><srai>MazeSolver Solve <star/></srai></template>
 		</category>
 	</topic>
 </aiml>

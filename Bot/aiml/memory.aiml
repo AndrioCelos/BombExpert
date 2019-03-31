@@ -81,6 +81,86 @@
 				Press <get var='label'/>.
 			</template>
 		</category>
+
+		<category>
+			<pattern><set>number</set> <set>number</set> <set>number</set> <set>number</set> <set>number</set></pattern>
+			<template>
+				<think>
+					<set var='rule'><srai>MemoryGetRule <get name='BombMemoryStage'/> <star/></srai></set>
+					<set var='ruleType'><srai>XFirst <get var='rule'/></srai></set>
+					<set var='ruleParam'><srai>XRest <get var='rule'/></srai></set>
+
+					<condition var='ruleType'>
+						<li value='Position'><set var='pos'><get var='ruleParam'/></set></li>
+						<li value='Label'><set var='pos'><srai>MemoryFindNumber <get var='ruleParam'/> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/></srai></set></li>
+						<li value='SamePosition'><set var='pos'><get><name>MemoryPos<get var='ruleParam'/></name></get></set></li>
+						<li value='SameLabel'><set var='pos'><srai>MemoryFindNumber <get><name>MemoryLabel<get var='ruleParam'/></name></get> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/></srai></set></li>
+					</condition>
+
+					<set var='label'><star><index><map name='successor'><get var='pos'/></map></index></star></set>
+					<set><name>MemoryPos<get name='BombMemoryStage'/></name><get var='pos'/></set>
+					<set><name>MemoryLabel<get name='BombMemoryStage'/></name><get var='label'/></set>
+					<set name='BombMemoryStage'><map name='successor'><get name='BombMemoryStage'/></map></set>
+				</think>
+				Press <get var='label'/>.
+			</template>
+		</category>
+
+		<!-- Usage: MemoryGetRule [stage] [display] -->
+		<!-- Returns one of the following rule types, along with a number: -->
+		<!-- Position [n], Label [n], SamePosition [stage], SameLabel [stage] -->
+		<category>
+			<pattern>MemoryGetRule * *</pattern>
+			<template>
+				<think>
+					<set var='stage'><star/></set>
+					<set var='display'><star index='2'/></set>
+				</think>
+				<condition var='stage'>
+					<li value='1'>
+						<condition var='display'>
+							<li value='1'>Position 2</li>
+							<li value='2'>Position 2</li>
+							<li value='3'>Position 3</li>
+							<li value='4'>Position 4</li>
+						</condition>
+					</li>
+					<li value='2'>
+						<condition var='display'>
+							<li value='1'>Label 4</li>
+							<li value='2'>SamePosition 1</li>
+							<li value='3'>Position 1</li>
+							<li value='4'>SamePosition 1</li>
+						</condition>
+					</li>
+					<li value='3'>
+						<condition var='display'>
+							<li value='1'>SameLabel 2</li>
+							<li value='2'>SameLabel 1</li>
+							<li value='3'>Position 3</li>
+							<li value='4'>Label 4</li>
+						</condition>
+					</li>
+					<li value='4'>
+						<condition var='display'>
+							<li value='1'>SamePosition 1</li>
+							<li value='2'>Position 1</li>
+							<li value='3'>SamePosition 2</li>
+							<li value='4'>SamePosition 2</li>
+						</condition>
+					</li>
+					<li value='5'>
+						<condition var='display'>
+							<li value='1'>SameLabel 1</li>
+							<li value='2'>SameLabel 2</li>
+							<li value='3'>SameLabel 4</li>
+							<li value='4'>SameLabel 3</li>
+						</condition>
+					</li>
+				</condition>
+			</template>
+		</category>
+
 		<category>
 			<pattern>MemoryFindNumber <set>number</set> <set>number</set> <set>number</set> <set>number</set> <set>number</set></pattern>
 			<template>

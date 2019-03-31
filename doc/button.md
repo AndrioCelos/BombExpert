@@ -15,7 +15,9 @@ If there are multiple Button modules, you can then describe the next one.
 >**Defuser**: Defuse button\
 >**Bot**: Tell me the colour and label of the button.\
 >**Defuser**: White Detonate\
->**Bot**: Look on the sides of the bomb. Is there a lit indicator that says CAR?\
+>**Bot**: How many batteries are there on the sides of the bomb?\
+>**Defuser**: 1\
+>**Bot**: Does the bomb have a lit indicator that says C A R?\
 >**Defuser**: Yes\
 >**Bot**: Press and hold the button. Keep holding it, and tell me what colour light appears.\
 >**Defuser**: Blue\

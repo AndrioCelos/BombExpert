@@ -12,53 +12,58 @@
 	</category>
 	<category>
 		<pattern>defuse knob on *</pattern>
-		<template><srai>Knob HandleInput on <star/></srai></template>
+		<template><srai>KnobInput on <star/></srai></template>
 	</category>
 	<category>
 		<pattern>defuse knob off *</pattern>
-		<template><srai>Knob HandleInput off <star/></srai></template>
+		<template><srai>KnobInput off <star/></srai></template>
 	</category>
 
 	<topic name='Bomb Knob'>
 		<category>
 			<pattern>on *</pattern>
 			<template>
-				<srai>Knob HandleInput on <star/></srai>
+				<srai>KnobInput on <star/></srai>
 			</template>
 		</category>
 		<category>
 			<pattern>off *</pattern>
 			<template>
-				<srai>Knob HandleInput off <star/></srai>
+				<srai>KnobInput off <star/></srai>
 			</template>
 		</category>
 		<category>
 			<pattern>all off</pattern>
 			<template>
-				<srai>Knob HandleInput off off off off off off</srai>
+				<srai>KnobInput off off off off off off</srai>
 			</template>
 		</category>
 	</topic>
 
 	<category>
-		<pattern>Knob HandleInput *</pattern>
+		<pattern>KnobInput *</pattern>
 		<template>
-			<think>
-				<set var='input'><star/></set>
-				<condition var='input'>
-					<li value='off off on on on on'><set var='result'>up</set></li>
-					<li value='on off on off on on'><set var='result'>up</set></li>
-					<li value='off on on on on on'><set var='result'>down</set></li>
-					<li value='on off on off on off'><set var='result'>down</set></li>
-					<li value='off off off on off off'><set var='result'>left</set></li>
-					<li value='off off off off off off'><set var='result'>left</set></li>
-					<li value='on off on on on on'><set var='result'>right</set></li>
-					<li><set var='result'>unknown</set></li>
-				</condition>
-			</think>
+			<think><set var='result'><srai>SolveKnob <star/></srai></set></think>
 			<condition var='result'>
 				<li value='unknown'>I do not recognise that pattern. Try again.</li>
 				<li>Turn the knob to the <get var='result'/> position, with respect to the 'Up' label.</li>
+			</condition>
+		</template>
+	</category>
+
+	<category>
+		<pattern>SolveKnob *</pattern>
+		<template>
+			<think><set var='input'><star/></set></think>
+			<condition var='input'>
+				<li value='off off on on on on'>Up</li>
+				<li value='on off on off on on'>Up</li>
+				<li value='off on on on on on'>Down</li>
+				<li value='on off on off on off'>Down</li>
+				<li value='off off off on off off'>Left</li>
+				<li value='off off off off off off'>Left</li>
+				<li value='on off on on on on'>Right</li>
+				<li>unknown</li>
 			</condition>
 		</template>
 	</category>
