@@ -4,39 +4,68 @@
 		<pattern>XTest KeypadTests 1</pattern>
 		<template>
 			<think>
+				<set name='SraixUnavailable'>true</set>
 				<set name='topic'>Bomb Keypad</set>
 
-				<test name='Keypad Find Column 1' expected='1'>FindColumn Balloon Lambda Spaceship BackwardC</test>
-				<test name='Keypad Find Column 2' expected='2'>FindColumn Euro Balloon BackwardC CurlyFry</test>
-				<test name='Keypad Find Column 3' expected='3'>FindColumn WhiteStar Lambda DoubleK CurlyFry</test>
-				<test name='Keypad Find Column 4' expected='4'>FindColumn Paragraph Six DoubleK SmileyFace</test>
-				<test name='Keypad Find Column 5' expected='5'>FindColumn Psi Paragraph P SmileyFace</test>
-				<test name='Keypad Find Column 6' expected='6'>FindColumn Six Euro Psi Omega</test>
-				<test name='Keypad Find Column 7' expected='NoColumn'>FindColumn Hash Ae N BlackStar</test>
+				<test name='Keypad Solve Keypad 1' expected='Balloon UpsideDownY SquidKnife LeftC'>SolveKeypad Keypad Balloon UpsideDownY SquidKnife LeftC</test>
+				<test name='Keypad Solve Keypad 2' expected='Euro Balloon LeftC Cursive'>SolveKeypad Keypad Euro Balloon LeftC Cursive</test>
+				<test name='Keypad Solve Keypad 3' expected='Cursive DoubleK UpsideDownY HollowStar'>SolveKeypad Keypad HollowStar UpsideDownY DoubleK Cursive</test>
+				<test name='Keypad Solve Keypad 4' expected='Six Paragraph DoubleK SmileyFace'>SolveKeypad Keypad Paragraph Six DoubleK SmileyFace</test>
+				<test name='Keypad Solve Keypad 5' expected='Pitchfork SmileyFace BT Paragraph'>SolveKeypad Keypad Pitchfork Paragraph BT SmileyFace</test>
+				<test name='Keypad Solve Keypad 6' expected='Six Euro Pitchfork Omega'>SolveKeypad Keypad Six Euro Pitchfork Omega</test>
+				<test name='Keypad Solve Keypad 7' expected='NoColumn'>SolveKeypad Keypad Tracks Ae NWithHat FilledStar</test>
 
-				<set name='BombKeypadGlyph1'>WhiteStar</set>
-				<set name='BombKeypadGlyph2'>QuestionMark</set>
-				<set name='BombKeypadGlyph3'>Balloon</set>
-				<set name='BombKeypadGlyph4'>Euro</set>
-				<test name='Keypad Order Glyphs' expected='Euro Balloon WhiteStar QuestionMark'>OrderGlyphs 2</test>
+				<test name='Keypad Solve CheckKeypad 1' expected='true'>SolveKeypad CheckKeypad Balloon UpsideDownY SquidKnife LeftC</test>
+				<test name='Keypad Solve CheckKeypad 2' expected='false'>SolveKeypad CheckKeypad Tracks Ae NWithHat FilledStar</test>
+				<test name='Keypad Solve CheckKeypad 3' expected='false'>SolveKeypad CheckKeypad Tripod</test>
+
+				<srai>SolveKeypad Start</srai>
+				<srai>SolveKeypad GlyphPresent true DoubleK</srai>
+				<test name='Keypad Solve Stage 2-1' expected='Tell Copyright Pumpkin Cursive DoubleK MeltedThree UpsideDownY HollowStar'>SolveKeypad GlyphPresent true HollowStar</test>
+
+				<srai>new keypad</srai>
+				<srai>SolveKeypad Start</srai>
+				<test name='Keypad Solve Stage 2-2' expected='Tell Pitchfork SmileyFace BT RightC Paragraph Dragon FilledStar'>SolveKeypad GlyphPresent true RightC</test>
 			</think>
 		</template>
 	</category>
 
 	<category>
-		<pattern>XTest KeypadTests 2</pattern>
+		<pattern>XTest Keypad Conversation 1</pattern>
 		<template>
 			<think>
+				<srai>new bomb</srai>
 				<srai>defuse keypad</srai>
-				<srai>white star</srai>
-				<srai>upside-down question mark</srai>
-				<srai>balloon</srai>
-				<test name='Keypad Stage 1 Conversation 1' expected='Press the backward E. Then say OK.'>backward E</test>
-				<test name='Keypad Stage 1 Conversation 2' expected='Press the balloon. Then say OK.'>OK</test>
-				<test name='Keypad Stage 1 Conversation 3' expected='Press the white star. Then say OK.'>OK</test>
-				<test name='Keypad Stage 1 Conversation 4' expected='Press the upside-down question mark. Then say OK.'>OK</test>
-				<test name='Keypad Stage 1 Conversation 5' expected='The keypad should be finished now.'>OK</test>
 			</think>
+			<test name='Keypad Conversation 1' expected='OK. Describe the second glyph.'>A backward C with a dot</test>
 		</template>
+	</category>
+	<category>
+		<pattern>XTest Keypad Conversation 2</pattern>
+		<template><test name='Keypad Conversation 2' expected='OK. Describe the third glyph.'>A backward E with dots</test></template>
+	</category>
+	<category>
+		<pattern>XTest Keypad Conversation 3</pattern>
+		<template><test name='Keypad Conversation 3' expected='OK. Describe the last glyph.'>A loop the loop</test></template>
+	</category>
+	<category>
+		<pattern>XTest Keypad Conversation 4</pattern>
+		<template><test name='Keypad Conversation 4' expected='&lt;oob&gt;SetGrammar keypadOK&lt;/oob&gt; Press the backward E. Then say OK.'>An upside-down question mark</test></template>
+	</category>
+	<category>
+		<pattern>XTest Keypad Conversation 5</pattern>
+		<template><test name='Keypad Conversation 5' expected='Press the backward C. Then say OK.'>OK</test></template>
+	</category>
+	<category>
+		<pattern>XTest Keypad Conversation 6</pattern>
+		<template><test name='Keypad Conversation 6' expected='Press the cursive loop. Then say OK.'>OK</test></template>
+	</category>
+	<category>
+		<pattern>XTest Keypad Conversation 7</pattern>
+		<template><test name='Keypad Conversation 7' expected='Press the upside-down question mark. Then say OK.'>OK</test></template>
+	</category>
+	<category>
+		<pattern>XTest Keypad Conversation 8</pattern>
+		<template><test name='Keypad Conversation 8' expected='The keypad should be finished now.'>OK</test></template>
 	</category>
 </aiml>

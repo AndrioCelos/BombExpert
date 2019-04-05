@@ -4,10 +4,11 @@
 		<pattern>XTest ComplicatedWires 1</pattern>
 		<template>
 			<think>
+				<set name='SraixUnavailable'>true</set>
 				<srai>new bomb</srai>
 				<srai>defuse complicated wires</srai>
 			</think>
-			<test name='Complicated Wires 1-1' expected='Look on the sides of the bomb for a serial number. Is the last digit odd?'>white next red next blue next red blue</test>
+			<test name='Complicated Wires 1-1' expected='Is the last digit of the serial number of the bomb odd?'>white then red then blue then red blue</test>
 		</template>
 	</category>
 	<category>
@@ -16,7 +17,7 @@
 			<think>
 				<test name='Complicated Wires 1-2' expected='Cut the first wire.'>yes</test>
 			</think>
-			<test name='Complicated Wires 2-1' expected='Does the bomb have a long parallel port on the side?'>star light next star red blue</test>
+			<test name='Complicated Wires 2-1' expected='Does the bomb have a long parallel port on the side?'>star light then star red blue</test>
 		</template>
 	</category>
 	<category>
@@ -30,9 +31,24 @@
 		<template>
 			<think>
 				<test name='Complicated Wires 2-3' expected='Cut both wires.'>2</test>
-				<test name='Complicated Wires 3' expected='Cut all wires.'>star next star next star</test>
-				<test name='Complicated Wires 4' expected='Cut the following wires: the first wire, the second wire, the third wire.'>star next star next star next blue</test>
+				<test name='Complicated Wires 3' expected='Cut all wires.'>star then star then star</test>
+				<test name='Complicated Wires 4' expected='Cut the following wires: the first wire, the second wire, the third wire.'>star then star then star then blue</test>
 			</think>
 		</template>
+	</category>
+
+	<category>
+		<pattern>XTest ComplicatedWires Conversation 1</pattern>
+		<template>
+			<think>
+				<srai>new bomb</srai>
+				<set name='topic'>Bomb ComplicatedWires</set>
+			</think>
+			<test name='Complicated Wires Conversation 1' expected='How many batteries are there on the sides of the bomb?'>Red light star then red blue light star then red blue light star then nothing</test>
+		</template>
+	</category>
+	<category>
+		<pattern>XTest ComplicatedWires Conversation 2</pattern>
+		<template><test name='Complicated Wires Conversation 2' expected='Cut the following wires: the first wire, the fourth wire.'>3</test></template>
 	</category>
 </aiml>

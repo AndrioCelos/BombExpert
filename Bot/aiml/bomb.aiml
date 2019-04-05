@@ -17,6 +17,8 @@
 				<set name='BombPortStereoRCA'>unknown</set>
 				<set name='BombPortEmptyPlate'>unknown</set>
 				<set name='BombBatteryCount'>unknown</set>
+				<set name='BombIndicatorLitCAR'>unknown</set>
+				<set name='BombIndicatorLitFRK'>unknown</set>
 			</think>
 			<oob>SetGrammar bomb</oob><oob>SetPartialInput false</oob> OK
 		</template>
