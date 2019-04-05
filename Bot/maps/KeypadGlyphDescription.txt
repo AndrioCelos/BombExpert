@@ -26,5 +26,5 @@ Cursive     : cursive loop
 Tracks      : square train track, or hash sign
 Balloon     : balloon
 WeirdNose   : zeta, or nose
-Lambda      : lambda, or upside-down Y
+UpsideDownY : lambda, or upside-down Y
 BT          : B and T

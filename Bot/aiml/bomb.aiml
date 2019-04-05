@@ -9,7 +9,13 @@
 				<set name='BombSerialNumber'>unknown</set>
 				<set name='BombSerialNumberIsOdd'>unknown</set>
 				<set name='BombSerialNumberHasVowel'>unknown</set>
+				<set name='BombPortDviD'>unknown</set>
 				<set name='BombPortParallel'>unknown</set>
+				<set name='BombPortPS2'>unknown</set>
+				<set name='BombPortRJ45'>unknown</set>
+				<set name='BombPortSerial'>unknown</set>
+				<set name='BombPortStereoRCA'>unknown</set>
+				<set name='BombPortEmptyPlate'>unknown</set>
 				<set name='BombBatteryCount'>unknown</set>
 			</think>
 			<oob>SetGrammar bomb</oob><oob>SetPartialInput false</oob> OK
@@ -46,6 +52,18 @@
 			<think><set name='BombStrikeCount'>2</set></think>
 			OK
 		</template>
+	</category>
+
+	<category>
+		<pattern>rule seed <set>number</set></pattern>
+		<template>
+			<think><set name='RuleSeed'><star/></set></think>
+			<explode><star/></explode>. OK.
+		</template>
+	</category>
+	<category>
+		<pattern>rule seed <set>number</set> *</pattern>
+		<template><srai>rule seed <star/><star index='2'/></srai></template>
 	</category>
 
 	<category>
@@ -195,6 +213,11 @@
 	<category>
 		<pattern>verify batteries</pattern>
 		<template><get name='BombBatteryCount'/></template>
+	</category>
+
+	<category>
+		<pattern>verify rule seed</pattern>
+		<template>The rule seed is <explode><get name='RuleSeed'/></explode>.</template>
 	</category>
 
 	<category>

@@ -20,10 +20,12 @@
 					<item> batteries </item>
 					<item> light freak </item>
 					<item> light car </item>
+					<item> rule seed </item>
 				</one-of>
 			</item>
 			<item> new bomb </item>
 			<item> verification code </item>
+			<item> rule seed <item repeat='1-10'><ruleref uri='#digit'/></item></item>
 		</one-of>
 	</rule>
 	<rule id='defuse'>
@@ -105,6 +107,12 @@
 			<item> 7 </item>
 			<item> 8 </item>
 			<item> 9 </item>
+		</one-of>
+	</rule>
+	<rule id='letterordigit' scope='public'>
+		<one-of>
+			<item><ruleref uri='#letter'/></item>
+			<item><ruleref uri='#digit'/></item>
 		</one-of>
 	</rule>
 	<rule id='number' scope='public'>

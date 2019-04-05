@@ -1,0 +1,8 @@
+start
+dash
+dot
+dah
+dit
+long
+short
+space

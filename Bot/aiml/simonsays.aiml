@@ -26,14 +26,14 @@
 			</template>
 		</category>
 
-		<!-- Usage: SimonSaysInput [colours ...] -->
+		<!-- Usage: SolveSimon [colours ...] -->
 		<!-- Tells the user what to press. -->
 		<category>
 			<pattern>SimonSaysInput *</pattern>
 			<template>
 				<think>
 					<set var='list'>
-						<srai>SolveSimonSays <star/></srai>
+						<srai>SolveSimonSays <get name='BombSerialNumberHasVowel'/> <get name='BombStrikeCount'/> <star/></srai>
 					</set>
 					<set var='result'><srai>XFirst <get var='list'/></srai></set>
 					<set var='list'><srai>XRest <get var='list'/></srai></set>
@@ -54,6 +54,15 @@
 		<!-- Returns a list of mapped colours that the Defuser must press. -->
 		<category>
 			<pattern>SolveSimonSays *</pattern>
+			<template>
+				<condition name='SraixUnavailable'>
+					<li value='true'><srai>SolveSimonSaysFallback <star/></srai></li>
+					<li><sraix service='BombExpert.Solvers.SimonSaysSolver'><get name='RuleSeed'/> <star/></sraix></li>
+				</condition>
+			</template>
+		</category>
+		<category>
+			<pattern>SolveSimonSaysFallback *</pattern>
 			<template>
 				<think>
 					<set var='result'>nil</set>

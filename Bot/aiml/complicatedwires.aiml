@@ -57,12 +57,10 @@
 				<think>
 					<set name='BombComplicatedWires'><star/></set>
 					<set var='result'><srai>SolveComplicatedWires <star/></srai></set>
-					<set var='code'><srai>XFirst <get var='result'/></srai></set>
-					<set var='detail'><srai>XRest <get var='result'/></srai></set>
 				</think>
-				<condition var='code'>
+				<condition var='result'>
 					<li value='NeedBatteryCount'>How many batteries are there on the sides of the bomb?</li>
-					<li value='NeedPortParallel'>Does the bomb have a long parallel port on the side?</li>
+					<li value='NeedPort Parallel'>Does the bomb have a long parallel port on the side?</li>
 					<li value='NeedSerialNumberIsOdd'>Is the last digit of the serial number of the bomb odd?</li>
 					<li><get var='result'/></li>
 				</condition>
@@ -71,6 +69,15 @@
 
 		<category>
 			<pattern>SolveComplicatedWires *</pattern>
+			<template>
+				<condition name='SraixUnavailable'>
+					<li value='true'><srai>SolveComplicatedWiresFallback <star/></srai></li>
+					<li><sraix service='BombExpert.Solvers.ComplicatedWiresSolver'><get name='RuleSeed'/> <star/></sraix></li>
+				</condition>
+			</template>
+		</category>
+		<category>
+			<pattern>SolveComplicatedWiresFallback *</pattern>
 			<template>
 				<think>
 					<set var='input'><star/></set>

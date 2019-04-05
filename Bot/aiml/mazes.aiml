@@ -3,7 +3,9 @@
 	<category>
 		<pattern>defuse mazes</pattern>
 		<template>
-			<think><set name='topic'>Bomb Mazes</set></think>
+			<think>
+				<set name='topic'>Bomb Mazes</set>
+			</think>
 			<oob>SetGrammar maze</oob><oob>SetPartialInput false</oob> Locate a green circle.
 		</template>
 	</category>
@@ -61,7 +63,7 @@
 				<condition var='result'>
 					<li value='NoPath'>I could not find a path. Please try again.</li>
 					<li value='NoMaze'>That green circle position does not seem right. Please try again.</li>
-					<li>
+					<li><!--<get var='result'/>-->
 						<think>
 							<set var='steps'>nil</set>
 							<condition var='result'>
@@ -110,7 +112,12 @@
 
 		<category>
 			<pattern>SolveMaze *</pattern>
-			<template><srai>MazeSolver Solve <star/></srai></template>
+			<template>
+				<condition name='SraixUnavailable'>
+					<li value='true'><srai>MazeSolver Solve <star/></srai></li>
+					<li><sraix service='BombExpert.Solvers.MazeSolver'><get name='RuleSeed'/> <star/></sraix></li>
+				</condition>
+			</template>
 		</category>
 	</topic>
 </aiml>

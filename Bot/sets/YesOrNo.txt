@@ -1,2 +1,4 @@
 Yes
 No
+True
+False

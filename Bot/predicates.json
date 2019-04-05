@@ -1,10 +1,10 @@
 {
+	// Change this to 'true' to disable use of the <sraix> tag.
+	"SraixUnavailable": "false",
+
 	// Bomb properties: the 'new bomb' category should reset these.
-	"BombBatteryCount": "unknown",
-	"BombLightCAR": "unknown",
-	"BombLightFRK": "unknown",
-	"BombSerialNumber": "unknown",
-	"BombSerialNumberIsOdd": "unknown",
-	"BombSerialNumberHasVowel": "unknown",
-	"BombStrikeCount": "0"
+	"BombStrikeCount": "0",
+
+	// Rule seed carries over between bombs until explicitly reset.
+	"RuleSeed": "1"
 }

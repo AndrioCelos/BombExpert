@@ -30,71 +30,16 @@
 			<pattern><set>number</set> <set>number</set> <set>number</set> <set>number</set> <set>number</set></pattern>
 			<template>
 				<think>
-					<set var='display'><star/></set>
-					<condition name='BombMemoryStage'>
-						<li value='1'>
-							<condition var='display'>
-								<li value='1'><set var='pos'>2</set></li>
-								<li value='2'><set var='pos'>2</set></li>
-								<li value='3'><set var='pos'>3</set></li>
-								<li value='4'><set var='pos'>4</set></li>
-							</condition>
-						</li>
-						<li value='2'>
-							<condition var='display'>
-								<li value='1'><set var='pos'><srai>MemoryFindNumber 4 <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/></srai></set></li>
-								<li value='2'><set var='pos'><get name='MemoryPos1'/></set></li>
-								<li value='3'><set var='pos'>1</set></li>
-								<li value='4'><set var='pos'><get name='MemoryPos1'/></set></li>
-							</condition>
-						</li>
-						<li value='3'>
-							<condition var='display'>
-								<li value='1'><set var='pos'><srai>MemoryFindNumber <get name='MemoryLabel2'/> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/></srai></set></li>
-								<li value='2'><set var='pos'><srai>MemoryFindNumber <get name='MemoryLabel1'/> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/></srai></set></li>
-								<li value='3'><set var='pos'>3</set></li>
-								<li value='4'><set var='pos'><srai>MemoryFindNumber 4 <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/></srai></set></li>
-							</condition>
-						</li>
-						<li value='4'>
-							<condition var='display'>
-								<li value='1'><set var='pos'><get name='MemoryPos1'/></set></li>
-								<li value='2'><set var='pos'>1</set></li>
-								<li value='3'><set var='pos'><get name='MemoryPos2'/></set></li>
-								<li value='4'><set var='pos'><get name='MemoryPos2'/></set></li>
-							</condition>
-						</li>
-						<li value='5'>
-							<condition var='display'>
-								<li value='1'><set var='pos'><srai>MemoryFindNumber <get name='MemoryLabel1'/> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/></srai></set></li>
-								<li value='2'><set var='pos'><srai>MemoryFindNumber <get name='MemoryLabel2'/> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/></srai></set></li>
-								<li value='3'><set var='pos'><srai>MemoryFindNumber <get name='MemoryLabel4'/> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/></srai></set></li>
-								<li value='4'><set var='pos'><srai>MemoryFindNumber <get name='MemoryLabel3'/> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/></srai></set></li>
-							</condition>
-						</li>
-					</condition>
-					<set var='label'><star><index><map name='successor'><get var='pos'/></map></index></star></set>
-					<set><name>MemoryPos<get name='BombMemoryStage'/></name><get var='pos'/></set>
-					<set><name>MemoryLabel<get name='BombMemoryStage'/></name><get var='label'/></set>
-					<set name='BombMemoryStage'><map name='successor'><get name='BombMemoryStage'/></map></set>
-				</think>
-				Press <get var='label'/>.
-			</template>
-		</category>
-
-		<category>
-			<pattern><set>number</set> <set>number</set> <set>number</set> <set>number</set> <set>number</set></pattern>
-			<template>
-				<think>
-					<set var='rule'><srai>MemoryGetRule <get name='BombMemoryStage'/> <star/></srai></set>
+					<set var='rule'><srai>GetRule <get name='BombMemoryStage'/> <star/></srai></set>
 					<set var='ruleType'><srai>XFirst <get var='rule'/></srai></set>
 					<set var='ruleParam'><srai>XRest <get var='rule'/></srai></set>
+					<set var='display'><star/></set>
 
 					<condition var='ruleType'>
 						<li value='Position'><set var='pos'><get var='ruleParam'/></set></li>
-						<li value='Label'><set var='pos'><srai>MemoryFindNumber <get var='ruleParam'/> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/></srai></set></li>
+						<li value='Label'><set var='pos'><srai>XIndex <get var='ruleParam'/> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/></srai></set></li>
 						<li value='SamePosition'><set var='pos'><get><name>MemoryPos<get var='ruleParam'/></name></get></set></li>
-						<li value='SameLabel'><set var='pos'><srai>MemoryFindNumber <get><name>MemoryLabel<get var='ruleParam'/></name></get> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/></srai></set></li>
+						<li value='SameLabel'><set var='pos'><srai>XIndex <get><name>MemoryLabel<get var='ruleParam'/></name></get> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/></srai></set></li>
 					</condition>
 
 					<set var='label'><star><index><map name='successor'><get var='pos'/></map></index></star></set>
@@ -106,11 +51,45 @@
 			</template>
 		</category>
 
-		<!-- Usage: MemoryGetRule [stage] [display] -->
+		<category>
+			<pattern>next set</pattern>
+			<template><think><set name='BombMemoryStage'>1</set></think></template>
+		</category>
+		<category>
+			<pattern>next memory</pattern>
+			<template><srai>next set</srai></template>
+		</category>
+		<category>
+			<pattern>next module</pattern>
+			<template><srai>next set</srai></template>
+		</category>
+		<category>
+			<pattern>new set</pattern>
+			<template><think><set name='BombMemoryStage'>1</set></think></template>
+		</category>
+		<category>
+			<pattern>new memory</pattern>
+			<template><srai>next set</srai></template>
+		</category>
+		<category>
+			<pattern>new module</pattern>
+			<template><srai>next set</srai></template>
+		</category>
+
+		<!-- Usage: GetRule [stage] [display] -->
 		<!-- Returns one of the following rule types, along with a number: -->
 		<!-- Position [n], Label [n], SamePosition [stage], SameLabel [stage] -->
 		<category>
-			<pattern>MemoryGetRule * *</pattern>
+			<pattern>GetRule *</pattern>
+			<template>
+				<condition name='SraixUnavailable'>
+					<li value='true'><srai>GetRuleFallback <star/></srai></li>
+					<li><sraix service='BombExpert.Solvers.MemorySolver'>GetRule <get name='RuleSeed'/> <star/></sraix></li>
+				</condition>
+			</template>
+		</category>
+		<category>
+			<pattern>GetRuleFallback * *</pattern>
 			<template>
 				<think>
 					<set var='stage'><star/></set>
@@ -159,45 +138,6 @@
 					</li>
 				</condition>
 			</template>
-		</category>
-
-		<category>
-			<pattern>MemoryFindNumber <set>number</set> <set>number</set> <set>number</set> <set>number</set> <set>number</set></pattern>
-			<template>
-				<think><set var='needle'><star/></set></think>
-				<condition var='needle'>
-					<li><value><star index='2'/></value>1</li>
-					<li><value><star index='3'/></value>2</li>
-					<li><value><star index='4'/></value>3</li>
-					<li><value><star index='5'/></value>4</li>
-					<li>unknown</li>
-				</condition>
-			</template>
-		</category>
-
-		<category>
-			<pattern>next set</pattern>
-			<template><think><set name='BombMemoryStage'>1</set></think></template>
-		</category>
-		<category>
-			<pattern>next memory</pattern>
-			<template><srai>next set</srai></template>
-		</category>
-		<category>
-			<pattern>next module</pattern>
-			<template><srai>next set</srai></template>
-		</category>
-		<category>
-			<pattern>new set</pattern>
-			<template><think><set name='BombMemoryStage'>1</set></think></template>
-		</category>
-		<category>
-			<pattern>new memory</pattern>
-			<template><srai>next set</srai></template>
-		</category>
-		<category>
-			<pattern>new module</pattern>
-			<template><srai>next set</srai></template>
 		</category>
 	</topic>
 </aiml>

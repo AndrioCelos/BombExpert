@@ -11,6 +11,8 @@ The following commands may be used at any time:
   - `verify serial`: Asks for all known information on the bomb's serial number.
   - `verify batteries`: Asks for the total number of batteries on the bomb.
   - `verify strikes`: Asks for the current number of strikes.
+  - `verify rule seed`: Asks for the current rule seed.
   - `bomb serial [odd|even|vowel|no vowel]`: Provides information on the bomb's serial number.
   - `bomb parallel [yes|no]`: States whether or not there is a parallel port.
   - `bomb battery [number]`: States the number of batteries on the bomb.
+  - `rule seed [number]`: Specifies the rule seed. The vanilla game uses `1`. This is not reset between bombs.

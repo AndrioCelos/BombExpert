@@ -298,4 +298,14 @@
 			</condition>
 		</template>
 	</category>
+
+	<category>
+		<pattern>IsLetterOrDigit <set>number</set></pattern>
+		<template>digit</template>
+	</category>
+	<category>
+		<pattern>IsLetterOrDigit *</pattern>
+		<template>letter</template>
+	</category>
+
 </aiml>

@@ -174,8 +174,13 @@
 											</condition>
 
 											<!-- Do we cut this wire? -->
-											<set var='cutIfLetter'><map name='WireSequences'><get var='colour'/> <get><var><get var='colour'/>TotalCount</var></get></map></set>
-											<set var='cut'><srai>XContains <get var='letter'/> <get var='cutIfLetter'/></srai></set>
+											<set var='cut'>
+												<srai>
+													SolveWireSequences
+													<get var='redTotalCount'/> <get var='blueTotalCount'/> <get var='blackTotalCount'/>
+													<get var='colour'/> <get var='letter'/>
+												</srai>
+											</set>
 
 											<condition var='cut'>
 												<li value='true'>
@@ -269,6 +274,31 @@
 						</condition>
 					</li>
 				</condition>
+			</template>
+		</category>
+
+		<!-- Usage: SolveWireSequences [red count] [blue count] [black count] [colour] [letter] -->
+		<category>
+			<pattern>SolveWireSequences *</pattern>
+			<template>
+				<condition name='SraixUnavailable'>
+					<li value='true'><srai>SolveWireSequencesFallback <star/></srai></li>
+					<li><sraix service='BombExpert.Solvers.WireSequencesSolver'>Solve <get name='RuleSeed'/> <star/></sraix></li>
+				</condition>
+			</template>
+		</category>
+		<category>
+			<pattern>SolveWireSequencesFallback * * * * *</pattern>
+			<template>
+				<think>
+					<set var='redCount'><star index='1'/></set>
+					<set var='blueCount'><star index='2'/></set>
+					<set var='blackCount'><star index='3'/></set>
+					<set var='cutIfLetter'>
+						<map name='WireSequences'><star index='4'/> <get><var><star index='4'/>Count</var></get></map>
+					</set>
+				</think>
+				<srai>XContains <star index='5'/> <get var='cutIfLetter'/></srai>
 			</template>
 		</category>
 	</topic>

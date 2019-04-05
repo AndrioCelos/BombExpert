@@ -14,22 +14,22 @@
 	<category>
 		<pattern>GetKeypadGlyphName $A ^ T ^</pattern>
 		<template>
-			<think><set><name>KeypadGlyphDescriptionPyramid</name>A <star/> T <star index='2'/></set></think>
-			Pyramid
+			<think><set><name>KeypadGlyphDescriptionAT</name>A <star/> T <star index='2'/></set></think>
+			AT
 		</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName $A ^ tail ^</pattern>
 		<template>
-			<think><set><name>KeypadGlyphDescriptionPyramid</name>A <star/> tail <star index='2'/></set></think>
-			Pyramid
+			<think><set><name>KeypadGlyphDescriptionAT</name>A <star/> tail <star index='2'/></set></think>
+			AT
 		</template>
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName $A ^ penis ^</pattern>
 		<template>
-			<think><set><name>KeypadGlyphDescriptionPyramid</name>A <star/> tail <star index='2'/></set></think>
-			Pyramid
+			<think><set><name>KeypadGlyphDescriptionAT</name>A <star/> tail <star index='2'/></set></think>
+			AT
 		</template>
 	</category>
 	<category>

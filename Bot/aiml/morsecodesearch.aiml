@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml version='2.0'>
-	<!-- Usage: MorseCodeSearch2 [letters ...] -->
-	<!-- Returns a single word that contains this substring; otherwise 'unknown' or 'MultipleWords'. '~' means the long space between words.  -->
-	<!-- Biiig data structure here. -->
 	<category><pattern>MorseCodeSearch2              </pattern><template>MultipleWords</template></category>
-	<category><pattern>MorseCodeSearch2 nil          </pattern><template>MultipleWords</template></category>
 	<category><pattern>MorseCodeSearch2 ~            </pattern><template>MultipleWords</template></category>
 	<category><pattern>MorseCodeSearch2 ~ b          </pattern><template>MultipleWords</template></category>
 	<category><pattern>MorseCodeSearch2 ~ b e       ^</pattern><template>beats</template></category>
