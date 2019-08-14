@@ -25,6 +25,7 @@
 			</item>
 			<item> new bomb </item>
 			<item> verification code </item>
+			<item> solver test </item>
 			<item> rule seed <item repeat='1-10'><ruleref uri='#digit'/></item></item>
 		</one-of>
 	</rule>

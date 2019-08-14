@@ -60,12 +60,35 @@
 		<pattern>rule seed <set>number</set></pattern>
 		<template>
 			<think><set name='RuleSeed'><star/></set></think>
-			<explode><star/></explode>. OK.
+			<condition name='SraixUnavailable'>
+				<li value='true'>Rule seed support is disabled.</li>
+				<li><explode><star/></explode>. OK.</li>
+			</condition>
 		</template>
 	</category>
 	<category>
 		<pattern>rule seed <set>number</set> *</pattern>
 		<template><srai>rule seed <star/><star index='2'/></srai></template>
+	</category>
+
+	<category>
+		<pattern>solver test</pattern>
+		<!-- A simple test to make sure the library is loaded properly. -->
+		<template>
+			<think>
+				<set var='result'><sraix service='BombExpert.Solvers.WiresSolver'>1 blue blue blue</sraix></set>
+			</think>
+			<condition var='result'>
+				<li value='CutSecondWire'>
+					<think><set name='SraixUnavailable'>false</set></think>
+					The test was successful.
+				</li>
+				<li>
+					<think><set name='SraixUnavailable'>true</set></think>
+					The test failed. Rule seed support is now disabled.
+				</li>
+			</condition>
+		</template>
 	</category>
 
 	<category>
@@ -219,7 +242,12 @@
 
 	<category>
 		<pattern>verify rule seed</pattern>
-		<template>The rule seed is <explode><get name='RuleSeed'/></explode>.</template>
+		<template>
+			<condition name='SraixUnavailable'>
+				<li value='true'>Rule seed support is disabled.</li>
+				<li>The rule seed is <explode><get name='RuleSeed'/></explode>.</li>
+			</condition>
+		</template>
 	</category>
 
 	<category>

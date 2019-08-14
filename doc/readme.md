@@ -15,4 +15,5 @@ The following commands may be used at any time:
   - `bomb serial [odd|even|vowel|no vowel]`: Provides information on the bomb's serial number.
   - `bomb parallel [yes|no]`: States whether or not there is a parallel port.
   - `bomb battery [number]`: States the number of batteries on the bomb.
+  - `solver test`: Runs a simple test to check that the C# library is loaded correctly. If the test is unsuccessful, a pure AIML solution without rule seed mod support will be used as a fallback. Some mod modules may not be supported in this mode, though all vanilla modules are.
   - `rule seed [number]`: Specifies the rule seed. The vanilla game uses `1`. This is not reset between bombs.
