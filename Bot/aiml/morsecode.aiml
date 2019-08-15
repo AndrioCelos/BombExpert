@@ -43,7 +43,7 @@
 			<template>
 				<condition name='SraixUnavailable'>
 					<li value='true'><srai>SolveMorseCodeFallback <star/></srai></li>
-					<li><sraix service='BombExpert.Solvers.MemorySolver'>MorseCodeSearch <get name='RuleSeed'/> <star/></sraix></li>
+					<li><sraix service='BombExpert.Solvers.MorseCodeSolver'>MorseCodeSearch <get name='RuleSeed'/> <star/></sraix></li>
 				</condition>
 			</template>
 		</category>

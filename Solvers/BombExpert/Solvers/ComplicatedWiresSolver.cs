@@ -66,8 +66,8 @@ namespace BombExpert.Solvers {
 						cut = !bool.Parse(predicate);
 						break;
 					case Instruction.CutIfParallelPort:
-						predicate = process.User.GetPredicate("BombPortParallel");
-						if (predicate.Equals("unknown", StringComparison.CurrentCultureIgnoreCase)) return "NeedPortParallel";
+						predicate = process.User.GetPredicate("BombPort Parallel");
+						if (predicate.Equals("unknown", StringComparison.CurrentCultureIgnoreCase)) return "NeedPort Parallel";
 						cut = bool.Parse(predicate);
 						break;
 					case Instruction.CutIfTwoOrMoreBatteries:
