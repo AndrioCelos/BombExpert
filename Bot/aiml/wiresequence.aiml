@@ -1,61 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml>
 	<category>
-		<pattern>defuse wire sequences</pattern>
+		<pattern>defuse wire sequence</pattern>
 		<template>
 			<think>
-				<set name='topic'>Bomb WireSequences</set>
-				<srai>reset wire sequences</srai>
+				<set name='topic'>Bomb WireSequence</set>
+				<srai>reset wire sequence</srai>
 			</think>
-			<oob>SetGrammar wiresequences</oob><oob>SetPartialInput false</oob> For each wire in order from 1 to 3, say what colour it is and what letter it connects to.
+			<oob>SetGrammar wiresequence</oob><oob>SetPartialInput false</oob> For each wire in order from 1 to 3, say what colour it is and what letter it connects to.
 		</template>
+	</category>
+	<category>
+		<pattern>defuse wire sequences</pattern>
+		<template><srai>defuse wire sequence</srai></template>
+	</category>
+	<category>
+		<pattern>defuse panels</pattern>
+		<template><srai>defuse wire sequence</srai></template>
+	</category>
+	<category>
+		<pattern>defuse wire panels</pattern>
+		<template><srai>defuse wire sequence</srai></template>
 	</category>
 	<category>
 		<pattern>defuse sequence</pattern>
-		<template><srai>defuse wire sequences</srai></template>
+		<template><srai>defuse wire sequence</srai></template>
 	</category>
 	<category>
 		<pattern>defuse sequences</pattern>
-		<template><srai>defuse wire sequences</srai></template>
+		<template><srai>defuse wire sequence</srai></template>
 	</category>
 	<category>
-		<pattern>reset wire sequences</pattern>
+		<pattern>reset wire sequence</pattern>
 		<template>
 			<think>
-				<set name='BombWireSequencesRedWires'>0</set>
-				<set name='BombWireSequencesBlueWires'>0</set>
-				<set name='BombWireSequencesBlackWires'>0</set>
+				<set name='BombWireSequenceRedWires'>0</set>
+				<set name='BombWireSequenceBlueWires'>0</set>
+				<set name='BombWireSequenceBlackWires'>0</set>
 			</think>
 			OK
 		</template>
 	</category>
 
 	<category>
-		<pattern>resume wire sequences</pattern>
+		<pattern>resume wire sequence</pattern>
 		<template>
 			<think>
-				<set name='topic'>Bomb WireSequences</set>
+				<set name='topic'>Bomb WireSequence</set>
 			</think>
 			OK
 		</template>
+	</category>
+	<category>
+		<pattern>resume wire sequences</pattern>
+		<template><srai>resume wire sequence</srai></template>
+	</category>
+	<category>
+		<pattern>resume panels</pattern>
+		<template><srai>resume wire sequence</srai></template>
+	</category>
+	<category>
+		<pattern>resume wire panels</pattern>
+		<template><srai>resume wire sequence</srai></template>
 	</category>
 	<category>
 		<pattern>resume sequence</pattern>
-		<template><srai>resume wire sequences</srai></template>
+		<template><srai>resume wire sequence</srai></template>
 	</category>
 	<category>
 		<pattern>resume sequences</pattern>
-		<template><srai>resume wire sequences</srai></template>
+		<template><srai>resume wire sequence</srai></template>
 	</category>
 
-	<topic name='Bomb WireSequences'>
+	<topic name='Bomb WireSequence'>
 		<category>
 			<pattern>new sequence</pattern>
-			<template><srai>reset wire sequences</srai></template>
+			<template><srai>reset wire sequence</srai></template>
 		</category>
 		<category>
 			<pattern>next sequence</pattern>
-			<template><srai>reset wire sequences</srai></template>
+			<template><srai>reset wire sequence</srai></template>
 		</category>
 
 		<category>
@@ -112,18 +136,18 @@
 					<set var='toCutCount'>0</set>
 					<set var='toNotCutCount'>0</set>
 					<set var='redCount'>0</set>
-					<set var='redTotalCount'><get name='BombWireSequencesRedWires'/></set>
+					<set var='redTotalCount'><get name='BombWireSequenceRedWires'/></set>
 					<set var='redToCut'>nil</set>
 					<set var='redToCutCount'>0</set>
 					<set var='redToNotCutCount'>0</set>
 					<set var='blueToCut'>nil</set>
 					<set var='blueCount'>0</set>
-					<set var='blueTotalCount'><get name='BombWireSequencesBlueWires'/></set>
+					<set var='blueTotalCount'><get name='BombWireSequenceBlueWires'/></set>
 					<set var='blueToCutCount'>0</set>
 					<set var='blueToNotCutCount'>0</set>
 					<set var='blackToCut'>nil</set>
 					<set var='blackCount'>0</set>
-					<set var='blackTotalCount'><get name='BombWireSequencesBlackWires'/></set>
+					<set var='blackTotalCount'><get name='BombWireSequenceBlackWires'/></set>
 					<set var='blackToCutCount'>0</set>
 					<set var='blackToNotCutCount'>0</set>
 					<set var='colour'>unknown</set>
@@ -208,9 +232,9 @@
 					<li value='true'>Something is wrong. Please try again.</li>
 					<li>
 						<think>
-							<set name='BombWireSequencesRedWires'><get var='redTotalCount'/></set>
-							<set name='BombWireSequencesBlueWires'><get var='blueTotalCount'/></set>
-							<set name='BombWireSequencesBlackWires'><get var='blackTotalCount'/></set>
+							<set name='BombWireSequenceRedWires'><get var='redTotalCount'/></set>
+							<set name='BombWireSequenceBlueWires'><get var='blueTotalCount'/></set>
+							<set name='BombWireSequenceBlackWires'><get var='blackTotalCount'/></set>
 						</think>
 						<condition var='toNotCutCount'>
 							<li value='0'>

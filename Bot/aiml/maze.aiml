@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml>
 	<category>
-		<pattern>defuse mazes</pattern>
+		<pattern>defuse maze</pattern>
 		<template>
 			<think>
-				<set name='topic'>Bomb Mazes</set>
+				<set name='topic'>Bomb Maze</set>
 			</think>
 			<oob>SetGrammar maze</oob><oob>SetPartialInput false</oob> Locate a green circle.
 		</template>
 	</category>
 	<category>
-		<pattern>defuse maze</pattern>
-		<template><srai>defuse mazes</srai></template>
+		<pattern>defuse mazes</pattern>
+		<template><srai>defuse maze</srai></template>
 	</category>
 
-	<topic name='Bomb Mazes'>
+	<topic name='Bomb Maze'>
 		<category>
 			<pattern>new maze</pattern>
-			<template><srai>defuse mazes</srai></template>
+			<template><srai>defuse maze</srai></template>
 		</category>
 		<category>
 			<pattern>next maze</pattern>
-			<template><srai>defuse mazes</srai></template>
+			<template><srai>defuse maze</srai></template>
 		</category>
 
 		<category>
@@ -40,8 +40,8 @@
 			<that>Locate the white dot</that>
 			<template>
 				<think>
-					<set name='MazeStartX'><star index='1'/></set>
-					<set name='MazeStartY'><star index='2'/></set>
+					<set name='MazetartX'><star index='1'/></set>
+					<set name='MazetartY'><star index='2'/></set>
 				</think>
 				Locate the red triangle.
 			</template>
@@ -55,7 +55,7 @@
 						<srai>
 							Solver Maze
 							<get name='MazeCircleX'/> <get name='MazeCircleY'/>
-							<get name='MazeStartX'/> <get name='MazeStartY'/>
+							<get name='MazetartX'/> <get name='MazetartY'/>
 							<star index='1'/> <star index='2'/>
 						</srai>
 					</set>

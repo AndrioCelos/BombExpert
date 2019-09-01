@@ -342,7 +342,7 @@ namespace BombExpert.Tester {
 								Console.WriteLine(evaluate(nameof(WiresSolver), text));
 							}
 							break;
-						case "wiresequences":
+						case "wiresequence":
 							if (fields[1].Equals("rules", StringComparison.CurrentCultureIgnoreCase)) {
 								string describeInstruction(Solvers.WireSequenceSolver.Instruction instruction) {
 									switch ((int) instruction) {
