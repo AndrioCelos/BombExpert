@@ -53,85 +53,71 @@
 			<template>
 				<think>
 					<set var='input'><star/></set>
-					<set var='query'>MorseCodeSearch</set>
-					<set var='letter'>nil</set>
+					<set var='path'></set>
 					<condition var='end'>
 						<li value='true'></li>
 						<li>
-							<set var='token'><srai>XFirst <get var='input'/></srai></set>
-							<set var='input'><srai>XRest <get var='input'/></srai></set>
-							<condition var='token' value='nil'>
-								<set var='end'>true</set>
-								<set var='token'>space</set>
-							</condition>
-							<condition var='token'>
-								<li value='dash'><set var='letter'><srai>XAppend dash <get var='letter'/></srai></set></li>
-								<li value='dah'><set var='letter'><srai>XAppend dash <get var='letter'/></srai></set></li>
-								<li value='long'><set var='letter'><srai>XAppend dash <get var='letter'/></srai></set></li>
-								<li value='dot'><set var='letter'><srai>XAppend dot <get var='letter'/></srai></set></li>
-								<li value='dit'><set var='letter'><srai>XAppend dot <get var='letter'/></srai></set></li>
-								<li value='di'><set var='letter'><srai>XAppend dot <get var='letter'/></srai></set></li>
-								<li value='short'><set var='letter'><srai>XAppend dot <get var='letter'/></srai></set></li>
-								<li value='start'>
-									<condition var='letter'>
-										<li value='nil'>
-											<set var='query'><get var='query'/> ~</set>
-										</li>
-										<li>
-											<set var='letter'><map name='MorseDecode'><get var='letter'/></map></set>
-											<condition var='letter' value='unknown'>
-												<set var='result'>BadMorseCode</set>
-												<set var='end'>true</set>
-											</condition>
-											<set var='query'><get var='query'/> <get var='letter'/> ~</set>
-											<set var='letter'>nil</set>
-										</li>
+							<set var='letter'>nil</set>
+							<set var='endchar'>false</set>
+							<condition var='endchar'>
+								<li value='true'></li>
+								<li>
+									<set var='token'><srai>XFirst <get var='input'/></srai></set>
+									<set var='input'><srai>XRest <get var='input'/></srai></set>
+									<condition var='token' value='nil'>
+										<set var='end'>true</set>
+										<set var='token'>space</set>
 									</condition>
-								</li>
-								<li value='space'>
-									<condition var='letter'>
-										<li value='nil'></li>
-										<li>
-											<set var='letter'><map name='MorseDecode'><get var='letter'/></map></set>
-											<condition var='letter' value='unknown'>
-												<set var='result'>BadMorseCode</set>
-												<set var='end'>true</set>
-											</condition>
-											<set var='query'><get var='query'/> <get var='letter'/></set>
-											<set var='letter'>nil</set>
-										</li>
+									<condition var='token'>
+										<li value='dash'><set var='letter'><srai>XAppend dash <get var='letter'/></srai></set></li>
+										<li value='dah'><set var='letter'><srai>XAppend dash <get var='letter'/></srai></set></li>
+										<li value='long'><set var='letter'><srai>XAppend dash <get var='letter'/></srai></set></li>
+										<li value='dot'><set var='letter'><srai>XAppend dot <get var='letter'/></srai></set></li>
+										<li value='dit'><set var='letter'><srai>XAppend dot <get var='letter'/></srai></set></li>
+										<li value='di'><set var='letter'><srai>XAppend dot <get var='letter'/></srai></set></li>
+										<li value='short'><set var='letter'><srai>XAppend dot <get var='letter'/></srai></set></li>
+										<li value='start'><set var='endchar'>true</set></li>
+										<li value='space'><set var='endchar'>true</set></li>
+										<li value='nil'><set var='endchar'>true</set></li>
 									</condition>
-								</li>
-								<li value='nil'>
-									<condition var='letter'>
-										<li value='nil'></li>
-										<li>
-											<set var='letter'><map name='MorseDecode'><get var='letter'/></map></set>
-											<condition var='letter' value='unknown'>
-												<set var='result'>BadMorseCode</set>
-												<set var='end'>true</set>
-											</condition>
-											<set var='query'><get var='query'/> <get var='letter'/></set>
-										</li>
-									</condition>
-									<set var='result'><srai><get var='query'/></srai></set>
+									<loop/>
 								</li>
 							</condition>
 
-							<condition var='end' value='true'>
-								<condition var='result' value='unknown'>
-									<!-- Find the word and frequency. -->
-									<set var='result'><srai><get var='query'/></srai></set>
-									<condition var='result'>
-										<li value='BadMorseCode'></li>
-										<li value='MultipleWords'></li>
-										<li value='unknown'></li>
-										<li><set var='result'><get var='result'/> <map name='MorseFrequency'><get var='result'/></map></set></li>
+							<condition var='letter'>
+								<li value='nil'>
+									<condition var='token' value='start'>
+										<set var='path'><get var='path'/>~</set>
 									</condition>
-								</condition>
+								</li>
+								<li>
+									<set var='letter'><map name='MorseDecode'><get var='letter'/></map></set>
+									<condition var='letter' value='unknown'>
+										<set var='result'>BadMorseCode</set>
+										<set var='end'>true</set>
+									</condition>
+									<set var='path'><get var='path'/><get var='letter'/><condition var='token' value='start'>~</condition></set>
+
+									<!-- Search for each prefix of what the user entered. -->
+									<!-- We'll take the first result that isn't 'MultipleWords'. -->
+									<set var='result'><map name='MorseCodeSearch'><get var='path'/></map></set>
+									<condition var='result'>
+										<li value='MultipleWords'></li>
+										<li><set var='end'>true</set></li>
+									</condition>
+								</li>
 							</condition>
+
+							<condition var='token' value='nil'><set var='end'>true</set></condition>
 							<loop/>
 						</li>
+					</condition>
+
+					<condition var='result'>
+						<li value='BadMorseCode'></li>
+						<li value='MultipleWords'></li>
+						<li value='unknown'></li>
+						<li><set var='result'><get var='result'/> <map name='MorseFrequency'><get var='result'/></map></set></li>
 					</condition>
 				</think>
 				<get var='result'/>
@@ -158,11 +144,6 @@
 					<li>The word is '<srai>XFirst <get var='result'/></srai>'. Tune the module to <srai>XItem 2 <get var='result'/></srai> MHz, then press TX.</li>
 				</condition>
 			</template>
-		</category>
-
-		<category>
-			<pattern>MorseCodeSearch ^</pattern>
-			<template><srai>MorseCodeSearch2 <star/></srai></template>
 		</category>
 	</topic>
 </aiml>
