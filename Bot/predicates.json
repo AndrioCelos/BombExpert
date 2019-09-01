@@ -4,6 +4,10 @@
 
 	// Bomb properties: the 'new bomb' category should reset these.
 	"BombStrikeCount": "0",
+	"BombBatteriesKnown": "false",
+	"BombIndicatorsChecked": "nil",
+	"BombIndicatorsKnown": "false",
+	"BombPortsKnown": "false",
 
 	// Rule seed carries over between bombs until explicitly reset.
 	"RuleSeed": "1"

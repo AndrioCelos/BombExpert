@@ -3,11 +3,15 @@
 	<category>
 		<pattern>defuse simon ^</pattern>
 		<template>
-			<think><set name='topic'>bomb SimonSays</set></think>
-			<oob>SetGrammar simonsays</oob><oob>SetPartialInput false</oob>
 			<condition name='BombSerialNumberHasVowel'>
-				<li value='*'>Tell me which colours flash, in order.</li>
-				<li>Look on the sides of the bomb for a serial number. Does it contain a vowel?</li>
+				<li value='unknown'>
+					<srai>EdgeworkQuery SerialNumberHasVowel XS defuse simon</srai>
+				</li>
+				<li>
+					<think><set name='topic'>bomb SimonSays</set></think>
+					<oob>SetGrammar simonsays</oob><oob>SetPartialInput false</oob>
+					Tell me which colours flash, in order.
+				</li>
 			</condition>
 		</template>
 	</category>
@@ -17,15 +21,6 @@
 	</category>
 
 	<topic name='Bomb SimonSays'>
-		<category>
-			<pattern><set>YesOrNo</set></pattern>
-			<that>Does it contain a vowel?</that>
-			<template>
-				<think><set name='BombSerialNumberHasVowel'><map name='ParseBoolean'><star/></map></set></think>
-				Tell me which colours flash, in order.
-			</template>
-		</category>
-
 		<!-- Usage: SolveSimon [colours ...] -->
 		<!-- Tells the user what to press. -->
 		<category>

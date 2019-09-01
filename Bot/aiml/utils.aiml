@@ -299,6 +299,70 @@
 		</template>
 	</category>
 
+	<!-- Usage: XAdd [a] [b] -->
+	<!-- Returns a + b. a and b must both be non-negative integers. -->
+	<category>
+		<pattern>XAdd * *</pattern>
+		<template>
+			<think>
+				<set var='a'><star/></set>
+				<set var='b'><star index='2'/></set>
+				<condition var='b'>
+					<li value='0'></li>
+					<li>
+						<set var='a'><map name='successor'><get var='a'/></map></set>
+						<set var='b'><map name='predecessor'><get var='b'/></map></set>
+						<loop/>
+					</li>
+				</condition>
+			</think>
+			<get var='a'/>
+		</template>
+	</category>
+
+	<!-- Usage: XSubtract [a] [b] -->
+	<!-- Returns a - b. a and b must both be non-negative integers. -->
+	<category>
+		<pattern>XSubtract * *</pattern>
+		<template>
+			<think>
+				<set var='a'><star/></set>
+				<set var='b'><star index='2'/></set>
+				<condition var='b'>
+					<li value='0'></li>
+					<li>
+						<set var='a'><map name='predecessor'><get var='a'/></map></set>
+						<set var='b'><map name='predecessor'><get var='b'/></map></set>
+						<loop/>
+					</li>
+				</condition>
+			</think>
+			<get var='a'/>
+		</template>
+	</category>
+
+	<!-- Usage: XMultiply [a] [b] -->
+	<!-- Returns a * b. a and b must both be non-negative integers. -->
+	<category>
+		<pattern>XMultiply * *</pattern>
+		<template>
+			<think>
+				<set var='a'><star/></set>
+				<set var='b'><star index='2'/></set>
+				<set var='product'>0</set>
+				<condition var='b'>
+					<li value='0'></li>
+					<li>
+						<set var='product'><srai>XAdd <get var='product'/> <get var='a'/></srai></set>
+						<set var='b'><map name='predecessor'><get var='b'/></map></set>
+						<loop/>
+					</li>
+				</condition>
+			</think>
+			<get var='product'/>
+		</template>
+	</category>
+
 	<category>
 		<pattern>IsLetterOrDigit <set>number</set></pattern>
 		<template>digit</template>

@@ -1,0 +1,56 @@
+SND:SND
+S N D:SND
+sound:SND
+send:SND
+Sierra November Delta:SND
+
+CLR:CLR
+C L R:CLR
+clear:CLR
+Charlie Lima Romeo:CLR
+
+CAR:CAR
+C A R:CAR
+Charlie Alfa Romeo:CAR
+
+IND:IND
+I N D:IND
+India:IND
+indigo:IND
+India November Delta:IND
+
+FRQ:FRQ
+F R Q:FRQ
+frequency:FRQ
+F R Quebec:FRQ
+Foxtrot Romeo Quebec:FRQ
+
+SIG:SIG
+S I G:SIG
+signal:SIG
+Sierra India Golf:SIG
+
+NSA:NSA
+N S A:NSA
+November S A:NSA
+November Sierra Alfa:NSA
+
+MSA:MSA
+M S A:MSA
+Mike S A:MSA
+Mike Sierra Alfa:MSA
+
+TRN:TRN
+T R N:TRN
+turn:TRN
+Tango Romeo November:TRN
+
+BOB:BOB
+B O B:BOB
+Bravo Oscar Bravo:BOB
+
+FRK:FRK
+F R K:FRK
+freak:FRK
+F R Kilo:FRK
+Foxtrot Romeo Kilo:FRK

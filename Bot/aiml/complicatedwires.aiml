@@ -55,13 +55,12 @@
 			<pattern>ProcessInput *</pattern>
 			<template>
 				<think>
-					<set name='BombComplicatedWires'><star/></set>
 					<set var='result'><srai>SolveComplicatedWires <star/></srai></set>
+					<set var='code'><srai>XFirst <get var='result'/></srai></set>
+					<set var='detail'><srai>XRest <get var='result'/></srai></set>
 				</think>
-				<condition var='result'>
-					<li value='NeedBatteryCount'>How many batteries are there on the sides of the bomb?</li>
-					<li value='NeedPort Parallel'>Does the bomb have a long parallel port on the side?</li>
-					<li value='NeedSerialNumberIsOdd'>Is the last digit of the serial number of the bomb odd?</li>
+				<condition var='code'>
+					<li value='NeedEdgework'><srai>EdgeworkQuery <get var='detail'/> XS ProcessInput <star/></srai></li>
 					<li><get var='result'/></li>
 				</condition>
 			</template>
@@ -120,21 +119,21 @@
 											<condition name='BombSerialNumberIsOdd'>
 												<li value='true'><set var='cut'>false</set></li>
 												<li value='false'><set var='cut'>true</set></li>
-												<li value='unknown'><set var='result'>NeedSerialNumberIsOdd</set></li>
+												<li value='unknown'><set var='result'>NeedEdgework SerialNumberIsOdd</set></li>
 											</condition>
 										</li>
 										<li value='P'>
 											<condition name='BombPortParallel'>
 												<li value='true'><set var='cut'>true</set></li>
 												<li value='false'><set var='cut'>false</set></li>
-												<li value='unknown'><set var='result'>NeedPort Parallel</set></li>
+												<li value='unknown'><set var='result'>NeedEdgework Port Parallel</set></li>
 											</condition>
 										</li>
 										<li value='B'>
 											<condition name='BombBatteryCount'>
 												<li value='0'><set var='cut'>false</set></li>
 												<li value='1'><set var='cut'>false</set></li>
-												<li value='unknown'><set var='result'>NeedBatteryCount</set></li>
+												<li value='unknown'><set var='result'>NeedEdgework BatteryCount</set></li>
 												<li><set var='cut'>true</set></li>
 											</condition>
 										</li>
@@ -161,9 +160,9 @@
 					</condition>
 				</think>
 				<condition var='result'>
-					<li value='NeedPort Parallel'><get var='result'/></li>
-					<li value='NeedSerialNumberIsOdd'><get var='result'/></li>
-					<li value='NeedBatteryCount'><get var='result'/></li>
+					<li value='NeedEdgework Port Parallel'><get var='result'/></li>
+					<li value='NeedEdgework SerialNumberIsOdd'><get var='result'/></li>
+					<li value='NeedEdgework BatteryCount'><get var='result'/></li>
 					<li>
 						<condition var='toNotCutCount'>
 							<li value='0'>
@@ -224,39 +223,6 @@
 						</condition>
 					</li>
 				</condition>
-			</template>
-		</category>
-
-		<!-- Sometimes we'll need more information... -->
-		<category>
-			<pattern><set>number</set></pattern>
-			<that>How many batteries are there on the sides of the bomb?</that>
-			<template>
-				<think><set name='BombBatteryCount'><star/></set></think>
-				<srai>ProcessInput <get name='BombComplicatedWires'/></srai>
-			</template>
-		</category>
-		<category>
-			<pattern>none</pattern>
-			<that>How many *</that>
-			<template><srai>0</srai></template>
-		</category>
-
-		<category>
-			<pattern><set>YesOrNo</set></pattern>
-			<that>Does the bomb have a long parallel port on the side?</that>
-			<template>
-				<think><set name='BombPortParallel'><map name='ParseBoolean'><star/></map></set></think>
-				<srai>ProcessInput <get name='BombComplicatedWires'/></srai>
-			</template>
-		</category>
-
-		<category>
-			<pattern><set>YesOrNo</set></pattern>
-			<that>Is the last digit of the serial number of the bomb odd?</that>
-			<template>
-				<think><set name='BombSerialNumberIsOdd'><map name='ParseBoolean'><star/></map></set></think>
-				<srai>ProcessInput <get name='BombComplicatedWires'/></srai>
 			</template>
 		</category>
 	</topic>

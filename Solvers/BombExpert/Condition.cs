@@ -25,7 +25,7 @@ namespace BombExpert {
 			switch (process.User.GetPredicate("BombPort" + portType).ToLower()) {
 				case "true": return ConditionResult.FromBool(true);
 				case "false": return ConditionResult.FromBool(false);
-				default: return ConditionResult.Unknown("NeedPort" + portType);
+				default: return ConditionResult.Unknown("NeedEdgework Port " + portType);
 			}
 		}
 
@@ -39,14 +39,14 @@ namespace BombExpert {
 					switch (p.User.GetPredicate("BombIndicatorLit" + label).ToLower()) {
 						case "true": return ConditionResult.FromBool(true);
 						case "false": return ConditionResult.FromBool(false);
-						default: return ConditionResult.Unknown("NeedIndicatorLit " + label);
+						default: return ConditionResult.Unknown("NeedEdgework IndicatorLit " + label);
 					}
 				});
 		public static Condition<TData> MoreThanNBatteries(int n)
 			=> new Condition<TData>(nameof(MoreThanNBatteries), $"there {(n == 1 ? "is" : "are")} more than {n} {(n == 1 ? "battery" : "batteries")} on the bomb",
 				(p, d) => {
 					var s = p.User.GetPredicate("BombBatteryCount").ToLower();
-					if (s == "unknown") return ConditionResult.Unknown("NeedBatteryCount");
+					if (s == "unknown") return ConditionResult.Unknown("NeedEdgework BatteryCount");
 					return ConditionResult.FromBool(int.Parse(s) > n);
 				});
 		public static Condition<TData> EmptyPortPlate()
@@ -55,7 +55,7 @@ namespace BombExpert {
 					switch (p.User.GetPredicate("BombPortEmptyPlate").ToLower()) {
 						case "true": return ConditionResult.FromBool(true);
 						case "false": return ConditionResult.FromBool(false);
-						default: return ConditionResult.Unknown("NeedEmptyPortPlate");
+						default: return ConditionResult.Unknown("NeedEdgework EmptyPortPlate");
 					}
 				});
 		public static Condition<TData> SerialNumberStartsWithLetter()
@@ -64,7 +64,7 @@ namespace BombExpert {
 					switch (p.User.GetPredicate("BombSerialNumberStartsWithLetter").ToLower()) {
 						case "true": return ConditionResult.FromBool(true);
 						case "false": return ConditionResult.FromBool(false);
-						default: return ConditionResult.Unknown("NeedSerialNumberStartsWithLetter");
+						default: return ConditionResult.Unknown("NeedEdgework SerialNumberStartsWithLetter");
 					}
 				});
 		public static Condition<TData> SerialNumberIsOdd()
@@ -73,7 +73,7 @@ namespace BombExpert {
 					switch (p.User.GetPredicate("BombSerialNumberIsOdd").ToLower()) {
 						case "true": return ConditionResult.FromBool(true);
 						case "false": return ConditionResult.FromBool(false);
-						default: return ConditionResult.Unknown("NeedSerialNumberIsOdd");
+						default: return ConditionResult.Unknown("NeedEdgework SerialNumberIsOdd");
 					}
 				});
 		public static Condition<TData> SerialNumberIsEven()
@@ -82,7 +82,7 @@ namespace BombExpert {
 					switch (p.User.GetPredicate("BombSerialNumberIsOdd").ToLower()) {
 						case "true": return ConditionResult.FromBool(false);
 						case "false": return ConditionResult.FromBool(true);
-						default: return ConditionResult.Unknown("NeedSerialNumberIsOdd");
+						default: return ConditionResult.Unknown("NeedEdgework SerialNumberIsOdd");
 					}
 				});
 

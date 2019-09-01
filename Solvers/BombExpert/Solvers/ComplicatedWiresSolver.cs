@@ -62,17 +62,17 @@ namespace BombExpert.Solvers {
 					case Instruction.DoNotCut: cut = false; break;
 					case Instruction.CutIfSerialNumberEven:
 						var predicate = process.User.GetPredicate("BombSerialNumberIsOdd");
-						if (predicate.Equals("unknown", StringComparison.CurrentCultureIgnoreCase)) return "NeedSerialNumberIsOdd";
+						if (predicate.Equals("unknown", StringComparison.CurrentCultureIgnoreCase)) return "NeedEdgework SerialNumberIsOdd";
 						cut = !bool.Parse(predicate);
 						break;
 					case Instruction.CutIfParallelPort:
-						predicate = process.User.GetPredicate("BombPort Parallel");
-						if (predicate.Equals("unknown", StringComparison.CurrentCultureIgnoreCase)) return "NeedPort Parallel";
+						predicate = process.User.GetPredicate("BombPortParallel");
+						if (predicate.Equals("unknown", StringComparison.CurrentCultureIgnoreCase)) return "NeedEdgework Port Parallel";
 						cut = bool.Parse(predicate);
 						break;
 					case Instruction.CutIfTwoOrMoreBatteries:
 						predicate = process.User.GetPredicate("BombBatteryCount");
-						if (predicate.Equals("unknown", StringComparison.CurrentCultureIgnoreCase)) return "NeedBatteryCount";
+						if (predicate.Equals("unknown", StringComparison.CurrentCultureIgnoreCase)) return "NeedEdgework BatteryCount";
 						cut = int.Parse(predicate) >= 2;
 						break;
 					default:

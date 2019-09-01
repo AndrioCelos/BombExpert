@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<aiml version='2.0'>
+	<category>
+		<pattern>ParsePortList nil</pattern>
+		<template></template>
+	</category>
+	<category>
+		<pattern>ParsePortList *</pattern>
+		<template>unknown</template>
+	</category>
+	<category>
+		<pattern>ParsePortList plate empty ^</pattern>
+		<template>empty <srai>ParsePortList <star/></srai></template>
+	</category>
+	<category>
+		<pattern>ParsePortList empty ^</pattern>
+		<template>empty <srai>ParsePortList <star/></srai></template>
+	</category>
+	<category>
+		<pattern>ParsePortList plate ^</pattern>
+		<template>plate <srai>ParsePortList <star/></srai></template>
+	</category>
+	<category>
+		<pattern>ParsePortList Parallel ^</pattern>
+		<template>Parallel <srai>ParsePortList <star/></srai></template>
+	</category>
+	<category>
+		<pattern>ParsePortList Parallel ^</pattern>
+		<template>Parallel <srai>ParsePortList <star/></srai></template>
+	</category>
+	<category>
+		<pattern>ParsePortList Serial ^</pattern>
+		<template>Serial <srai>ParsePortList <star/></srai></template>
+	</category>
+	<category>
+		<pattern>ParsePortList DVI-D ^</pattern>
+		<template>DVID <srai>ParsePortList <star/></srai></template>
+	</category>
+	<category>
+		<pattern>ParsePortList DVI D ^</pattern>
+		<template>DVID <srai>ParsePortList <star/></srai></template>
+	</category>
+	<category>
+		<pattern>ParsePortList DVI digital ^</pattern>
+		<template>DVID <srai>ParsePortList <star/></srai></template>
+	</category>
+	<category>
+		<pattern>ParsePortList DVI ^</pattern>
+		<template>DVID <srai>ParsePortList <star/></srai></template>
+	</category>
+	<category>
+		<pattern>ParsePortList PS/2 ^</pattern>
+		<template>PS2 <srai>ParsePortList <star/></srai></template>
+	</category>
+	<category>
+		<pattern>ParsePortList PS2 ^</pattern>
+		<template>PS2 <srai>ParsePortList <star/></srai></template>
+	</category>
+	<category>
+		<pattern>ParsePortList PS 2 ^</pattern>
+		<template>PS2 <srai>ParsePortList <star/></srai></template>
+	</category>
+	<category>
+		<pattern>ParsePortList RJ-45 ^</pattern>
+		<template>RJ45 <srai>ParsePortList <star/></srai></template>
+	</category>
+	<category>
+		<pattern>ParsePortList RJ45 ^</pattern>
+		<template>RJ45 <srai>ParsePortList <star/></srai></template>
+	</category>
+	<category>
+		<pattern>ParsePortList RJ 45 ^</pattern>
+		<template>RJ45 <srai>ParsePortList <star/></srai></template>
+	</category>
+	<category>
+		<pattern>ParsePortList RJ ^</pattern>
+		<template>RJ45 <srai>ParsePortList <star/></srai></template>
+	</category>
+	<category>
+		<pattern>ParsePortList Stereo RCA ^</pattern>
+		<template>StereoRCA <srai>ParsePortList <star/></srai></template>
+	</category>
+	<category>
+		<pattern>ParsePortList RCA ^</pattern>
+		<template>StereoRCA <srai>ParsePortList <star/></srai></template>
+	</category>
+	<category>
+		<pattern>ParsePortList Stereo ^</pattern>
+		<template>StereoRCA <srai>ParsePortList <star/></srai></template>
+	</category>
+</aiml>

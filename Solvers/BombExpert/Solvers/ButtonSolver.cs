@@ -241,22 +241,12 @@ namespace BombExpert.Solvers {
 			Blue,
 			White
 		}
+
 		public enum Label {
 			Press,
 			Abort,
 			Detonate,
 			Hold
-		}
-
-		public enum ConditionResultType {
-			False,
-			True,
-			NeedIndicatorLit,
-			NeedPort,
-			NeedEmptyPortPlate,
-			NeedBatteryCount,
-			NeedSerialNumberParity,
-			NeedSerialNumberStartsWithLetter
 		}
 
 		public enum InitialSolution {

@@ -47,21 +47,13 @@
 			<pattern>SolveAndTellWires <set>number</set> *</pattern>
 			<template>
 				<think>
-					<set name='BombWires'><star index='2'/></set>
 					<set var='result'><srai>SolveWires <star index='2'/></srai></set>
+					<set var='code'><srai>XFirst <get var='result'/></srai></set>
+					<set var='detail'><srai>XRest <get var='result'/></srai></set>
+					<set name='EdgeworkCallback'>SolveAndTellWires <star/> <star index='2'/></set>
 				</think>
-				<condition var='result'>
-					<li value='NeedBatteryCount'>How many batteries are there on the sides of the bomb?</li>
-					<li value='NeedPortDviD'><think><set name='PortAsking'>DviD</set></think>Does the bomb have a DVI-D port?</li>
-					<li value='NeedPortParallel'><think><set name='PortAsking'>Parallel</set></think>Does the bomb have a long parallel port?</li>
-					<li value='NeedPortPS2'><think><set name='PortAsking'>PS2</set></think>Does the bomb have a circular PS/2 port?</li>
-					<li value='NeedPortRJ45'><think><set name='PortAsking'>RJ45</set></think>Does the bomb have a square RJ-45 port?</li>
-					<li value='NeedPortSerial'><think><set name='PortAsking'>Serial</set></think>Does the bomb have a short serial port?</li>
-					<li value='NeedPortStereoRCA'><think><set name='PortAsking'>StereoRCA</set></think>Does the bomb have a paired circular stereo RCA port?</li>
-					<li value='NeedEmptyPortPlate'>Does the bomb have an empty port plate on its sides?</li>
-					<li value='NeedBatteryCount'>How many batteries are there on the sides of the bomb?</li>
-					<li value='NeedSerialNumberStartsWithLetter'>Does the serial number of the bomb start with a letter?</li>
-					<li value='NeedSerialNumberIsOdd'>Is the last digit of the serial number of the bomb odd?</li>
+				<condition var='code'>
+					<li value='NeedEdgework'><srai>EdgeworkQuery <get var='detail'/> XS SolveAndTellWires <star/> <star index='2'/></srai></li>
 					<li value='CutFirstWire'>Cut the first wire.</li>
 					<li value='CutSecondWire'>Cut the second wire.</li>
 					<li value='CutThirdWire'>Cut the third wire.</li>
@@ -71,66 +63,6 @@
 				</condition>
 			</template>
 		</category>
-
-		<category>
-			<pattern><set>number</set></pattern>
-			<that>How many batteries are there on the sides of the bomb?</that>
-			<template>
-				<think><set name='BombBatteryCount'><star/></set></think>
-				<srai><get name='BombWires'/></srai>
-			</template>
-		</category>
-		<category>
-			<pattern>none</pattern>
-			<that>How many *</that>
-			<template><srai>0</srai></template>
-		</category>
-
-		<category>
-			<pattern><set>YesOrNo</set></pattern>
-			<that>Does the bomb have a lit indicator that says *</that>
-			<template>
-				<think><set><name>BombIndicatorLit<get name='IndicatorAsking'/></name><map name='ParseBoolean'><star/></map></set></think>
-				<srai><get name='BombWires'/></srai>
-			</template>
-		</category>
-
-		<category>
-			<pattern><set>YesOrNo</set></pattern>
-			<that>Does the bomb have a * port?</that>
-			<template>
-				<think><set><name>BombPort<get name='PortAsking'/></name><map name='ParseBoolean'><star/></map></set></think>
-				<srai><get name='BombWires'/></srai>
-			</template>
-		</category>
-
-		<category>
-			<pattern><set>YesOrNo</set></pattern>
-			<that>Does the bomb have an empty port plate on its sides?</that>
-			<template>
-				<think><set name='BombPortEmptyPlate'><map name='ParseBoolean'><star/></map></set></think>
-				<srai><get name='BombWires'/></srai>
-			</template>
-		</category>
-
-		<category>
-			<pattern><set>YesOrNo</set></pattern>
-			<that>Does the serial number of the bomb start with a letter?</that>
-			<template>
-				<think><set name='BombSerialNumberStartsWithLetter'><map name='ParseBoolean'><star/></map></set></think>
-				<srai><get name='BombWires'/></srai>
-			</template>
-		</category>
-
-		<category>
-			<pattern><set>YesOrNo</set></pattern>
-			<that>Is the last digit of the serial number of the bomb odd?</that>
-			<template>
-				<think><set name='BombSerialNumberIsOdd'><map name='ParseBoolean'><star/></map></set></think>
-				<srai><get name='BombWires'/></srai>
-			</template>
-		</category>
-
 
 		<category>
 			<pattern>SolveWires *</pattern>
@@ -146,7 +78,6 @@
 			<pattern>SolveWiresFallback <set>BombColours</set> <set>BombColours</set> <set>BombColours</set></pattern>
 			<template>
 				<think>
-					<set name='BombWires'><star/> <star index='2'/> <star index='3'/></set>
 					<!-- If there are no red wires, cut the second wire. -->
 					<set var='temp'><srai>XContains red <star/> <star index='2'/> <star index='3'/></srai></set>
 					<condition var='temp'>
@@ -180,14 +111,13 @@
 			<pattern>SolveWiresFallback <set>BombColours</set> <set>BombColours</set> <set>BombColours</set> <set>BombColours</set></pattern>
 			<template>
 				<think>
-					<set name='BombWires'><star/> <star index='2'/> <star index='3'/> <star index='4'/></set>
 					<set var='result'>unknown</set>
 					<!-- If there is more than one red wire and the last digit of the serial number is odd, cut the last red wire. -->
 					<set var='temp'><srai>XCompareDigits <srai>XCountMatch red <star/> <star index='2'/> <star index='3'/> <star index='4'/></srai> 1</srai></set>
 					<condition var='temp' value='1'>
 						<condition name='BombSerialNumberIsOdd'>
 							<li value='true'><set var='result'><srai>XItem <srai>XLastIndex red <star/> <star index='2'/> <star index='3'/> <star index='4'/></srai> CutFirstWire CutSecondWire CutThirdWire CutLastWire</srai></set></li>
-							<li value='unknown'><set var='result'>NeedSerialNumberIsOdd</set></li>
+							<li value='unknown'><set var='result'>NeedEdgework SerialNumberIsOdd</set></li>
 						</condition>
 					</condition>
 
@@ -229,14 +159,13 @@
 			<pattern>SolveWiresFallback <set>BombColours</set> <set>BombColours</set> <set>BombColours</set> <set>BombColours</set> <set>BombColours</set></pattern>
 			<template>
 				<think>
-					<set name='BombWires'><star/> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/></set>
 					<set var='result'>unknown</set>
 					<!-- If the last wire is black and the last digit of the serial number is odd, cut the fourth wire. -->
 					<set var='temp'><star index='5'/></set>
 					<condition var='temp' value='black'>
 						<condition name='BombSerialNumberIsOdd'>
 							<li value='true'><set var='result'>CutFourthWire</set></li>
-							<li value='unknown'><set var='result'>NeedSerialNumberIsOdd</set></li>
+							<li value='unknown'><set var='result'>NeedEdgework SerialNumberIsOdd</set></li>
 						</condition>
 					</condition>
 
@@ -272,14 +201,13 @@
 			<pattern>SolveWiresFallback <set>BombColours</set> <set>BombColours</set> <set>BombColours</set> <set>BombColours</set> <set>BombColours</set> <set>BombColours</set></pattern>
 			<template>
 				<think>
-					<set name='BombWires'><star/> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/> <star index='6'/></set>
 					<set var='result'>unknown</set>
 					<!-- If there are no yellow wires and the last digit of the serial number is odd, cut the third wire. -->
 					<set var='temp'><srai>XContains yellow <star/> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/> <star index='6'/></srai></set>
 					<condition var='temp' value='false'>
 						<condition name='BombSerialNumberIsOdd'>
 							<li value='true'><set var='result'>CutThirdWire</set></li>
-							<li value='unknown'><set var='result'>NeedSerialNumberIsOdd</set></li>
+							<li value='unknown'><set var='result'>NeedEdgework SerialNumberIsOdd</set></li>
 						</condition>
 					</condition>
 
@@ -310,6 +238,5 @@
 				<get var='result'/>
 			</template>
 		</category>
-
 	</topic>
 </aiml>
