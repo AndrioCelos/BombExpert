@@ -41,14 +41,14 @@ namespace BombExpert.Solvers {
 			return new RuleSet(displayRules, buttonRules);
 		}
 
-		/// <param name="text">(Display|Button) [rule seed] [text]</param>
+		/// <param name="text">[rule seed] (Display|Button) [text]</param>
 		public string Process(string text, XmlAttributeCollection attributes, RequestProcess process) {
 			try {
 				var words = text.Split((char[]?) null, 3, StringSplitOptions.RemoveEmptyEntries);
-				var rules = GetRules(int.Parse(words[1]));
+				var rules = GetRules(int.Parse(words[0]));
 				var label = words.Length > 2 ? words[2] : "nil";
 
-				if (words[0].Equals("Display", StringComparison.CurrentCultureIgnoreCase)) {
+				if (words[1].Equals("Display", StringComparison.CurrentCultureIgnoreCase)) {
 					switch (label) {
 						case "HOLD_ON": label = "HOLD ON"; break;
 						case "YOU_ARE": label = "YOU ARE"; break;

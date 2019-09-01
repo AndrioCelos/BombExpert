@@ -176,7 +176,7 @@
 											<!-- Do we cut this wire? -->
 											<set var='cut'>
 												<srai>
-													SolveWireSequences
+													Solver WireSequence
 													<get var='redTotalCount'/> <get var='blueTotalCount'/> <get var='blackTotalCount'/>
 													<get var='colour'/> <get var='letter'/>
 												</srai>
@@ -277,25 +277,17 @@
 			</template>
 		</category>
 
-		<!-- Usage: SolveWireSequences [red count] [blue count] [black count] [colour] [letter] -->
+		<!-- Usage: Solver WireSequence [red count] [blue count] [black count] [colour] [letter] -->
+		<!-- Returns true if this wire should be cut, or false otherwise. -->
 		<category>
-			<pattern>SolveWireSequences *</pattern>
-			<template>
-				<condition name='SraixUnavailable'>
-					<li value='true'><srai>SolveWireSequencesFallback <star/></srai></li>
-					<li><sraix service='BombExpert.Solvers.WireSequencesSolver'>Solve <get name='RuleSeed'/> <star/></sraix></li>
-				</condition>
-			</template>
-		</category>
-		<category>
-			<pattern>SolveWireSequencesFallback * * * * *</pattern>
+			<pattern>SolverFallback WireSequence 1 * * * * *</pattern>
 			<template>
 				<think>
 					<set var='redCount'><star index='1'/></set>
 					<set var='blueCount'><star index='2'/></set>
 					<set var='blackCount'><star index='3'/></set>
 					<set var='cutIfLetter'>
-						<map name='WireSequences'><star index='4'/> <get><var><star index='4'/>Count</var></get></map>
+						<map name='WireSequence1'><star index='4'/> <get><var><star index='4'/>Count</var></get></map>
 					</set>
 				</think>
 				<srai>XContains <star index='5'/> <get var='cutIfLetter'/></srai>

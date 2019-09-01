@@ -46,16 +46,45 @@
 	<category>
 		<pattern>rule seed <set>number</set></pattern>
 		<template>
-			<think><set name='RuleSeed'><star/></set></think>
-			<condition name='SraixUnavailable'>
-				<li value='true'>Rule seed support is disabled.</li>
-				<li><explode><star/></explode>. OK.</li>
+			<think>
+				<condition name='SraixUnavailable'>
+					<li value='true'><set var='ok'><srai>OKRuleSeed <star/></srai></set></li>
+					<li><set var='ok'>true</set></li>
+				</condition>
+			</think>
+			<condition var='ok'>
+				<li value='true'>
+					<think><set name='RuleSeed'><star/></set></think>
+					<explode><star/></explode>. OK.
+				</li>
+				<li>This rule seed cannot be used at the moment.</li>
 			</condition>
 		</template>
 	</category>
 	<category>
 		<pattern>rule seed <set>number</set> *</pattern>
 		<template><srai>rule seed <star/><star index='2'/></srai></template>
+	</category>
+
+	<category>
+		<pattern>WHY NOT</pattern>
+		<that>This rule seed cannot be used at the moment</that>
+		<template>I do not have access to the C# library, and AIML scripts for this rule seed have not been provided.</template>
+	</category>
+	<category>
+		<pattern>WHY</pattern>
+		<that>This rule seed cannot be used at the moment</that>
+		<template><srai>WHY NOT</srai></template>
+	</category>
+	<category>
+		<pattern>WHY IS THAT</pattern>
+		<that>This rule seed cannot be used at the moment</that>
+		<template><srai>WHY NOT</srai></template>
+	</category>
+	<category>
+		<pattern>HOW COME</pattern>
+		<that>This rule seed cannot be used at the moment</that>
+		<template><srai>WHY NOT</srai></template>
 	</category>
 
 	<category>
@@ -72,7 +101,7 @@
 				</li>
 				<li>
 					<think><set name='SraixUnavailable'>true</set></think>
-					The test failed. Rule seed support is now disabled.
+					The test failed.
 				</li>
 			</condition>
 		</template>
@@ -100,16 +129,74 @@
 	<!-- Verification -->
 	<category>
 		<pattern>verify rule seed</pattern>
-		<template>
-			<condition name='SraixUnavailable'>
-				<li value='true'>Rule seed support is disabled.</li>
-				<li>The rule seed is <explode><get name='RuleSeed'/></explode>.</li>
-			</condition>
-		</template>
+		<template>The rule seed is <explode><get name='RuleSeed'/></explode>.</template>
 	</category>
 
 	<category>
 		<pattern>verify strikes</pattern>
 		<template><get name='BombStrikeCount'/></template>
+	</category>
+
+	<!-- Usage: OKRuleSeed <rule seed> -->
+	<!-- Returns true if we can play with the specified rule seed without the C# library. -->
+	<category>
+		<pattern>OKRuleSeed 1</pattern>
+		<template>true</template>
+	</category>
+	<category>
+		<pattern>OKRuleSeed *</pattern>
+		<template>false</template>
+	</category>
+
+	<!-- Usage: Solver <module> [parameters] -->
+	<!--
+		Solvers are functions that process the manual rules for a specific module.
+		In many cases they should not take human-readable input or output.
+		This category will call the C# solver if it is available,
+		and automatically fall back to an AIML subtree otherwise.
+		If no fallback is available, it returns 'NoSolver'.
+
+		The C# library can process any rule seed.
+		Due to the calculations required for this, AIML solvers must be imported for each individual rule seed.
+
+		All solvers must take the rule seed as the first word of their input.
+		This will not be included in usage hints for the Solver categories.
+	-->
+	<category>
+		<pattern>Solver * ^</pattern>
+		<template>
+			<think>
+				<set var='params'><star index='2'/></set>
+				<condition var='params'>
+					<li value='nil'><set var='params'><get name='RuleSeed'/></set></li>
+					<li><set var='params'><get name='RuleSeed'/> <star index='2'/></set></li>
+				</condition>
+
+				<condition name='SraixUnavailable'>
+					<li value='true'></li>
+					<li>
+						<set var='result'><sraix><service>BombExpert.Solvers.<star/>Solver</service><get var='params'/></sraix></set>
+						<condition var='result' value='SolverError'>
+							<set name='SraixUnavailable'>true</set>
+						</condition>
+					</li>
+				</condition>
+
+				<condition name='SraixUnavailable' value='true'>
+					<set var='result'><srai>SolverFallback <star/> <get var='params'/></srai></set>
+				</condition>
+			</think>
+			<get var='result'/>
+		</template>
+	</category>
+
+	<!-- Usage: SolverFallback <module> <rule seed> [parameters ...] -->
+	<!-- Fallback solver placeholder in case no fallback solver is available. -->
+	<category>
+		<pattern>SolverFallback * * ^</pattern>
+		<template>
+			<think><gossip>No solver available for module <star/> and rule seed <star index='2'/>.</gossip></think>
+			NoSolver
+		</template>
 	</category>
 </aiml>

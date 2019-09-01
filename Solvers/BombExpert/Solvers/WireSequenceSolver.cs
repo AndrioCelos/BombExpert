@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 using System.Xml;
 using BombExpert;
 
-using static BombExpert.Solvers.WireSequencesSolver.Instruction;
+using static BombExpert.Solvers.WireSequenceSolver.Instruction;
 
 namespace BombExpert.Solvers {
-	public class WireSequencesSolver : ISraixService {
+	public class WireSequenceSolver : ISraixService {
 		private const int NUM_PAGES = 4;
 		private const int NUM_PER_PAGE = 3;
 		private const int NUM_COLOURS = 3;
@@ -47,17 +47,17 @@ namespace BombExpert.Solvers {
 			return instructions;
 		}
 
-		/// <param name="text">Solve [rule seed] [red total] [blue total] [black total] [colour] [letter]</param>
+		/// <param name="text">[rule seed] [red total] [blue total] [black total] [colour] [letter]</param>
 		public string Process(string text, XmlAttributeCollection attributes, RequestProcess process) {
 			var words = text.Split((char[]?) null, StringSplitOptions.RemoveEmptyEntries);
-			var rules = GetRules(int.Parse(words[1]));
+			var rules = GetRules(int.Parse(words[0]));
 
-			var redWireCount = int.Parse(words[2]);
-			var blueWireCount = int.Parse(words[3]);
-			var blackWireCount = int.Parse(words[4]);
+			var redWireCount = int.Parse(words[1]);
+			var blueWireCount = int.Parse(words[2]);
+			var blackWireCount = int.Parse(words[3]);
 
-			var colour = (Colour) Enum.Parse(typeof(Colour), words[5], true);
-			var letter = char.ToUpperInvariant(words[6][0]);
+			var colour = (Colour) Enum.Parse(typeof(Colour), words[4], true);
+			var letter = char.ToUpperInvariant(words[5][0]);
 
 			var ruleSet = colour == Colour.Red ? rules.RedRules : colour == Colour.Blue ? rules.BlueRules : rules.BlackRules;
 			var total = colour == Colour.Red ? redWireCount : colour == Colour.Blue ? blueWireCount : blackWireCount;

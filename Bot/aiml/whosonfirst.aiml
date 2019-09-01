@@ -246,21 +246,12 @@
 		</category>
 
 		<category>
-			<pattern>SolveWhosOnFirst * ^</pattern>
-			<template>
-				<condition name='SraixUnavailable'>
-					<li value='true'><srai>SolveWhosOnFirstFallback <star/> <star index='2'/></srai></li>
-					<li><sraix service='BombExpert.Solvers.WhosOnFirstSolver'><star/> <get name='RuleSeed'/> <star index='2'/></sraix></li>
-				</condition>
-			</template>
+			<pattern>SolverFallback WhosOnFirst 1 Display *</pattern>
+			<template><map name='WhosOnFirstButton1'><star/></map></template>
 		</category>
 		<category>
-			<pattern>SolveWhosOnFirstFallback Display *</pattern>
-			<template><map name='WhosOnFirstButton'><star/></map></template>
-		</category>
-		<category>
-			<pattern>SolveWhosOnFirstFallback Button *</pattern>
-			<template><map name='WhosOnFirstList'><star/></map></template>
+			<pattern>SolverFallback WhosOnFirst 1 Button *</pattern>
+			<template><map name='WhosOnFirstList1'><star/></map></template>
 		</category>
 
 		<category>
@@ -281,7 +272,7 @@
 			<pattern>HandleDisplay *</pattern>
 			<template>
 				<think>
-					<set var='result'><srai>SolveWhosOnFirst Display <star/></srai></set>
+					<set var='result'><srai>Solver WhosOnFirst Display <star/></srai></set>
 				</think>
 				<condition var='result'>
 					<li value='unknown'>That does not sound like a possible label. Try again.</li>
@@ -311,7 +302,7 @@
 			<pattern>HandleButton *</pattern>
 			<template>
 				<think>
-					<set var='list'><srai>SolveWhosOnFirst Button <star/></srai></set>
+					<set var='list'><srai>Solver WhosOnFirst Button <star/></srai></set>
 				</think>
 				<map name='WhosOnFirstButtonDescription'><star/></map>?
 				<condition var='list'>

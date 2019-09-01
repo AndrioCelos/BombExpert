@@ -6,7 +6,7 @@
 	</category>
 	<category>
 		<pattern>SraixFailed</pattern>
-		<template>Oh dear. Something went wrong with the solver.</template>
+		<template>SolverError</template>
 	</category>
 
 	<category>

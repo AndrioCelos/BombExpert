@@ -46,7 +46,7 @@
 		</category>
 		<category>
 			<pattern><set>number</set> <set>number</set> <set>number</set> <set>number</set> <set>number</set></pattern>
-			<template>MemoryRead <star index='1'/> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/></template>
+			<template><srai>MemoryRead <star index='1'/> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/></srai></template>
 		</category>
 		<category>
 			<pattern>MemoryRead <set>number</set></pattern>
@@ -56,7 +56,7 @@
 					<li>
 						<think>
 							<set name='BombMemoryStage'><map name='successor'><get name='BombMemoryStage'/></map></set>
-							<set var='rule'><srai>GetRule <get name='BombMemoryStage'/> <star/></srai></set>
+							<set var='rule'><srai>Solver Memory GetRule <get name='BombMemoryStage'/> <star/></srai></set>
 							<set var='ruleType'><srai>XFirst <get var='rule'/></srai></set>
 							<set var='ruleParam'><srai>XRest <get var='rule'/></srai></set>
 						</think>
@@ -105,7 +105,7 @@
 					<li>
 						<think>
 							<set name='BombMemoryStage'><map name='successor'><get name='BombMemoryStage'/></map></set>
-							<set var='rule'><srai>GetRule <get name='BombMemoryStage'/> <star/></srai></set>
+							<set var='rule'><srai>Solver Memory GetRule <get name='BombMemoryStage'/> <star/></srai></set>
 							<set var='ruleType'><srai>XFirst <get var='rule'/></srai></set>
 							<set var='ruleParam'><srai>XRest <get var='rule'/></srai></set>
 
@@ -211,20 +211,11 @@
 			<template><srai><star/> <star index='2'/></srai></template>
 		</category>
 
-		<!-- Usage: GetRule [stage] [display] -->
+		<!-- Usage: Solver Memory GetRule [stage] [display] -->
 		<!-- Returns one of the following rule types, along with a number: -->
 		<!-- Position [n], Label [n], SamePosition [stage], SameLabel [stage] -->
 		<category>
-			<pattern>GetRule *</pattern>
-			<template>
-				<condition name='SraixUnavailable'>
-					<li value='true'><srai>GetRuleFallback <star/></srai></li>
-					<li><sraix service='BombExpert.Solvers.MemorySolver'>GetRule <get name='RuleSeed'/> <star/></sraix></li>
-				</condition>
-			</template>
-		</category>
-		<category>
-			<pattern>GetRuleFallback * *</pattern>
+			<pattern>SolverFallback Memory 1 GetRule * *</pattern>
 			<template>
 				<think>
 					<set var='stage'><star/></set>
@@ -237,6 +228,7 @@
 							<li value='2'>Position 2</li>
 							<li value='3'>Position 3</li>
 							<li value='4'>Position 4</li>
+							<li>unknown</li>
 						</condition>
 					</li>
 					<li value='2'>
@@ -245,6 +237,7 @@
 							<li value='2'>SamePosition 1</li>
 							<li value='3'>Position 1</li>
 							<li value='4'>SamePosition 1</li>
+							<li>unknown</li>
 						</condition>
 					</li>
 					<li value='3'>
@@ -253,6 +246,7 @@
 							<li value='2'>SameLabel 1</li>
 							<li value='3'>Position 3</li>
 							<li value='4'>Label 4</li>
+							<li>unknown</li>
 						</condition>
 					</li>
 					<li value='4'>
@@ -261,6 +255,7 @@
 							<li value='2'>Position 1</li>
 							<li value='3'>SamePosition 2</li>
 							<li value='4'>SamePosition 2</li>
+							<li>unknown</li>
 						</condition>
 					</li>
 					<li value='5'>
@@ -269,8 +264,10 @@
 							<li value='2'>SameLabel 2</li>
 							<li value='3'>SameLabel 4</li>
 							<li value='4'>SameLabel 3</li>
+							<li>unknown</li>
 						</condition>
 					</li>
+					<li>unknown</li>
 				</condition>
 			</template>
 		</category>

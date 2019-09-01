@@ -37,9 +37,9 @@ namespace BombExpert.Solvers {
 
 		public string Process(string text, XmlAttributeCollection attributes, RequestProcess process) {
 			var words = text.Split((char[]?) null, StringSplitOptions.RemoveEmptyEntries);
-			if (words[0].Equals("GetRule", StringComparison.CurrentCultureIgnoreCase)) {
-				// GetRule [rule seed] [stage] [display]
-				var rules = GetRules(int.Parse(words[1]));
+			if (words[1].Equals("GetRule", StringComparison.CurrentCultureIgnoreCase)) {
+				// [rule seed] GetRule [stage] [display]
+				var rules = GetRules(int.Parse(words[0]));
 				var instruction = rules[int.Parse(words[2]) - 1, int.Parse(words[3]) - 1];
 				switch (instruction.Key) {
 					case "0": return "Position 1";

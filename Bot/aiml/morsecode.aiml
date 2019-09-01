@@ -26,7 +26,7 @@
 			<template>
 				<think>
 					<set var='result'>
-						<srai>SolveMorseCode <star/></srai>
+						<srai>Solver MorseCode <star/></srai>
 					</set>
 				</think>
 				<condition var='result'>
@@ -38,22 +38,27 @@
 			</template>
 		</category>
 
+		<!-- Usage: Solver MorseCode (dash|dot|start|space)+ -->
+		<!-- Returns one of the following:
+				[word] [frequency]: found the solution. The frequency includes '3.'.
+				MultipleWords: multiple words match this input.
+				unknown: no word matches this input.
+				BadMorseCode: invalid Morse code.
+		-->
 		<category>
-			<pattern>SolveMorseCode ^</pattern>
-			<template>
-				<condition name='SraixUnavailable'>
-					<li value='true'><srai>SolveMorseCodeFallback <star/></srai></li>
-					<li><sraix service='BombExpert.Solvers.MorseCodeSolver'>MorseCodeSearch <get name='RuleSeed'/> <star/></sraix></li>
-				</condition>
-			</template>
-		</category>
-
-		<category>
-			<pattern>SolveMorseCodeFallback *</pattern>
+			<pattern>SolverFallback MorseCode <set>number</set> *</pattern>
 			<template>
 				<think>
-					<set var='input'><star/></set>
+					<set var='input'><star index='2'/></set>
 					<set var='path'></set>
+
+					<!-- First make sure we actually have the data. -->
+					<think><set var='result'><map><name>MorseCodeSearch<star/></name>~</map></set></think>
+					<condition var='result' value='unknown'>
+						<set var='result'>NoSolver</set>
+						<set var='end'>true</set>
+					</condition>
+
 					<condition var='end'>
 						<li value='true'></li>
 						<li>
@@ -100,7 +105,7 @@
 
 									<!-- Search for each prefix of what the user entered. -->
 									<!-- We'll take the first result that isn't 'MultipleWords'. -->
-									<set var='result'><map name='MorseCodeSearch'><get var='path'/></map></set>
+									<set var='result'><map><name>MorseCodeSearch<star/></name><get var='path'/></map></set>
 									<condition var='result'>
 										<li value='MultipleWords'></li>
 										<li><set var='end'>true</set></li>
@@ -114,10 +119,11 @@
 					</condition>
 
 					<condition var='result'>
+						<li value='NoSolver'></li>
 						<li value='BadMorseCode'></li>
 						<li value='MultipleWords'></li>
 						<li value='unknown'></li>
-						<li><set var='result'><get var='result'/> <map name='MorseFrequency'><get var='result'/></map></set></li>
+						<li><set var='result'><get var='result'/> <map><name>MorseFrequency<star/></name><get var='result'/></map></set></li>
 					</condition>
 				</think>
 				<get var='result'/>
@@ -136,7 +142,7 @@
 		<category>
 			<pattern>PartialInput2 *</pattern>
 			<template>
-				<think><set var='result'><srai>SolveMorseCode <star/></srai></set></think>
+				<think><set var='result'><srai>Solver MorseCode <star/></srai></set></think>
 				<condition var='result'>
 					<li value='BadMorseCode'></li>
 					<li value='MultipleWords'></li>

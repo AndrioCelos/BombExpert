@@ -327,13 +327,13 @@ namespace BombExpert.Solvers {
 			{ "dash dash dot dot" , 'z' }
 		};
 
-		/// <param name="text">CacheWords [rule seed] -or- Solve [rule seed] [dash|dot|space|start ...]</param>
+		/// <param name="text">[rule seed] CacheWords -or- [rule seed] Solve [dash|dot|space|start ...]</param>
 		public string Process(string text, XmlAttributeCollection attributes, RequestProcess process) {
 			// The input should be a sequence of 'dash' and 'dot', with 'space' in between letters.
 			var inputWords = text.Split((char[]?) null, StringSplitOptions.RemoveEmptyEntries);
-			var words = GetRules(int.Parse(inputWords[1]));
+			var words = GetRules(int.Parse(inputWords[0]));
 
-			if (inputWords[0].Equals("CacheWords", StringComparison.InvariantCultureIgnoreCase)) return "OK";
+			if (inputWords[1].Equals("CacheWords", StringComparison.InvariantCultureIgnoreCase)) return "OK";
 
 			var seq = new StringBuilder();
 			var tail = new StringBuilder();

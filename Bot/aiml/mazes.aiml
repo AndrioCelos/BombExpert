@@ -26,7 +26,7 @@
 
 		<category>
 			<pattern><set>number</set> <set>number</set></pattern>
-			<that>* Locate a green circle.</that>
+			<that>* Locate a green circle</that>
 			<template>
 				<think>
 					<set name='MazeCircleX'><star index='1'/></set>
@@ -37,7 +37,7 @@
 		</category>
 		<category>
 			<pattern><set>number</set> <set>number</set></pattern>
-			<that>Locate the white dot.</that>
+			<that>Locate the white dot</that>
 			<template>
 				<think>
 					<set name='MazeStartX'><star index='1'/></set>
@@ -48,12 +48,12 @@
 		</category>
 		<category>
 			<pattern><set>number</set> <set>number</set></pattern>
-			<that>Locate the red triangle.</that>
+			<that>Locate the red triangle</that>
 			<template>
 				<think>
 					<set var='result'>
 						<srai>
-							SolveMaze
+							Solver Maze
 							<get name='MazeCircleX'/> <get name='MazeCircleY'/>
 							<get name='MazeStartX'/> <get name='MazeStartY'/>
 							<star index='1'/> <star index='2'/>
@@ -106,16 +106,6 @@
 						</think>
 						Take these steps: <get var='steps'/>.
 					</li>
-				</condition>
-			</template>
-		</category>
-
-		<category>
-			<pattern>SolveMaze *</pattern>
-			<template>
-				<condition name='SraixUnavailable'>
-					<li value='true'><srai>MazeSolver Solve <star/></srai></li>
-					<li><sraix service='BombExpert.Solvers.MazeSolver'><get name='RuleSeed'/> <star/></sraix></li>
 				</condition>
 			</template>
 		</category>

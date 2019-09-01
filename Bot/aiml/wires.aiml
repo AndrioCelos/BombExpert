@@ -47,7 +47,7 @@
 			<pattern>SolveAndTellWires <set>number</set> *</pattern>
 			<template>
 				<think>
-					<set var='result'><srai>SolveWires <star index='2'/></srai></set>
+					<set var='result'><srai>Solver Wires <star index='2'/></srai></set>
 					<set var='code'><srai>XFirst <get var='result'/></srai></set>
 					<set var='detail'><srai>XRest <get var='result'/></srai></set>
 					<set name='EdgeworkCallback'>SolveAndTellWires <star/> <star index='2'/></set>
@@ -65,17 +65,8 @@
 		</category>
 
 		<category>
-			<pattern>SolveWires *</pattern>
-			<template>
-				<condition name='SraixUnavailable'>
-					<li value='true'><srai>SolveWiresFallback <star/></srai></li>
-					<li><sraix service='BombExpert.Solvers.WiresSolver'><get name='RuleSeed'/> <star/></sraix></li>
-				</condition>
-			</template>
-		</category>
-		<category>
 			<!-- 3 wires -->
-			<pattern>SolveWiresFallback <set>BombColours</set> <set>BombColours</set> <set>BombColours</set></pattern>
+			<pattern>SolverFallback Wires 1 <set>BombColours</set> <set>BombColours</set> <set>BombColours</set></pattern>
 			<template>
 				<think>
 					<!-- If there are no red wires, cut the second wire. -->
@@ -108,7 +99,7 @@
 		</category>
 		<category>
 			<!-- 4 wires -->
-			<pattern>SolveWiresFallback <set>BombColours</set> <set>BombColours</set> <set>BombColours</set> <set>BombColours</set></pattern>
+			<pattern>SolverFallback Wires 1 <set>BombColours</set> <set>BombColours</set> <set>BombColours</set> <set>BombColours</set></pattern>
 			<template>
 				<think>
 					<set var='result'>unknown</set>
@@ -156,7 +147,7 @@
 		</category>
 		<category>
 			<!-- 5 wires -->
-			<pattern>SolveWiresFallback <set>BombColours</set> <set>BombColours</set> <set>BombColours</set> <set>BombColours</set> <set>BombColours</set></pattern>
+			<pattern>SolverFallback Wires 1 <set>BombColours</set> <set>BombColours</set> <set>BombColours</set> <set>BombColours</set> <set>BombColours</set></pattern>
 			<template>
 				<think>
 					<set var='result'>unknown</set>
@@ -198,7 +189,7 @@
 		</category>
 		<category>
 			<!-- 6 wires -->
-			<pattern>SolveWiresFallback <set>BombColours</set> <set>BombColours</set> <set>BombColours</set> <set>BombColours</set> <set>BombColours</set> <set>BombColours</set></pattern>
+			<pattern>SolverFallback Wires 1 <set>BombColours</set> <set>BombColours</set> <set>BombColours</set> <set>BombColours</set> <set>BombColours</set> <set>BombColours</set></pattern>
 			<template>
 				<think>
 					<set var='result'>unknown</set>

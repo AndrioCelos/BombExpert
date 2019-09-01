@@ -21,14 +21,14 @@
 	</category>
 
 	<topic name='Bomb SimonSays'>
-		<!-- Usage: SolveSimon [colours ...] -->
+		<!-- Usage: SimonSaysInput [colours ...] -->
 		<!-- Tells the user what to press. -->
 		<category>
 			<pattern>SimonSaysInput *</pattern>
 			<template>
 				<think>
 					<set var='list'>
-						<srai>SolveSimonSays <get name='BombSerialNumberHasVowel'/> <get name='BombStrikeCount'/> <star/></srai>
+						<srai>Solver SimonSays <get name='BombSerialNumberHasVowel'/> <get name='BombStrikeCount'/> <star/></srai>
 					</set>
 					<set var='result'><srai>XFirst <get var='list'/></srai></set>
 					<set var='list'><srai>XRest <get var='list'/></srai></set>
@@ -45,31 +45,28 @@
 			</template>
 		</category>
 
-		<!-- Usage: SolveSimonSays [colours ...] -->
+		<!-- Usage: Solver SimonSays [vowel] [strikes] [colours ...] -->
 		<!-- Returns a list of mapped colours that the Defuser must press. -->
 		<category>
-			<pattern>SolveSimonSays *</pattern>
-			<template>
-				<condition name='SraixUnavailable'>
-					<li value='true'><srai>SolveSimonSaysFallback <star/></srai></li>
-					<li><sraix service='BombExpert.Solvers.SimonSaysSolver'><get name='RuleSeed'/> <star/></sraix></li>
-				</condition>
-			</template>
-		</category>
-		<category>
-			<pattern>SolveSimonSaysFallback *</pattern>
+			<pattern>SolverFallback SimonSays <set>number</set> * * *</pattern>
 			<template>
 				<think>
-					<set var='result'>nil</set>
-					<set var='list'><star/></set>
-					<condition var='list'>
-						<li value='nil'></li>
+					<set var='result'><srai>SimonSaysMap <star/> red</srai></set>
+					<condition var='result'>
+						<li value='unknown'><set var='result'>NoSolver</set></li>
 						<li>
-							<set var='colour'><srai>XFirst <get var='list'/></srai></set>
-							<set var='list'><srai>XRest <get var='list'/></srai></set>
-							<set var='colour'><srai>SimonSaysMap <get var='colour'/></srai></set>
-							<set var='result'><srai>XAppend <get var='colour'/> <get var='result'/></srai></set>
-							<loop/>
+							<set var='result'>nil</set>
+							<set var='list'><star index='4'/></set>
+							<condition var='list'>
+								<li value='nil'></li>
+								<li>
+									<set var='colour'><srai>XFirst <get var='list'/></srai></set>
+									<set var='list'><srai>XRest <get var='list'/></srai></set>
+									<set var='colour'><srai>SimonSaysMap <star/> <get var='colour'/></srai></set>
+									<set var='result'><srai>XAppend <get var='colour'/> <get var='result'/></srai></set>
+									<loop/>
+								</li>
+							</condition>
 						</li>
 					</condition>
 				</think>
@@ -77,10 +74,10 @@
 			</template>
 		</category>
 
-		<!-- Usage: SimonSaysMap [colour] -->
+		<!-- Usage: SimonSaysMap [rule seed] [colour] -->
 		<!-- Returns the correct Simon Says mapping for the specified colour. -->
 		<category>
-			<pattern>SimonSaysMap *</pattern>
+			<pattern>SimonSaysMap 1 *</pattern>
 			<template>
 				<think><set var='colour'><star/></set></think>
 				<condition name='BombSerialNumberHasVowel'>

@@ -37,7 +37,7 @@
 		<pattern>KnobSetup</pattern>
 		<template>
 			<think>
-				<set var='result'><srai>SolveKnob GetPattern</srai></set>
+				<set var='result'><srai>Solver Knob GetPattern</srai></set>
 				<set name='KnobPattern'><srai>XFirst <get var='result'/></srai></set>
 				<set name='KnobIndices'><srai>XRest <get var='result'/></srai></set>
 			</think>
@@ -100,7 +100,7 @@
 					</li>
 				</condition>
 				<condition var='result' value='unknown'>
-					<set var='result'><srai>SolveKnob Lights <get var='query'/></srai></set>
+					<set var='result'><srai>Solver Knob Lights <get var='query'/></srai></set>
 				</condition>
 			</think>
 			<condition var='result'>
@@ -113,51 +113,49 @@
 		</template>
 	</category>
 
+	<!-- Usage: Solver Knob GetPattern -->
+	<!--
+		Returns [Selection] [Indices]
+			[Selection] indicates which lights to ask for.
+			[Indices] specifies the zero-based indices that this question corresponds to.
+	-->
 	<category>
-		<pattern>SolveKnob * ^</pattern>
-		<template>
-			<condition name='SraixUnavailable'>
-				<li value='true'><srai>SolveKnobFallback <star/> <star index='2'/></srai></li>
-				<li><sraix service='BombExpert.Solvers.KnobSolver'><star/> <get name='RuleSeed'/> <star index='2'/></sraix></li>
-			</condition>
-		</template>
-	</category>
-
-	<category>
-		<pattern>SolveKnobFallback GetPattern ^</pattern>
+		<pattern>SolverFallback Knob 1 GetPattern</pattern>
 		<template>Left 0 1 2 6 7 8</template>
 	</category>
 
+	<!-- Usage: Solver Knob Lights ([index]:[state])+ -->
+	<!-- Returns the correct direction or 'unknown'. States are 'on' and 'off'. -->
 	<category>
-		<pattern>SolveKnobFallback Lights 0:off 1:off 2:on 6:on 7:on 8:on</pattern>
+		<pattern>SolverFallback Knob 1 Lights 0:off 1:off 2:on 6:on 7:on 8:on</pattern>
 		<template>Up</template>
 	</category>
 	<category>
-		<pattern>SolveKnobFallback Lights 0:on 1:off 2:on 6:off 7:on 8:on</pattern>
+		<pattern>SolverFallback Knob 1 Lights 0:on 1:off 2:on 6:off 7:on 8:on</pattern>
 		<template>Up</template>
 	</category>
 	<category>
-		<pattern>SolveKnobFallback Lights 0:off 1:on 2:on 6:on 7:on 8:on</pattern>
+		<pattern>SolverFallback Knob 1 Lights 0:off 1:on 2:on 6:on 7:on 8:on</pattern>
 		<template>Down</template>
 	</category>
 	<category>
-		<pattern>SolveKnobFallback Lights 0:on 1:off 2:on 6:off 7:on 8:off</pattern>
+		<pattern>SolverFallback Knob 1 Lights 0:on 1:off 2:on 6:off 7:on 8:off</pattern>
 		<template>Down</template>
 	</category>
 	<category>
-		<pattern>SolveKnobFallback Lights 0:off 1:off 2:off 6:on 7:off 8:off</pattern>
+		<pattern>SolverFallback Knob 1 Lights 0:off 1:off 2:off 6:on 7:off 8:off</pattern>
 		<template>Left</template>
 	</category>
 	<category>
-		<pattern>SolveKnobFallback Lights 0:off 1:off 2:off 6:off 7:off 8:off</pattern>
+		<pattern>SolverFallback Knob 1 Lights 0:off 1:off 2:off 6:off 7:off 8:off</pattern>
 		<template>Left</template>
 	</category>
 	<category>
-		<pattern>SolveKnobFallback Lights 0:on 1:off 2:on 6:on 7:on 8:on</pattern>
+		<pattern>SolverFallback Knob 1 Lights 0:on 1:off 2:on 6:on 7:on 8:on</pattern>
 		<template>Right</template>
 	</category>
 	<category>
-		<pattern>SolveKnobFallback Lights *</pattern>
+		<pattern>SolverFallback Knob 1 Lights *</pattern>
 		<template>unknown</template>
 	</category>
 </aiml>

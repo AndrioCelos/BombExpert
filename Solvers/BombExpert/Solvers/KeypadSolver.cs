@@ -63,27 +63,27 @@ namespace BombExpert.Solvers {
 		/// <param name="text">See Remarks for a list of commands.</param>
 		/// <remarks>
 		/// Possible texts:
-		/// <c>GetColumns [rule seed]</c>
+		/// <c>[rule seed] GetColumns</c>
 		///     Returns the six columns, each terminated with 'end'
-		/// <c>CheckKeypad [rule seed] [glyphs ...]</c>
+		/// <c>[rule seed] CheckKeypad [glyphs ...]</c>
 		///     Returns true if any column has all of the specified glyphs; false otherwise.
-		/// <c>Keypad [rule seed] [4 glyphs]</c> - specify the four glyphs on the keypad
+		/// <c>[rule seed] Keypad [4 glyphs]</c> - specify the four glyphs on the keypad
 		///     Returns the 4 glyphs in the order to press them.
-		/// <c>Start [rule seed]</c> - start asking about glyphs
-		/// <c>GlyphPresent [rule seed] [True|False] [glyph]</c> - indicate whether the specified glyph is present
+		/// <c>[rule seed] Start</c> - start asking about glyphs
+		/// <c>[rule seed] GlyphPresent [True|False] [glyph]</c> - indicate whether the specified glyph is present
 		///     Both return one of the following:
 		///         <c>Ask [glyph]</c> - the caller should ask the Defuser whether this glyph is on the keypad.
 		///         <c>Tell [7 glyphs]</c> - the caller should present this column to the Defuser.
 		/// </remarks>
 		public string Process(string text, XmlAttributeCollection attributes, RequestProcess process) {
 			var words = text.Split((char[]?) null, StringSplitOptions.RemoveEmptyEntries);
-			var columns = GetColumns(int.Parse(words[1]));
+			var columns = GetColumns(int.Parse(words[0]));
 
-			if (words[0].Equals("GetColumns", StringComparison.InvariantCultureIgnoreCase)) {
+			if (words[1].Equals("GetColumns", StringComparison.InvariantCultureIgnoreCase)) {
 				return string.Join(" ", columns.Select(c => string.Join(" ", c) + " end"));
 			}
 
-			if (words[0].Equals("Keypad", StringComparison.InvariantCultureIgnoreCase)) {
+			if (words[1].Equals("Keypad", StringComparison.InvariantCultureIgnoreCase)) {
 				// Stage 1
 				var glyphs = words.Skip(2).Select(s => (Glyph) Enum.Parse(typeof(Glyph), s, true));
 				var numColumns = columns.Count(c => glyphs.All(c.Contains));
@@ -94,7 +94,7 @@ namespace BombExpert.Solvers {
 				return string.Join(" ", column.Where(glyphs.Contains));
 			}
 
-			if (words[0].Equals("CheckKeypad", StringComparison.InvariantCultureIgnoreCase)) {
+			if (words[1].Equals("CheckKeypad", StringComparison.InvariantCultureIgnoreCase)) {
 				// Stage 1
 				var glyphs = words.Skip(2).Where(s => s != "unknown").Select(s => (Glyph) Enum.Parse(typeof(Glyph), s, true));
 				return columns.Any(column => glyphs.All(column.Contains)) ? "true" : "false";
@@ -105,7 +105,7 @@ namespace BombExpert.Solvers {
 				possibleColumns = ruledColumnsString.Split((char[]?) null, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToList();
 
 			// Process the response.
-			if (words[0].Equals("Start", StringComparison.InvariantCultureIgnoreCase)) {
+			if (words[1].Equals("Start", StringComparison.InvariantCultureIgnoreCase)) {
 				// Stage 2
 				// If any glyphs are known, skip to stage 3.
 				var glyphs = new List<Glyph>();

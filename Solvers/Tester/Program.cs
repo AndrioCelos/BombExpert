@@ -344,7 +344,7 @@ namespace BombExpert.Tester {
 							break;
 						case "wiresequences":
 							if (fields[1].Equals("rules", StringComparison.CurrentCultureIgnoreCase)) {
-								string describeInstruction(Solvers.WireSequencesSolver.Instruction instruction) {
+								string describeInstruction(Solvers.WireSequenceSolver.Instruction instruction) {
 									switch ((int) instruction) {
 										case 0: return "never";
 										case 1: return "A";
@@ -358,7 +358,7 @@ namespace BombExpert.Tester {
 									}
 								}
 
-								var rules = WireSequencesSolver.GetRules(int.Parse(fields[2]));
+								var rules = WireSequenceSolver.GetRules(int.Parse(fields[2]));
 
 								Console.ForegroundColor = ConsoleColor.White;
 								Console.WriteLine("         Red        Blue       Black");
@@ -380,7 +380,7 @@ namespace BombExpert.Tester {
 								}
 								Console.WriteLine();
 							} else {
-								Console.WriteLine(evaluate(nameof(WireSequencesSolver), text));
+								Console.WriteLine(evaluate(nameof(WireSequenceSolver), text));
 							}
 							break;
 						case "q":

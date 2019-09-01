@@ -55,7 +55,7 @@
 			<pattern>ProcessInput *</pattern>
 			<template>
 				<think>
-					<set var='result'><srai>SolveComplicatedWires <star/></srai></set>
+					<set var='result'><srai>Solver ComplicatedWires <star/></srai></set>
 					<set var='code'><srai>XFirst <get var='result'/></srai></set>
 					<set var='detail'><srai>XRest <get var='result'/></srai></set>
 				</think>
@@ -67,19 +67,10 @@
 		</category>
 
 		<category>
-			<pattern>SolveComplicatedWires *</pattern>
-			<template>
-				<condition name='SraixUnavailable'>
-					<li value='true'><srai>SolveComplicatedWiresFallback <star/></srai></li>
-					<li><sraix service='BombExpert.Solvers.ComplicatedWiresSolver'><get name='RuleSeed'/> <star/></sraix></li>
-				</condition>
-			</template>
-		</category>
-		<category>
-			<pattern>SolveComplicatedWiresFallback *</pattern>
+			<pattern>SolverFallback ComplicatedWires <set>number</set> *</pattern>
 			<template>
 				<think>
-					<set var='input'><star/></set>
+					<set var='input'><star index='2'/></set>
 					<set var='red'>false</set>
 					<set var='blue'>false</set>
 					<set var='light'>false</set>
@@ -113,7 +104,7 @@
 									<condition var='blue' value='true'><set var='flags'><srai>XAppend blue <get var='flags'/></srai></set></condition>
 									<condition var='star' value='true'><set var='flags'><srai>XAppend star <get var='flags'/></srai></set></condition>
 									<condition var='light' value='true'><set var='flags'><srai>XAppend light <get var='flags'/></srai></set></condition>
-									<set var='cut'><map name='ComplicatedWires'><get var='flags'/></map></set>
+									<set var='cut'><map><name>ComplicatedWires<star/></name><get var='flags'/></map></set>
 									<condition var='cut'>
 										<li value='S'>
 											<condition name='BombSerialNumberIsOdd'>
@@ -139,6 +130,7 @@
 										</li>
 										<li value='C'><set var='cut'>true</set></li>
 										<li value='D'><set var='cut'>false</set></li>
+										<li value='unknown'><set var='result'>NoSolver</set></li>
 									</condition>
 									<condition var='cut'>
 										<li value='true'>
@@ -160,6 +152,7 @@
 					</condition>
 				</think>
 				<condition var='result'>
+					<li value='NoSolver'><get var='result'/></li>
 					<li value='NeedEdgework Port Parallel'><get var='result'/></li>
 					<li value='NeedEdgework SerialNumberIsOdd'><get var='result'/></li>
 					<li value='NeedEdgework BatteryCount'><get var='result'/></li>

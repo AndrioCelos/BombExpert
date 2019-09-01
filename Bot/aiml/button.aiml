@@ -27,12 +27,12 @@
 			<pattern>SolveAndTellButton *</pattern>
 			<template>
 				<think>
-					<set var='result'><srai>SolveButton <star/></srai></set>
+					<set var='result'><srai>Solver Button <star/></srai></set>
 					<set var='code'><srai>XFirst <get var='result'/></srai></set>
 					<set var='detail'><srai>XRest <get var='result'/></srai></set>
 				</think>
 				<condition var='code'>
-					<li value='NeedEdgework'><srai>EdgeworkQuery <get var='detail'/> XS SolveAndTellButton</srai></li>
+					<li value='NeedEdgework'><srai>EdgeworkQuery <get var='detail'/> XS SolveAndTellButton <star/></srai></li>
 					<li value='Tap'>Press and release the button.</li>
 					<li value='Hold'>Press and hold the button. Keep holding it, and tell me what colour light appears.</li>
 					<li value='TapWhenSecondsMatch'>When the two seconds digits on the timer match, press and release the button.</li>
@@ -40,18 +40,9 @@
 			</template>
 		</category>
 
-		<!-- Usage: SolveButton [colour] [label]? -->
+		<!-- Usage: Solver Button [colour] [label]? -->
 		<category>
-			<pattern>SolveButton *</pattern>
-			<template>
-				<condition name='SraixUnavailable'>
-					<li value='true'><srai>SolveButtonFallback <star/></srai></li>
-					<li><sraix service='BombExpert.Solvers.ButtonSolver'><get name='RuleSeed'/> <star/></sraix></li>
-				</condition>
-			</template>
-		</category>
-		<category>
-			<pattern>SolveButtonFallback <set>BombColours</set> <set>ButtonLabels</set></pattern>
+			<pattern>SolverFallback Button 1 <set>BombColours</set> <set>ButtonLabels</set></pattern>
 			<template>
 				<think>
 					<set var='colour'><star/></set>
@@ -126,7 +117,7 @@
 			</template>
 		</category>
 		<category>
-			<pattern>SolveButtonFallback <set>BombColours</set></pattern>
+			<pattern>SolverFallback Button 1 <set>BombColours</set></pattern>
 			<template>
 				<think><set var='colour'><star/></set></think>
 				<condition var='colour'>
@@ -139,10 +130,10 @@
 
 		<category>
 			<pattern><set>BombColours</set></pattern>
-			<that>Keep holding it, and tell me what colour light appears.</that>
+			<that>Keep holding it and tell me what colour light appears</that>
 			<template>
 				<think>
-					<set var='result'><srai>SolveButton <star/></srai></set>
+					<set var='result'><srai>Solver Button <star/></srai></set>
 					<set var='code'><srai>XFirst <get var='result'/></srai></set>
 					<set var='detail'><srai>XRest <get var='result'/></srai></set>
 				</think>

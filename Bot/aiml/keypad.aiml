@@ -74,7 +74,7 @@
 									<set name='BombKeypadToAsk'><srai>XGlyphs 2</srai></set>
 								</think>
 								<oob>SetGrammar keypadOK</oob>
-								<srai>KeypadResult <srai>SolveKeypad Start</srai></srai>
+								<srai>KeypadResult <srai>Solver Keypad Start</srai></srai>
 							</li>
 						</condition>
 					</li>
@@ -84,7 +84,7 @@
 							<set name='BombKeypadAsked'><srai>XAppend <get var='glyph'/> <get name='BombKeypadAsked'/></srai></set>
 							<!-- Check whether any columns match. -->
 							<set var='check'>
-								<srai>SolveKeypad CheckKeypad <get name='BombKeypadGlyph1'/> <get name='BombKeypadGlyph2'/> <get name='BombKeypadGlyph3'/> <get name='BombKeypadGlyph4'/></srai>
+								<srai>Solver Keypad CheckKeypad <get name='BombKeypadGlyph1'/> <get name='BombKeypadGlyph2'/> <get name='BombKeypadGlyph3'/> <get name='BombKeypadGlyph4'/></srai>
 							</set>
 						</think>
 						<condition var='check'>
@@ -99,7 +99,7 @@
 										<think>
 											<set name='topic'>bomb keypad order</set>
 											<set var='result'>
-												<srai>SolveKeypad Keypad <get name='BombKeypadGlyph1'/> <get name='BombKeypadGlyph2'/> <get name='BombKeypadGlyph3'/> <get name='BombKeypadGlyph4'/></srai>
+												<srai>Solver Keypad Keypad <get name='BombKeypadGlyph1'/> <get name='BombKeypadGlyph2'/> <get name='BombKeypadGlyph3'/> <get name='BombKeypadGlyph4'/></srai>
 											</set>
 										</think>
 										<oob>SetGrammar keypadOK</oob>
@@ -148,20 +148,10 @@
 			</template>
 		</category>
 
-		<category>
-			<pattern>SolveKeypad * ^</pattern>
-			<template>
-				<condition name='SraixUnavailable'>
-					<li value='true'><srai>SolveKeypadFallback <star/> <star index='2'/></srai></li>
-					<li><sraix service='BombExpert.Solvers.KeypadSolver'><star/> <get name='RuleSeed'/> <star index='2'/></sraix></li>
-				</condition>
-			</template>
-		</category>
-
-		<!-- Usage: Keypad [4 glyphs] -->
+		<!-- Usage: Solver Keypad Keypad [4 glyphs] -->
 		<!-- Returns the glyphs in the order they should be pressed. -->
 		<category>
-			<pattern>SolveKeypadFallback Keypad * * * *</pattern>
+			<pattern>SolverFallback Keypad 1 Keypad * * * *</pattern>
 			<template>
 				<think>
 					<!-- Find which column contains these glyphs. -->
@@ -180,7 +170,7 @@
 								<li value='nil'></li>
 								<li>
 									<set var='column'><srai>XFirst <get var='toCheck'/></srai></set>
-									<set var='contains'><srai>XContains <get var='glyph'/> <map name='KeypadColumns'><get var='column'/></map></srai></set>
+									<set var='contains'><srai>XContains <get var='glyph'/> <map name='KeypadColumns1'><get var='column'/></map></srai></set>
 									<set var='toCheck'><srai>XRest <get var='toCheck'/></srai></set>
 									<condition var='contains' value='true'>
 										<set var='numberPossible'><map name='successor'><get var='numberPossible'/></map></set>
@@ -196,7 +186,7 @@
 						<li value='0'><set var='result'>NoColumn</set></li>
 						<li value='1'>
 							<!-- Return the glyphs in the correct order. -->
-							<set var='columnGlyphs'><map name='KeypadColumns'><get var='possible'/></map></set>
+							<set var='columnGlyphs'><map name='KeypadColumns1'><get var='possible'/></map></set>
 							<set var='result'>nil</set>
 							<condition var='columnGlyphs'>
 								<li value='nil'></li>
@@ -220,10 +210,10 @@
 			</template>
 		</category>
 
-		<!-- Usage: CheckKeypad [glyphs ...] -->
+		<!-- Usage: Solver Keypad CheckKeypad [glyphs ...] -->
 		<!-- Returns true if there is a matching column, or false otherwise. -->
 		<category>
-			<pattern>SolveKeypadFallback CheckKeypad *</pattern>
+			<pattern>SolverFallback Keypad 1 CheckKeypad *</pattern>
 			<template>
 				<think>
 					<set var='result'>true</set>
@@ -245,7 +235,7 @@
 										<li value='nil'></li>
 										<li>
 											<set var='column'><srai>XFirst <get var='toCheck'/></srai></set>
-											<set var='contains'><srai>XContains <get var='glyph'/> <map name='KeypadColumns'><get var='column'/></map></srai></set>
+											<set var='contains'><srai>XContains <get var='glyph'/> <map name='KeypadColumns1'><get var='column'/></map></srai></set>
 											<set var='toCheck'><srai>XRest <get var='toCheck'/></srai></set>
 											<condition var='contains' value='true'>
 												<set var='numberPossible'><map name='successor'><get var='numberPossible'/></map></set>
@@ -287,17 +277,17 @@
 		</category>
 
 		<category>
-			<pattern>SolveKeypadFallback Start ^</pattern>
+			<pattern>SolverFallback Keypad 1 Start ^</pattern>
 			<template><srai>KeypadPrompt</srai></template>
 		</category>
 
 		<category>
-			<pattern>SolveKeypadFallback GlyphPresent false *</pattern>
+			<pattern>SolverFallback Keypad 1 GlyphPresent false *</pattern>
 			<template><srai>KeypadPrompt</srai></template>
 		</category>
 
 		<category>
-			<pattern>SolveKeypadFallback GlyphPresent true *</pattern>
+			<pattern>SolverFallback Keypad 1 GlyphPresent true *</pattern>
 			<template>
 				<think>
 					<condition name='BombKeypadColumns'>
@@ -309,7 +299,7 @@
 							<condition var='columnIndex'>
 								<li value='7'></li>
 								<li>
-									<set var='contains'><srai>XContains <star/> <map name='KeypadColumns'><get var='columnIndex'/></map></srai></set>
+									<set var='contains'><srai>XContains <star/> <map name='KeypadColumns1'><get var='columnIndex'/></map></srai></set>
 									<condition var='contains' value='true'>
 										<set name='BombKeypadColumns'><srai>XAppend <get var='columnIndex'/> <get name='BombKeypadColumns'/></srai></set>
 										<set var='numberPossible'><map name='successor'><get var='numberPossible'/></map></set>
@@ -319,12 +309,12 @@
 								</li>
 							</condition>
 							<condition var='numberPossible'>
-								<li value='1'><set var='result'>Tell <map name='KeypadColumns'><get name='BombKeypadColumns'/></map></set></li>
+								<li value='1'><set var='result'>Tell <map name='KeypadColumns1'><get name='BombKeypadColumns'/></map></set></li>
 								<li>
 									<!-- Two possible columns: ask about other glyphs in exactly one of those columns. -->
 									<set name='BombKeypadToAsk'>nil</set>
-									<set var='column1'><map name='KeypadColumns'><srai>XFirst <get name='BombKeypadColumns'/></srai></map></set>
-									<set var='column2'><map name='KeypadColumns'><srai>XRest <get name='BombKeypadColumns'/></srai></map></set>
+									<set var='column1'><map name='KeypadColumns1'><srai>XFirst <get name='BombKeypadColumns'/></srai></map></set>
+									<set var='column2'><map name='KeypadColumns1'><srai>XRest <get name='BombKeypadColumns'/></srai></map></set>
 
 									<set var='column'><get var='column1'/></set>
 									<condition var='column'>
@@ -366,10 +356,10 @@
 							<set var='columnIndex1'><srai>XFirst <get name='BombKeypadColumns'/></srai></set>
 							<set var='columnIndex2'><srai>XRest <get name='BombKeypadColumns'/></srai></set>
 
-							<set var='contains'><srai>XContains <star/> <map name='KeypadColumns'><get var='columnIndex1'/></map></srai></set>
+							<set var='contains'><srai>XContains <star/> <map name='KeypadColumns1'><get var='columnIndex1'/></map></srai></set>
 							<condition var='contains'>
-								<li value='true'><set var='result'>Tell <map name='KeypadColumns'><get var='columnIndex1'/></map></set></li>
-								<li><set var='result'>Tell <map name='KeypadColumns'><get var='columnIndex2'/></map></set></li>
+								<li value='true'><set var='result'>Tell <map name='KeypadColumns1'><get var='columnIndex1'/></map></set></li>
+								<li><set var='result'>Tell <map name='KeypadColumns1'><get var='columnIndex2'/></map></set></li>
 							</condition>
 						</li>
 					</condition>
@@ -433,7 +423,7 @@
 			<that>^ Is there a *</that>
 			<template>
 				<!--<think><set name='BombKeypadAsked'><get name='BombKeypadAsked'/> <get name='BombKeypadAsking'/></set></think>-->
-				<srai>KeypadResult <srai>SolveKeypad GlyphPresent <map name='ParseBoolean'><star/></map> <get name='BombKeypadAsking'/></srai></srai>
+				<srai>KeypadResult <srai>Solver Keypad GlyphPresent <map name='ParseBoolean'><star/></map> <get name='BombKeypadAsking'/></srai></srai>
 			</template>
 		</category>
 

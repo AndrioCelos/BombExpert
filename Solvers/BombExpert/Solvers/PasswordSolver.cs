@@ -158,11 +158,12 @@ namespace BombExpert.Solvers {
 			return score;
 		}
 		public string Process(string text, XmlAttributeCollection attributes, RequestProcess process) {
-			if (text.StartsWith("GetPasswords ")) {
-				return string.Join(" ", GetWords(int.Parse(text.Substring(13))));
+			var words = text.Split((char[]?) null, StringSplitOptions.RemoveEmptyEntries);
+			if (words[1].Equals("GetPasswords", StringComparison.CurrentCultureIgnoreCase)) {
+				return string.Join(" ", GetWords(int.Parse(words[0])));
 			}
 
-			var possiblePasswords = new List<string>(vanillaPasswords);
+			var possiblePasswords = new List<string>(GetWords(int.Parse(words[0])));
 
 			for (int i = 0; i < 5; ++i) {
 				var found = process.User.Predicates.TryGetValue("BombPassword" + i.ToString(), out var s) && s != "" && s != "unknown";

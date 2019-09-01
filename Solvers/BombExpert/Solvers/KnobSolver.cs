@@ -56,12 +56,12 @@ namespace BombExpert.Solvers {
 			("All", new[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 } )
 		};
 
-		/// <param name="text">GetPattern [rule seed] -or- Lights [rule seed] ( [light number]:[state] )*</param>
+		/// <param name="text">[rule seed] GetPattern -or- [rule seed] Lights ( [light number]:[state] )*</param>
 		public string Process(string text, XmlAttributeCollection attributes, RequestProcess process) {
 			var fields = text.Split((char[]?) null, StringSplitOptions.RemoveEmptyEntries);
-			var rules = GetRules(int.Parse(fields[1]));
+			var rules = GetRules(int.Parse(fields[0]));
 
-			if (fields[0].Equals("GetPattern", StringComparison.InvariantCultureIgnoreCase)) {
+			if (fields[1].Equals("GetPattern", StringComparison.InvariantCultureIgnoreCase)) {
 				// Find the first pattern that uniquely determines the required position.
 				foreach (var (name, indices) in patterns) {
 					var valid = true;
