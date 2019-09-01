@@ -336,37 +336,31 @@
 		<pattern>EdgeworkQuery Indicators</pattern>
 		<template>
 			<think>
-				<srai>EdgeworkQueryStart indicators Indicators</srai>
 				<set name='BombIndicatorCount'>0</set>
 				<set name='BombIndicators'>nil</set>
 			</think>
+			<srai>EdgeworkQueryStart indicators Indicators</srai>
 			List the indicators on the bomb.
 		</template>
 	</category>
 	<category>
 		<pattern>EdgeworkQuery IndicatorLit *</pattern>
 		<template>
-			<think>
-				<srai>EdgeworkQueryStart indicators Indicator Lit <star/></srai>
-			</think>
+			<srai>EdgeworkQueryStart indicators Indicator Lit <star/></srai>
 			Is there a lit indicator labelled <star/>?
 		</template>
 	</category>
 	<category>
 		<pattern>EdgeworkQuery IndicatorUnlit *</pattern>
 		<template>
-			<think>
-				<srai>EdgeworkQueryStart indicators Indicator Unlit <star/></srai>
-			</think>
+			<srai>EdgeworkQueryStart indicators Indicator Unlit <star/></srai>
 			Is there an unlit indicator labelled <star/>?
 		</template>
 	</category>
 	<category>
 		<pattern>EdgeworkQuery Indicator *</pattern>
 		<template>
-			<think>
-				<srai>EdgeworkQueryStart indicators Indicator Any <star/></srai>
-			</think>
+			<srai>EdgeworkQueryStart indicators Indicator Any <star/></srai>
 			Is there any indicator labelled <star/>?
 		</template>
 	</category>
@@ -378,6 +372,14 @@
 		<category>
 			<pattern>unlit *</pattern>
 			<template><srai>HandleIndicators false <star/></srai></template>
+		</category>
+		<category>
+			<pattern>a *</pattern>
+			<template><sr/></template>
+		</category>
+		<category>
+			<pattern>an *</pattern>
+			<template><sr/></template>
 		</category>
 		<category>
 			<pattern>there is a *</pattern>
@@ -422,6 +424,13 @@
 						<li>
 							<set var='word'><first><get var='words'/></first></set>
 							<condition var='word'>
+								<li value='a'>
+									<condition var='description'>
+										<li value='C'></li>
+										<li><set var='break'>true</set></li>
+									</condition>
+								</li>
+								<li value='an'><set var='break'>true</set></li>
 								<li value='nil'><set var='break'>true</set></li>
 								<li value='lit'><set var='break'>true</set></li>
 								<li value='unlit'><set var='break'>true</set></li>
@@ -572,9 +581,21 @@
 		<pattern>EdgeworkQuery PortPlates</pattern>
 		<template>
 			<think>
-				<srai>EdgeworkQueryStart ports PortPlates</srai>
 				<set name='BombPortPlateCount'>0</set>
+				<set var='types'>Parallel Serial RJ45 DVID PS2 StereoRCA</set>
+				<set var='word'><srai>XFirst <get var='types'/></srai></set>
+				<condition var='word'>
+					<li value='nil'></li>
+					<li>
+						<set><name>BombPort<get var='word'/></name>false</set>
+						<set><name>BombPortCount<get var='word'/></name>0</set>
+						<set var='types'><srai>XRest <get var='types'/></srai></set>
+						<set var='word'><srai>XFirst <get var='types'/></srai></set>
+						<loop/>
+					</li>
+				</condition>
 			</think>
+			<srai>EdgeworkQueryStart ports PortPlates</srai>
 			List the port plates on the bomb.
 		</template>
 	</category>
@@ -661,10 +682,10 @@
 													<set name='BombPortCount'><map name='successor'><get name='BombPortCount'/></map></set>
 													<set><name>BombPortCount<get var='word'/></name><map name='successor'><get><name>BombPortCount<get var='word'/></name></get></map></set>
 													<set var='plate'><get var='plate'/> <get var='word'/></set>
+													<set var='words'><rest><get var='words'/></rest></set>
+													<set var='word'><first><get var='words'/></first></set>
 												</li>
 											</condition>
-											<set var='words'><rest><get var='words'/></rest></set>
-											<set var='word'><first><get var='words'/></first></set>
 											<loop/>
 										</li>
 									</condition>
@@ -700,7 +721,28 @@
 		<pattern>verify ports</pattern>
 		<template>
 			<condition name='BombPortPlateCount'>
-				<li value='unknown'>Ports are unknown.</li>
+				<li value='unknown'>
+					Ports are unknown.
+					<think>
+						<set var='types'>Parallel Serial RJ45 DVID PS2 StereoRCA</set>
+						<set var='word'><srai>XFirst <get var='types'/></srai></set>
+					</think>
+					<condition var='word'>
+						<li value='nil'></li>
+						<li>
+							<condition>
+								<name>BombPort<get var='word'/></name>
+								<li value='true'>There is a <map name='PortDescription'><get var='word'/></map> port.</li>
+								<li value='false'>There are no <map name='PortDescription'><get var='word'/></map> ports.</li>
+							</condition>
+							<think>
+								<set var='types'><srai>XRest <get var='types'/></srai></set>
+								<set var='word'><srai>XFirst <get var='types'/></srai></set>
+							</think>
+							<loop/>
+						</li>
+					</condition>
+				</li>
 				<li value='0'>There are no port plates.</li>
 				<li>
 					<think>
@@ -710,7 +752,25 @@
 					<condition var='rem'>
 						<li value='0'></li>
 						<li>
-							Port plate <get var='i'/>: <get><name>BombPortPlate<get var='i'/></name></get>
+							<think><set var='plate'><get><name>BombPortPlate<get var='i'/></name></get></set></think>
+							Port plate <get var='i'/>:
+							<condition var='plate'>
+								<li value='nil'>empty</li>
+								<li>
+									<condition var='plate'>
+										<li value='nil'></li>
+										<li>
+											<map name='PortDescription'><srai>XFirst <get var='plate'/></srai></map>
+											<think><set var='plate'><srai>XRest <get var='plate'/></srai></set></think>
+											<condition var='plate'>
+												<li value='nil'></li>
+												<li>,</li>
+											</condition>
+											<loop/>
+										</li>
+									</condition>
+								</li>
+							</condition>.
 							<think>
 								<set var='i'><map name='successor'><get var='i'/></map></set>
 								<set var='rem'><map name='predecessor'><get var='rem'/></map></set>
@@ -820,7 +880,7 @@
 								<li><set name='BombSerialNumber2Letter'>false</set></li>
 							</condition>
 
-							<set var='chars'><explode><get name='BombSerial'/></explode></set>
+							<set var='chars'><explode><get name='BombSerialNumber'/></explode></set>
 							<set name='BombSerialNumberHasVowel'>false</set>
 							<condition var='chars'>
 								<li value='nil'></li>

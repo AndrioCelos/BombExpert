@@ -18,8 +18,8 @@
 					<item> code </item>
 					<item> serial </item>
 					<item> batteries </item>
-					<item> light freak </item>
-					<item> light car </item>
+					<item> indicators </item>
+					<item> ports </item>
 					<item> rule seed </item>
 				</one-of>
 			</item>
@@ -27,6 +27,11 @@
 			<item> verification code </item>
 			<item> solver test </item>
 			<item> rule seed <item repeat='1-10'><ruleref uri='#digit'/></item></item>
+			<item> edgework </item>
+			<item> batteries </item>
+			<item> indicators </item>
+			<item> ports </item>
+			<item> serial number </item>
 		</one-of>
 	</rule>
 	<rule id='defuse'>

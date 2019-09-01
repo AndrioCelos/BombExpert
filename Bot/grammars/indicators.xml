@@ -25,13 +25,14 @@
 						<item> send </item>
 						<item> sound </item>
 						<item> clear </item>
+						<item> car </item>
 						<item> ind </item>
 						<item> india </item>
-						<item> freak </item>
+						<item> frequency </item>
 						<item> sig </item>
 						<item> turn </item>
 						<item> bob </item>
-						<item> frequency </item>
+						<item> freak </item>
 						<item repeat='3'><ruleref uri='bomb.xml#letter'/></item>
 					</one-of>
 				</item>
