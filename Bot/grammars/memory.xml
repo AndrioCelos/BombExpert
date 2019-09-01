@@ -13,14 +13,42 @@
 					<item> set </item>
 				</one-of>
 			</item>
-			<item repeat='5'>
+			<item><ruleref uri='#number'/></item>
+			<item repeat='5'><ruleref uri='#number'/></item>
+			<item>
+				<item repeat='0-1'> the </item>
 				<one-of>
-					<item> 1 </item>
-					<item> 2 </item>
-					<item> 3 </item>
-					<item> 4 </item>
+					<item> position </item>
+					<item> label </item>
 				</one-of>
+				<item repeat='0-1'>
+					<one-of>
+						<item> was </item>
+						<item> is </item>
+					</one-of>
+				</item>
+				<ruleref uri='#number'/>
 			</item>
+			<item>
+				<one-of>
+					<item> first </item>
+					<item> second </item>
+					<item> third </item>
+					<item> fourth </item>
+				</one-of>
+				position
+			</item>
+			<item> yes </item>
+			<item> no </item>
+			<item> stage <ruleref uri='#number'/></item>
+		</one-of>
+	</rule>
+	<rule id='number'>
+		<one-of>
+			<item> 1 </item>
+			<item> 2 </item>
+			<item> 3 </item>
+			<item> 4 </item>
 		</one-of>
 	</rule>
 </grammar>
