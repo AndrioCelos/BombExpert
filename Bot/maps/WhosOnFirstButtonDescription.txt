@@ -20,7 +20,7 @@ UHHH   :U triple H
 UR     :letters U R
 WAIT   :WAIT
 WHAT   :WHAT no question mark
-WHATQ  :WHAT question mark
+WHAT_  :WHAT question mark
 YES    :YES
 YOU    :YOU
 YOU_ARE:words YOU ARE

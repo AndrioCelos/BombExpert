@@ -215,59 +215,12 @@
 		<!-- Returns one of the following rule types, along with a number: -->
 		<!-- Position [n], Label [n], SamePosition [stage], SameLabel [stage] -->
 		<category>
-			<pattern>SolverFallback Memory 1 GetRule * *</pattern>
+			<pattern>SolverFallback Memory <set>number</set> GetRule *</pattern>
 			<template>
-				<think>
-					<set var='stage'><star/></set>
-					<set var='display'><star index='2'/></set>
-				</think>
-				<condition var='stage'>
-					<li value='1'>
-						<condition var='display'>
-							<li value='1'>Position 2</li>
-							<li value='2'>Position 2</li>
-							<li value='3'>Position 3</li>
-							<li value='4'>Position 4</li>
-							<li>unknown</li>
-						</condition>
-					</li>
-					<li value='2'>
-						<condition var='display'>
-							<li value='1'>Label 4</li>
-							<li value='2'>SamePosition 1</li>
-							<li value='3'>Position 1</li>
-							<li value='4'>SamePosition 1</li>
-							<li>unknown</li>
-						</condition>
-					</li>
-					<li value='3'>
-						<condition var='display'>
-							<li value='1'>SameLabel 2</li>
-							<li value='2'>SameLabel 1</li>
-							<li value='3'>Position 3</li>
-							<li value='4'>Label 4</li>
-							<li>unknown</li>
-						</condition>
-					</li>
-					<li value='4'>
-						<condition var='display'>
-							<li value='1'>SamePosition 1</li>
-							<li value='2'>Position 1</li>
-							<li value='3'>SamePosition 2</li>
-							<li value='4'>SamePosition 2</li>
-							<li>unknown</li>
-						</condition>
-					</li>
-					<li value='5'>
-						<condition var='display'>
-							<li value='1'>SameLabel 1</li>
-							<li value='2'>SameLabel 2</li>
-							<li value='3'>SameLabel 4</li>
-							<li value='4'>SameLabel 3</li>
-							<li>unknown</li>
-						</condition>
-					</li>
-					<li>unknown</li>
+				<think><set var='test'><map><name>Memory<star/></name>1 1</map></set></think>
+				<condition var='test'>
+					<li value='unknown'>NoSolver</li>
+					<li><map><name>Memory<star/></name><star index='2'/></map></li>
 				</condition>
 			</template>
 		</category>

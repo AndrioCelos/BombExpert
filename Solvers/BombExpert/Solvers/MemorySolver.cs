@@ -1,11 +1,12 @@
 ﻿using Aiml;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Xml;
 
 namespace BombExpert.Solvers {
-	public class MemorySolver : ISraixService {
+	public class MemorySolver : IModuleSolver {
 		private const int NumStages = 5;
 
 		public static Instruction[,] GetRules(int ruleSeed) {
@@ -33,6 +34,28 @@ namespace BombExpert.Solvers {
 				}
 			}
 			return rules;
+		}
+
+		public void GenerateAiml(string path, int ruleSeed) {
+			var rules = GetRules(ruleSeed);
+
+			using var writer = new StreamWriter(Path.Combine(path, "maps", $"Memory{ruleSeed}.txt"));
+			for (int stage = 0; stage < 5; ++stage) {
+				for (int display = 0; display < 4; ++display) {
+					var instruction = rules[stage, display];
+					writer.Write($"{stage + 1} {display + 1}:");
+					writer.WriteLine(instruction.Key switch {
+						"0" => "Position 1",
+						"1" => "Position 2",
+						"2" => "Position 3",
+						"3" => "Position 4",
+						"4" => "Label " + instruction.Number,
+						"5" => "SamePosition " + instruction.Number,
+						"6" => "SameLabel " + instruction.Number,
+						_ => "?"
+					});
+				}
+			}
 		}
 
 		public string Process(string text, XmlAttributeCollection attributes, RequestProcess process) {

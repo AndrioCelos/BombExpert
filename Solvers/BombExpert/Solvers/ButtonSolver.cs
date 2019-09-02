@@ -1,30 +1,43 @@
 ﻿using Aiml;
+using BombExpert.Conditions;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 
 namespace BombExpert.Solvers {
-	public class ButtonSolver : ISraixService {
+	public class ButtonSolver : IModuleSolver {
 		private const int MaxInitialRules = 6;
 		private const int MaxHeldRules = 3;
 
-		private static Condition<ButtonData> ButtonColour(Colour colour)
-			=> new Condition<ButtonData>("isButtonColor", $"the button is {colour.ToString().ToLower()}", (p, d) => ConditionResult.FromBool(d.Colour == colour));
-		private static Condition<ButtonData> ButtonLabel(Label label)
-			=> new Condition<ButtonData>("isButtonLabel", $"the button says '{label}'", (p, d) => ConditionResult.FromBool(d.Label == label));
+        public class ButtonColourCondition : Condition<ButtonData> {
+            public Colour Colour { get; }
+            public ButtonColourCondition(Colour colour) : base(nameof(ButtonColourCondition), $"the button is {colour.ToString().ToLower()}") {
+                this.Colour = colour;
+            }
+            public override ConditionResult Query(RequestProcess process, ButtonData data) => ConditionResult.FromBool(data.Colour == this.Colour);
+        }
+
+        public class ButtonLabelCondition : Condition<ButtonData> {
+            public Label Label { get; }
+            public ButtonLabelCondition(Label label) : base(nameof(ButtonLabelCondition), $"the button says '{label}'") {
+                this.Label = label;
+            }
+            public override ConditionResult Query(RequestProcess process, ButtonData data) => ConditionResult.FromBool(data.Label == this.Label);
+        }
 
 		public static RuleSet GetRules(int ruleSeed) {
 			if (ruleSeed == 1) return new RuleSet(
 				new[] {
-					new InitialRule(new List<Condition<ButtonData>>() { ButtonColour(Colour.Blue), ButtonLabel(Label.Abort) }, InitialSolution.Hold),
-					new InitialRule(new List<Condition<ButtonData>>() { Condition<ButtonData>.MoreThanNBatteries(1), ButtonLabel(Label.Detonate) }, InitialSolution.Tap),
-					new InitialRule(new List<Condition<ButtonData>>() { ButtonColour(Colour.White), Condition<ButtonData>.IndicatorLit("CAR") }, InitialSolution.Hold),
-					new InitialRule(new List<Condition<ButtonData>>() { Condition<ButtonData>.MoreThanNBatteries(2), Condition<ButtonData>.IndicatorLit("FRK") }, InitialSolution.Tap),
-					new InitialRule(new List<Condition<ButtonData>>() { ButtonColour(Colour.Yellow) }, InitialSolution.Hold),
-					new InitialRule(new List<Condition<ButtonData>>() { ButtonColour(Colour.Red), ButtonLabel(Label.Hold) }, InitialSolution.Tap),
+					new InitialRule(new List<Condition<ButtonData>>() { new ButtonColourCondition(Colour.Blue), new ButtonLabelCondition(Label.Abort) }, InitialSolution.Hold),
+					new InitialRule(new List<Condition<ButtonData>>() { new BatteriesCondition<ButtonData>(Operations.MoreThan, 1), new ButtonLabelCondition(Label.Detonate) }, InitialSolution.Tap),
+					new InitialRule(new List<Condition<ButtonData>>() { new ButtonColourCondition(Colour.White), IndicatorCondition<ButtonData>.Lit("CAR") }, InitialSolution.Hold),
+					new InitialRule(new List<Condition<ButtonData>>() { new BatteriesCondition<ButtonData>(Operations.MoreThan, 2), IndicatorCondition<ButtonData>.Lit("FRK") }, InitialSolution.Tap),
+					new InitialRule(new List<Condition<ButtonData>>() { new ButtonColourCondition(Colour.Yellow) }, InitialSolution.Hold),
+					new InitialRule(new List<Condition<ButtonData>>() { new ButtonColourCondition(Colour.Red), new ButtonLabelCondition(Label.Hold) }, InitialSolution.Tap),
 					new InitialRule(InitialSolution.Hold)
 				},
 				new[] {
@@ -43,21 +56,24 @@ namespace BombExpert.Solvers {
 			var heldInstructionWeights = new WeightMap<HeldSolution, string>(s => s.Key);
 
 			// Build condition lists.
-			var PrimaryConditions = new List<Condition<ButtonData>>() { ButtonColour(Colour.Red), ButtonColour(Colour.Blue), ButtonColour(Colour.Yellow), ButtonColour(Colour.White), Condition<ButtonData>.MoreThanNBatteries(1), Condition<ButtonData>.MoreThanNBatteries(2) };
+			var PrimaryConditions = new List<Condition<ButtonData>>() {
+                new ButtonColourCondition(Colour.Red), new ButtonColourCondition(Colour.Blue), new ButtonColourCondition(Colour.Yellow), new ButtonColourCondition(Colour.White),
+                new BatteriesCondition<ButtonData>(Operations.MoreThan, 1), new BatteriesCondition<ButtonData>(Operations.MoreThan, 2)
+            };
 			var IndicatorColorConditions = new List<Colour?>() { Colour.Red, Colour.Blue, Colour.Yellow, Colour.White };
-			var SecondaryConditions = new List<Condition<ButtonData>>() { ButtonLabel(Label.Press), ButtonLabel(Label.Hold), ButtonLabel(Label.Abort), ButtonLabel(Label.Detonate) };
+			var SecondaryConditions = new List<Condition<ButtonData>>() { new ButtonLabelCondition(Label.Press), new ButtonLabelCondition(Label.Hold), new ButtonLabelCondition(Label.Abort), new ButtonLabelCondition(Label.Detonate) };
 
 			for (int i = 0; i < 3; ++i)
-				SecondaryConditions.Add(Condition<ButtonData>.IndicatorLit(random.Pick(Utils.IndicatorLabels)));
+				SecondaryConditions.Add(IndicatorCondition<ButtonData>.Lit(random.Pick(Utils.IndicatorLabels)));
 
 			var ports = new List<PortType>() { PortType.DviD, PortType.PS2, PortType.RJ45, PortType.StereoRCA, PortType.Parallel, PortType.Serial };
 			for (int i = 0; i < 3; ++i) {
 				var port = Utils.RemoveRandom(ports, random);
-				SecondaryConditions.Add(Condition<ButtonData>.Port(port));
+				SecondaryConditions.Add(new PortCondition<ButtonData>(port));
 			}
 			foreach (var port in ports)
-				PrimaryConditions.Add(Condition<ButtonData>.Port(port));
-			PrimaryConditions.Add(Condition<ButtonData>.EmptyPortPlate());
+				PrimaryConditions.Add(new PortCondition<ButtonData>(port));
+			PrimaryConditions.Add(new EmptyPortPlateCondition<ButtonData>());
 			SecondaryConditions.Add(Condition<ButtonData>.SerialNumberStartsWithLetter());
 			SecondaryConditions.Add(Condition<ButtonData>.SerialNumberIsOdd());
 
@@ -98,43 +114,46 @@ namespace BombExpert.Solvers {
 			var samesolution = true;
 
 			for (var i = rules.Count - 1; i >= 0; i--) {
-				var condition = rules[i].Conditions.FirstOrDefault(c => c.Key == nameof(Condition<ButtonData>.MoreThanNBatteries));
+				var condition = rules[i].Conditions.OfType<BatteriesCondition<ButtonData>>().FirstOrDefault();
 				if (condition != null) {
-					if (condition.Text.Contains("2")) {
-						twobattery = i;
-						if (onebattery > -1) {
-							samesolution &= rules[i].Solution == solution;
+					switch (condition.Number) {
+						case 1:
+							onebattery = i;
+							if (twobattery > -1) {
+								samesolution &= rules[i].Solution == solution;
+								break;
+							}
+							solution = rules[i].Solution;
 							break;
-						}
-						solution = rules[i].Solution;
-					} else if (condition.Text.Contains("1")) {
-						onebattery = i;
-						if (twobattery > -1) {
-							samesolution &= rules[i].Solution == solution;
+						case 2:
+							twobattery = i;
+							if (onebattery > -1) {
+								samesolution &= rules[i].Solution == solution;
+								break;
+							}
+							solution = rules[i].Solution;
 							break;
-						}
-						solution = rules[i].Solution;
 					}
 				}
 				if (solution.HasValue)
 					samesolution &= rules[i].Solution == solution;
 			}
-			if (onebattery == -1 || twobattery == -1) {
+			if (onebattery < 0 || twobattery < 0) {
 				return;
 			}
 
 			if (onebattery < twobattery && rules[onebattery].Conditions.Count == 1) {
-				// We have a 'if there is more than 1 battery' rule above a 'if there are more than 2 batteries' rules.
+				// We have a 'if there is more than 1 battery' rule above a 'if there are more than 2 batteries' rule.
 				if (random.Next(2) == 0) {
 					rules[onebattery].Conditions.Add(Utils.RemoveRandom(SecondaryQueryList, random));
 				} else {
 					rules[onebattery].Conditions[0] = Utils.RemoveRandom(PrimaryQueryList, random);
 				}
 			} else if (rules[onebattery].Conditions.Count == 1 && rules[twobattery].Conditions.Count == 1 && samesolution) {
-				// We have a 'if there is more than 1 battery' rule below a 'if there are more than 2 batteries' rules,
+				// We have a 'if there is more than 1 battery' rule below a 'if there are more than 2 batteries' rule,
 				// and every rule in between has the same instruction.
 				switch (random.Next(7)) {
-					//Add a secondary query to one or both of the battery rules
+					// Add a secondary query to one or both of the battery rules.
 					case 0:
 						rules[onebattery].Conditions.Add(Utils.RemoveRandom(SecondaryQueryList, random));
 						break;
@@ -145,7 +164,7 @@ namespace BombExpert.Solvers {
 						rules[twobattery].Conditions.Add(Utils.RemoveRandom(SecondaryQueryList, random));
 						goto case 0;
 
-					//Replace one or both of the battery rules with a new primary query
+					// Replace one or both of the battery rules with a new primary query.
 					case 3:
 						rules[onebattery].Conditions[0] = Utils.RemoveRandom(PrimaryQueryList, random);
 						break;
@@ -156,7 +175,7 @@ namespace BombExpert.Solvers {
 						rules[twobattery].Conditions[0] = Utils.RemoveRandom(PrimaryQueryList, random);
 						goto case 3;
 
-					//Replace one of the solutions in between the minimum and maximum battery.
+					// Replace one of the solutions in between the minimum and maximum battery.
 					default:
 						var replacementsolution = rules[onebattery].Solution == InitialSolution.Tap ? InitialSolution.Hold : InitialSolution.Tap;
 						if (Math.Abs(onebattery - twobattery) == 1)
@@ -218,7 +237,7 @@ namespace BombExpert.Solvers {
 				foreach (var rule in rules.InitialRules) {
 					var result = ConditionResult.FromBool(true);
 					foreach (var condition in rule.Conditions)
-						result = result && condition.Delegate(process, new ButtonData() { Colour = colour, Label = label });
+						result = result && condition.Query(process, new ButtonData(colour, label));
 
 					if (result.Code == ConditionResultCode.True) {
 						instruction = rule.Solution;
@@ -233,6 +252,102 @@ namespace BombExpert.Solvers {
 				var rule = rules.HeldRules.FirstOrDefault(r => r.Colour == colour) ?? rules.HeldRules.Single(r => r.Colour == null);
 				return $"{rule.Solution.Type} {rule.Solution.Digit}";
 			}
+		}
+
+		public void GenerateAiml(string path, int ruleSeed) {
+			var rules = GetRules(ruleSeed);
+			using var writer = new StreamWriter(Path.Combine(path, "aiml", $"button{ruleSeed}.aiml"));
+			writer.Write("<?xml version='1.0' encoding='UTF-8'?>\n" +
+				"<aiml version='2.0'>\n" +
+				"<category>\n" + 
+				$"<pattern>SolverFallback Button {ruleSeed} <set>BombColours</set> <set>ButtonLabels</set></pattern>\n" + 
+				"<template>\n" + 
+				"<think>\n" + 
+				"<set var='colour'><star/></set>\n" + 
+				"<set var='label'><star index='2'/></set>\n");
+
+			for (int i = 0; i < rules.InitialRules.Length; ++i) {
+				var rule = rules.InitialRules[i];
+
+				writer.WriteLine();
+				writer.WriteLine($"<!-- {i + 1}. {rule} -->\n<condition var='result' value='unknown'>");
+
+				// Check button conditions before edgework ones.
+				static bool isButtonCondition(Condition<ButtonData> condition) => condition is ButtonColourCondition || condition is ButtonLabelCondition;
+				var conditions = rule.Conditions;
+				if (conditions.Count == 2 && isButtonCondition(conditions[1]) && !isButtonCondition(conditions[0]))
+					conditions = new List<Condition<ButtonData>>() { conditions[1], conditions[0] };
+
+				var closeTags = new Stack<string>();
+				foreach (var condition in conditions) {
+					switch (condition) {
+						case ButtonColourCondition buttonColourCondition:
+							writer.WriteLine($"<condition var='colour' value='{buttonColourCondition.Colour}'>");
+							closeTags.Push("</condition>");
+							break;
+						case ButtonLabelCondition buttonLabelCondition:
+							writer.WriteLine($"<condition var='label' value='{buttonLabelCondition.Label}'>");
+							closeTags.Push("</condition>");
+							break;
+						case BatteriesCondition<ButtonData> batteriesCondition when batteriesCondition.Operation == Operations.MoreThan:
+							writer.WriteLine("<condition name='BombBatteryCount'>\n<li value='unknown'><set var='result'>NeedEdgework BatteryCount</set></li>");
+							for (int j = 0; j <= batteriesCondition.Number; ++j)
+								writer.WriteLine($"<li value='{j}'></li>");
+							writer.WriteLine("<li>");
+							closeTags.Push("</li>\n</condition>");
+							break;
+						case IndicatorCondition<ButtonData> indicatorCondition:
+							writer.WriteLine($"<condition name='{indicatorCondition.Predicate}'>\n" +
+								$"<li value='unknown'><set var='result'>NeedEdgework {indicatorCondition.EdgeworkQuery}</set></li>\n" +
+								"<li value='true'>");
+							closeTags.Push("</li>\n</condition>");
+							break;
+						case PortCondition<ButtonData> portCondition:
+							writer.WriteLine($"<condition name='BombPort{portCondition.PortType}'>\n<li value='true'>");
+							closeTags.Push($"</li>\n<li value='unknown'><set var='result'>NeedEdgework Port {portCondition.PortType}</set></li>\n</condition>");
+							break;
+						case EmptyPortPlateCondition<ButtonData> _:
+							writer.WriteLine("<condition name='BombEmptyPortPlate'>\n<li value='true'>");
+							closeTags.Push("</li>\n<li value='unknown'><set var='result'>NeedEdgework EmptyPortPlate</set></li>\n</condition>");
+							break;
+						case SerialNumberStartsWithLetterCondition<ButtonData> _:
+							writer.WriteLine("<condition name='BombSerialNumberStartsWithLetter'>\n<li value='true'>");
+							closeTags.Push("</li>\n<li value='unknown'><set var='result'>NeedEdgework SerialNumberStartsWithLetter</set></li>\n</condition>");
+							break;
+						case SerialNumberParityCondition<ButtonData> serialNumberParityCondition:
+							writer.WriteLine($"<condition name='BombSerialNumberIsOdd'>\n<li value='{serialNumberParityCondition.Odd}'>");
+							closeTags.Push("</li>\n<li value='unknown'><set var='result'>NeedEdgework SerialNumberIsOdd</set></li>\n</condition>");
+							break;
+						default:
+							throw new InvalidOperationException("Unknown condition");
+					}
+				}
+
+				writer.WriteLine($"<set var='result'>{rule.Solution}</set>");
+				while (closeTags.Count > 0)
+					writer.WriteLine(closeTags.Pop());
+				writer.WriteLine("</condition>");
+			}
+			writer.WriteLine("</think>");
+			writer.WriteLine("<get var='result'/>");
+			writer.WriteLine("</template>");
+			writer.WriteLine("</category>");
+
+			writer.WriteLine("<category>");
+			writer.WriteLine($"<pattern>SolverFallback Button {ruleSeed} <set>BombColours</set></pattern>");
+			writer.WriteLine("<template>");
+			writer.WriteLine("<think><set var='colour'><star/></set></think>");
+			writer.WriteLine("<condition var='colour'>");
+			
+			foreach (var rule in rules.HeldRules) {
+				writer.Write(rule.Colour.HasValue ? $"<li value='{rule.Colour}'>" : "<li>");
+				writer.WriteLine($"{rule.Solution.Type} {rule.Solution.Digit}</li>");
+			}
+
+			writer.WriteLine("</condition>");
+			writer.WriteLine("</template>");
+			writer.WriteLine("</category>");
+			writer.WriteLine("</aiml>");
 		}
 
 		public enum Colour {
@@ -302,22 +417,14 @@ namespace BombExpert.Solvers {
 				this.Solution = solution;
 			}
 
-			public ConditionResult EvaluateConditions(RequestProcess process, Colour colour, Label label) {
-				var result = new ConditionResult(ConditionResultCode.True);
-				foreach (var condition in this.Conditions) {
-					var result2 = condition.Delegate(process, new ButtonData() { Colour = colour, Label = label });
-					if (result2.Code == ConditionResultCode.False) return result2;
-					if (result2.Code == ConditionResultCode.Unknown && result.Code != ConditionResultCode.Unknown)
-						result = result2;
-				}
-				return result;
-			}
-
 			public override string ToString()
 				=> "If " + (this.Conditions.Count == 0 ? "none of the above apply" : string.Join(" and ", this.Conditions)) + ", " +
-					(this.Solution == InitialSolution.Hold ? "hold the button and refer to “Releasing a Held Button”" :
-					this.Solution == InitialSolution.Tap ? "press and immediately release the button" :
-					"press and immediately release when the two seconds digits on the timer match") + ".";
+					this.Solution switch {
+						InitialSolution.Hold => "hold the button and refer to “Releasing a Held Button”",
+						InitialSolution.Tap => "press and immediately release the button",
+						InitialSolution.TapWhenSecondsMatch => "press and immediately release when the two seconds digits on the timer match",
+						_ => ""
+					} + ".";
 		}
 
 		public class HeldRule {
@@ -346,7 +453,11 @@ namespace BombExpert.Solvers {
 
 		public struct ButtonData {
 			public Colour Colour;
-			public Label Label;
-		}
+            public Label Label;
+            public ButtonData(Colour colour, Label label) {
+                Colour = colour;
+                Label = label;
+            }
+        }
 	}
 }

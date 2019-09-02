@@ -10,9 +10,10 @@ using System.Xml;
 using BombExpert;
 
 using static BombExpert.Solvers.ComplicatedWiresSolver.Flags;
+using System.IO;
 
 namespace BombExpert.Solvers {
-	public class ComplicatedWiresSolver : ISraixService {
+	public class ComplicatedWiresSolver : IModuleSolver {
 		private static readonly Instruction[] instructions = new[] { Instruction.Cut, Instruction.DoNotCut, Instruction.CutIfSerialNumberEven, Instruction.CutIfParallelPort, Instruction.CutIfTwoOrMoreBatteries };
 
 		public static Instruction[] GetRules(int seed) {
@@ -30,6 +31,30 @@ namespace BombExpert.Solvers {
 
 		private static Instruction GetInstruction(Dictionary<Instruction, double> weights, Random random) {
 			return Utils.WeightedRoll(instructions, weights, random, i => i, 0.1);
+		}
+
+		public void GenerateAiml(string path, int ruleSeed) {
+			var rules = GetRules(ruleSeed);
+
+			using var writer = new StreamWriter(Path.Combine(path, "maps", $"ComplicatedWires{ruleSeed}.txt"));
+			for (Flags flags = 0; flags < (Flags) 16; ++flags) {
+				if (flags == 0)
+					writer.Write("nil ");
+				else {
+					if (flags.HasFlag(Red)) writer.Write(nameof(Red) + " ");
+					if (flags.HasFlag(Blue)) writer.Write(nameof(Blue) + " ");
+					if (flags.HasFlag(Star)) writer.Write(nameof(Star) + " ");
+					if (flags.HasFlag(Light)) writer.Write(nameof(Light) + " ");
+				}
+				writer.WriteLine(":" + rules[(int) flags] switch {
+					Instruction.Cut => 'C',
+					Instruction.DoNotCut => 'D',
+					Instruction.CutIfSerialNumberEven => 'S',
+					Instruction.CutIfParallelPort => 'P',
+					Instruction.CutIfTwoOrMoreBatteries => 'B',
+					_ => '?'
+				});
+			}
 		}
 
 		public string Process(string text, XmlAttributeCollection attributes, RequestProcess process) {

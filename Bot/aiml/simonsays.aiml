@@ -77,66 +77,20 @@
 		<!-- Usage: SimonSaysMap [rule seed] [colour] -->
 		<!-- Returns the correct Simon Says mapping for the specified colour. -->
 		<category>
-			<pattern>SimonSaysMap 1 *</pattern>
+			<pattern>SimonSaysMap <set>number</set> *</pattern>
 			<template>
-				<think><set var='colour'><star/></set></think>
-				<condition name='BombSerialNumberHasVowel'>
-					<li value='true'>
-						<condition name='BombStrikeCount'>
-							<li value='0'>
-								<condition var='colour'>
-									<li value='red'   >blue</li>
-									<li value='blue'  >red</li>
-									<li value='green' >yellow</li>
-									<li value='yellow'>green</li>
-								</condition>
-							</li>
-							<li value='1'>
-								<condition var='colour'>
-									<li value='red'   >yellow</li>
-									<li value='blue'  >green</li>
-									<li value='green' >blue</li>
-									<li value='yellow'>red</li>
-								</condition>
-							</li>
-							<li>
-								<condition var='colour'>
-									<li value='red'   >green</li>
-									<li value='blue'  >red</li>
-									<li value='green' >yellow</li>
-									<li value='yellow'>blue</li>
-								</condition>
-							</li>
-						</condition>
-					</li>
-					<li>
-						<condition name='BombStrikeCount'>
-							<li value='0'>
-								<condition var='colour'>
-									<li value='red'   >blue</li>
-									<li value='blue'  >yellow</li>
-									<li value='green' >green</li>
-									<li value='yellow'>red</li>
-								</condition>
-							</li>
-							<li value='1'>
-								<condition var='colour'>
-									<li value='red'   >red</li>
-									<li value='blue'  >blue</li>
-									<li value='green' >yellow</li>
-									<li value='yellow'>green</li>
-								</condition>
-							</li>
-							<li>
-								<condition var='colour'>
-									<li value='red'   >yellow</li>
-									<li value='blue'  >green</li>
-									<li value='green' >blue</li>
-									<li value='yellow'>red</li>
-								</condition>
-							</li>
-						</condition>
-					</li>
+				<think>
+					<set var='result'>
+						<map><name>SimonSays<star/></name><get name='BombSerialNumberHasVowel'/> <condition name='BombStrikeCount'>
+								<li value='0'>0</li>
+								<li value='1'>1</li>
+								<li>2</li>
+							</condition> <star index='2'/></map>
+					</set>
+				</think>
+				<condition var='result'>
+					<li value='unknown'>NoSolver</li>
+					<li><get var='result'/></li>
 				</condition>
 			</template>
 		</category>

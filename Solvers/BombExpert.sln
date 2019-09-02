@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28711.60
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BombExpert", "BombExpert\BombExpert.csproj", "{1F8F224E-F875-4324-A8D2-88555131A82B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BombExpert", "BombExpert\BombExpert.csproj", "{1F8F224E-F875-4324-A8D2-88555131A82B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tester", "Tester\Tester.csproj", "{94F7EDCF-B691-4233-9972-8632CCCF3849}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tester", "Tester\Tester.csproj", "{94F7EDCF-B691-4233-9972-8632CCCF3849}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

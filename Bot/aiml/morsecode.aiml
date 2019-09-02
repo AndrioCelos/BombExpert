@@ -123,7 +123,7 @@
 						<li value='BadMorseCode'></li>
 						<li value='MultipleWords'></li>
 						<li value='unknown'></li>
-						<li><set var='result'><get var='result'/> <map><name>MorseFrequency<star/></name><get var='result'/></map></set></li>
+						<li><set var='result'><get var='result'/> <map><name>MorseCodeFrequency<star/></name><get var='result'/></map></set></li>
 					</condition>
 				</think>
 				<get var='result'/>

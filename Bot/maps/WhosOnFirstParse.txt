@@ -247,10 +247,10 @@ uh huh negative:UH_UH
 u h u h:UH_UH
 staccato:UH_UH
 
-what question:WHATQ
-what question mark:WHATQ
-what with question mark:WHATQ
-what with a question mark:WHATQ
+what question:WHAT_
+what question mark:WHAT_
+what with question mark:WHAT_
+what with a question mark:WHAT_
 
 sure:SURE
 

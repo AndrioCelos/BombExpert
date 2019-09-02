@@ -8,7 +8,8 @@
 	<rule id='lights' scope='public'>
 		<one-of>
 			<item> all off </item>
-			<item repeat='6'>
+			<item> all on </item>
+			<item repeat='4-12'>
 				<one-of>
 					<item> on </item>
 					<item> off </item>

@@ -606,6 +606,13 @@
 			Does the bomb have a <star/> port?
 		</template>
 	</category>
+	<category>
+		<pattern>EdgeworkQuery EmptyPortPlate</pattern>
+		<template>
+			<srai>EdgeworkQueryStart ports EmptyPortPlate</srai>
+			Does the bomb have an empty port plate?
+		</template>
+	</category>
 	<topic name='Bomb Edgework PortPlates'>
 		<category>
 			<pattern>plate *</pattern>
@@ -712,6 +719,17 @@
 			<think>
 				<set var='answer'><map name='ParseBoolean'><star/></map></set>
 				<set><name>BombPort<topicstar/></name><get var='answer'/></set>
+			</think>
+			<srai>EdgeworkQueryCallback ports</srai>
+		</template>
+	</category>
+	<category>
+		<pattern><set>YesOrNo</set></pattern>
+		<topic>Bomb Edgework EmptyPortPlate</topic>
+		<template>
+			<think>
+				<set var='answer'><map name='ParseBoolean'><star/></map></set>
+				<set><name>BombEmptyPortPlate</name><get var='answer'/></set>
 			</think>
 			<srai>EdgeworkQueryCallback ports</srai>
 		</template>

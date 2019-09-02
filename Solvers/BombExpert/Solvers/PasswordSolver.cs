@@ -9,9 +9,10 @@ using System.Threading.Tasks;
 using System.Xml;
 using BombExpert;
 using Aiml;
+using System.IO;
 
 namespace BombExpert.Solvers {
-	public class PasswordSolver : ISraixService {
+	public class PasswordSolver : IModuleSolver {
 		private static readonly string[] vanillaPasswords = new[] {
 			"about", "after", "again", "below", "could",
 			"every", "first", "found", "great", "house",
@@ -112,7 +113,8 @@ namespace BombExpert.Solvers {
 			"waves", "wears", "weary", "wedge", "weeds", "weeks", "weigh", "weird", "wells", "welsh", "whale", "wheat", "wheel", "while", "white", "whole", "whose", "widen",
 			"wider", "widow", "width", "wills", "winds", "windy", "wines", "wings", "wiped", "wires", "wiser", "witch", "witty", "wives", "woken", "woman", "women", "woods",
 			"words", "works", "worms", "worry", "worse", "worst", "worth", "wound", "woven", "wrath", "wreck", "wrist", "wrong", "wrote", "wryly", "xerox", "yacht", "yards",
-			"yawns", "years", "yeast", "yield", "young", "yours", "youth", "zilch", "zones"		};
+			"yawns", "years", "yeast", "yield", "young", "yours", "youth", "zilch", "zones"
+		};
 
 		private static Cache<int, string[]> cache = new Cache<int, string[]>(64, GetWordsInternal);
 
@@ -156,7 +158,21 @@ namespace BombExpert.Solvers {
 				if (i >= b.Length || b[i] != a[i])
 					score++;
 			return score;
-		}
+		}
+
+		public void GenerateAiml(string path, int ruleSeed) {
+			var words = GetWords(ruleSeed);
+
+			using var writer = new StreamWriter(Path.Combine(path, "aiml", $"password{ruleSeed}.aiml"));
+			writer.WriteLine("<?xml version='1.0' encoding='UTF-8'?>");
+			writer.WriteLine("<aiml version='2.0'>");
+			writer.WriteLine("<category>");
+			writer.WriteLine($"<pattern>SolverFallback Password {ruleSeed} GetPasswords</pattern>");
+			writer.WriteLine($"<template>{string.Join(" ", words)}</template>");
+			writer.WriteLine("</category>");
+			writer.WriteLine("</aiml>");
+		}
+
 		public string Process(string text, XmlAttributeCollection attributes, RequestProcess process) {
 			var words = text.Split((char[]?) null, StringSplitOptions.RemoveEmptyEntries);
 			if (words[1].Equals("GetPasswords", StringComparison.CurrentCultureIgnoreCase)) {

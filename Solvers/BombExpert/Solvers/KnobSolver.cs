@@ -8,9 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using BombExpert;
+using System.IO;
 
 namespace BombExpert.Solvers {
-	public class KnobSolver : ISraixService {
+	public class KnobSolver : IModuleSolver {
 		public static Rule[] GetRules(int ruleSeed) {
 			var random = new MonoRandom(ruleSeed);
 
@@ -63,22 +64,8 @@ namespace BombExpert.Solvers {
 
 			if (fields[1].Equals("GetPattern", StringComparison.InvariantCultureIgnoreCase)) {
 				// Find the first pattern that uniquely determines the required position.
-				foreach (var (name, indices) in patterns) {
-					var valid = true;
-					var mapping = new Dictionary<string, Position>();
-					foreach (var rule in rules) {
-						var key = string.Join("", indices.Select(i => rule.Lights[i] ? '1' : '0'));
-						if (mapping.TryGetValue(key, out var position)) {
-							if (position != rule.Position) {
-								valid = false;
-								break;
-							}
-						} else
-							mapping[key] = rule.Position;
-					}
-					if (valid) return name + " " + string.Join(" ", indices);
-				}
-				throw new InvalidOperationException("No valid pattern found for this rule seed?!");
+				var (name, indices) = GetPattern(rules);
+				return name + " " + string.Join(" ", indices);
 			}
 
 			var known = new List<(int index, bool on)>();
@@ -99,6 +86,58 @@ namespace BombExpert.Solvers {
 			}
 
 			return position2?.ToString()?.ToLower() ?? "unknown";
+		}
+
+		private static (string name, int[] indices) GetPattern(Rule[] rules) {
+			foreach (var (name, indices) in patterns) {
+				var valid = true;
+				var mapping = new Dictionary<string, Position>();
+				foreach (var rule in rules) {
+					var key = string.Join("", indices.Select(i => rule.Lights[i] ? '1' : '0'));
+					if (mapping.TryGetValue(key, out var position)) {
+						if (position != rule.Position) {
+							valid = false;
+							break;
+						}
+					} else
+						mapping[key] = rule.Position;
+				}
+				if (valid) return (name, indices);
+			}
+			throw new InvalidOperationException("No valid pattern found for this rule seed?!");
+		}
+
+		public void GenerateAiml(string path, int ruleSeed) {
+			var rules = GetRules(ruleSeed);
+
+			using var writer = new StreamWriter(Path.Combine(path, "aiml", $"knob{ruleSeed}.aiml"));
+			writer.WriteLine("<?xml version='1.0' encoding='UTF-8'?>");
+			writer.WriteLine("<aiml version='2.0'>");
+
+			var (name, indices) = GetPattern(rules);
+			writer.WriteLine("<category>");
+			writer.WriteLine($"<pattern>SolverFallback Knob {ruleSeed} GetPattern</pattern>");
+			writer.WriteLine($"<template>{name} {string.Join(" ", indices)}</template>");
+			writer.WriteLine("</category>");
+
+			var used = new HashSet<string>();
+			for (int i = 0; i < 8; ++i) {
+				var rule = rules[i];
+				var lights = string.Join(" ", indices.Select(j => j + ":" + (rule.Lights[j] ? "on" : "off")));
+
+				if (used.Add(lights)) {
+					writer.WriteLine("<category>");
+					writer.WriteLine($"<pattern>SolverFallback Knob {ruleSeed} Lights {lights}</pattern>");
+					writer.WriteLine($"<template>{rule.Position}</template>");
+					writer.WriteLine("</category>");
+				}
+			}
+
+			writer.WriteLine("<category>");
+			writer.WriteLine($"<pattern>SolverFallback Knob {ruleSeed} Lights *</pattern>");
+			writer.WriteLine($"<template>unknown</template>");
+			writer.WriteLine("</category>");
+			writer.WriteLine("</aiml>");
 		}
 
 		public enum Position {

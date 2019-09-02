@@ -8,9 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using BombExpert;
+using System.IO;
 
 namespace BombExpert.Solvers {
-	public class MorseCodeSolver : ISraixService {
+	public class MorseCodeSolver : IModuleSolver {
 		private static readonly string[] words = new[] {
                 // Vanilla Morse words
                 "trick", "bravo", "vector", "brain",
@@ -198,7 +199,8 @@ namespace BombExpert.Solvers {
 				"voting", "vowels", "voyage", "wagons", "waited", "waiter", "waking", "walked", "wallet", "walnut", "wander", "wanted", "warden", "warily", "warmer", "warmly", "warmth", "warned", "washed",
 				"wasted", "wastes", "waters", "waving", "weaken", "weaker", "weakly", "wealth", "weapon", "weekly", "weight", "whales", "wheels", "whilst", "whisky", "whites", "wholly", "wicket", "widely",
 				"widest", "widows", "wildly", "window", "winger", "winner", "winter", "wiping", "wiring", "wisdom", "wisely", "wished", "wishes", "within", "wizard", "wolves", "wonder", "worked", "worker",
-				"worlds", "wounds", "wrists", "writer", "writes", "yachts", "yelled", "yields", "youths"		};
+				"worlds", "wounds", "wrists", "writer", "writes", "yachts", "yelled", "yields", "youths"
+		};
 		private static readonly string[] frequencies = new[] {
 				"3.502", "3.505", "3.512", "3.515",
 				"3.522", "3.525", "3.532", "3.535",
@@ -388,6 +390,70 @@ namespace BombExpert.Solvers {
 
 			if (solutionWord == null) return "unknown";
 			return solutionWord + " " + words[solutionWord];
+		}
+
+		public void GenerateAiml(string path, int ruleSeed) {
+			var words = GetRules(ruleSeed);
+
+			// Build the search tree.
+			var search = new SortedDictionary<string, (string word, int end)>();
+			foreach (var word in words.Keys) {
+				for (int i = 0; i <= word.Length; ++i) {
+					int j = i;
+					var nextPath = "";
+					while (true) {
+						var searchPath = nextPath;
+						nextPath += j == word.Length ? '~' : word[j];
+						if (searchPath == "") {
+							++j;
+							if (j > word.Length) j = 0;
+							continue;
+						}
+						if (search.TryGetValue(searchPath, out var result)) {
+							++j;
+							if (j > word.Length) j = 0;
+							if (result.word != "MultipleWords") {
+								// Found a second match for this path.
+								search[searchPath] = ("MultipleWords", 0);
+
+								var otherPath = searchPath;
+								while (true) {
+									otherPath += (result.end == result.word.Length ? '~' : result.word[result.end]);
+									++result.end;
+									if (result.end > result.word.Length) result.end = 0;
+									if (otherPath == nextPath) {
+										search[otherPath] = ("MultipleWords", 0);
+										nextPath += j == word.Length ? '~' : word[j];
+										++j;
+										if (j > word.Length) j = 0;
+									} else {
+										search[otherPath] = result;
+										search[nextPath] = (word, j);
+										break;
+									}
+								}
+								break;
+							}
+						} else {
+							search[searchPath] = (word, j);
+							break;
+						}
+					}
+				}
+			}
+
+
+			using (var writer = new StreamWriter(Path.Combine(path, "maps", $"MorseCodeSearch{ruleSeed}.txt"))) {
+				foreach (var entry in search) {
+					writer.WriteLine($"{entry.Key,-7}:{entry.Value.word}");
+				}
+			}
+
+			using (var writer = new StreamWriter(Path.Combine(path, "maps", $"MorseCodeFrequency{ruleSeed}.txt"))) {
+				foreach (var entry in words) {
+					writer.WriteLine($"{entry.Key,-6}:{entry.Value}");
+				}
+			}
 		}
 	}
 }

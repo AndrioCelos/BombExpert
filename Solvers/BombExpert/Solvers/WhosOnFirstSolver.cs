@@ -8,9 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using BombExpert;
+using System.IO;
 
 namespace BombExpert.Solvers {
-	public class WhosOnFirstSolver : ISraixService {
+	public class WhosOnFirstSolver : IModuleSolver {
 		private static readonly string[] displayTexts = new[] {
 			"YES", "FIRST", "DISPLAY", "OKAY", "SAYS", "NOTHING", "", "BLANK", "NO", "LED",
 			"LEAD", "READ", "RED", "REED", "LEED", "HOLD ON", "YOU", "YOU ARE", "YOUR",
@@ -41,57 +42,61 @@ namespace BombExpert.Solvers {
 			return new RuleSet(displayRules, buttonRules);
 		}
 
+		public void GenerateAiml(string path, int ruleSeed) {
+			var rules = GetRules(ruleSeed);
+
+			using (var writer = new StreamWriter(Path.Combine(path, "maps", $"WhosOnFirstButton{ruleSeed}.txt"))) {
+				foreach (var entry in rules.DisplayRules) {
+					var value = entry.Value switch {
+						0 => "top left",
+						1 => "top right",
+						2 => "middle left",
+						3 => "middle right",
+						4 => "bottom left",
+						5 => "bottom right",
+						_ => throw new InvalidOperationException("Unknown button position")
+					};
+					writer.WriteLine($"{AimlEncode(entry.Key)}:{value}");
+				}
+			}
+
+			using (var writer = new StreamWriter(Path.Combine(path, "maps", $"WhosOnFirstList{ruleSeed}.txt"))) {
+				foreach (var entry in rules.ButtonRules) {
+					writer.Write($"{AimlEncode(entry.Key)}:");
+					foreach (var label in entry.Value) {
+						writer.Write(AimlEncode(label));
+						if (label == entry.Key) break;
+						else writer.Write(' ');
+					}
+					writer.WriteLine();
+				}
+			}
+		}
+
 		/// <param name="text">[rule seed] (Display|Button) [text]</param>
 		public string Process(string text, XmlAttributeCollection attributes, RequestProcess process) {
 			try {
 				var words = text.Split((char[]?) null, 3, StringSplitOptions.RemoveEmptyEntries);
 				var rules = GetRules(int.Parse(words[0]));
-				var label = words.Length > 2 ? words[2] : "nil";
+				var label = AimlDecode(words.Length > 2 ? words[2] : "nil");
 
 				if (words[1].Equals("Display", StringComparison.CurrentCultureIgnoreCase)) {
-					switch (label) {
-						case "HOLD_ON": label = "HOLD ON"; break;
-						case "YOU_ARE": label = "YOU ARE"; break;
-						case "YOU_RE": label = "YOU'RE"; break;
-						case "THEY_RE": label = "THEY'RE"; break;
-						case "THEY_ARE": label = "THEY ARE"; break;
-						case "nil": label = ""; break;
-					}
-
 					var result = rules.DisplayRules[label];
-					switch (result) {
-						case 0: return "top left";
-						case 1: return "top right";
-						case 2: return "middle left";
-						case 3: return "middle right";
-						case 4: return "bottom left";
-						case 5: return "bottom right";
-						default: throw new InvalidOperationException("Unknown button position");
-					}
+					return result switch {
+						0 => "top left",
+						1 => "top right",
+						2 => "middle left",
+						3 => "middle right",
+						4 => "bottom left",
+						5 => "bottom right",
+						_ => throw new InvalidOperationException("Unknown button position"),
+					};
 				} else {
-					switch (label) {
-						case "YOU_ARE": label = "YOU ARE"; break;
-						case "YOU_RE": label = "YOU'RE"; break;
-						case "UH_HUH": label = "UH HUH"; break;
-						case "UH_UH": label = "UH UH"; break;
-						case "WHATQ": label = "WHAT?"; break;
-					}
-
 					var builder = new StringBuilder();
 					var result = rules.ButtonRules[label];
 					foreach (var label2 in result) {
-						string label3;
-						switch (label2) {
-							case "YOU ARE": label3 = "YOU_ARE"; break;
-							case "YOU'RE": label3 = "YOU_RE"; break;
-							case "UH HUH": label3 = "UH_HUH"; break;
-							case "UH UH": label3 = "UH_UH"; break;
-							case "WHAT?": label3 = "WHATQ"; break;
-							default: label3 = label2; break;
-						}
-
 						if (builder.Length > 0) builder.Append(" ");
-						builder.Append(label3);
+						builder.Append(AimlEncode(label2));
 
 						if (label2 == label) break;
 					}
@@ -101,6 +106,24 @@ namespace BombExpert.Solvers {
 				return "unknown";
 			}
 		}
+
+		public static string AimlEncode(string text) {
+			if (text == "") return "nil";
+			return text.Replace(' ', '_').Replace('\'', '_').Replace('?', '_');
+		}
+
+		public static string AimlDecode(string text) => text switch {
+			"nil" => "",
+			"HOLD_ON" => "HOLD ON",
+			"THEY_ARE" => "THEY ARE",
+			"THEY_RE" => "THEY'RE",
+			"WHAT_" => "WHAT?",
+			"UH_HUH" => "UH HUH",
+			"UH_UH" => "UH UH",
+			"YOU_ARE" => "YOU ARE",
+			"YOU_RE" => "YOU'RE",
+			_ => text
+		};
 
 		public class RuleSet {
 			public Dictionary<string, int> DisplayRules;

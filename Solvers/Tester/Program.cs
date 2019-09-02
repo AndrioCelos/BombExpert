@@ -6,15 +6,30 @@ using System.Text;
 using BombExpert.Solvers;
 
 using static BombExpert.Solvers.MazeSolver.MazeFlags;
+using System.IO;
 
 namespace BombExpert.Tester {
 	class Program {
 		static void Main(string[] args) {
 			Console.OutputEncoding = Encoding.UTF8;
 
-			var solvers = new Dictionary<string, ISraixService>();
-			foreach (var type in typeof(ButtonSolver).Assembly.GetExportedTypes().Where(typeof(ISraixService).IsAssignableFrom)) {
-				solvers.Add(type.Name, (ISraixService) Activator.CreateInstance(type));
+			var solvers = new Dictionary<string, IModuleSolver>();
+			foreach (var type in typeof(ButtonSolver).Assembly.GetExportedTypes().Where(t => !t.IsInterface && typeof(IModuleSolver).IsAssignableFrom(t))) {
+				solvers.Add(type.Name, (IModuleSolver) Activator.CreateInstance(type));
+			}
+
+			if (args.Length > 0 && args[0] switch { "/?" => true, "-?" => true, "-h" => true, "--help" => true, _ => false }) {
+				Console.WriteLine("Usage: Tester [options]");
+				Console.WriteLine("Without options, enters interactive tester mode.");
+				Console.WriteLine("Options:");
+				Console.WriteLine("  -g <rule seed> [out directory]: Generates AIML bot files for the specified rule seed.");
+				return;
+			}
+			if (args.Length > 0 && (args[0] == "-g" || args[0] == "--generate")) {
+				var ruleSeed = int.Parse(args[1]);
+				var path = args.Length > 2 ? args[2] : "aiml" + ruleSeed;
+				GenerateAiml(solvers, ruleSeed, path);
+				return;
 			}
 
 			var user = new User("User", new Bot());
@@ -35,6 +50,13 @@ namespace BombExpert.Tester {
 							break;
 						case "set":
 							user.Predicates[fields[1]] = fields[2];
+							break;
+						case "generate":
+							var ruleSeed = int.Parse(fields[1]);
+							var path = Path.Combine(Path.GetTempPath(), "aiml" + ruleSeed);
+							GenerateAiml(solvers, ruleSeed, path);
+
+							Console.WriteLine("Bot files written to " + path);
 							break;
 						case "button":
 							if (fields[1].Equals("rules", StringComparison.CurrentCultureIgnoreCase)) {
@@ -389,6 +411,26 @@ namespace BombExpert.Tester {
 				} catch (Exception ex) {
 					Console.Error.WriteLine(ex);
 				}
+			}
+		}
+
+		private static void GenerateAiml(Dictionary<string, IModuleSolver> solvers, int ruleSeed, string path) {
+			Directory.CreateDirectory(Path.Combine(path, "aiml"));
+			Directory.CreateDirectory(Path.Combine(path, "sets"));
+			Directory.CreateDirectory(Path.Combine(path, "maps"));
+
+			using (var writer = new StreamWriter(Path.Combine(path, "aiml", $"bomb{ruleSeed}.aiml"))) {
+				writer.WriteLine("<?xml version='1.0' encoding='UTF-8'?>");
+				writer.WriteLine("<aiml version='2.0'>");
+				writer.WriteLine("<category>");
+				writer.WriteLine($"<pattern>OKRuleSeed {ruleSeed}</pattern>");
+				writer.WriteLine("<template>true</template>");
+				writer.WriteLine("</category>");
+				writer.WriteLine("</aiml>");
+			}
+
+			foreach (var solver in solvers.Values) {
+				solver.GenerateAiml(path, ruleSeed);
 			}
 		}
 	}

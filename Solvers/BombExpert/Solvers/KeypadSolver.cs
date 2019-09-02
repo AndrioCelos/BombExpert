@@ -3,6 +3,7 @@
 using Aiml;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ using System.Xml;
 using static BombExpert.Solvers.KeypadSolver.Glyph;
 
 namespace BombExpert.Solvers {
-	public class KeypadSolver : ISraixService {
+	public class KeypadSolver : IModuleSolver {
 		public static Glyph[][] GetColumns(int ruleSeed) {
 			var random = new MonoRandom(ruleSeed);
 			var unusedGlyphs = new List<Glyph>() {
@@ -201,6 +202,27 @@ namespace BombExpert.Solvers {
 		private static IEnumerable<Glyph> GetGlyphsWithFrequency(IEnumerable<IEnumerable<Glyph>> columns, int frequency) {
 			for (var glyph = Copyright; glyph <= BT; ++glyph) {
 				if (columns.Count(c => c.Contains(glyph)) == frequency) yield return glyph;
+			}
+		}
+
+		public void GenerateAiml(string path, int ruleSeed) {
+			var columns = GetColumns(ruleSeed);
+
+			using (var writer = new StreamWriter(Path.Combine(path, "aiml", $"keypad{ruleSeed}.aiml"))) {
+				writer.WriteLine("<?xml version='1.0' encoding='UTF-8'?>");
+				writer.WriteLine("<aiml version='2.0'>");
+				for (int i = 1; i <= 2; ++i) {
+					writer.WriteLine("<category>");
+					writer.WriteLine($"<pattern>XGlyphs {ruleSeed} {i}</pattern>");
+					writer.WriteLine($"<template>{string.Join(" ", GetGlyphsWithFrequency(columns, i))}</template>");
+					writer.WriteLine("</category>");
+				}
+				writer.WriteLine("</aiml>");
+			}
+			using (var writer = new StreamWriter(Path.Combine(path, "maps", $"KeypadColumns{ruleSeed}.txt"))) {
+				for (int i = 0; i < columns.Length; ++i) {
+					writer.WriteLine($"{i + 1}:{string.Join(" ", columns[i])}");
+				}
 			}
 		}
 

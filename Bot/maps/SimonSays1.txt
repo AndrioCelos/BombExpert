@@ -1,0 +1,27 @@
+# This map represents the Simon Says colour mapping.
+# Keys are of the form [vowel] [min(strikes, 2)] [colour]
+
+true 0 red    :blue
+true 0 blue   :red
+true 0 green  :yellow
+true 0 yellow :green
+true 1 red    :yellow
+true 1 blue   :green
+true 1 green  :blue
+true 1 yellow :red
+true 2 red    :green
+true 2 blue   :red
+true 2 green  :yellow
+true 2 yellow :blue
+false 0 red   :blue
+false 0 blue  :yellow
+false 0 green :green
+false 0 yellow:red
+false 1 red   :red
+false 1 blue  :blue
+false 1 green :yellow
+false 1 yellow:green
+false 2 red   :yellow
+false 2 blue  :green
+false 2 green :blue
+false 2 yellow:red

@@ -41,14 +41,14 @@
 			<template><srai>KeypadCheckGlyphDescription <star/></srai></template>
 		</category>
 
-		<!-- Usage: XGlyphs [n] -->
+		<!-- Usage: XGlyphs [rule seed] [n] -->
 		<!-- Returns a list of glyphs that appear on exactly n columns. -->
 		<category>
-			<pattern>XGlyphs 1</pattern>
+			<pattern>XGlyphs 1 1</pattern>
 			<template>Copyright FilledStar Omega Pumpkin SquigglyN AT Ae MeltedThree NWithHat Dragon RightC Tracks</template>
 		</category>
 		<category>
-			<pattern>XGlyphs 2</pattern>
+			<pattern>XGlyphs 1 2</pattern>
 			<template>HollowStar SmileyFace DoubleK SquidKnife HookN Six Euro QuestionMark Paragraph LeftC Pitchfork Cursive Balloon UpsideDownY BT</template>
 		</category>
 
@@ -71,7 +71,7 @@
 								<think>
 									<set name='BombKeypadStage'>2</set>
 									<set name='topic'>bomb keypad</set>
-									<set name='BombKeypadToAsk'><srai>XGlyphs 2</srai></set>
+									<set name='BombKeypadToAsk'><srai>XGlyphs <get name='RuleSeed'/> 2</srai></set>
 								</think>
 								<oob>SetGrammar keypadOK</oob>
 								<srai>KeypadResult <srai>Solver Keypad Start</srai></srai>
@@ -151,11 +151,11 @@
 		<!-- Usage: Solver Keypad Keypad [4 glyphs] -->
 		<!-- Returns the glyphs in the order they should be pressed. -->
 		<category>
-			<pattern>SolverFallback Keypad 1 Keypad * * * *</pattern>
+			<pattern>SolverFallback Keypad <set>number</set> Keypad * * * *</pattern>
 			<template>
 				<think>
 					<!-- Find which column contains these glyphs. -->
-					<set var='glyphs'><star index='1'/> <star index='2'/> <star index='3'/> <star index='4'/></set>
+					<set var='glyphs'><star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/></set>
 					<set var='possible'>1 2 3 4 5 6</set>
 					<condition var='glyphs'>
 						<li value='nil'></li>
@@ -170,7 +170,7 @@
 								<li value='nil'></li>
 								<li>
 									<set var='column'><srai>XFirst <get var='toCheck'/></srai></set>
-									<set var='contains'><srai>XContains <get var='glyph'/> <map name='KeypadColumns1'><get var='column'/></map></srai></set>
+									<set var='contains'><srai>XContains <get var='glyph'/> <map><name>KeypadColumns<star/></name><get var='column'/></map></srai></set>
 									<set var='toCheck'><srai>XRest <get var='toCheck'/></srai></set>
 									<condition var='contains' value='true'>
 										<set var='numberPossible'><map name='successor'><get var='numberPossible'/></map></set>
@@ -186,7 +186,7 @@
 						<li value='0'><set var='result'>NoColumn</set></li>
 						<li value='1'>
 							<!-- Return the glyphs in the correct order. -->
-							<set var='columnGlyphs'><map name='KeypadColumns1'><get var='possible'/></map></set>
+							<set var='columnGlyphs'><map><name>KeypadColumns<star/></name><get var='possible'/></map></set>
 							<set var='result'>nil</set>
 							<condition var='columnGlyphs'>
 								<li value='nil'></li>
@@ -194,10 +194,10 @@
 									<set var='glyph'><srai>XFirst <get var='columnGlyphs'/></srai></set>
 									<set var='columnGlyphs'><srai>XRest <get var='columnGlyphs'/></srai></set>
 									<condition var='glyph'>
-										<li><value><star index='1'/></value><set var='result'><srai>XAppend <get var='glyph'/> <get var='result'/></srai></set></li>
 										<li><value><star index='2'/></value><set var='result'><srai>XAppend <get var='glyph'/> <get var='result'/></srai></set></li>
 										<li><value><star index='3'/></value><set var='result'><srai>XAppend <get var='glyph'/> <get var='result'/></srai></set></li>
 										<li><value><star index='4'/></value><set var='result'><srai>XAppend <get var='glyph'/> <get var='result'/></srai></set></li>
+										<li><value><star index='5'/></value><set var='result'><srai>XAppend <get var='glyph'/> <get var='result'/></srai></set></li>
 									</condition>
 									<loop/>
 								</li>
@@ -213,11 +213,11 @@
 		<!-- Usage: Solver Keypad CheckKeypad [glyphs ...] -->
 		<!-- Returns true if there is a matching column, or false otherwise. -->
 		<category>
-			<pattern>SolverFallback Keypad 1 CheckKeypad *</pattern>
+			<pattern>SolverFallback Keypad <set>number</set> CheckKeypad *</pattern>
 			<template>
 				<think>
 					<set var='result'>true</set>
-					<set var='glyphs'><star/></set>
+					<set var='glyphs'><star index='2'/></set>
 					<set var='possible'>1 2 3 4 5 6</set>
 					<condition var='glyphs'>
 						<li value='nil'></li>
@@ -235,7 +235,7 @@
 										<li value='nil'></li>
 										<li>
 											<set var='column'><srai>XFirst <get var='toCheck'/></srai></set>
-											<set var='contains'><srai>XContains <get var='glyph'/> <map name='KeypadColumns1'><get var='column'/></map></srai></set>
+											<set var='contains'><srai>XContains <get var='glyph'/> <map><name>KeypadColumns<star/></name><get var='column'/></map></srai></set>
 											<set var='toCheck'><srai>XRest <get var='toCheck'/></srai></set>
 											<condition var='contains' value='true'>
 												<set var='numberPossible'><map name='successor'><get var='numberPossible'/></map></set>
@@ -277,17 +277,17 @@
 		</category>
 
 		<category>
-			<pattern>SolverFallback Keypad 1 Start ^</pattern>
+			<pattern>SolverFallback Keypad <set>number</set> Start ^</pattern>
 			<template><srai>KeypadPrompt</srai></template>
 		</category>
 
 		<category>
-			<pattern>SolverFallback Keypad 1 GlyphPresent false *</pattern>
+			<pattern>SolverFallback Keypad <set>number</set> GlyphPresent false *</pattern>
 			<template><srai>KeypadPrompt</srai></template>
 		</category>
 
 		<category>
-			<pattern>SolverFallback Keypad 1 GlyphPresent true *</pattern>
+			<pattern>SolverFallback Keypad <set>number</set> GlyphPresent true *</pattern>
 			<template>
 				<think>
 					<condition name='BombKeypadColumns'>
@@ -299,7 +299,7 @@
 							<condition var='columnIndex'>
 								<li value='7'></li>
 								<li>
-									<set var='contains'><srai>XContains <star/> <map name='KeypadColumns1'><get var='columnIndex'/></map></srai></set>
+									<set var='contains'><srai>XContains <star/> <map><name>KeypadColumns<star/></name><get var='columnIndex'/></map></srai></set>
 									<condition var='contains' value='true'>
 										<set name='BombKeypadColumns'><srai>XAppend <get var='columnIndex'/> <get name='BombKeypadColumns'/></srai></set>
 										<set var='numberPossible'><map name='successor'><get var='numberPossible'/></map></set>
@@ -309,12 +309,12 @@
 								</li>
 							</condition>
 							<condition var='numberPossible'>
-								<li value='1'><set var='result'>Tell <map name='KeypadColumns1'><get name='BombKeypadColumns'/></map></set></li>
+								<li value='1'><set var='result'>Tell <map><name>KeypadColumns<star/></name><get name='BombKeypadColumns'/></map></set></li>
 								<li>
 									<!-- Two possible columns: ask about other glyphs in exactly one of those columns. -->
 									<set name='BombKeypadToAsk'>nil</set>
-									<set var='column1'><map name='KeypadColumns1'><srai>XFirst <get name='BombKeypadColumns'/></srai></map></set>
-									<set var='column2'><map name='KeypadColumns1'><srai>XRest <get name='BombKeypadColumns'/></srai></map></set>
+									<set var='column1'><map><name>KeypadColumns<star/></name><srai>XFirst <get name='BombKeypadColumns'/></srai></map></set>
+									<set var='column2'><map><name>KeypadColumns<star/></name><srai>XRest <get name='BombKeypadColumns'/></srai></map></set>
 
 									<set var='column'><get var='column1'/></set>
 									<condition var='column'>
@@ -356,10 +356,10 @@
 							<set var='columnIndex1'><srai>XFirst <get name='BombKeypadColumns'/></srai></set>
 							<set var='columnIndex2'><srai>XRest <get name='BombKeypadColumns'/></srai></set>
 
-							<set var='contains'><srai>XContains <star/> <map name='KeypadColumns1'><get var='columnIndex1'/></map></srai></set>
+							<set var='contains'><srai>XContains <star/> <map><name>KeypadColumns<star/></name><get var='columnIndex1'/></map></srai></set>
 							<condition var='contains'>
-								<li value='true'><set var='result'>Tell <map name='KeypadColumns1'><get var='columnIndex1'/></map></set></li>
-								<li><set var='result'>Tell <map name='KeypadColumns1'><get var='columnIndex2'/></map></set></li>
+								<li value='true'><set var='result'>Tell <map><name>KeypadColumns<star/></name><get var='columnIndex1'/></map></set></li>
+								<li><set var='result'>Tell <map><name>KeypadColumns<star/></name><get var='columnIndex2'/></map></set></li>
 							</condition>
 						</li>
 					</condition>
@@ -379,7 +379,7 @@
 							<!-- Stage 2: Start by asking about glyphs that are in two columns.
 								If they say yes, we know that the correct column must be one of those columns. -->
 							<condition name='BombKeypadToAsk' value='nil'>
-								<set name='BombKeypadToAsk'><srai>XGlyphs 1</srai></set>
+								<set name='BombKeypadToAsk'><srai>XGlyphs <get name='RuleSeed'/> 1</srai></set>
 							</condition>
 							<set var='glyph'><srai>XFirst <get name='BombKeypadToAsk'/></srai></set>
 							<set name='BombKeypadToAsk'><srai>XRest <get name='BombKeypadToAsk'/></srai></set>

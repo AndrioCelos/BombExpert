@@ -10,9 +10,10 @@ using System.Xml;
 using BombExpert;
 
 using static BombExpert.Colour;
+using System.IO;
 
 namespace BombExpert.Solvers {
-	public class SimonSaysSolver : ISraixService {
+	public class SimonSaysSolver : IModuleSolver {
 		public static Colour[,,] GetRules(int ruleSeed) {
 			if (ruleSeed == 1) return new[,,] {
 				// If the serial number does not contain a vowel
@@ -65,6 +66,18 @@ namespace BombExpert.Solvers {
 				result[i] = rules[vowel ? 1 : 0, strikes, (int) colours[i]];
 			}
 			return result;
+		}
+
+		public void GenerateAiml(string path, int ruleSeed) {
+			var rules = GetRules(ruleSeed);
+			using var writer = new StreamWriter(Path.Combine(path, "maps", $"SimonSays{ruleSeed}.txt"));
+			for (int i = 0; i < 2; ++i) {
+				for (int j = 0; j < 3; ++j) {
+					for (int k = 0; k < 4; ++k) {
+						writer.WriteLine($"{i == 1} {j} {k switch { 0 => "red", 1 => "blue", 2 => "green", 3 => "yellow", _ => "unknown" }}:{rules[i, j, k]}");
+					}
+				}
+			}
 		}
 	}
 }

@@ -10,9 +10,10 @@ using System.Xml;
 using BombExpert;
 
 using static BombExpert.Solvers.WireSequenceSolver.Instruction;
+using System.IO;
 
 namespace BombExpert.Solvers {
-	public class WireSequenceSolver : ISraixService {
+	public class WireSequenceSolver : IModuleSolver {
 		private const int NUM_PAGES = 4;
 		private const int NUM_PER_PAGE = 3;
 		private const int NUM_COLOURS = 3;
@@ -45,6 +46,28 @@ namespace BombExpert.Solvers {
 				instructions[i] = flags;
 			}
 			return instructions;
+		}
+
+		public void GenerateAiml(string path, int ruleSeed) {
+			var rules = GetRules(ruleSeed);
+
+			using var writer = new StreamWriter(Path.Combine(path, "maps", $"WireSequence{ruleSeed}.txt"));
+			void write(string colour, Instruction[] instructions) {
+				for (int i = 0; i < instructions.Length; ++i) {
+					var instruction = instructions[i];
+					writer.Write($"{colour} {i + 1}:");
+					if (instruction == 0) writer.WriteLine("nil");
+					else {
+						if (instruction.HasFlag(CutA)) writer.Write("A ");
+						if (instruction.HasFlag(CutB)) writer.Write("B ");
+						if (instruction.HasFlag(CutC)) writer.Write("C ");
+						writer.WriteLine();
+					}
+				}
+			}
+			write("red", rules.RedRules);
+			write("blue", rules.BlueRules);
+			write("black", rules.BlackRules);
 		}
 
 		/// <param name="text">[rule seed] [red total] [blue total] [black total] [colour] [letter]</param>

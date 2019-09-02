@@ -3,24 +3,25 @@
 using Aiml;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 
 namespace BombExpert.Solvers {
-	public class WiresSolver : ISraixService {
+	public class WiresSolver : IModuleSolver {
 		private static readonly Colour[] colours = new[] { Colour.Black, Colour.Blue, Colour.Red, Colour.White, Colour.Yellow };
 
-		private static readonly InstructionType CutWire0 = new InstructionType("wire0", "cut the first wire", (p, c, w) => Result.CutFirstWire);
-		private static readonly InstructionType CutWire1 = new InstructionType("wire1", "cut the second wire", (p, c, w) => Result.CutSecondWire);
-		private static readonly InstructionType CutWire2 = new InstructionType("wire2", "cut the third wire", (p, c, w) => Result.CutThirdWire);
-		private static readonly InstructionType CutWire3 = new InstructionType("wire3", "cut the fourth wire", (p, c, w) => Result.CutFourthWire);
-		private static readonly InstructionType CutWire4 = new InstructionType("wire4", "cut the fifth wire", (p, c, w) => Result.CutFifthWire);
-		private static readonly InstructionType CutWireLast = new InstructionType("wire_last", "cut the last wire", (p, c, w) => Result.CutLastWire);
-		private static readonly InstructionType CutWireColourSingle = new InstructionType("wirecolor", "cut the {0} wire", processCutWireColourFirst);
-		private static readonly InstructionType CutWireColourFirst = new InstructionType("wirecolorfirst", "cut the first {0} wire", processCutWireColourFirst);
-		private static readonly InstructionType CutWireColourLast = new InstructionType("wirecolorlast", "cut the last {0} wire", processCutWireColourLast);
+		private static readonly InstructionType CutWire1 = new InstructionType(nameof(CutWire1), "cut the first wire", (p, c, w) => Result.CutFirstWire);
+		private static readonly InstructionType CutWire2 = new InstructionType(nameof(CutWire2), "cut the second wire", (p, c, w) => Result.CutSecondWire);
+		private static readonly InstructionType CutWire3 = new InstructionType(nameof(CutWire3), "cut the third wire", (p, c, w) => Result.CutThirdWire);
+		private static readonly InstructionType CutWire4 = new InstructionType(nameof(CutWire4), "cut the fourth wire", (p, c, w) => Result.CutFourthWire);
+		private static readonly InstructionType CutWire5 = new InstructionType(nameof(CutWire5), "cut the fifth wire", (p, c, w) => Result.CutFifthWire);
+		private static readonly InstructionType CutWireLast = new InstructionType(nameof(CutWireLast), "cut the last wire", (p, c, w) => Result.CutLastWire);
+		private static readonly InstructionType CutWireColourSingle = new InstructionType(nameof(CutWireColourSingle), "cut the {0} wire", processCutWireColourFirst);
+		private static readonly InstructionType CutWireColourFirst = new InstructionType(nameof(CutWireColourFirst), "cut the first {0} wire", processCutWireColourFirst);
+		private static readonly InstructionType CutWireColourLast = new InstructionType(nameof(CutWireColourLast), "cut the last {0} wire", processCutWireColourLast);
 
 		private static Result processCutWireColourFirst(RequestProcess p, Colour colour, Colour[] wires) {
 			var index = Array.IndexOf(wires, colour);
@@ -53,7 +54,7 @@ namespace BombExpert.Solvers {
 			foreach (var rule in rules[colours.Length - 3]) {
 				var conditionResult = ConditionResult.FromBool(true);
 				foreach (var condition in rule.Queries) {
-					conditionResult = conditionResult && condition.Delegate(process, colours);
+					conditionResult = conditionResult && condition.Query(process, colours);
 				}
 				if (conditionResult) {
 					var result = rule.Solution.Type.Delegate(process, rule.Solution.Colour ?? 0, colours);
@@ -71,7 +72,7 @@ namespace BombExpert.Solvers {
 				return new[] {
 					// 3 wires
 					new[] {
-						new Rule(new[] { NoColourWire.GetCondition(Colour.Red) }, new Instruction(CutWire1)),
+						new Rule(new[] { NoColourWire.GetCondition(Colour.Red) }, new Instruction(CutWire2)),
 						new Rule(new[] { LastWireIsColour.GetCondition(Colour.White) }, new Instruction(CutWireLast)),
 						new Rule(new[] { MoreThanOneColourWire.GetCondition(Colour.Blue) }, new Instruction(CutWireColourLast, Colour.Blue)),
 						new Rule(new Instruction(CutWireLast))
@@ -79,24 +80,24 @@ namespace BombExpert.Solvers {
 					// 4 wires
 					new[] {
 						new Rule(new[] { MoreThanOneColourWire.GetCondition(Colour.Red), Condition<Colour[]>.SerialNumberIsOdd() }, new Instruction(CutWireColourLast, Colour.Red)),
-						new Rule(new[] { LastWireIsColour.GetCondition(Colour.Yellow), NoColourWire.GetCondition(Colour.Red) }, new Instruction(CutWire0)),
-						new Rule(new[] { ExactlyOneColourWire.GetCondition(Colour.Blue) }, new Instruction(CutWire0)),
+						new Rule(new[] { LastWireIsColour.GetCondition(Colour.Yellow), NoColourWire.GetCondition(Colour.Red) }, new Instruction(CutWire1)),
+						new Rule(new[] { ExactlyOneColourWire.GetCondition(Colour.Blue) }, new Instruction(CutWire1)),
 						new Rule(new[] { MoreThanOneColourWire.GetCondition(Colour.Yellow) }, new Instruction(CutWireLast)),
-						new Rule(new Instruction(CutWire1))
+						new Rule(new Instruction(CutWire2))
 					},
 					// 5 wires
 					new[] {
-						new Rule(new[] { LastWireIsColour.GetCondition(Colour.Black), Condition<Colour[]>.SerialNumberIsOdd() }, new Instruction(CutWire3)),
-						new Rule(new[] { ExactlyOneColourWire.GetCondition(Colour.Red), MoreThanOneColourWire.GetCondition(Colour.Yellow) }, new Instruction(CutWire0)),
-						new Rule(new[] { NoColourWire.GetCondition(Colour.Black) }, new Instruction(CutWire1)),
-						new Rule(new Instruction(CutWire0))
+						new Rule(new[] { LastWireIsColour.GetCondition(Colour.Black), Condition<Colour[]>.SerialNumberIsOdd() }, new Instruction(CutWire4)),
+						new Rule(new[] { ExactlyOneColourWire.GetCondition(Colour.Red), MoreThanOneColourWire.GetCondition(Colour.Yellow) }, new Instruction(CutWire1)),
+						new Rule(new[] { NoColourWire.GetCondition(Colour.Black) }, new Instruction(CutWire2)),
+						new Rule(new Instruction(CutWire1))
 					},
 					// 6 wires
 					new[] {
-						new Rule(new[] { NoColourWire.GetCondition(Colour.Yellow), Condition<Colour[]>.SerialNumberIsOdd() }, new Instruction(CutWire2)),
-						new Rule(new[] { ExactlyOneColourWire.GetCondition(Colour.Yellow), MoreThanOneColourWire.GetCondition(Colour.White) }, new Instruction(CutWire3)),
+						new Rule(new[] { NoColourWire.GetCondition(Colour.Yellow), Condition<Colour[]>.SerialNumberIsOdd() }, new Instruction(CutWire3)),
+						new Rule(new[] { ExactlyOneColourWire.GetCondition(Colour.Yellow), MoreThanOneColourWire.GetCondition(Colour.White) }, new Instruction(CutWire4)),
 						new Rule(new[] { NoColourWire.GetCondition(Colour.Red) }, new Instruction(CutWireLast)),
-						new Rule(new Instruction(CutWire3))
+						new Rule(new Instruction(CutWire4))
 					}
 				};
 			}
@@ -118,13 +119,13 @@ namespace BombExpert.Solvers {
 						new[] { new ConditionType(Condition<Colour[]>.SerialNumberStartsWithLetter()), new ConditionType(Condition<Colour[]>.SerialNumberIsOdd()) },
 						new[] { ExactlyOneColourWire, NoColourWire, LastWireIsColour, MoreThanOneColourWire },
 						new[] {
-							new ConditionType(Condition<Colour[]>.PortExactKey(PortType.DviD)),
-							new ConditionType(Condition<Colour[]>.PortExactKey(PortType.PS2)),
-							new ConditionType(Condition<Colour[]>.PortExactKey(PortType.RJ45)),
-							new ConditionType(Condition<Colour[]>.PortExactKey(PortType.StereoRCA)),
-							new ConditionType(Condition<Colour[]>.PortExactKey(PortType.Parallel)),
-							new ConditionType(Condition<Colour[]>.PortExactKey(PortType.Serial)),
-							new ConditionType(Condition<Colour[]>.EmptyPortPlate())
+							new ConditionType(new Conditions.PortCondition<Colour[]>(PortType.DviD, true)),
+							new ConditionType(new Conditions.PortCondition<Colour[]>(PortType.PS2, true)),
+							new ConditionType(new Conditions.PortCondition<Colour[]>(PortType.RJ45, true)),
+							new ConditionType(new Conditions.PortCondition<Colour[]>(PortType.StereoRCA, true)),
+							new ConditionType(new Conditions.PortCondition<Colour[]>(PortType.Parallel, true)),
+							new ConditionType(new Conditions.PortCondition<Colour[]>(PortType.Serial, true)),
+							new ConditionType(new Conditions.EmptyPortPlateCondition<Colour[]>())
 						}
 					};
 
@@ -204,12 +205,12 @@ namespace BombExpert.Solvers {
 
         private static List<InstructionType> GetPossibleInstructions(int wireCount, IEnumerable<Condition<Colour[]>>? conditions) {
 			var list = new List<InstructionType>();
-			list.Add(CutWire0);
 			list.Add(CutWire1);
+			list.Add(CutWire2);
 			list.Add(CutWireLast);
-			if (wireCount >= 4) list.Add(CutWire2);
-			if (wireCount >= 5) list.Add(CutWire3);
-			if (wireCount >= 6) list.Add(CutWire4);
+			if (wireCount >= 4) list.Add(CutWire3);
+			if (wireCount >= 5) list.Add(CutWire4);
+			if (wireCount >= 6) list.Add(CutWire5);
 
 			if (conditions != null) {
 				foreach (var condition in conditions) {
@@ -228,6 +229,119 @@ namespace BombExpert.Solvers {
 			}
 			result = bool.Parse(predicate);
 			return true;
+		}
+
+		public void GenerateAiml(string path, int ruleSeed) {
+			var rules = GetRules(ruleSeed);
+			var allStars = new StringBuilder("<star/> <star index='2'/>");
+			var allWires = new StringBuilder();
+			var builder = new StringBuilder();
+			builder.Append("<?xml version='1.0' encoding='UTF-8'?>\n<aiml>\n");
+
+			for (int i = 0; i < 4; ++i) {
+				var wireCount = i + 3;
+				allStars.Append($" <star index='{wireCount}'/>");
+				allWires.Append(i switch {
+					0 => "CutFirstWire CutSecondWire",
+					1 => " CutThirdWire",
+					2 => " CutFourthWire",
+					3 => " CutFifthWire",
+					_ => ""
+				});
+
+
+				builder.Append($"<category>\n<!-- {wireCount} wires -->\n<pattern>SolverFallback Wires {ruleSeed}");
+				for (int j = 0; j < wireCount; ++j)
+					builder.Append(" <set>BombColours</set>");
+				builder.AppendLine("</pattern>\n<template>\n<think>\n<set var='result'>unknown</set>");
+
+				var otherwise = false;
+				foreach (var rule in rules[i]) {
+					var closeTags = new Stack<string>();
+					builder.AppendLine($"<!-- {(otherwise ? "Otherwise, " : "")}{rule} -->\n<condition var='result' value='unknown'>");
+					otherwise = true;
+					foreach (var condition in rule.Queries) {
+						switch (condition) {
+							case WireCondition wireCondition:
+								switch (wireCondition.Key) {
+									case nameof(ExactlyOneColourWire):
+										builder.AppendLine($"<set var='temp'><srai>XCountMatch {wireCondition.Colour} {allStars}</srai></set>\n<condition var='temp' value='1'>");
+										break;
+									case nameof(MoreThanOneColourWire):
+										builder.AppendLine($"<set var='temp'><srai>XCompareDigits <srai>XCountMatch {wireCondition.Colour} {allStars}</srai> 1</srai></set>\n<condition var='temp' value='1'>");
+										break;
+									case nameof(NoColourWire):
+										builder.AppendLine($"<set var='temp'><srai>XContains {wireCondition.Colour} {allStars}</srai></set>\n<condition var='temp' value='false'>");
+										break;
+									case nameof(LastWireIsColour):
+										builder.AppendLine($"<set var='temp'><star index='{wireCount}'/></set>\n<condition var='temp' value='{wireCondition.Colour}'>");
+										break;
+									default:
+										throw new InvalidOperationException("Unknown wire condition");
+								}
+								closeTags.Push("</condition>");
+								break;
+							case Conditions.SerialNumberStartsWithLetterCondition<Colour[]> _:
+								builder.AppendLine("<condition name='BombSerialNumberStartsWithLetter'>\n<li value='true'>");
+								closeTags.Push("</li>\n<li value='unknown'><set var='result'>NeedEdgework SerialNumberStartsWithLetter</set></li>\n</condition>");
+								break;
+							case Conditions.SerialNumberParityCondition<Colour[]> _:
+								builder.AppendLine("<condition name='BombSerialNumberIsOdd'>\n<li value='true'>");
+								closeTags.Push("</li>\n<li value='unknown'><set var='result'>NeedEdgework SerialNumberIsOdd</set></li>\n</condition>");
+								break;
+							case Conditions.PortCondition<Colour[]> portCondition:
+								builder.AppendLine($"<condition name='BombPort{portCondition.PortType}'>\n<li value='true'>");
+								closeTags.Push($"</li>\n<li value='unknown'><set var='result'>NeedEdgework Port {portCondition.PortType}</set></li>\n</condition>");
+								break;
+							case Conditions.EmptyPortPlateCondition<Colour[]> _:
+								builder.AppendLine("<condition name='BombEmptyPortPlate'>\n<li value='true'>");
+								closeTags.Push("</li>\n<li value='unknown'><set var='result'>NeedEdgework EmptyPortPlate</set></li>\n</condition>");
+								break;
+							default:
+								throw new InvalidOperationException("Unknown condition");
+						}
+					}
+
+					switch (rule.Solution.Type.Key) {
+						case nameof(CutWire1):
+							builder.AppendLine("<set var='result'>CutFirstWire</set>");
+							break;
+						case nameof(CutWire2):
+							builder.AppendLine("<set var='result'>CutSecondWire</set>");
+							break;
+						case nameof(CutWire3):
+							builder.AppendLine("<set var='result'>CutThirdWire</set>");
+							break;
+						case nameof(CutWire4):
+							builder.AppendLine("<set var='result'>CutFourthWire</set>");
+							break;
+						case nameof(CutWire5):
+							builder.AppendLine("<set var='result'>CutFifthWire</set>");
+							break;
+						case nameof(CutWireLast):
+							builder.AppendLine("<set var='result'>CutLastWire</set>");
+							break;
+						case nameof(CutWireColourSingle):
+                        case nameof(CutWireColourFirst):
+							builder.AppendLine($"<set var='result'><srai>XItem <srai>XIndex {rule.Solution.Colour} {allStars}</srai> {allWires} CutLastWire</srai></set>");
+							break;
+                        case nameof(CutWireColourLast):
+                            builder.AppendLine($"<set var='result'><srai>XItem <srai>XLastIndex {rule.Solution.Colour} {allStars}</srai> {allWires} CutLastWire</srai></set>");
+                            break;
+                        default:
+                            throw new InvalidOperationException("Unknown solution");
+                    }
+
+					while (closeTags.Count > 0)
+						builder.AppendLine(closeTags.Pop());
+					builder.AppendLine("</condition>");
+                }
+
+                builder.AppendLine("</think>\n<get var='result'/>\n</template>\n</category>");
+			}
+			builder.AppendLine("</aiml>");
+
+            File.WriteAllText(Path.Combine(path, "aiml", $"wires{ruleSeed}.aiml"), builder.ToString());
 		}
 
 		public enum Result {
@@ -292,12 +406,16 @@ namespace BombExpert.Solvers {
 
 		public class WireCondition : Condition<Colour[]> {
 			public Colour Colour { get; }
+			public ConditionDelegate Delegate { get; }
 			public ConditionType Type { get; }
 
-			public WireCondition(ConditionType type, string text, Colour colour, ConditionDelegate conditionDelegate) : base(type.Key, text, conditionDelegate) {
+			public WireCondition(ConditionType type, string text, Colour colour, ConditionDelegate conditionDelegate) : base(type.Key, text) {
 				this.Type = type;
 				this.Colour = colour;
+				this.Delegate = conditionDelegate;
 			}
+
+			public override ConditionResult Query(RequestProcess process, Colour[] data) => this.Delegate.Invoke(process, data);
 		}
 
 		public struct Instruction {

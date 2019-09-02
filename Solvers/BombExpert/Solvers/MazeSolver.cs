@@ -10,9 +10,10 @@ using System.Xml;
 using BombExpert;
 
 using static BombExpert.Solvers.MazeSolver.MazeFlags;
+using System.IO;
 
 namespace BombExpert.Solvers {
-	public class MazeSolver : ISraixService {
+	public class MazeSolver : IModuleSolver {
 		private const int MazeCount = 9;
 		private const int MazeSize = 6;
 
@@ -160,6 +161,42 @@ namespace BombExpert.Solvers {
 			}
 
 			return null;
+		}
+
+		public void GenerateAiml(string path, int ruleSeed) {
+			var mazes = GetMazes(ruleSeed);
+
+			using (var writer = new StreamWriter(Path.Combine(path, "maps", $"MazeData{ruleSeed}.txt"))) {
+				for (int mazeIndex = 0; mazeIndex < MazeCount; ++mazeIndex) {
+					for (int x = 0; x < MazeSize; ++x) {
+						for (int y = 0; y < MazeSize; ++y) {
+							// In this library, the flags indicate valid directions.
+							// In the AIML map, the flags indicate directions with walls.
+							// We must invert the flags here.
+							var flags = mazes[mazeIndex].Cells[x, y] ^ (MazeFlags) 0xF;
+							writer.Write($"{mazeIndex + 1} {x + 1} {y + 1}:");
+							if (flags == 0) writer.WriteLine("nil");
+							else {
+								if (flags.HasFlag(North)) writer.Write(nameof(North) + " ");
+								if (flags.HasFlag(West)) writer.Write(nameof(West) + " ");
+								if (flags.HasFlag(East)) writer.Write(nameof(East) + " ");
+								if (flags.HasFlag(South)) writer.Write(nameof(South) + " ");
+								writer.Flush();
+								writer.BaseStream.Seek(-1, SeekOrigin.Current);  // Overwrite the last space.
+								writer.WriteLine();
+							}
+						}
+					}
+				}
+			}
+
+			using (var writer = new StreamWriter(Path.Combine(path, "maps", $"MazeMarkers{ruleSeed}.txt"))) {
+				for (int mazeIndex = 0; mazeIndex < MazeCount; ++mazeIndex) {
+					foreach (var point in mazes[mazeIndex].Indicators) {
+						writer.WriteLine($"{point.X + 1} {point.Y + 1}:{mazeIndex + 1}");
+					}
+				}
+			}
 		}
 
 		[Flags]
