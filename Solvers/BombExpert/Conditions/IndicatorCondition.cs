@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Aiml;
+﻿using Aiml;
 
 namespace BombExpert.Conditions {
 	public class IndicatorCondition<TData> : Condition<TData> {
@@ -10,6 +7,7 @@ namespace BombExpert.Conditions {
 		public string Predicate => $"BombIndicator{this.State switch { true => "Lit", false => "Unlit", null => "" }}{this.Label}";
 		public string EdgeworkQuery => $"Indicator{this.State switch { true => "Lit", false => "Unlit", null => "" }} {this.Label}";
 
+		/// <param name="state">If true, the indicator must be lit; if false, it must be unlit; if null, the state is not checked.</param>
 		public IndicatorCondition(bool? state, string label) : base(
 				state switch { true => "IndicatorLit", false => "IndicatorUnlit", null => "Indicator" },
 				$"there is {state switch { true => "a lit", false => "an unlit", null => "an" }} indicator with label {label}"

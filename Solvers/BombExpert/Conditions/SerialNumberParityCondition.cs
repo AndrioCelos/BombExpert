@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Aiml;
+﻿using Aiml;
 
 namespace BombExpert.Conditions {
 	public class SerialNumberParityCondition<TData> : Condition<TData> {

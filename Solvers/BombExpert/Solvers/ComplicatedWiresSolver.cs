@@ -2,12 +2,9 @@
 
 using Aiml;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
-using BombExpert;
 
 using static BombExpert.Solvers.ComplicatedWiresSolver.Flags;
 using System.IO;
@@ -18,19 +15,15 @@ namespace BombExpert.Solvers {
 
 		public static Instruction[] GetRules(int seed) {
 			var array = new Instruction[16];
-			var weights = new Dictionary<Instruction, double>();
+			var weights = new WeightMap<Instruction, Instruction>(i => i);
 			var random = new MonoRandom(seed);
 
 			for (int i = 1; i < 16; ++i) {
-				array[i] = GetInstruction(weights, random);
+				array[i] = weights.Roll(instructions, random, 0.1f);
 			}
 			if (seed != 1 && array.Count(i => i == Instruction.Cut) >= 2)
-				array[0] = GetInstruction(weights, random);
+				array[0] = weights.Roll(instructions, random, 0.1f);
 			return array;
-		}
-
-		private static Instruction GetInstruction(Dictionary<Instruction, double> weights, Random random) {
-			return Utils.WeightedRoll(instructions, weights, random, i => i, 0.1);
 		}
 
 		public void GenerateAiml(string path, int ruleSeed) {

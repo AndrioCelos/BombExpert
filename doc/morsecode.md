@@ -4,7 +4,7 @@ Say `defuse Morse code` to select a Morse code module.
 
 Read out part of the sequence of dashes, dots and spaces. You may start at any letter, but if you start at the start of the word, be sure to let the bot know by stating `start`. If this is enough to determine the word, the bot will reply with the frequency you must tune the module to.
 
-The first three letters is always enough to determine the word.
+In the vanilla game, the first three letters is always enough to determine the word.
 
 Use the following key words: `dash`, `long`, `dot`, `short`, `space`, `start`. `Start` may immediately follow a `space`. Make sure your input does not end in the middle of a letter.
 

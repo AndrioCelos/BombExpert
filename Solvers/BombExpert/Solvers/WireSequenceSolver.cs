@@ -3,11 +3,7 @@
 using Aiml;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
-using BombExpert;
 
 using static BombExpert.Solvers.WireSequenceSolver.Instruction;
 using System.IO;
