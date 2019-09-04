@@ -6,27 +6,28 @@
 			<think>
 				<set name='SraixUnavailable'>true</set>
 				<set name='topic'>Bomb Button</set>
+				<set name='BombIndicatorsChecked'>CAR FRK</set>
 
-				<test name='Button Initial 1-1' expected='Hold'>SolveButton blue Abort</test>
-				<test name='Button Initial 2-1' expected='NeedBatteryCount'>SolveButton red Detonate</test>
+				<test name='Button Initial 1-1' expected='Hold'>Solver Button blue Abort</test>
+				<test name='Button Initial 2-1' expected='NeedEdgework BatteryCount'>Solver Button red Detonate</test>
 				<set name='BombBatteryCount'>2</set>
-				<test name='Button Initial 2-2' expected='Tap'>SolveButton red Detonate</test>
+				<test name='Button Initial 2-2' expected='Tap'>Solver Button red Detonate</test>
 				<set name='BombBatteryCount'>1</set>
-				<test name='Button Initial 3-1' expected='NeedIndicatorLit CAR'>SolveButton white Detonate</test>
+				<test name='Button Initial 3-1' expected='NeedEdgework IndicatorLit CAR'>Solver Button white Detonate</test>
 				<set name='BombIndicatorLitCAR'>true</set>
-				<test name='Button Initial 3-2' expected='Hold'>SolveButton white Detonate</test>
+				<test name='Button Initial 3-2' expected='Hold'>Solver Button white Detonate</test>
 				<set name='BombIndicatorLitCAR'>false</set>
 				<set name='BombBatteryCount'>unknown</set>
-				<test name='Button Initial 4-1' expected='NeedBatteryCount'>SolveButton red Hold</test>
+				<test name='Button Initial 4-1' expected='NeedEdgework BatteryCount'>Solver Button red Hold</test>
 				<set name='BombBatteryCount'>3</set>
-				<test name='Button Initial 4-2' expected='NeedIndicatorLit FRK'>SolveButton red Hold</test>
+				<test name='Button Initial 4-2' expected='NeedEdgework IndicatorLit FRK'>Solver Button red Hold</test>
 				<set name='BombIndicatorLitFRK'>true</set>
 				<set name='BombBatteryCount'>2</set>
-				<test name='Button Initial 5-1' expected='Hold'>SolveButton yellow Hold</test>
+				<test name='Button Initial 5-1' expected='Hold'>Solver Button yellow Hold</test>
 				<set name='BombBatteryCount'>3</set>
 				<set name='BombIndicatorLitFRK'>false</set>
-				<test name='Button Initial 6-1' expected='Tap'>SolveButton red Hold</test>
-				<test name='Button Initial 7-1' expected='Hold'>SolveButton red Press</test>
+				<test name='Button Initial 6-1' expected='Tap'>Solver Button red Hold</test>
+				<test name='Button Initial 7-1' expected='Hold'>Solver Button red Press</test>
 			</think>
 			<!-- Simulate this question so that the {that} will match for the next tests. -->
 			Keep holding it, and tell me what colour light appears.
@@ -36,10 +37,10 @@
 		<pattern>XTest ButtonTests 2</pattern>
 		<template>
 			<think>
-				<test name='Button Holding 1' expected='ReleaseOnTimerDigit 4'>SolveButton blue</test>
-				<test name='Button Holding 2' expected='ReleaseOnTimerDigit 1'>SolveButton white</test>
-				<test name='Button Holding 3' expected='ReleaseOnTimerDigit 5'>SolveButton yellow</test>
-				<test name='Button Holding 4' expected='ReleaseOnTimerDigit 1'>SolveButton red</test>
+				<test name='Button Holding 1' expected='ReleaseOnTimerDigit 4'>Solver Button blue</test>
+				<test name='Button Holding 2' expected='ReleaseOnTimerDigit 1'>Solver Button white</test>
+				<test name='Button Holding 3' expected='ReleaseOnTimerDigit 5'>Solver Button yellow</test>
+				<test name='Button Holding 4' expected='ReleaseOnTimerDigit 1'>Solver Button red</test>
 			</think>
 		</template>
 	</category>
@@ -50,23 +51,14 @@
 				<srai>new bomb</srai>
 				<set name='topic'>Bomb Button</set>
 			</think>
-			<test name='Button Conversation 1' expected='&lt;oob&gt;SetGrammar button&lt;/oob&gt;&lt;oob&gt;SetPartialInput false&lt;/oob&gt; Tell me the colour and label of the button.'>defuse button</test>
+			<srai>defuse button</srai>
+			<test name='Button Conversation 1' regex='.*How many batteries.*'>white detonate</test>
+			<test name='Button Conversation 2' regex='.*lit indicator .* CAR.*'>1</test>
+			<test name='Button Conversation 3' regex='.*hold the button.*'>Yes</test>
 		</template>
 	</category>
 	<category>
 		<pattern>XTest ButtonTests Conversation 2</pattern>
-		<template><test name='Button Conversation 2' expected='How many batteries are there on the sides of the bomb?'>white detonate</test></template>
-	</category>
-	<category>
-		<pattern>XTest ButtonTests Conversation 3</pattern>
-		<template><test name='Button Conversation 3' expected='Does the bomb have a lit indicator that says C A R?'>1</test></template>
-	</category>
-	<category>
-		<pattern>XTest ButtonTests Conversation 4</pattern>
-		<template><test name='Button Conversation 4' expected='Press and hold the button. Keep holding it, and tell me what colour light appears.'>Yes</test></template>
-	</category>
-	<category>
-		<pattern>XTest ButtonTests Conversation 5</pattern>
-		<template><test name='Button Conversation 5' expected='When any digit on the timer is a 4, release the button.'>Blue</test></template>
+		<template><test name='Button Conversation 4' regex='.*When any digit on the timer is a 4, release the button.*'>Blue</test></template>
 	</category>
 </aiml>

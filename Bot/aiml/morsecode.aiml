@@ -97,18 +97,22 @@
 								</li>
 								<li>
 									<set var='letter'><map name='MorseDecode'><get var='letter'/></map></set>
-									<condition var='letter' value='unknown'>
-										<set var='result'>BadMorseCode</set>
-										<set var='end'>true</set>
-									</condition>
-									<set var='path'><get var='path'/><get var='letter'/><condition var='token' value='start'>~</condition></set>
+									<condition var='letter'>
+										<li value='unknown'>
+											<set var='result'>BadMorseCode</set>
+											<set var='end'>true</set>
+										</li>
+										<li>
+											<set var='path'><get var='path'/><get var='letter'/><condition var='token' value='start'>~</condition></set>
 
-									<!-- Search for each prefix of what the user entered. -->
-									<!-- We'll take the first result that isn't 'MultipleWords'. -->
-									<set var='result'><map><name>MorseCodeSearch<star/></name><get var='path'/></map></set>
-									<condition var='result'>
-										<li value='MultipleWords'></li>
-										<li><set var='end'>true</set></li>
+											<!-- Search for each prefix of what the user entered. -->
+											<!-- We'll take the first result that isn't 'MultipleWords'. -->
+											<set var='result'><map><name>MorseCodeSearch<star/></name><get var='path'/></map></set>
+											<condition var='result'>
+												<li value='MultipleWords'></li>
+												<li><set var='end'>true</set></li>
+											</condition>
+										</li>
 									</condition>
 								</li>
 							</condition>

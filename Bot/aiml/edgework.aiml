@@ -210,14 +210,14 @@
 		<pattern>EdgeworkQuery Batteries</pattern>
 		<template>
 			<srai>EdgeworkQueryStart batteries Batteries</srai>
-			<oob>EnableGrammar batteries</oob> How many batteries and holders are there?
+			How many batteries and holders are there?
 		</template>
 	</category>
 	<category>
 		<pattern>EdgeworkQuery BatteryCount</pattern>
 		<template>
 			<srai>EdgeworkQueryStart batteries Batteries BatteryCount</srai>
-			<oob>EnableGrammar batteries</oob> How many batteries are there?
+			How many batteries are there?
 		</template>
 	</category>
 	<category>

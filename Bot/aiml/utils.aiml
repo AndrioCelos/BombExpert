@@ -1,40 +1,59 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <aiml version='2.1'>
 	<!-- Usage: XItem [n] [list ...] -->
-	<!-- Returns the nth element of the list. The list may be up to 7 words. -->
+	<!-- Returns the nth element of the list. -->
 	<category>
-		<pattern>XItem <set>number</set> *</pattern>
-		<template><star><index><map name='successor'><star/></map></index></star></template>
+		<pattern>XItem 1 * ^</pattern>
+		<template><star index='1'/></template>
 	</category>
 	<category>
-		<pattern>XItem <set>number</set> * *</pattern>
-		<template><star><index><map name='successor'><star/></map></index></star></template>
+		<pattern>XItem 2 * * ^</pattern>
+		<template><star index='2'/></template>
 	</category>
 	<category>
-		<pattern>XItem <set>number</set> * * *</pattern>
-		<template><star><index><map name='successor'><star/></map></index></star></template>
+		<pattern>XItem 3 * * * ^</pattern>
+		<template><star index='3'/></template>
 	</category>
 	<category>
-		<pattern>XItem <set>number</set> * * * *</pattern>
-		<template><star><index><map name='successor'><star/></map></index></star></template>
+		<pattern>XItem 4 * * * * ^</pattern>
+		<template><star index='4'/></template>
 	</category>
 	<category>
-		<pattern>XItem <set>number</set> * * * * *</pattern>
-		<template><star><index><map name='successor'><star/></map></index></star></template>
+		<pattern>XItem 5 * * * * * ^</pattern>
+		<template><star index='5'/></template>
 	</category>
 	<category>
-		<pattern>XItem <set>number</set> * * * * * *</pattern>
-		<template><star><index><map name='successor'><star/></map></index></star></template>
+		<pattern>XItem 6 * * * * * * ^</pattern>
+		<template><star index='6'/></template>
 	</category>
 	<category>
-		<pattern>XItem <set>number</set> * * * * * * *</pattern>
-		<template><star><index><map name='successor'><star/></map></index></star></template>
+		<pattern>XItem <set>number</set> ^</pattern>
+		<template>
+			<think>
+				<set var='i'><star/></set>
+				<set var='list'><star index='2'/></set>
+			</think>
+			<condition var='i'>
+				<li value='0'>nil</li>
+				<li value='1'><srai>XFirst <get var='list'/></srai></li>
+				<li>
+					<think>
+						<set var='list'><srai>XRest <get var='list'/></srai></set>
+						<set var='i'>
+							<condition var='list'>
+								<li value='nil'>1</li>
+								<li><map name='predecessor'><get var='i'/></map></li>
+							</condition>
+						</set>
+					</think>
+					<loop/>
+				</li>
+			</condition>
+		</template>
 	</category>
-
 
 	<!-- Usage: XContains [element] [list ...] -->
-	<!-- Returns true if the element is in the list; false otherwise. The set may be up to 7 words. -->
-	<!-- (I chose not to use a recursive algorithm for performance reasons.) -->
+	<!-- Returns true if the element is in the list; false otherwise. -->
 	<category>
 		<pattern>XContains *</pattern>
 		<template>false</template>
@@ -100,7 +119,7 @@
 		</template>
 	</category>
 	<category>
-		<pattern>XContains * * * * * * *</pattern>
+		<pattern>XContains * * * * * * * ^</pattern>
 		<template>
 			<think><set var='needle'><star/></set></think>
 			<condition var='needle'>
@@ -110,23 +129,7 @@
 				<li><value><star index='5'/></value>true</li>
 				<li><value><star index='6'/></value>true</li>
 				<li><value><star index='7'/></value>true</li>
-				<li>false</li>
-			</condition>
-		</template>
-	</category>
-	<category>
-		<pattern>XContains * * * * * * * *</pattern>
-		<template>
-			<think><set var='needle'><star/></set></think>
-			<condition var='needle'>
-				<li><value><star index='2'/></value>true</li>
-				<li><value><star index='3'/></value>true</li>
-				<li><value><star index='4'/></value>true</li>
-				<li><value><star index='5'/></value>true</li>
-				<li><value><star index='6'/></value>true</li>
-				<li><value><star index='7'/></value>true</li>
-				<li><value><star index='8'/></value>true</li>
-				<li>false</li>
+				<li><srai>XContains <star/> <star index='8'/></srai></li>
 			</condition>
 		</template>
 	</category>
@@ -160,7 +163,11 @@
 		<template><star/></template>
 	</category>
 	<category>
-		<pattern>XPrepend * ^</pattern>
+		<pattern>XPrepend *</pattern>
+		<template><star/></template>
+	</category>
+	<category>
+		<pattern>XPrepend * *</pattern>
 		<template><star/> <star index='2'/></template>
 	</category>
 
@@ -171,7 +178,11 @@
 		<template><star/></template>
 	</category>
 	<category>
-		<pattern>XAppend * ^</pattern>
+		<pattern>XAppend *</pattern>
+		<template><star/></template>
+	</category>
+	<category>
+		<pattern>XAppend * *</pattern>
 		<template><star index='2'/> <star/></template>
 	</category>
 

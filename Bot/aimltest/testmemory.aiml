@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <aiml version='2.1'>
 	<category>
-		<pattern>XTest Memory</pattern>
+		<pattern>XTest Memory 1</pattern>
 		<template>
 			<think>
 				<srai>defuse memory</srai>
@@ -17,6 +17,24 @@
 				<test name="Memory Conversation 2-3" expected='Press 3.'>2 2 1 4 3</test>
 				<test name="Memory Conversation 2-4" expected='Press 1.'>1 3 1 2 4</test>
 				<test name="Memory Conversation 2-5" expected='Press 4.'>2 2 3 4 1</test>
+
+				<srai>new memory</srai>
+				<test name="Memory Conversation 3-1" expected='Press the second position.'>1</test>
+				<test name="Memory Conversation 3-2" expected='OK.'>Label 1</test>
+				<test name="Memory Conversation 3-3" expected='Press the label 4.'>1</test>
+				<test name="Memory Conversation 3-4" expected='OK.'>Position 2</test>
+				<test name="Memory Conversation 3-5" expected='Press the label 1.'>2</test>
+				<test name="Memory Conversation 3-6" expected='OK.'>Position 3</test>
+				<test name="Memory Conversation 3-7" expected='Press the second position.'>1</test>
+				<test name="Memory Conversation 3-8" expected='OK.'>Label 4</test>
+				<test name="Memory Conversation 3-9" expected='Press the label 4.'>3</test>
+
+				<srai>new memory</srai>
+				<test name="Memory Conversation 4-1" expected='Press the second position.'>1</test>
+				<test name="Memory Conversation 4-2" expected='Press the label 4.'>1</test>
+				<test name="Memory Conversation 4-3" expected='Press the label that you pressed in stage 1.'>2</test>
+				<test name="Memory Conversation 4-4" expected='Press the position that you pressed in stage 2.'>3</test>
+				<test name="Memory Conversation 4-5" expected='Press the label that you pressed in stage 4.'>3</test>
 			</think>
 		</template>
 	</category>

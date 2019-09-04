@@ -71,7 +71,6 @@
 								<think>
 									<set name='BombKeypadStage'>2</set>
 									<set name='topic'>bomb keypad</set>
-									<set name='BombKeypadToAsk'><srai>XGlyphs <get name='RuleSeed'/> 2</srai></set>
 								</think>
 								<oob>SetGrammar keypadOK</oob>
 								<srai>KeypadResult <srai>Solver Keypad Start</srai></srai>
@@ -278,7 +277,10 @@
 
 		<category>
 			<pattern>SolverFallback Keypad <set>number</set> Start ^</pattern>
-			<template><srai>KeypadPrompt</srai></template>
+			<template>
+				<think><set name='BombKeypadToAsk'><srai>XGlyphs <get name='RuleSeed'/> 2</srai></set></think>
+				<srai>KeypadPrompt</srai>
+			</template>
 		</category>
 
 		<category>
@@ -299,7 +301,7 @@
 							<condition var='columnIndex'>
 								<li value='7'></li>
 								<li>
-									<set var='contains'><srai>XContains <star/> <map><name>KeypadColumns<star/></name><get var='columnIndex'/></map></srai></set>
+									<set var='contains'><srai>XContains <star index='2'/> <map><name>KeypadColumns<star/></name><get var='columnIndex'/></map></srai></set>
 									<condition var='contains' value='true'>
 										<set name='BombKeypadColumns'><srai>XAppend <get var='columnIndex'/> <get name='BombKeypadColumns'/></srai></set>
 										<set var='numberPossible'><map name='successor'><get var='numberPossible'/></map></set>
@@ -356,7 +358,7 @@
 							<set var='columnIndex1'><srai>XFirst <get name='BombKeypadColumns'/></srai></set>
 							<set var='columnIndex2'><srai>XRest <get name='BombKeypadColumns'/></srai></set>
 
-							<set var='contains'><srai>XContains <star/> <map><name>KeypadColumns<star/></name><get var='columnIndex1'/></map></srai></set>
+							<set var='contains'><srai>XContains <star index='2'/> <map><name>KeypadColumns<star/></name><get var='columnIndex1'/></map></srai></set>
 							<condition var='contains'>
 								<li value='true'><set var='result'>Tell <map><name>KeypadColumns<star/></name><get var='columnIndex1'/></map></set></li>
 								<li><set var='result'>Tell <map><name>KeypadColumns<star/></name><get var='columnIndex2'/></map></set></li>

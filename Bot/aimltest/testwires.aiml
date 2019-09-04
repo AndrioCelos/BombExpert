@@ -8,39 +8,39 @@
 				<set name='topic'>Bomb Wires</set>
 
 				<!-- Tests are named by [number of wires]-[manual rule number]-[test number] -->
-				<test name='Wires 3-1-1' expected='CutSecondWire'>SolveWires blue blue white</test>
-				<test name='Wires 3-2-1' expected='CutLastWire'>SolveWires red blue white</test>
-				<test name='Wires 3-3-1' expected='CutLastWire'>SolveWires blue red blue</test>
-				<test name='Wires 3-3-2' expected='CutSecondWire'>SolveWires blue blue red</test>
-				<test name='Wires 3-4-1' expected='CutLastWire'>SolveWires red white blue</test>
+				<test name='Wires 3-1-1' expected='CutSecondWire'>Solver Wires blue blue white</test>
+				<test name='Wires 3-2-1' expected='CutLastWire'>Solver Wires red blue white</test>
+				<test name='Wires 3-3-1' expected='CutLastWire'>Solver Wires blue red blue</test>
+				<test name='Wires 3-3-2' expected='CutSecondWire'>Solver Wires blue blue red</test>
+				<test name='Wires 3-4-1' expected='CutLastWire'>Solver Wires red white blue</test>
 
-				<test name='Wires 4-1-1' expected='NeedSerialNumberIsOdd'>SolveWires red red white yellow</test>
+				<test name='Wires 4-1-1' expected='NeedEdgework SerialNumberIsOdd'>Solver Wires red red white yellow</test>
 				<set name='BombSerialNumberIsOdd'>true</set>
-				<test name='Wires 4-1-2' expected='CutSecondWire'>SolveWires red red white yellow</test>
+				<test name='Wires 4-1-2' expected='CutSecondWire'>Solver Wires red red white yellow</test>
 				<set name='BombSerialNumberIsOdd'>false</set>
-				<test name='Wires 4-2-1' expected='CutFirstWire'>SolveWires yellow yellow yellow yellow</test>
-				<test name='Wires 4-3-1' expected='CutFirstWire'>SolveWires red red white blue</test>
-				<test name='Wires 4-4-1' expected='CutLastWire'>SolveWires yellow yellow blue blue</test>
-				<test name='Wires 4-5-1' expected='CutSecondWire'>SolveWires red red white yellow</test>
-
-				<set name='BombSerialNumberIsOdd'>unknown</set>
-				<test name='Wires 5-1-1' expected='NeedSerialNumberIsOdd'>SolveWires white white white white black</test>
-				<set name='BombSerialNumberIsOdd'>true</set>
-				<test name='Wires 5-1-2' expected='CutFourthWire'>SolveWires white white white white black</test>
-				<set name='BombSerialNumberIsOdd'>false</set>
-				<test name='Wires 5-2-1' expected='CutFirstWire'>SolveWires yellow yellow red black black</test>
-				<test name='Wires 5-3-1' expected='CutSecondWire'>SolveWires red red yellow yellow yellow</test>
-				<test name='Wires 5-4-1' expected='CutFirstWire'>SolveWires red yellow black black black</test>
+				<test name='Wires 4-2-1' expected='CutFirstWire'>Solver Wires yellow yellow yellow yellow</test>
+				<test name='Wires 4-3-1' expected='CutFirstWire'>Solver Wires red red white blue</test>
+				<test name='Wires 4-4-1' expected='CutLastWire'>Solver Wires yellow yellow blue blue</test>
+				<test name='Wires 4-5-1' expected='CutSecondWire'>Solver Wires red red white yellow</test>
 
 				<set name='BombSerialNumberIsOdd'>unknown</set>
-				<test name='Wires 6-1-1' expected='NeedSerialNumberIsOdd'>SolveWires white white white white white white</test>
+				<test name='Wires 5-1-1' expected='NeedEdgework SerialNumberIsOdd'>Solver Wires white white white white black</test>
 				<set name='BombSerialNumberIsOdd'>true</set>
-				<test name='Wires 6-1-2' expected='CutThirdWire'>SolveWires white white white white white white</test>
+				<test name='Wires 5-1-2' expected='CutFourthWire'>Solver Wires white white white white black</test>
 				<set name='BombSerialNumberIsOdd'>false</set>
-				<test name='Wires 6-2-1' expected='CutFourthWire'>SolveWires yellow white white white white white</test>
-				<test name='Wires 6-3-1' expected='CutLastWire'>SolveWires white white white white white white</test>
-				<test name='Wires 6-3-2' expected='CutLastWire'>SolveWires yellow yellow white white white white</test>
-				<test name='Wires 6-4-1' expected='CutFourthWire'>SolveWires yellow yellow white white white red</test>
+				<test name='Wires 5-2-1' expected='CutFirstWire'>Solver Wires yellow yellow red black black</test>
+				<test name='Wires 5-3-1' expected='CutSecondWire'>Solver Wires red red yellow yellow yellow</test>
+				<test name='Wires 5-4-1' expected='CutFirstWire'>Solver Wires red yellow black black black</test>
+
+				<set name='BombSerialNumberIsOdd'>unknown</set>
+				<test name='Wires 6-1-1' expected='NeedEdgework SerialNumberIsOdd'>Solver Wires white white white white white white</test>
+				<set name='BombSerialNumberIsOdd'>true</set>
+				<test name='Wires 6-1-2' expected='CutThirdWire'>Solver Wires white white white white white white</test>
+				<set name='BombSerialNumberIsOdd'>false</set>
+				<test name='Wires 6-2-1' expected='CutFourthWire'>Solver Wires yellow white white white white white</test>
+				<test name='Wires 6-3-1' expected='CutLastWire'>Solver Wires white white white white white white</test>
+				<test name='Wires 6-3-2' expected='CutLastWire'>Solver Wires yellow yellow white white white white</test>
+				<test name='Wires 6-4-1' expected='CutFourthWire'>Solver Wires yellow yellow white white white red</test>
 			</think>
 		</template>
 	</category>
@@ -52,11 +52,11 @@
 				<srai>new bomb</srai>
 				<set name='topic'>Bomb Wires</set>
 			</think>
-			<test name='Wires Conversation 1' expected='Is the last digit of the serial number of the bomb odd?'>Red Red White Yellow</test>
+			<test name='Wires Conversation 1' regex='.*last digit.*'>Red Red White Yellow</test>
 		</template>
 	</category>
 	<category>
 		<pattern>XTest Wires Conversation 2</pattern>
-		<template><test name='Wires Conversation 2' expected='Cut the second wire.'>Yes</test></template>
+		<template><test name='Wires Conversation 2' regex='.*Cut the second wire.'>1</test></template>
 	</category>
 </aiml>

@@ -3,7 +3,7 @@
 	<category>
 		<pattern>XTest SimonSays 1</pattern>
 		<template>
-			<test name='Simon Says Initial 1' expected='&lt;oob&gt;SetGrammar simonsays&lt;/oob&gt;&lt;oob&gt;SetPartialInput false&lt;/oob&gt; Look on the sides of the bomb for a serial number. Does it contain a vowel?'>defuse simon says</test>
+			<test name='Simon Says Initial 1' regex='.*vowel.*'>defuse simon says</test>
 		</template>
 	</category>
 
@@ -11,8 +11,8 @@
 		<pattern>XTest SimonSays 2</pattern>
 		<template>
 			<think>
-				<test name='Simon Says Initial 2' expected='Tell me which colours flash, in order.'>yes</test>
-				<test name='Simon Says Initial 3' expected='&lt;oob&gt;SetGrammar simonsays&lt;/oob&gt;&lt;oob&gt;SetPartialInput false&lt;/oob&gt; Tell me which colours flash, in order.'>defuse simon says</test>
+				<test name='Simon Says Initial 2' regex='.*Tell me which colours flash, in order.'>yes</test>
+				<test name='Simon Says Initial 3' regex='.*Tell me which colours flash, in order.'>defuse simon says</test>
 
 				<test name='Simon Says Mapping 1-1' expected='Press: blue, red, yellow, green.'>red blue green yellow</test>
 				<set name='BombStrikeCount'>1</set>

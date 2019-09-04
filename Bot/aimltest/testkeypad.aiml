@@ -6,26 +6,25 @@
 			<think>
 				<set name='SraixUnavailable'>true</set>
 				<set name='topic'>Bomb Keypad</set>
+				<test name='Keypad Solve Keypad 1' expected='Balloon UpsideDownY SquidKnife LeftC'>Solver Keypad Keypad Balloon UpsideDownY SquidKnife LeftC</test>
+				<test name='Keypad Solve Keypad 2' expected='Euro Balloon LeftC Cursive'>Solver Keypad Keypad Euro Balloon LeftC Cursive</test>
+				<test name='Keypad Solve Keypad 3' expected='Cursive DoubleK UpsideDownY HollowStar'>Solver Keypad Keypad HollowStar UpsideDownY DoubleK Cursive</test>
+				<test name='Keypad Solve Keypad 4' expected='Six Paragraph DoubleK SmileyFace'>Solver Keypad Keypad Paragraph Six DoubleK SmileyFace</test>
+				<test name='Keypad Solve Keypad 5' expected='Pitchfork SmileyFace BT Paragraph'>Solver Keypad Keypad Pitchfork Paragraph BT SmileyFace</test>
+				<test name='Keypad Solve Keypad 6' expected='Six Euro Pitchfork Omega'>Solver Keypad Keypad Six Euro Pitchfork Omega</test>
+				<test name='Keypad Solve Keypad 7' expected='NoColumn'>Solver Keypad Keypad Tracks Ae NWithHat FilledStar</test>
 
-				<test name='Keypad Solve Keypad 1' expected='Balloon UpsideDownY SquidKnife LeftC'>SolveKeypad Keypad Balloon UpsideDownY SquidKnife LeftC</test>
-				<test name='Keypad Solve Keypad 2' expected='Euro Balloon LeftC Cursive'>SolveKeypad Keypad Euro Balloon LeftC Cursive</test>
-				<test name='Keypad Solve Keypad 3' expected='Cursive DoubleK UpsideDownY HollowStar'>SolveKeypad Keypad HollowStar UpsideDownY DoubleK Cursive</test>
-				<test name='Keypad Solve Keypad 4' expected='Six Paragraph DoubleK SmileyFace'>SolveKeypad Keypad Paragraph Six DoubleK SmileyFace</test>
-				<test name='Keypad Solve Keypad 5' expected='Pitchfork SmileyFace BT Paragraph'>SolveKeypad Keypad Pitchfork Paragraph BT SmileyFace</test>
-				<test name='Keypad Solve Keypad 6' expected='Six Euro Pitchfork Omega'>SolveKeypad Keypad Six Euro Pitchfork Omega</test>
-				<test name='Keypad Solve Keypad 7' expected='NoColumn'>SolveKeypad Keypad Tracks Ae NWithHat FilledStar</test>
+				<test name='Keypad Solve CheckKeypad 1' expected='true'>Solver Keypad CheckKeypad Balloon UpsideDownY SquidKnife LeftC</test>
+				<test name='Keypad Solve CheckKeypad 2' expected='false'>Solver Keypad CheckKeypad Tracks Ae NWithHat FilledStar</test>
+				<test name='Keypad Solve CheckKeypad 3' expected='false'>Solver Keypad CheckKeypad Tripod</test>
+				<srai>Solver Keypad Start</srai>
 
-				<test name='Keypad Solve CheckKeypad 1' expected='true'>SolveKeypad CheckKeypad Balloon UpsideDownY SquidKnife LeftC</test>
-				<test name='Keypad Solve CheckKeypad 2' expected='false'>SolveKeypad CheckKeypad Tracks Ae NWithHat FilledStar</test>
-				<test name='Keypad Solve CheckKeypad 3' expected='false'>SolveKeypad CheckKeypad Tripod</test>
-
-				<srai>SolveKeypad Start</srai>
-				<srai>SolveKeypad GlyphPresent true DoubleK</srai>
-				<test name='Keypad Solve Stage 2-1' expected='Tell Copyright Pumpkin Cursive DoubleK MeltedThree UpsideDownY HollowStar'>SolveKeypad GlyphPresent true HollowStar</test>
+				<srai>Solver Keypad GlyphPresent true DoubleK</srai>
+				<test name='Keypad Solve Stage 2-1' expected='Tell Copyright Pumpkin Cursive DoubleK MeltedThree UpsideDownY HollowStar'>Solver Keypad GlyphPresent true HollowStar</test>
 
 				<srai>new keypad</srai>
-				<srai>SolveKeypad Start</srai>
-				<test name='Keypad Solve Stage 2-2' expected='Tell Pitchfork SmileyFace BT RightC Paragraph Dragon FilledStar'>SolveKeypad GlyphPresent true RightC</test>
+				<srai>Solver Keypad Start</srai>
+				<test name='Keypad Solve Stage 2-2' expected='Tell Pitchfork SmileyFace BT RightC Paragraph Dragon FilledStar'>Solver Keypad GlyphPresent true RightC</test>
 			</think>
 		</template>
 	</category>
