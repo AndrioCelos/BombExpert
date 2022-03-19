@@ -2,14 +2,14 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <LangVersion>preview</LangVersion>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
     <Reference Include="Aiml">
-      <HintPath>..\..\..\Aiml\Aiml\bin\Debug\netstandard2.0\Aiml.dll</HintPath>
+      <HintPath>..\..\..\Aiml\Aiml\bin\Debug\netstandard2.1\Aiml.dll</HintPath>
     </Reference>
   </ItemGroup>
 
