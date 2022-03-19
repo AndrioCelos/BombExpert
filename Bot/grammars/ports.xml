@@ -1,4 +1,4 @@
-<grammar version='1.0' xml:lang='en' root='root' xmlns='http://www.w3.org/2001/06/grammar'>
+<grammar version='1.0' xml:lang='en-gb' root='root' xmlns='http://www.w3.org/2001/06/grammar'>
 	<rule id='root'>
 		<one-of>
 			<item><ruleref uri='bomb.xml'/></item>
