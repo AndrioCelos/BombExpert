@@ -5,7 +5,7 @@
 		<template>
 			<think><set name='topic'>Bomb ComplicatedWires</set></think>
 			<oob>SetGrammar complicatedwires</oob><oob>SetPartialInput false</oob>
-			For each wire, left to right, say these key words if they apply: Red, Blue, Light, Star. Say 'next' after each wire.
+			For each wire, left to right, say these key words if they apply: Red, Blue, Light, Star. Say 'then' after each wire.
 		</template>
 	</category>
 	<category>
@@ -14,63 +14,19 @@
 	</category>
 
 	<topic name='Bomb ComplicatedWires'>
-		<category>
-			<pattern>red *</pattern>
-			<template>
-				<srai>ProcessInput red <star/></srai>
-			</template>
-		</category>
-		<category>
-			<pattern>blue *</pattern>
-			<template>
-				<srai>ProcessInput blue <star/></srai>
-			</template>
-		</category>
-		<category>
-			<pattern>light *</pattern>
-			<template>
-				<srai>ProcessInput light <star/></srai>
-			</template>
-		</category>
-		<category>
-			<pattern>star *</pattern>
-			<template>
-				<srai>ProcessInput star <star/></srai>
-			</template>
-		</category>
-		<category>
-			<pattern>white *</pattern>
-			<template>
-				<srai>ProcessInput white <star/></srai>
-			</template>
-		</category>
-		<category>
-			<pattern>nothing *</pattern>
-			<template>
-				<srai>ProcessInput nothing <star/></srai>
-			</template>
-		</category>
+		<category><pattern>red ^</pattern><template><srai>ProcessInput red <star/></srai></template></category>
+		<category><pattern>blue ^</pattern><template><srai>ProcessInput blue <star/></srai></template></category>
+		<category><pattern>light ^</pattern><template><srai>ProcessInput light <star/></srai></template></category>
+		<category><pattern>star ^</pattern><template><srai>ProcessInput star <star/></srai></template></category>
+		<category><pattern>white ^</pattern><template><srai>ProcessInput white <star/></srai></template></category>
+		<category><pattern>nothing ^</pattern><template><srai>ProcessInput nothing <star/></srai></template></category>
+		<category><pattern>plain ^</pattern><template><srai>ProcessInput nothing <star/></srai></template></category>
 
 		<category>
 			<pattern>ProcessInput *</pattern>
 			<template>
 				<think>
-					<set var='result'><srai>Solver ComplicatedWires <star/></srai></set>
-					<set var='code'><srai>XFirst <get var='result'/></srai></set>
-					<set var='detail'><srai>XRest <get var='result'/></srai></set>
-				</think>
-				<condition var='code'>
-					<li value='NeedEdgework'><srai>EdgeworkQuery <get var='detail'/> XS ProcessInput <star/></srai></li>
-					<li><get var='result'/></li>
-				</condition>
-			</template>
-		</category>
-
-		<category>
-			<pattern>SolverFallback ComplicatedWires <set>number</set> *</pattern>
-			<template>
-				<think>
-					<set var='input'><star index='2'/></set>
+					<set var='input'><star/></set>
 					<set var='red'>false</set>
 					<set var='blue'>false</set>
 					<set var='light'>false</set>
@@ -78,6 +34,7 @@
 					<set var='flags'>nil</set>
 					<set var='toCut'>nil</set>
 					<set var='toCutCount'>0</set>
+					<set var='toNotCut'>nil</set>
 					<set var='toNotCutCount'>0</set>
 					<set var='wire'>0</set>
 					<condition var='end'>
@@ -104,41 +61,22 @@
 									<condition var='blue' value='true'><set var='flags'><srai>XAppend blue <get var='flags'/></srai></set></condition>
 									<condition var='star' value='true'><set var='flags'><srai>XAppend star <get var='flags'/></srai></set></condition>
 									<condition var='light' value='true'><set var='flags'><srai>XAppend light <get var='flags'/></srai></set></condition>
-									<set var='cut'><map><name>ComplicatedWires<star/></name><get var='flags'/></map></set>
-									<condition var='cut'>
-										<li value='S'>
-											<condition name='BombSerialNumberIsOdd'>
-												<li value='true'><set var='cut'>false</set></li>
-												<li value='false'><set var='cut'>true</set></li>
-												<li value='unknown'><set var='result'>NeedEdgework SerialNumberIsOdd</set></li>
-											</condition>
-										</li>
-										<li value='P'>
-											<condition name='BombPortParallel'>
-												<li value='true'><set var='cut'>true</set></li>
-												<li value='false'><set var='cut'>false</set></li>
-												<li value='unknown'><set var='result'>NeedEdgework Port Parallel</set></li>
-											</condition>
-										</li>
-										<li value='B'>
-											<condition name='BombBatteryCount'>
-												<li value='0'><set var='cut'>false</set></li>
-												<li value='1'><set var='cut'>false</set></li>
-												<li value='unknown'><set var='result'>NeedEdgework BatteryCount</set></li>
-												<li><set var='cut'>true</set></li>
-											</condition>
-										</li>
-										<li value='C'><set var='cut'>true</set></li>
-										<li value='D'><set var='cut'>false</set></li>
-										<li value='unknown'><set var='result'>NoSolver</set></li>
-									</condition>
-									<condition var='cut'>
+
+									<set var='result'><srai>Solver ComplicatedWires <get var='flags'/></srai></set>
+									<set var='code'><srai>XFirst <get var='result'/></srai></set>
+									<set var='detail'><srai>XRest <get var='result'/></srai></set>
+									<condition var='result'>
 										<li value='true'>
 											<set var='toCut'><srai>XAppend <get var='wire'/> <get var='toCut'/></srai></set>
 											<set var='toCutCount'><map name='successor'><get var='toCutCount'/></map></set>
 										</li>
-										<li>
+										<li value='false'>
+											<set var='toNotCut'><srai>XAppend <get var='wire'/> <get var='toNotCut'/></srai></set>
 											<set var='toNotCutCount'><map name='successor'><get var='toNotCutCount'/></map></set>
+										</li>
+										<li>
+											<!-- Error -->
+											<set var='end'>true</set>
 										</li>
 									</condition>
 									<set var='red'>false</set>
@@ -150,30 +88,24 @@
 							<loop/>
 						</li>
 					</condition>
+					<set var='code'><srai>XFirst <get var='result'/></srai></set>
+					<set var='detail'><srai>XRest <get var='result'/></srai></set>
 				</think>
-				<condition var='result'>
+				<condition var='code'>
 					<li value='NoSolver'><get var='result'/></li>
-					<li value='NeedEdgework Port Parallel'><get var='result'/></li>
-					<li value='NeedEdgework SerialNumberIsOdd'><get var='result'/></li>
-					<li value='NeedEdgework BatteryCount'><get var='result'/></li>
+					<li value='NeedEdgework'><srai>EdgeworkQuery <get var='detail'/> XS ProcessInput <star/></srai></li>
 					<li>
-						<condition var='toNotCutCount'>
+						<condition var='toCutCount'>
 							<li value='0'>
-								<condition var='toCutCount'>
-									<li value='1'>Cut the wire.</li>
-									<li value='2'>Cut both wires.</li>
-									<li>Cut all wires.</li>
+								<condition var='toNotCutCount'>
+									<li value='1'>Do not cut the wire.</li>
+									<li>Do not cut those wires.</li>
 								</condition>
 							</li>
-							<li>
-								<condition var='toCutCount'>
-									<li value='0'>
-										<condition var='toNotCutCount'>
-											<li value='1'>Do not cut the wire.</li>
-											<li>Do not cut those wires.</li>
-										</condition>
-									</li>
-									<li value='1'>
+							<li value='1'>
+								<condition var='toNotCutCount'>
+									<li value='0'>Cut the wire.</li>
+									<li>
 										<condition var='toCut'>
 											<li><value><get var='wire'/></value>Cut the last wire.</li>
 											<li value='1'>Cut the first wire.</li>
@@ -181,6 +113,27 @@
 											<li value='3'>Cut the third wire.</li>
 											<li value='4'>Cut the fourth wire.</li>
 											<li value='5'>Cut the fifth wire.</li>
+										</condition>
+									</li>
+								</condition>
+							</li>
+							<li>
+								<condition var='toNotCutCount'>
+									<li value='0'>
+										<condition var='toCutCount'>
+											<li value='2'>Cut both wires.</li>
+											<li>Cut all wires.</li>
+										</condition>
+									</li>
+									<li value='1'>
+										Cut all wires except
+										<condition var='toNotCut'>
+											<li><value><get var='wire'/></value>the last.</li>
+											<li value='1'>the first.</li>
+											<li value='2'>the second.</li>
+											<li value='3'>the third.</li>
+											<li value='4'>the fourth.</li>
+											<li value='5'>the fifth.</li>
 										</condition>
 									</li>
 									<li>
@@ -215,6 +168,42 @@
 							</li>
 						</condition>
 					</li>
+				</condition>
+			</template>
+		</category>
+
+		<!-- Usage: Solver ComplicatedWires [flags] -->
+		<!-- Returns true or false depending on whether the specified wire should be cut, or an error code. -->
+		<category>
+			<pattern>SolverFallback ComplicatedWires <set>number</set> ^</pattern>
+			<template>
+				<think><set var='instruction'><map><name>ComplicatedWires<star/></name><star index='2'/></map></set></think>
+				<condition var='instruction'>
+					<li value='S'>
+						<condition name='BombSerialNumberIsOdd'>
+							<li value='true'>false</li>
+							<li value='false'>true</li>
+							<li value='unknown'>NeedEdgework SerialNumberIsOdd</li>
+						</condition>
+					</li>
+					<li value='P'>
+						<condition name='BombPortParallel'>
+							<li value='true'>true</li>
+							<li value='false'>false</li>
+							<li value='unknown'>NeedEdgework Port Parallel</li>
+						</condition>
+					</li>
+					<li value='B'>
+						<condition name='BombBatteryCount'>
+							<li value='0'>false</li>
+							<li value='1'>false</li>
+							<li value='unknown'>NeedEdgework BatteryCount</li>
+							<li>true</li>
+						</condition>
+					</li>
+					<li value='C'>true</li>
+					<li value='D'>false</li>
+					<li value='unknown'>NoSolver</li>
 				</condition>
 			</template>
 		</category>

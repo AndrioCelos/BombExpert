@@ -8,6 +8,7 @@
 				<one-of>
 					<!-- Do not use the word 'white' when describing wires. It sounds too similar to 'light'. -->
 					<item> nothing </item>
+					<item> plain </item>
 					<item> red </item>
 					<item> blue </item>
 					<item> light </item>
