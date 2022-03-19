@@ -1,4 +1,4 @@
-<grammar version='1.0' xml:lang='en' root='root' xmlns='http://www.w3.org/2001/06/grammar'>
+<grammar version='1.0' xml:lang='en-gb' root='root' xmlns='http://www.w3.org/2001/06/grammar'>
 	<rule id='root'>
 		<one-of>
 			<item><ruleref uri='bomb.xml'/></item>
@@ -13,13 +13,12 @@
 					<item> keypad </item>
 				</one-of>
 			</item>
-			<item repeat='0-1'>
-				<one-of>
-					<item> a </item>
-					<item> an </item>
-					<item> the </item>
-				</one-of>
+			<item>
 				<ruleref uri='#glyphDescription'/>
+				<item repeat='0-3'>
+					<item> then </item>
+					<ruleref uri='#glyphDescription'/>
+				</item>
 			</item>
 			<item> back </item>
 			<item> go back </item>
@@ -31,12 +30,12 @@
 			<item> circled C </item>
 			<item> C with circle </item>
 
-			<item> black star </item>
 			<item> filled star </item>
+			<item> black star </item>
 			<item> full star </item>
 
-			<item> white star </item>
 			<item> hollow star </item>
+			<item> white star </item>
 			<item> clear star </item>
 			<item> empty star </item>
 
@@ -56,7 +55,10 @@
 			<item><item repeat='0-1'> letter </item> O with feet </item>
 
 			<item> iotified big yus </item>
+			<item> squid knife </item>
+			<item> woomy knife </item>
 			<item> squid with knife </item>
+			<item> woomy with knife </item>
 			<item> spaceship </item>
 			<item> kitty </item>
 			<item> cat </item>
@@ -72,11 +74,13 @@
 
 			<item> kai </item>
 			<item> hooked <item repeat='0-1'> letter </item> N </item>
+			<item> hooked <item repeat='0-1'> letter </item> H </item>
 			<item><item repeat='0-1'> letter </item> N with hook </item>
+			<item><item repeat='0-1'> letter </item> H with hook </item>
 			<item><item repeat='0-1'> curvy </item> <item repeat='0-1'> letter </item> H </item>
 
 			<item> gangia </item>
-			<item> tipi </item>
+			<item> teepee </item>
 			<item> tent </item>
 			<item> underlined <item repeat='0-1'> letter </item> X </item>
 			<item><item repeat='0-1'> letter </item> X with underline </item>
@@ -91,11 +95,12 @@
 
 			<item> little yus </item>
 			<item><item repeat='0-1'> letter </item> A <item repeat='0-1'> with </item> <item repeat='0-1'> letter </item> T </item>
-			<item> pyramid </item>
 			<item><item repeat='0-1'> letter </item> A with <ruleref uri='#tail'/> </item>
+			<item> pyramid </item>
 			<item> illuminati <ruleref uri='#sign'/> </item>
 
 			<item><item repeat='0-1'> letter </item> a e </item>
+			<item><item repeat='0-1'> letter </item> alfa echo </item>
 
 			<item> komi dzje </item>
 			<item>
@@ -111,6 +116,7 @@
 			</item>
 
 			<item><item repeat='0-1'> backward </item> <item repeat='0-1'> dotted </item> <item repeat='0-1'> letter </item> E </item>
+			<item><item repeat='0-1'> backward </item> <item repeat='0-1'> dotted </item> <item repeat='0-1'> letter </item> echo </item>
 			<item><item repeat='0-1'> backward </item> <item repeat='0-1'> dotted </item> Euro <ruleref uri='#sign'/> </item>
 
 			<item> hundred thousands </item>
@@ -152,9 +158,11 @@
 			<item> big yus </item>
 			<item> tripod </item>
 			<item> squid </item>
+			<item> woomy </item>
 
 			<item> abkhasian ha </item>
 			<item> cursive </item>
+			<item> cursive loop </item>
 			<item> wisp </item>
 			<item> curly fry </item>
 			<item> loop the loop </item>
@@ -162,6 +170,7 @@
 
 			<item> thousands </item>
 			<item> tracks </item>
+			<item> train tracks </item>
 			<item><item repeat='0-1'> does </item> not equal <ruleref uri='#sign'/> </item>
 			<item><item repeat='0-1'> broken </item> hash <item repeat='0-1'> tag </item> <ruleref uri='#sign'/> </item>
 			<item><item repeat='0-1'> broken </item> pound <ruleref uri='#sign'/> </item>
@@ -199,8 +208,13 @@
 
 			<item> yat </item>
 			<item> B T </item>
+			<item> B and T </item>
+			<item> bravo tango </item>
 			<item> T B </item>
+			<item> T and B </item>
+			<item> tango bravo </item>
 			<item> P T </item>
+			<item> P and T </item>
 			<item> upside down <item repeat='0-1'> letter </item> P </item>
 			<item> tampa bay </item>
 		</one-of>

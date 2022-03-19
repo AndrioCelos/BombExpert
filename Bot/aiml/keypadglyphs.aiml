@@ -95,11 +95,11 @@
 	</category>
 
 	<category>
-		<pattern>GetKeypadGlyphName2 white star</pattern>
+		<pattern>GetKeypadGlyphName2 hollow star</pattern>
 		<template>HollowStar</template>
 	</category>
 	<category>
-		<pattern>GetKeypadGlyphName2 hollow star</pattern>
+		<pattern>GetKeypadGlyphName2 white star</pattern>
 		<template>HollowStar</template>
 	</category>
 	<category>
@@ -172,6 +172,10 @@
 	</category>
 	<category>
 		<pattern>GetKeypadGlyphName2 squid ^ knife</pattern>
+		<template>SquidKnife</template>
+	</category>
+	<category>
+		<pattern>GetKeypadGlyphName2 woomy ^ knife</pattern>
 		<template>SquidKnife</template>
 	</category>
 	<category>

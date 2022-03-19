@@ -1,30 +1,30 @@
 Copyright   : copyright symbol
-FilledStar  : black star
-HollowStar  : white star
+FilledStar  : filled star
+HollowStar  : hollow star
 SmileyFace  : smiley face
-DoubleK     : double Ks back-to-back
+DoubleK     : double Ks
 Omega       : Omega
-SquidKnife  : squid with a knife, or spaceship
+SquidKnife  : squid with a knife
 Pumpkin     : pumpkin
-HookN       : curly H
+HookN       : hooked N
 Teepee      : tent
-Six         : flat-topped six
-SquigglyN   : squiggly lightning bolt
-AT          : pyramid, or A and T
+Six         : six
+SquigglyN   : squiggly N
+AT          : pyramid
 Ae          : a e
 MeltedThree : melted three
-Euro        : backward E
+Euro        : Euro symbol
 Circle      : circle of hills
-NWithHat    : upside-down N with a hat
-Dragon      : dragon, or snake
-QuestionMark: upside-down question mark
-Paragraph   : paragraph mark, or backward filled P
+NWithHat    : upside-down N with hat
+Dragon      : dragon
+QuestionMark: question mark
+Paragraph   : paragraph mark
 RightC      : forward C
 LeftC       : backward C
-Pitchfork   : letter Psi, or trident
+Pitchfork   : pitchfork
 Cursive     : cursive loop
-Tracks      : square train track, or hash sign
+Tracks      : square track
 Balloon     : balloon
-WeirdNose   : zeta, or nose
-UpsideDownY : lambda, or upside-down Y
+WeirdNose   : zeta
+UpsideDownY : upside-down Y
 BT          : B and T

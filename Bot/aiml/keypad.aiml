@@ -38,49 +38,11 @@
 		<category>
 			<pattern>*</pattern>
 			<topic>bomb keypad describe</topic>
-			<template><srai>KeypadCheckGlyphDescription <star/></srai></template>
-		</category>
-
-		<!-- Usage: XGlyphs [rule seed] [n] -->
-		<!-- Returns a list of glyphs that appear on exactly n columns. -->
-		<category>
-			<pattern>XGlyphs 1 1</pattern>
-			<template>Copyright FilledStar Omega Pumpkin SquigglyN AT Ae MeltedThree NWithHat Dragon RightC Tracks</template>
-		</category>
-		<category>
-			<pattern>XGlyphs 1 2</pattern>
-			<template>HollowStar SmileyFace DoubleK SquidKnife HookN Six Euro QuestionMark Paragraph LeftC Pitchfork Cursive Balloon UpsideDownY BT</template>
-		</category>
-
-		<!-- Usage: KeypadCheckGlyphDescription [user description ...] -->
-		<category>
-			<pattern>KeypadCheckGlyphDescription *</pattern>
 			<template>
-				<think><set var='glyph'><srai>GetKeypadGlyphName <star/></srai></set></think>
-				<condition var='glyph'>
-					<li value='unknown'>
-						<!-- We don't recognise the description from the user. -->
-						<condition name='BombKeypadTry'>
-							<li value='1'>
-								<!-- First time: ask them to rephrase. -->
-								<think><set name='BombKeypadTry'>2</set></think>
-								I do not recognise that description. Please try rephrasing it.
-							</li>
-							<li>
-								<!-- Second time: start asking about specific glyphs. -->
-								<think>
-									<set name='BombKeypadStage'>2</set>
-									<set name='topic'>bomb keypad</set>
-								</think>
-								<oob>SetGrammar keypadOK</oob>
-								<srai>KeypadResult <srai>Solver Keypad Start</srai></srai>
-							</li>
-						</condition>
-					</li>
-					<li>
+				<think><set var='valid'><srai>KeypadAppendGlyphDescription <star/></srai></set></think>
+				<condition var='valid'>
+					<li value='true'>
 						<think>
-							<set><name>BombKeypadGlyph<get name='BombKeypadAsking'/></name><get var='glyph'/></set>
-							<set name='BombKeypadAsked'><srai>XAppend <get var='glyph'/> <get name='BombKeypadAsked'/></srai></set>
 							<!-- Check whether any columns match. -->
 							<set var='check'>
 								<srai>Solver Keypad CheckKeypad <get name='BombKeypadGlyph1'/> <get name='BombKeypadGlyph2'/> <get name='BombKeypadGlyph3'/> <get name='BombKeypadGlyph4'/></srai>
@@ -93,7 +55,7 @@
 							</li>
 							<li>
 								<condition name='BombKeypadAsking'>
-									<li value='4'>
+									<li value='5'>
 										<!-- Got all glyphs, now determine the order to press them. -->
 										<think>
 											<set name='topic'>bomb keypad order</set>
@@ -113,22 +75,105 @@
 											</li>
 											<li>
 												<think><set name='BombKeypadColumn'><get var='result'/></set></think>
-												<srai>KeypadOrderTell <set name='BombKeypadIndex'>1</set></srai>
+												<srai>KeypadOrderRead</srai>
 											</li>
 										</condition>
 									</li>
 									<li>
-										<think><set name='BombKeypadAsking'><map name='successor'><get name='BombKeypadAsking'/></map></set></think>
-										<condition name='BombKeypadAsking'>
-											<li value='2'>OK. Describe the second glyph.</li>
-											<li value='3'>OK. Describe the third glyph.</li>
-											<li value='4'>OK. Describe the last glyph.</li>
-											<li>OK.</li>
-										</condition>
+										<srai>NextSymbolPrompt</srai>
 									</li>
 								</condition>
 							</li>
 						</condition>
+					</li>
+				</condition>
+			</template>
+		</category>
+
+		<category>
+			<pattern>* then *</pattern>
+			<topic>bomb keypad describe</topic>
+			<template>
+				<think><set var='valid'><srai>KeypadAppendGlyphDescription <star/></srai></set></think>
+				<condition var='valid'>
+					<li value='true'><srai><star index='2'/></srai></li>
+					<li>
+						<condition name='BombKeypadTry'>
+							<li value='1'>
+								<!-- First time: ask them to rephrase. -->
+								<think><set name='BombKeypadTry'>2</set></think>
+								I do not recognise that description.
+							</li>
+							<li>
+								<!-- Second time: start asking about specific glyphs. -->
+								I do not recognise that description. Want to use the yes-no strategy?
+							</li>
+						</condition>
+					</li>
+				</condition>
+			</template>
+		</category>
+
+		<category>
+			<pattern>yes</pattern>
+			<that>Want to use the yes-no strategy</that>
+			<template>
+				<think>
+					<set name='BombKeypadStage'>2</set>
+					<set name='topic'>bomb keypad</set>
+				</think>
+				<oob>SetGrammar keypadOK</oob>
+				<srai>KeypadResult <srai>Solver Keypad Start</srai></srai>
+			</template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Want to use the yes-no strategy</that>
+			<template><srai>NextSymbolPrompt</srai></template>
+		</category>
+
+		<category>
+			<pattern>NextSymbolPrompt</pattern>
+			<template>
+				<condition name='BombKeypadAsking'>
+					<li value='1'>OK. Describe the first symbol.</li>
+					<li value='2'>OK. Describe the second symbol.</li>
+					<li value='3'>OK. Describe the third symbol.</li>
+					<li value='4'>OK. Describe the last symbol.</li>
+					<li>OK.</li>
+				</condition>
+			</template>
+		</category>
+
+
+		<!-- Usage: XGlyphs [rule seed] [n] -->
+		<!-- Returns a list of glyphs that appear on exactly n columns. -->
+		<category>
+			<pattern>XGlyphs 1 1</pattern>
+			<template>Copyright FilledStar Omega Pumpkin SquigglyN AT Ae MeltedThree NWithHat Dragon RightC Tracks</template>
+		</category>
+		<category>
+			<pattern>XGlyphs 1 2</pattern>
+			<template>HollowStar SmileyFace DoubleK SquidKnife HookN Six Euro QuestionMark Paragraph LeftC Pitchfork Cursive Balloon UpsideDownY BT</template>
+		</category>
+
+		<!-- Usage: KeypadAppendGlyphDescription [user description ...] -->
+		<category>
+			<pattern>KeypadAppendGlyphDescription *</pattern>
+			<template>
+				<think><set var='glyph'><srai>GetKeypadGlyphName <star/></srai></set></think>
+				<condition var='glyph'>
+					<li value='unknown'>
+						false
+					</li>
+					<li>
+						<think>
+							<set><name>BombKeypadDescription<get var='glyph'/></name><star/></set>
+							<set><name>BombKeypadGlyph<get name='BombKeypadAsking'/></name><get var='glyph'/></set>
+							<set name='BombKeypadAsked'><srai>XAppend <get var='glyph'/> <get name='BombKeypadAsked'/></srai></set>
+							<think><set name='BombKeypadAsking'><map name='successor'><get name='BombKeypadAsking'/></map></set></think>
+						</think>
+						true
 					</li>
 				</condition>
 			</template>
@@ -254,6 +299,19 @@
 					</condition>
 				</think>
 				<get var='result'/>
+			</template>
+		</category>
+
+		<!-- Usage: KeypadOrderRead -->
+		<!-- Tells the Defuser the order to press the buttons. -->
+		<category>
+			<pattern>KeypadOrderRead</pattern>
+			<template>
+				Press in this order:
+				<srai>KeypadDescribe <srai>XItem 1 <get name='BombKeypadColumn'/></srai></srai>,
+				<srai>KeypadDescribe <srai>XItem 2 <get name='BombKeypadColumn'/></srai></srai>,
+				<srai>KeypadDescribe <srai>XItem 3 <get name='BombKeypadColumn'/></srai></srai>,
+				<srai>KeypadDescribe <srai>XItem 4 <get name='BombKeypadColumn'/></srai></srai>.
 			</template>
 		</category>
 
