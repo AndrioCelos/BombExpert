@@ -15,6 +15,7 @@
 					<item> off </item>
 				</one-of>
 			</item>
+			<item><ruleref uri='bomb.xml#digit'/> <ruleref uri='bomb.xml#digit'/></item>
 		</one-of>
 	</rule>
 </grammar>

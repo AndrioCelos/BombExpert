@@ -54,37 +54,82 @@ namespace BombExpert.Solvers {
 			("All", new[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 } )
 		};
 
+		private static readonly string[][] countPatterns = new[] { new[] { "Left", "Right" }, new[] { "Top", "Bottom" } };
+
 		/// <param name="text">[rule seed] GetPattern -or- [rule seed] Lights ( [light number]:[state] )*</param>
 		public string Process(string text, XmlAttributeCollection attributes, RequestProcess process) {
 			var fields = text.Split((char[]?) null, StringSplitOptions.RemoveEmptyEntries);
 			var rules = GetRules(int.Parse(fields[0]));
 
 			if (fields[1].Equals("GetPattern", StringComparison.InvariantCultureIgnoreCase)) {
+				// Find out whether we can use counts.
+				var list = GetCountPattern(rules);
+				if (list is not null) return $"Counts {string.Join(' ', list)}";
+
 				// Find the first pattern that uniquely determines the required position.
 				var (name, indices) = GetPattern(rules);
 				return name + " " + string.Join(" ", indices);
 			}
 
-			var known = new List<(int index, bool on)>();
-
-			for (int i = 2; i < fields.Length; ++i) {
-				var fields2 = fields[i].Split(new[] { ':' });
-				known.Add((int.Parse(fields2[0]), fields2[1].Equals("on", StringComparison.CurrentCultureIgnoreCase)));
-			}
-
-			Position? position2 = null;
-
-			foreach (var rule in rules) {
-				if (known.All(e => rule.Lights[e.index] == e.on)) {
-					if (position2 != null && position2 != rule.Position)
-						return "MultiplePositions";
-					position2 = rule.Position;
+			if (fields[1].Equals("Counts", StringComparison.InvariantCultureIgnoreCase)) {
+				var counts = new List<(int[] indices, int count)>();
+				for (var i = 2; i < fields.Length; ++i) {
+					var tokens2 = fields[i].Split(':');
+					var indices = patterns.First(e => e.name.Equals(tokens2[0], StringComparison.InvariantCultureIgnoreCase)).indices;
+					counts.Add((indices, int.Parse(tokens2[1])));
 				}
-			}
 
-			return position2?.ToString()?.ToLower() ?? "unknown";
+				Position? position2 = null;
+
+				foreach (var rule in rules) {
+					if (counts.All(e => e.indices.Count(i => rule.Lights[i]) == e.count)) {
+						if (position2 != null && position2 != rule.Position)
+							return "MultiplePositions";
+						position2 = rule.Position;
+					}
+				}
+
+				return position2?.ToString()?.ToLower() ?? "unknown";
+			} else {
+				var known = new List<(int index, bool on)>();
+
+				for (var i = 2; i < fields.Length; ++i) {
+					var fields2 = fields[i].Split(new[] { ':' });
+					known.Add((int.Parse(fields2[0]), fields2[1].Equals("on", StringComparison.CurrentCultureIgnoreCase)));
+				}
+
+				Position? position2 = null;
+
+				foreach (var rule in rules) {
+					if (known.All(e => rule.Lights[e.index] == e.on)) {
+						if (position2 != null && position2 != rule.Position)
+							return "MultiplePositions";
+						position2 = rule.Position;
+					}
+				}
+
+				return position2?.ToString()?.ToLower() ?? "unknown";
+			}
 		}
 
+		private static string[]? GetCountPattern(Rule[] rules) {
+			foreach (var list in countPatterns) {
+				var valid = true;
+				var mapping = new Dictionary<string, Position>();
+				foreach (var rule in rules) {
+					var key = string.Join(" ", list.Select(s => patterns.First(e => e.name.Equals(s, StringComparison.InvariantCultureIgnoreCase)).indices.Count(i => rule.Lights[i])));
+					if (mapping.TryGetValue(key, out var position)) {
+						if (position != rule.Position) {
+							valid = false;
+							break;
+						}
+					} else
+						mapping[key] = rule.Position;
+				}
+				if (valid) return list;
+			}
+			return null;
+		}
 		private static (string name, int[] indices) GetPattern(Rule[] rules) {
 			foreach (var (name, indices) in patterns) {
 				var valid = true;
@@ -111,22 +156,42 @@ namespace BombExpert.Solvers {
 			writer.WriteLine("<?xml version='1.0' encoding='UTF-8'?>");
 			writer.WriteLine("<aiml version='2.0'>");
 
-			var (name, indices) = GetPattern(rules);
 			writer.WriteLine("<category>");
 			writer.WriteLine($"<pattern>SolverFallback Knob {ruleSeed} GetPattern</pattern>");
-			writer.WriteLine($"<template>{name} {string.Join(" ", indices)}</template>");
-			writer.WriteLine("</category>");
 
-			var used = new HashSet<string>();
-			for (int i = 0; i < 8; ++i) {
-				var rule = rules[i];
-				var lights = string.Join(" ", indices.Select(j => j + ":" + (rule.Lights[j] ? "on" : "off")));
+			var countPattern = GetCountPattern(rules);
+			if (countPattern is not null) {
+				writer.WriteLine($"<template>Counts {string.Join(' ', countPattern)}</template>");
+				writer.WriteLine("</category>");
 
-				if (used.Add(lights)) {
-					writer.WriteLine("<category>");
-					writer.WriteLine($"<pattern>SolverFallback Knob {ruleSeed} Lights {lights}</pattern>");
-					writer.WriteLine($"<template>{rule.Position}</template>");
-					writer.WriteLine("</category>");
+				var used = new HashSet<string>();
+				for (int i = 0; i < 8; ++i) {
+					var rule = rules[i];
+					var counts = string.Join(" ", countPattern.Select(s => $"{s}:{patterns.First(e => e.name.Equals(s, StringComparison.InvariantCultureIgnoreCase)).indices.Count(i => rule.Lights[i])}"));
+
+					if (used.Add(counts)) {
+						writer.WriteLine("<category>");
+						writer.WriteLine($"<pattern>SolverFallback Knob {ruleSeed} Counts {counts}</pattern>");
+						writer.WriteLine($"<template>{rule.Position}</template>");
+						writer.WriteLine("</category>");
+					}
+				}
+			} else {
+				var (name, indices) = GetPattern(rules);
+				writer.WriteLine($"<template>{name} {string.Join(" ", indices)}</template>");
+				writer.WriteLine("</category>");
+
+				var used = new HashSet<string>();
+				for (int i = 0; i < 8; ++i) {
+					var rule = rules[i];
+					var lights = string.Join(" ", indices.Select(j => j + ":" + (rule.Lights[j] ? "on" : "off")));
+
+					if (used.Add(lights)) {
+						writer.WriteLine("<category>");
+						writer.WriteLine($"<pattern>SolverFallback Knob {ruleSeed} Lights {lights}</pattern>");
+						writer.WriteLine($"<template>{rule.Position}</template>");
+						writer.WriteLine("</category>");
+					}
 				}
 			}
 

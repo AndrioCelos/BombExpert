@@ -383,4 +383,16 @@
 		<template>letter</template>
 	</category>
 
+		<category>
+		<pattern>IsNumber *</pattern>
+		<template>XIsNumber <star/></template>
+	</category>
+	<category>
+		<pattern>XIsNumber <set>number</set></pattern>
+		<template>true</template>
+	</category>
+	<category>
+		<pattern>XIsNumber *</pattern>
+		<template>false</template>
+	</category>
 </aiml>

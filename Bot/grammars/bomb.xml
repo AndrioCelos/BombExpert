@@ -32,6 +32,10 @@
 			<item> indicators </item>
 			<item> ports </item>
 			<item> serial number </item>
+
+			<!-- Needy module shortcuts -->
+			<item> knob <ruleref uri='#digit'/> <ruleref uri='#digit'/></item>
+			<item> knob <item repeat='4-12'><one-of><item> off </item><item> on </item></one-of></item></item>
 		</one-of>
 	</rule>
 	<rule id='defuse'>
@@ -42,11 +46,12 @@
 		<one-of>
 			<item> wires </item>
 			<item> simple wires </item>
+			<item> the button </item>
 			<item> button </item>
 			<item> keypad </item>
 			<item> simon </item>
 			<item> simon says </item>
-			<item> who's on first <!--<item repeat='0-1'><ruleref uri='whosonfirst.xml#label'/></item>--> </item>
+			<item> who's on first </item>
 			<item> words </item>
 			<item> memory </item>
 			<item> Morse </item>
@@ -60,7 +65,7 @@
 			<item> wire panels </item>
 			<item> maze </item>
 			<item> password </item>
-			<item> knob <!--<item repeat='0-1'><ruleref uri='knob.xml#lights'/></item>--> </item>
+			<item> knob </item>
 		</one-of>
 	</rule>
 	<rule id='colour' scope='public'>

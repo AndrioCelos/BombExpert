@@ -17,20 +17,34 @@
 				<li value='Middle'>Read the four lights in the inner corners in reading order.</li>
 				<li value='Inner'>Read the four lights in the middle columns in reading order.</li>
 				<li value='All'>Read the twelve lights in reading order.</li>
+				<li value='Counts'>
+					<condition name='KnobIndices'>
+						<li value='left right'>Tell me the number of lit LEDs on the left and right half.</li>
+						<li value='top bottom'>Tell me the number of lit LEDs on the top and bottom rows.</li>
+					</condition>
+				</li>
 			</condition>
 		</template>
 	</category>
 	<category>
-		<pattern>defuse knob all *</pattern>
+		<pattern>defuse knob *</pattern>
+		<template><srai>knob <star/></srai></template>
+	</category>
+	<category>
+		<pattern>knob all *</pattern>
 		<template><srai>KnobSetup</srai><srai>Knob HandleInput <star/> <star/> <star/> <star/> <star/> <star/> <star/> <star/> <star/> <star/> <star/> <star/></srai></template>
 	</category>
 	<category>
-		<pattern>defuse knob on *</pattern>
+		<pattern>knob on *</pattern>
 		<template><srai>KnobSetup</srai><srai>Knob HandleInput on <star/></srai></template>
 	</category>
 	<category>
-		<pattern>defuse knob off *</pattern>
+		<pattern>knob off *</pattern>
 		<template><srai>KnobSetup</srai><srai>Knob HandleInput off <star/></srai></template>
+	</category>
+	<category>
+		<pattern>knob <set>number</set> *</pattern>
+		<template><srai>KnobSetup</srai><srai>Knob HandleInput <star/> <star index='2'/></srai></template>
 	</category>
 
 	<category>
@@ -64,6 +78,19 @@
 				<srai>Knob HandleInput <star/> <star/> <star/> <star/> <star/> <star/> <star/> <star/> <star/> <star/> <star/> <star/></srai>
 			</template>
 		</category>
+		<category>
+			<pattern><set>number</set> <set>number</set></pattern>
+			<template>
+				<think><set var='result'><srai>Solver Knob Counts <first><get name='KnobIndices'/></first>:<star index='1'/> <rest><get name='KnobIndices'/></rest>:<star index='2'/></srai></set></think>
+				<condition var='result'>
+					<li value='NotEnoughStates'>You did not say enough numbers. Try again.</li>
+					<li value='BadInputState'>I do not recognise that input. Try again.</li>
+					<li value='unknown'>I do not recognise that pattern. Try again.</li>
+					<li value='MultiplePositions'>Multiple positions match. This is probably a bug.</li>
+					<li>Turn the knob to the <get var='result'/> position, with respect to the 'Up' label.</li>
+				</condition>
+			</template>
+		</category>
 	</topic>
 
 	<category>
@@ -80,30 +107,39 @@
 						<set var='indices'><srai>XRest <get var='indices'/></srai></set>
 						<set var='inputState'><srai>XFirst <get var='input'/></srai></set>
 						<set var='input'><srai>XRest <get var='input'/></srai></set>
-						<condition var='inputState'>
-							<li value='nil'>
-								<set var='result'>NotEnoughStates</set>
-								<set var='indices'>nil</set>
-							</li>
-							<li value='on'>
-								<set var='query'><get var='query'/> <get var='index'/>:<get var='inputState'/></set>
-							</li>
-							<li value='off'>
+						<set var='isNumber'><srai>XIsNumber <get var='inputState'/></srai></set>
+						<condition var='isNumber'>
+							<li value='true'>
 								<set var='query'><get var='query'/> <get var='index'/>:<get var='inputState'/></set>
 							</li>
 							<li>
-								<set var='result'>BadInputState</set>
-								<set var='indices'>nil</set>
+								<condition var='inputState'>
+									<li value='nil'>
+										<set var='result'>NotEnoughStates</set>
+										<set var='indices'>nil</set>
+									</li>
+									<li value='on'>
+										<set var='query'><get var='query'/> <get var='index'/>:<get var='inputState'/></set>
+									</li>
+									<li value='off'>
+										<set var='query'><get var='query'/> <get var='index'/>:<get var='inputState'/></set>
+									</li>
+									<li>
+										<set var='result'>BadInputState</set>
+										<set var='indices'>nil</set>
+									</li>
+								</condition>
 							</li>
 						</condition>
 						<loop/>
 					</li>
 				</condition>
 				<condition var='result' value='unknown'>
-					<set var='result'><srai>Solver Knob Lights <get var='query'/></srai></set>
+					<set var='result'><srai>Solver Knob <condition name='KnobPattern'><li value='Counts'>Counts</li><li>Lights</li></condition> <get var='query'/></srai></set>
 				</condition>
 			</think>
 			<condition var='result'>
+				<li value='NoSolver'>I do not seem to have the correct manual.</li>
 				<li value='NotEnoughStates'>You did not say enough states. Try again.</li>
 				<li value='BadInputState'>I do not recognise that input. Try again.</li>
 				<li value='unknown'>I do not recognise that pattern. Try again.</li>
@@ -116,12 +152,51 @@
 	<!-- Usage: Solver Knob GetPattern -->
 	<!--
 		Returns [Selection] [Indices]
-			[Selection] indicates which lights to ask for.
-			[Indices] specifies the zero-based indices that this question corresponds to.
+			[Selection] indicates which lights to ask for or Counts.
+			[Indices] specifies the zero-based indices or group descriptions that this question corresponds to.
 	-->
 	<category>
 		<pattern>SolverFallback Knob 1 GetPattern</pattern>
-		<template>Left 0 1 2 6 7 8</template>
+		<template>Counts left right</template>
+	</category>
+
+	<!-- Usage: Solver Knob Counts ([group]:[count])+ -->
+	<!-- Returns the correct direction or 'unknown'. -->
+	<category>
+		<pattern>SolverFallback Knob 1 Counts left:4 right:4</pattern>
+		<template>Up</template>
+	</category>
+	<category>
+		<pattern>SolverFallback Knob 1 Counts left:4 right:3</pattern>
+		<template>Up</template>
+	</category>
+	<category>
+		<pattern>SolverFallback Knob 1 Counts left:5 right:3</pattern>
+		<template>Down</template>
+	</category>
+	<category>
+		<pattern>SolverFallback Knob 1 Counts left:3 right:2</pattern>
+		<template>Down</template>
+	</category>
+	<category>
+		<pattern>SolverFallback Knob 1 Counts left:1 right:4</pattern>
+		<template>Left</template>
+	</category>
+	<category>
+		<pattern>SolverFallback Knob 1 Counts left:0 right:3</pattern>
+		<template>Left</template>
+	</category>
+	<category>
+		<pattern>SolverFallback Knob 1 Counts left:5 right:4</pattern>
+		<template>Right</template>
+	</category>
+	<category>
+		<pattern>SolverFallback Knob 1 Counts left:5 right:2</pattern>
+		<template>Right</template>
+	</category>
+	<category>
+		<pattern>SolverFallback Knob 1 Counts *</pattern>
+		<template>unknown</template>
 	</category>
 
 	<!-- Usage: Solver Knob Lights ([index]:[state])+ -->
