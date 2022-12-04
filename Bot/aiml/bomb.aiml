@@ -100,6 +100,15 @@
 			<srai>InitModule</srai>
 		</template>
 	</category>
+	<category>
+		<pattern>resume <set>module</set></pattern>
+		<template>
+			<srai>DeselectModule</srai>
+			<think><set name='topic'>Bomb <map name='ModuleCode'><star/></map></set></think>
+			<oob><setgrammar><map name='ModuleCode'><star/></map></setgrammar></oob>
+			<srai>SelectModule</srai>
+		</template>
+	</category>
 
 	<!-- Called when the topic is changed to this module type. -->
 	<category>

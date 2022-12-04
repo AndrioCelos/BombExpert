@@ -54,6 +54,7 @@
 	<rule id='defuse'>
 		<one-of>
 			<item> defuse </item>
+			<item> resume </item>
 			<item> next </item>
 			<item> next is </item>
 			<item> new </item>
