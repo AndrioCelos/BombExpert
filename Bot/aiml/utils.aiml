@@ -156,6 +156,82 @@
 		<template>nil</template>
 	</category>
 
+	<!-- Usage: XLast [list ...] -->
+	<!-- Returns the last word of the list. -->
+	<category>
+		<pattern>XLast</pattern>
+		<template>nil</template>
+	</category>
+	<category>
+		<pattern>XLast *</pattern>
+		<template><star index='1'/></template>
+	</category>
+	<category>
+		<pattern>XLast * *</pattern>
+		<template><star index='2'/></template>
+	</category>
+	<category>
+		<pattern>XLast * * *</pattern>
+		<template><star index='3'/></template>
+	</category>
+	<category>
+		<pattern>XLast * * * *</pattern>
+		<template><star index='4'/></template>
+	</category>
+	<category>
+		<pattern>XLast * * * * *</pattern>
+		<template><star index='5'/></template>
+	</category>
+	<category>
+		<pattern>XLast * * * * * *</pattern>
+		<template><star index='6'/></template>
+	</category>
+	<category>
+		<pattern>XLast * * * * * * *</pattern>
+		<template><star index='7'/></template>
+	</category>
+	<category>
+		<pattern>XLast * * * * * * * *</pattern>
+		<template><star index='8'/></template>
+	</category>
+	<category>
+		<pattern>XLast * * * * * * * * *</pattern>
+		<template><star index='9'/></template>
+	</category>
+	<category>
+		<pattern>XLast * * * * * * * * * *</pattern>
+		<template>
+			<think>
+				<set var='items'><star index='10'/></set>
+				<set var='rest'><rest><get var='items'/></rest></set>
+				<condition var='rest'>
+					<li value='nil'></li>
+					<li>
+						<set var='items'><get var='rest'/></set>
+						<set var='rest'><rest><get var='items'/></rest></set>
+						<loop/>
+					</li>
+				</condition>
+			</think>
+			<get var='items'/>
+		</template>
+	</category>
+
+	<!-- Usage: XReverse [list ...] -->
+	<!-- Returns the words in reverse order. -->
+	<category>
+		<pattern>XReverse</pattern>
+		<template>nil</template>
+	</category>
+	<category>
+		<pattern>XReverse *</pattern>
+		<template><star/></template>
+	</category>
+	<category>
+		<pattern>XReverse * *</pattern>
+		<template><srai>XReverse <star index='2'/></srai> <star/></template>
+	</category>
+
 	<!-- Usage: XPrepend [element] [list ...] -->
 	<!-- Returns the list with the specified element prepended. -->
 	<category>
@@ -184,6 +260,115 @@
 	<category>
 		<pattern>XAppend * *</pattern>
 		<template><star index='2'/> <star/></template>
+	</category>
+
+	<!-- Usage: XAdd [element] XS [set ...] -->
+	<!-- Returns the set with the specified element added if it was not already present. -->
+	<category>
+		<pattern>XAdd * XS nil</pattern>
+		<template><star/></template>
+	</category>
+	<category>
+		<pattern>XAdd * XS</pattern>
+		<template><star/></template>
+	</category>
+	<category>
+		<pattern>XAdd * XS *</pattern>
+		<template>
+			<think><set var='contains'><srai>XContains <star/> <star index='2'/></srai></set></think>
+			<condition var='contains'>
+				<li value='true'><star index='2'/></li>
+				<li><star index='2'/> <star/></li>
+			</condition>
+		</template>
+	</category>
+
+	<!-- Usage: XRemove [element] XS [set ...] -->
+	<!-- Returns the set with the specified element removed. -->
+	<category>
+		<pattern>XRemove * XS *</pattern>
+		<template>
+			<think><set var='a'><star/></set></think>
+			<condition var='a'>
+				<li><value><star index='2'/></value>nil</li>
+				<li><star index='2'/></li>
+			</condition>
+		</template>
+	</category>
+	<category>
+		<pattern>XRemove * XS * *</pattern>
+		<template>
+			<think><set var='a'><star/></set></think>
+			<condition var='a'>
+				<li><value><star index='2'/></value><star index='3'/></li>
+				<li><star index='2'/> <srai>XRemove <star/> XS <star index='3'/></srai></li>
+			</condition>
+		</template>
+	</category>
+
+	<!-- Usage: XCount [list ...] -->
+	<!-- Returns the number of elements in the list. -->
+	<category>
+		<pattern>XCount</pattern>
+		<template>0</template>
+	</category>
+	<category>
+		<pattern>XCount nil</pattern>
+		<template>0</template>
+	</category>
+	<category>
+		<pattern>XCount *</pattern>
+		<template>1</template>
+	</category>
+	<category>
+		<pattern>XCount * *</pattern>
+		<template>2</template>
+	</category>
+	<category>
+		<pattern>XCount * * *</pattern>
+		<template>3</template>
+	</category>
+	<category>
+		<pattern>XCount * * * *</pattern>
+		<template>4</template>
+	</category>
+	<category>
+		<pattern>XCount * * * * *</pattern>
+		<template>5</template>
+	</category>
+	<category>
+		<pattern>XCount * * * * * *</pattern>
+		<template>6</template>
+	</category>
+	<category>
+		<pattern>XCount * * * * * * *</pattern>
+		<template>7</template>
+	</category>
+	<category>
+		<pattern>XCount * * * * * * * *</pattern>
+		<template>8</template>
+	</category>
+	<category>
+		<pattern>XCount * * * * * * * * *</pattern>
+		<template>9</template>
+	</category>
+	<category>
+		<pattern>XCount * * * * * * * * * *</pattern>
+		<template>
+			<think>
+				<set var='result'>9</set>
+				<set var='list'><star index='10'/></set>
+				<condition var='list'>
+					<li value='nil'></li>
+					<li>
+						<set var='list'><rest><get var='list'/></rest></set>
+						<set var='result'><map name='successor'><get var='result'/></map></set>
+						<loop/>
+					</li>
+				</condition>
+			</think>
+			<get var='result'/>
+		</template>
 	</category>
 
 	<!-- Usage: XCountMatch [element] [list ...] -->
@@ -313,7 +498,7 @@
 	<!-- Usage: XAdd [a] [b] -->
 	<!-- Returns a + b. a and b must both be non-negative integers. -->
 	<category>
-		<pattern>XAdd * *</pattern>
+		<pattern>XAdd <set>number</set> <set>number</set></pattern>
 		<template>
 			<think>
 				<set var='a'><star/></set>
@@ -330,11 +515,23 @@
 			<get var='a'/>
 		</template>
 	</category>
+	<category>
+		<pattern>XAdd <set>number</set> dash <set>number</set></pattern>
+		<template><srai>XSubtract <star/> <star index='2'/></srai></template>
+	</category>
+	<category>
+		<pattern>XAdd dash <set>number</set> <set>number</set></pattern>
+		<template><srai>XSubtract <star index='2'/> <star/></srai></template>
+	</category>
+	<category>
+		<pattern>XAdd dash <set>number</set> dash <set>number</set></pattern>
+		<template>-<srai>XAdd <star/> <star index='2'/></srai></template>
+	</category>
 
 	<!-- Usage: XSubtract [a] [b] -->
 	<!-- Returns a - b. a and b must both be non-negative integers. -->
 	<category>
-		<pattern>XSubtract * *</pattern>
+		<pattern>XSubtract <set>number</set> <set>number</set></pattern>
 		<template>
 			<think>
 				<set var='a'><star/></set>
@@ -350,6 +547,18 @@
 			</think>
 			<get var='a'/>
 		</template>
+	</category>
+	<category>
+		<pattern>XSubtract dash <set>number</set> <set>number</set></pattern>
+		<template>-<srai>XAdd <star/> <star index='2'/></srai></template>
+	</category>
+	<category>
+		<pattern>XSubtract <set>number</set> dash <set>number</set></pattern>
+		<template><srai>XAdd <star/> <star index='2'/></srai></template>
+	</category>
+	<category>
+		<pattern>XSubtract dash <set>number</set> dash <set>number</set></pattern>
+		<template><srai>XSubtract <star index='2'/> <star/></srai></template>
 	</category>
 
 	<!-- Usage: XMultiply [a] [b] -->
@@ -374,6 +583,43 @@
 		</template>
 	</category>
 
+	<!-- Usage: X0Mod [a] XS [b] -->
+	<!-- Returns a mod b. The result is always between 0 and (b - 1). -->
+	<category>
+		<pattern>X0Mod * XS *</pattern>
+		<template>
+			<think>
+				<set var='c'><calculate><star/> % <star index='2'/></calculate></set>
+				<set var='isNonNegative'><srai>XIsNumber <get var='c'/></srai></set>
+			</think>
+			<condition var='isNonNegative'>
+				<li value='true'><get var='c'/></li>
+				<li><calculate><get var='c'/> + <star index='2'/></calculate></li>
+			</condition>
+		</template>
+	</category>
+
+	<!-- Usage: X1Mod [a] XS [b] -->
+	<!-- Returns a 1mod b using one-based modulus. The result is always between 1 and b. -->
+	<category>
+		<pattern>X1Mod * XS *</pattern>
+		<template>
+			<think>
+				<set var='c'><calculate><star/> % <star index='2'/></calculate></set>
+				<set var='isPositive'>
+					<condition var='c'>
+						<li value='0'>true</li>
+						<li><srai>XIsNumber <get var='c'/></srai></li>
+					</condition>
+				</set>
+			</think>
+			<condition var='isPositive'>
+				<li value='true'><get var='c'/></li>
+				<li><calculate><get var='c'/> + <star index='2'/></calculate></li>
+			</condition>
+		</template>
+	</category>
+
 	<category>
 		<pattern>IsLetterOrDigit <set>number</set></pattern>
 		<template>digit</template>
@@ -383,9 +629,9 @@
 		<template>letter</template>
 	</category>
 
-		<category>
+	<category>
 		<pattern>IsNumber *</pattern>
-		<template>XIsNumber <star/></template>
+		<template><srai>XIsNumber <star/></srai></template>
 	</category>
 	<category>
 		<pattern>XIsNumber <set>number</set></pattern>
@@ -394,5 +640,110 @@
 	<category>
 		<pattern>XIsNumber *</pattern>
 		<template>false</template>
+	</category>
+
+	<!-- Usage: XEq [a] XS [b] -->
+	<!-- Returns true if both arguments are equal; false otherwise. -->
+	<category>
+		<pattern>XEq ^ XS ^</pattern>
+		<template>
+			<think><set var='a'><star/></set></think>
+			<condition var='a'>
+				<li><value><star index='2'/></value>true</li>
+				<li>false</li>
+			</condition>
+		</template>
+	</category>
+
+	<!-- Usage: XGt [a] XS [b] -->
+	<!-- Returns true if a > b; false otherwise. -->
+	<category>
+		<pattern>XGt <set>number</set> XS <set>number</set></pattern>
+		<template>
+			<think>
+				<set var='0'>0</set>
+				<set var='a'><star/></set>
+				<set var='b'><star index='2'/></set>
+			</think>
+			<condition var='0'>
+				<li><value><get var='a'/></value>false</li>
+				<li><value><get var='b'/></value>true</li>
+				<li>
+					<think>
+						<set var='a'><map name='predecessor'><get var='a'/></map></set>
+						<set var='b'><map name='predecessor'><get var='b'/></map></set>
+					</think>
+				<loop/>
+				</li>
+			</condition>
+		</template>
+	</category>
+	<category>
+		<pattern>XGt <set>number</set> XS dash <set>number</set></pattern>
+		<template>true</template>
+	</category>
+	<category>
+		<pattern>XGt dash <set>number</set> XS <set>number</set></pattern>
+		<template>false</template>
+	</category>
+	<category>
+		<pattern>XGt dash <set>number</set> XS dash <set>number</set></pattern>
+		<template><srai>XGt <star index='2'/> XS <star/></srai></template>
+	</category>
+
+	<!-- Usage: XAnd [a] XS [b] XS ... -->
+	<!-- Returns true if all arguments are true; false otherwise. -->
+	<category>
+		<pattern>XAnd true</pattern>
+		<template>true</template>
+	</category>
+	<category>
+		<pattern>XAnd false</pattern>
+		<template>false</template>
+	</category>
+	<category>
+		<pattern>XAnd true XS *</pattern>
+		<template><srai>XAnd <star/></srai></template>
+	</category>
+	<category>
+		<pattern>XAnd false XS *</pattern>
+		<template>false</template>
+	</category>
+
+	<!-- Usage: XOr [a] XS [b] XS ... -->
+	<!-- Returns true if any argument is true; false otherwise. -->
+	<category>
+		<pattern>XOr true</pattern>
+		<template>true</template>
+	</category>
+	<category>
+		<pattern>XOr false</pattern>
+		<template>false</template>
+	</category>
+	<category>
+		<pattern>XOr true XS *</pattern>
+		<template>true</template>
+	</category>
+	<category>
+		<pattern>XOr false XS *</pattern>
+		<template><srai>XOr <star/></srai></template>
+	</category>
+
+	<category>
+		<pattern>XNot true</pattern>
+		<template>false</template>
+	</category>
+	<category>
+		<pattern>XNot ^</pattern>
+		<template>true</template>
+	</category>
+
+	<category>
+		<pattern>XImplode *</pattern>
+		<template><star/></template>
+	</category>
+	<category>
+		<pattern>XImplode * *</pattern>
+		<template><star/><srai>XImplode <star index='2'/></srai></template>
 	</category>
 </aiml>
