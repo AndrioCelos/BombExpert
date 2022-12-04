@@ -21,16 +21,21 @@
 		<template><srai>KnobSetup</srai><srai>Knob HandleInput <star/> <star index='2'/></srai></template>
 	</category>
 
+	<category>
+		<pattern>KnobSetup</pattern>
+		<template>
+			<think>
+				<set var='result'><srai>Solver Knob GetPattern</srai></set>
+				<set name='KnobPattern'><srai>XFirst <get var='result'/></srai></set>
+				<set name='KnobIndices'><srai>XRest <get var='result'/></srai></set>
+			</think>
+		</template>
+	</category>
+
 	<topic name='Bomb Knob'>
 		<category>
 			<pattern>SelectModule</pattern>
-			<template>
-				<think>
-					<set var='result'><srai>Solver Knob GetPattern</srai></set>
-					<set name='KnobPattern'><srai>XFirst <get var='result'/></srai></set>
-					<set name='KnobIndices'><srai>XRest <get var='result'/></srai></set>
-				</think>
-			</template>
+			<template><srai>KnobSetup</srai></template>
 		</category>
 		<category>
 			<pattern>InitModule</pattern>
