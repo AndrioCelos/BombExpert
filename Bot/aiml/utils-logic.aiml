@@ -38,6 +38,8 @@
 		<template><srai>XOr <star/></srai></template>
 	</category>
 
+	<!-- Usage: XNot [a] -->
+	<!-- Returns true if the argument is not true; false otherwise. -->
 	<category>
 		<pattern>XNot true</pattern>
 		<template>false</template>

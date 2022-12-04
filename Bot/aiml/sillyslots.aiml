@@ -88,7 +88,7 @@
 							<set var='position'><srai>PositionOfSlot <map name='SillySlotsTable'><star/> sassy</map> <map name='SillySlotsTable'><star/> sally</map> XS <star index='2'/></srai></set>
 							<set var='pastColour'>
 								<srai>XItem
-									<calculate><get var='position'/> * 2 - 1</calculate>
+									<calculate><get var='position'/> * 2 - 1</calculate> XS
 									<get><name>SillySlotsInput<calculate><get name='SillySlotsStage'/> - 2</calculate></name></get>
 								</srai>
 							</set>
@@ -137,12 +137,12 @@
 			<template>
 				<think>
 					<set var='result'>true</set>
-					<set var='c1'><srai>XItem 1 <star index='2'/></srai></set>
-					<set var='s1'><srai>XItem 2 <star index='2'/></srai></set>
-					<set var='c2'><srai>XItem 3 <star index='2'/></srai></set>
-					<set var='s2'><srai>XItem 4 <star index='2'/></srai></set>
-					<set var='c3'><srai>XItem 5 <star index='2'/></srai></set>
-					<set var='s3'><srai>XItem 6 <star index='2'/></srai></set>
+					<set var='c1'><srai>XItem 1 XS <star index='2'/></srai></set>
+					<set var='s1'><srai>XItem 2 XS <star index='2'/></srai></set>
+					<set var='c2'><srai>XItem 3 XS <star index='2'/></srai></set>
+					<set var='s2'><srai>XItem 4 XS <star index='2'/></srai></set>
+					<set var='c3'><srai>XItem 5 XS <star index='2'/></srai></set>
+					<set var='s3'><srai>XItem 6 XS <star index='2'/></srai></set>
 					<condition var='s1'><value><map name='SillySlotsTable'><star/> sausage</map></value>
 						<condition var='s2'><value><map name='SillySlotsTable'><star/> sally</map></value>
 							<condition var='c2'>
@@ -223,14 +223,14 @@
 			<pattern>CheckRule 8 <set>SillySlotsWord</set> XS *</pattern>
 			<template>
 				<think>
-					<set var='c1'><srai>XItem 1 <star index='2'/></srai></set>
-					<set var='s1'><srai>XItem 2 <star index='2'/></srai></set>
+					<set var='c1'><srai>XItem 1 XS <star index='2'/></srai></set>
+					<set var='s1'><srai>XItem 2 XS <star index='2'/></srai></set>
 
 					<set var='match'>
-						<condition var='c1'><value><srai>XItem 3 <star index='2'/></srai></value>true</condition>
-						<condition var='s1'><value><srai>XItem 4 <star index='2'/></srai></value>true</condition>
-						<condition var='c1'><value><srai>XItem 5 <star index='2'/></srai></value>true</condition>
-						<condition var='s1'><value><srai>XItem 6 <star index='2'/></srai></value>true</condition>
+						<condition var='c1'><value><srai>XItem 3 XS <star index='2'/></srai></value>true</condition>
+						<condition var='s1'><value><srai>XItem 4 XS <star index='2'/></srai></value>true</condition>
+						<condition var='c1'><value><srai>XItem 5 XS <star index='2'/></srai></value>true</condition>
+						<condition var='s1'><value><srai>XItem 6 XS <star index='2'/></srai></value>true</condition>
 					</set>
 				</think>
 				<condition var='match'>
@@ -260,10 +260,10 @@
 			<pattern>CheckRule 9 <set>SillySlotsWord</set> XS *</pattern>
 			<template>
 				<think>
-					<set var='c1'><srai>XItem 1 <star index='2'/></srai></set>
+					<set var='c1'><srai>XItem 1 XS <star index='2'/></srai></set>
 					<set var='match'>
-						<condition var='c1'><value><srai>XItem 3 <star index='2'/></srai></value>true</condition>
-						<condition var='c1'><value><srai>XItem 5 <star index='2'/></srai></value>true</condition>
+						<condition var='c1'><value><srai>XItem 3 XS <star index='2'/></srai></value>true</condition>
+						<condition var='c1'><value><srai>XItem 5 XS <star index='2'/></srai></value>true</condition>
 					</set>
 				</think>
 				<condition var='match'>
@@ -334,7 +334,7 @@
 					<set var='m2'><srai>MatchSlot <star index='1'/> <star index='2'/> XS <star index='5'/> <star index='6'/></srai></set>
 					<set var='m3'><srai>MatchSlot <star index='1'/> <star index='2'/> XS <star index='7'/> <star index='8'/></srai></set>
 				</think>
-				<srai>XCountMatch true <get var='m1'/> <get var='m2'/> <get var='m3'/></srai>
+				<srai>XCountMatch true XS <get var='m1'/> <get var='m2'/> <get var='m3'/></srai>
 			</template>
 		</category>
 		<category>

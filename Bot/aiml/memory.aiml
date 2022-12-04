@@ -115,9 +115,9 @@
 
 							<condition var='ruleType'>
 								<li value='Position'><set var='pos'><get var='ruleParam'/></set></li>
-								<li value='Label'><set var='pos'><srai>XIndex <get var='ruleParam'/> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/></srai></set></li>
+								<li value='Label'><set var='pos'><srai>XIndex <get var='ruleParam'/> XS <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/></srai></set></li>
 								<li value='SamePosition'><set var='pos'><get><name>MemoryPos<get var='ruleParam'/></name></get></set></li>
-								<li value='SameLabel'><set var='pos'><srai>XIndex <get><name>MemoryLabel<get var='ruleParam'/></name></get> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/></srai></set></li>
+								<li value='SameLabel'><set var='pos'><srai>XIndex <get><name>MemoryLabel<get var='ruleParam'/></name></get> XS <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/></srai></set></li>
 							</condition>
 
 							<set var='label'><star><index><map name='successor'><get var='pos'/></map></index></star></set>

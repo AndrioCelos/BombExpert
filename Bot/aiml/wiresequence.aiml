@@ -307,7 +307,7 @@
 						<map><name>WireSequence<star/></name><star index='5'/> <get><var><star index='5'/>Count</var></get></map>
 					</set>
 				</think>
-				<srai>XContains <star index='6'/> <get var='cutIfLetter'/></srai>
+				<srai>XContains <star index='6'/> XS <get var='cutIfLetter'/></srai>
 			</template>
 		</category>
 	</topic>

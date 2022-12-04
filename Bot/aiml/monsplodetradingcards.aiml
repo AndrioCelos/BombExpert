@@ -68,7 +68,7 @@
 					<li value='3'><think><set var='hand'>true</set></think>OK. Describe the third card.</li>
 					<li value='4'><think><set var='hand'>true</set></think>OK. Describe the card on offer.</li>
 					<li>
-						<think><set var='compare'><srai>XCompareDigits <get var='value'/> <get name='BombMonsplodeTradingCardsLowestValue'/></srai></set></think>
+						<think><set var='compare'><srai>XCompareDigits <get var='value'/> XS <get name='BombMonsplodeTradingCardsLowestValue'/></srai></set></think>
 						<condition var='compare'>
 							<li value='-1'>Keep your cards.</li>
 							<li>
@@ -84,7 +84,7 @@
 				</condition>
 				<think>
 					<condition var='hand' value='true'>
-						<set var='compare'><srai>XCompareDigits <get var='value'/> <get name='BombMonsplodeTradingCardsLowestValue'/></srai></set>
+						<set var='compare'><srai>XCompareDigits <get var='value'/> XS <get name='BombMonsplodeTradingCardsLowestValue'/></srai></set>
 						<condition var='compare' value='-1'>
 							<set name='BombMonsplodeTradingCardsLowest'><get var='index'/></set>
 							<set name='BombMonsplodeTradingCardsLowestValue'><get var='value'/></set>
@@ -105,7 +105,7 @@
 						<li>
 							<set var='card'><get><name>BombMonsplodeTradingCards<get var='index'/></name></get></set>
 							<set var='value'><srai>CalculateValue <get var='card'/></srai></set>
-							<set var='compare'><srai>XCompareDigits <get var='value'/> <get name='BombMonsplodeTradingCardsLowestValue'/></srai></set>
+							<set var='compare'><srai>XCompareDigits <get var='value'/> XS <get name='BombMonsplodeTradingCardsLowestValue'/></srai></set>
 							<condition var='compare' value='-1'>
 								<set name='BombMonsplodeTradingCardsLowest'><get var='index'/></set>
 								<set name='BombMonsplodeTradingCardsLowestValue'><get var='value'/></set>
@@ -124,9 +124,9 @@
 				<think>
 					<set var='card'><get><name>BombMonsplodeTradingCards<get name='BombMonsplodeTradingCardsLowest'/></name></get></set>
 				</think>
-				<srai>XItem 1 <get var='card'/></srai>
-				<srai>XItem 2 <get var='card'/></srai>
-				<srai>XItem 3 <get var='card'/></srai>
+				<srai>XItem 1 XS <get var='card'/></srai>
+				<srai>XItem 2 XS <get var='card'/></srai>
+				<srai>XItem 3 XS <get var='card'/></srai>
  			</template>
 		</category>
 
@@ -156,7 +156,7 @@
 								<li>
 									<set var='indicator'><srai>XFirst <get var='indicators'/></srai></set>
 									<set var='indicators'><srai>XRest <get var='indicators'/></srai></set>
-									<set var='contains'><srai>XContains <star index='2'/> <explode><get var='indicator'/></explode></srai></set>
+									<set var='contains'><srai>XContains <star index='2'/> XS <explode><get var='indicator'/></explode></srai></set>
 									<condition var='contains' value='true'>
 										<condition>
 											<name>BombIndicatorLit<get var='indicator'/></name>
@@ -172,7 +172,7 @@
 							<condition name='BombBatteryCount'>
 								<li value='0'></li>
 								<li>
-									<set var='compare'><srai>XCompareDigits <star index='3'/> <get name='BombBatteryCount'/></srai></set>
+									<set var='compare'><srai>XCompareDigits <star index='3'/> XS <get name='BombBatteryCount'/></srai></set>
 									<condition var='compare'>
 										<li value='-1'><set var='value'><map name='predecessor'><get var='value'/></map></set></li>
 										<li value='1'><set var='value'><map name='successor'><get var='value'/></map></set></li>
@@ -220,8 +220,8 @@
 		<category>
 			<pattern>GetSerialCategory</pattern>
 			<template>
-				<srai>IsLetterOrDigit <srai>XItem 1 <explode><get name='BombSerial'/></explode></srai></srai>
-				<srai>IsLetterOrDigit <srai>XItem 1 <explode><get name='BombSerial'/></explode></srai></srai>
+				<srai>IsLetterOrDigit <srai>XItem 1 XS <explode><get name='BombSerial'/></explode></srai></srai>
+				<srai>IsLetterOrDigit <srai>XItem 1 XS <explode><get name='BombSerial'/></explode></srai></srai>
 			</template>
 		</category>
 	</topic>

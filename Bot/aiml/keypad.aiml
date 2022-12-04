@@ -201,7 +201,7 @@
 								<li value='nil'></li>
 								<li>
 									<set var='column'><srai>XFirst <get var='toCheck'/></srai></set>
-									<set var='contains'><srai>XContains <get var='glyph'/> <map><name>KeypadColumns<star/></name><get var='column'/></map></srai></set>
+									<set var='contains'><srai>XContains <get var='glyph'/> XS <map><name>KeypadColumns<star/></name><get var='column'/></map></srai></set>
 									<set var='toCheck'><srai>XRest <get var='toCheck'/></srai></set>
 									<condition var='contains' value='true'>
 										<set var='numberPossible'><map name='successor'><get var='numberPossible'/></map></set>
@@ -266,7 +266,7 @@
 										<li value='nil'></li>
 										<li>
 											<set var='column'><srai>XFirst <get var='toCheck'/></srai></set>
-											<set var='contains'><srai>XContains <get var='glyph'/> <map><name>KeypadColumns<star/></name><get var='column'/></map></srai></set>
+											<set var='contains'><srai>XContains <get var='glyph'/> XS <map><name>KeypadColumns<star/></name><get var='column'/></map></srai></set>
 											<set var='toCheck'><srai>XRest <get var='toCheck'/></srai></set>
 											<condition var='contains' value='true'>
 												<set var='numberPossible'><map name='successor'><get var='numberPossible'/></map></set>
@@ -295,10 +295,10 @@
 			<pattern>KeypadOrderRead</pattern>
 			<template>
 				Press in this order:
-				<srai>KeypadDescribe <srai>XItem 1 <get name='BombKeypadColumn'/></srai></srai>,
-				<srai>KeypadDescribe <srai>XItem 2 <get name='BombKeypadColumn'/></srai></srai>,
-				<srai>KeypadDescribe <srai>XItem 3 <get name='BombKeypadColumn'/></srai></srai>,
-				<srai>KeypadDescribe <srai>XItem 4 <get name='BombKeypadColumn'/></srai></srai>.
+				<srai>KeypadDescribe <srai>XItem 1 XS <get name='BombKeypadColumn'/></srai></srai>,
+				<srai>KeypadDescribe <srai>XItem 2 XS <get name='BombKeypadColumn'/></srai></srai>,
+				<srai>KeypadDescribe <srai>XItem 3 XS <get name='BombKeypadColumn'/></srai></srai>,
+				<srai>KeypadDescribe <srai>XItem 4 XS <get name='BombKeypadColumn'/></srai></srai>.
 			</template>
 		</category>
 
@@ -306,7 +306,7 @@
 		<!-- Tells the Defuser to press the nth glyph in the correct order. -->
 		<category>
 			<pattern>KeypadOrderTell <set>number</set></pattern>
-			<template>Press the <srai>KeypadDescribe <srai>XItem <star/> <get name='BombKeypadColumn'/></srai></srai>. Then say OK.</template>
+			<template>Press the <srai>KeypadDescribe <srai>XItem <star/> XS <get name='BombKeypadColumn'/></srai></srai>. Then say OK.</template>
 		</category>
 
 		<category>
@@ -346,7 +346,7 @@
 							<condition var='columnIndex'>
 								<li value='7'></li>
 								<li>
-									<set var='contains'><srai>XContains <star index='2'/> <map><name>KeypadColumns<star/></name><get var='columnIndex'/></map></srai></set>
+									<set var='contains'><srai>XContains <star index='2'/> XS <map><name>KeypadColumns<star/></name><get var='columnIndex'/></map></srai></set>
 									<condition var='contains' value='true'>
 										<set name='BombKeypadColumns'><srai>XAppend <get var='columnIndex'/> <get name='BombKeypadColumns'/></srai></set>
 										<set var='numberPossible'><map name='successor'><get var='numberPossible'/></map></set>
@@ -369,7 +369,7 @@
 										<li>
 											<set var='glyph'><srai>XFirst <get var='column'/></srai></set>
 											<set var='column'><srai>XRest <get var='column'/></srai></set>
-											<set var='contains'><srai>XContains <get var='glyph'/> <get var='column2'/></srai></set>
+											<set var='contains'><srai>XContains <get var='glyph'/> XS <get var='column2'/></srai></set>
 											<condition var='contains' value='false'>
 												<set name='BombKeypadToAsk'><srai>XAppend <get var='glyph'/> <get name='BombKeypadToAsk'/></srai></set>
 											</condition>
@@ -383,7 +383,7 @@
 										<li>
 											<set var='glyph'><srai>XFirst <get var='column'/></srai></set>
 											<set var='column'><srai>XRest <get var='column'/></srai></set>
-											<set var='contains'><srai>XContains <get var='glyph'/> <get var='column1'/></srai></set>
+											<set var='contains'><srai>XContains <get var='glyph'/> XS <get var='column1'/></srai></set>
 											<condition var='contains' value='false'>
 												<set name='BombKeypadToAsk'><srai>XAppend <get var='glyph'/> <get name='BombKeypadToAsk'/></srai></set>
 											</condition>
@@ -403,7 +403,7 @@
 							<set var='columnIndex1'><srai>XFirst <get name='BombKeypadColumns'/></srai></set>
 							<set var='columnIndex2'><srai>XRest <get name='BombKeypadColumns'/></srai></set>
 
-							<set var='contains'><srai>XContains <star index='2'/> <map><name>KeypadColumns<star/></name><get var='columnIndex1'/></map></srai></set>
+							<set var='contains'><srai>XContains <star index='2'/> XS <map><name>KeypadColumns<star/></name><get var='columnIndex1'/></map></srai></set>
 							<condition var='contains'>
 								<li value='true'><set var='result'>Tell <map><name>KeypadColumns<star/></name><get var='columnIndex1'/></map></set></li>
 								<li><set var='result'>Tell <map><name>KeypadColumns<star/></name><get var='columnIndex2'/></map></set></li>
@@ -480,8 +480,8 @@
 			<pattern>TellKeypadColumnItem <set>number</set></pattern>
 			<template>
 				Press the
-				<map name='KeypadGlyphDescription'><srai>XItem <get name='BombKeypadIndex'/> <get name='BombKeypadColumn'/></srai></map>
-				, if it is there. Then say 'OK'.
+				<map name='KeypadGlyphDescription'><srai>XItem <get name='BombKeypadIndex'/> XS <get name='BombKeypadColumn'/></srai></map>,
+				if it is there. Then say 'OK'.
 			</template>
 		</category>
 

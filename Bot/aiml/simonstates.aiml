@@ -69,20 +69,20 @@
 				<condition var='count'>
 					<li value='1'><star/></li>
 					<li value='2'>
-						<think><set var='blue'><srai>XContains blue <star/></srai></set></think>
+						<think><set var='blue'><srai>XContains blue XS <star/></srai></set></think>
 						<condition var='blue'>
 							<li value='true'><srai>HighestPriority <star/></srai></li>
 							<li>blue</li>
 						</condition>
 					</li>
 					<li value='3'>
-						<think><set var='red'><srai>XContains red <star/></srai></set></think>
+						<think><set var='red'><srai>XContains red XS <star/></srai></set></think>
 						<condition var='red'>
 							<li value='true'><srai>LowestPriority <star/></srai></li>
 							<li>red</li>
 						</condition>
 					</li>
-					<li><srai>XItem 2 <get name='SimonStatesPriority'/></srai></li>
+					<li><srai>XItem 2 XS <get name='SimonStatesPriority'/></srai></li>
 				</condition>
 			</template>
 		</category>
@@ -92,14 +92,14 @@
 				<think><set var='count'><srai>XCount <star/></srai></set></think>
 				<condition var='count'>
 					<li value='1'>
-						<think><set var='blue'><srai>XContains blue <star/></srai></set></think>
+						<think><set var='blue'><srai>XContains blue XS <star/></srai></set></think>
 						<condition var='blue'>
 							<li value='true'>yellow</li>
 							<li>blue</li>
 						</condition>
 					</li>
 					<li value='2'>
-						<think><set var='redblue'><srai>XContains red <star/></srai> <srai>XContains blue <star/></srai></set></think>
+						<think><set var='redblue'><srai>XContains red XS <star/></srai> <srai>XContains blue XS <star/></srai></set></think>
 						<condition var='redblue'>
 							<li value='true true'><srai>HighestPriority <srai>NotIn <star/></srai></srai></li>
 							<li><srai>LowestPriority <srai>NotIn <star/></srai></srai></li>
@@ -121,7 +121,7 @@
 						<star/>
 					</li>
 					<li value='2'>
-						<think><set var='pressed'><srai>XContains <first><star/></first> <star index='2'/></srai> <srai>XContains <rest><star/></rest> <star index='2'/></srai></set></think>
+						<think><set var='pressed'><srai>XContains <first><star/></first> XS <star index='2'/></srai> <srai>XContains <rest><star/></rest> XS <star index='2'/></srai></set></think>
 						<condition var='pressed'>
 							<li value='true true'><srai>LowestPriority <srai>NotIn <star/></srai></srai></li>
 							<li><first><star index='2'/></first></li>
@@ -130,9 +130,9 @@
 					<li value='3'>
 						<think>
 							<set var='pressed'><normalize>
-								<srai>XContains <srai>XItem 1 <star/></srai> <star index='2'/></srai>
-								<srai>XContains <srai>XItem 2 <star/></srai> <star index='2'/></srai>
-								<srai>XContains <srai>XItem 3 <star/></srai> <star index='2'/></srai>
+								<srai>XContains <srai>XItem 1 XS <star/></srai> XS <star index='2'/></srai>
+								<srai>XContains <srai>XItem 2 XS <star/></srai> XS <star index='2'/></srai>
+								<srai>XContains <srai>XItem 3 XS <star/></srai> XS <star index='2'/></srai>
 							</normalize></set>
 						</think>
 						<condition var='pressed'>
@@ -140,7 +140,7 @@
 							<li><srai>HighestPriorityNotPressed <star/> XS <star index='2'/></srai></li>
 						</condition>
 					</li>
-					<li><srai>XItem 3 <get name='SimonStatesPriority'/></srai></li>
+					<li><srai>XItem 3 XS <get name='SimonStatesPriority'/></srai></li>
 				</condition>
 			</template>
 		</category>
@@ -162,19 +162,19 @@
 							<li value='3'>
 								<think>
 									<set var='pressed'><normalize>
-										<srai>XContains <srai>XItem 1 <star/></srai> <star index='2'/></srai>
-										<srai>XContains <srai>XItem 2 <star/></srai> <star index='2'/></srai>
-										<srai>XContains <srai>XItem 3 <star/></srai> <star index='2'/></srai>
+										<srai>XContains <srai>XItem 1 XS <star/></srai> XS <star index='2'/></srai>
+										<srai>XContains <srai>XItem 2 XS <star/></srai> XS <star index='2'/></srai>
+										<srai>XContains <srai>XItem 3 XS <star/></srai> XS <star index='2'/></srai>
 									</normalize></set>
 								</think>
 								<condition var='pressed'>
-									<li value='false true true'><srai>XItem 1 <star/></srai></li>
-									<li value='true false true'><srai>XItem 2 <star/></srai></li>
-									<li value='true true false'><srai>XItem 3 <star/></srai></li>
-									<li><srai>XItem 4 <get name='SimonStatesPriority'/></srai></li>
+									<li value='false true true'><srai>XItem 1 XS <star/></srai></li>
+									<li value='true false true'><srai>XItem 2 XS <star/></srai></li>
+									<li value='true true false'><srai>XItem 3 XS <star/></srai></li>
+									<li><srai>XItem 4 XS <get name='SimonStatesPriority'/></srai></li>
 								</condition>
 							</li>
-							<li value='4'><srai>XItem 4 <get name='SimonStatesPriority'/></srai></li>
+							<li value='4'><srai>XItem 4 XS <get name='SimonStatesPriority'/></srai></li>
 							<li>green</li>
 						</condition>
 					</li>
@@ -192,7 +192,7 @@
 						<li>
 							<set var='colour'><first><get var='colours'/></first></set>
 							<set var='colours'><rest><get var='colours'/></rest></set>
-							<set var='present'><srai>XContains <get var='colour'/> <star/></srai></set>
+							<set var='present'><srai>XContains <get var='colour'/> XS <star/></srai></set>
 							<condition var='present' value='true'>
 								<set var='colours'>nil</set>
 							</condition>
@@ -213,7 +213,7 @@
 						<li>
 							<set var='colour'><first><get var='colours'/></first></set>
 							<set var='colours'><rest><get var='colours'/></rest></set>
-							<set var='present'><srai>XContains <get var='colour'/> <star/></srai></set>
+							<set var='present'><srai>XContains <get var='colour'/> XS <star/></srai></set>
 							<condition var='present' value='true'>
 								<set var='colours'>nil</set>
 							</condition>
@@ -234,7 +234,7 @@
 						<think>
 							<set var='colour'><first><get var='colours'/></first></set>
 							<set var='colours'><rest><get var='colours'/></rest></set>
-							<set var='present'><srai>XContains <get var='colour'/> <star/></srai></set>
+							<set var='present'><srai>XContains <get var='colour'/> XS <star/></srai></set>
 						</think>
 						<condition var='present' value='false'><get var='colour'/></condition>
 						<loop/>
@@ -252,7 +252,7 @@
 						<li>
 							<set var='colour'><first><get var='colours'/></first></set>
 							<set var='colours'><rest><get var='colours'/></rest></set>
-							<set var='present'><srai>XContains <get var='colour'/> <star/></srai> <srai>XContains <get var='colour'/> <star index='2'/></srai></set>
+							<set var='present'><srai>XContains <get var='colour'/> XS <star/></srai> <srai>XContains <get var='colour'/> XS <star index='2'/></srai></set>
 							<condition var='present' value='true false'>
 								<set var='colours'>nil</set>
 							</condition>

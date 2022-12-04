@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 
-namespace BombExpert.Solvers; 
+namespace BombExpert.Solvers;
 public class WiresSolver : IModuleSolver {
 	private static readonly Colour[] colours = new[] { Colour.Black, Colour.Blue, Colour.Red, Colour.White, Colour.Yellow };
 
@@ -256,13 +256,13 @@ public class WiresSolver : IModuleSolver {
 						case WireCondition wireCondition:
 							switch (wireCondition.Key) {
 								case nameof(ExactlyOneColourWire):
-									builder.AppendLine($"<set var='temp'><srai>XCountMatch {wireCondition.Colour} {allStars}</srai></set>\n<condition var='temp' value='1'>");
+									builder.AppendLine($"<set var='temp'><srai>XCountMatch {wireCondition.Colour} XS {allStars}</srai></set>\n<condition var='temp' value='1'>");
 									break;
 								case nameof(MoreThanOneColourWire):
-									builder.AppendLine($"<set var='temp'><srai>XCompareDigits <srai>XCountMatch {wireCondition.Colour} {allStars}</srai> 1</srai></set>\n<condition var='temp' value='1'>");
+									builder.AppendLine($"<set var='temp'><srai>XCompareDigits <srai>XCountMatch {wireCondition.Colour} XS {allStars}</srai> XS 1</srai></set>\n<condition var='temp' value='1'>");
 									break;
 								case nameof(NoColourWire):
-									builder.AppendLine($"<set var='temp'><srai>XContains {wireCondition.Colour} {allStars}</srai></set>\n<condition var='temp' value='false'>");
+									builder.AppendLine($"<set var='temp'><srai>XContains {wireCondition.Colour} XS {allStars}</srai></set>\n<condition var='temp' value='false'>");
 									break;
 								case nameof(LastWireIsColour):
 									builder.AppendLine($"<set var='temp'><star index='{wireCount}'/></set>\n<condition var='temp' value='{wireCondition.Colour}'>");
@@ -314,10 +314,10 @@ public class WiresSolver : IModuleSolver {
 						break;
 					case nameof(CutWireColourSingle):
 						case nameof(CutWireColourFirst):
-						builder.AppendLine($"<set var='result'><srai>XItem <srai>XIndex {rule.Solution.Colour} {allStars}</srai> {allWires} CutLastWire</srai></set>");
+						builder.AppendLine($"<set var='result'><srai>XItem <srai>XIndex {rule.Solution.Colour} XS {allStars}</srai> XS {allWires} CutLastWire</srai></set>");
 						break;
 						case nameof(CutWireColourLast):
-							builder.AppendLine($"<set var='result'><srai>XItem <srai>XLastIndex {rule.Solution.Colour} {allStars}</srai> {allWires} CutLastWire</srai></set>");
+							builder.AppendLine($"<set var='result'><srai>XItem <srai>XLastIndex {rule.Solution.Colour} XS {allStars}</srai> XS {allWires} CutLastWire</srai></set>");
 							break;
 						default:
 							throw new InvalidOperationException("Unknown solution");

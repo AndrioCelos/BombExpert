@@ -81,7 +81,7 @@
 		<category>
 			<pattern><set>number</set> feet <set>number</set> inches ^</pattern>
 			<template>
-				<think><set name='AdventureGameHeight'><srai>XAdd <srai>XMultiply <star/> 12</srai> <star index='2'/></srai></set></think>
+				<think><set name='AdventureGameHeight'><srai>XAdd <srai>XMultiply <star/> XS 12</srai> XS <star index='2'/></srai></set></think>
 				<srai><star index='3'/></srai>
 			</template>
 		</category>
@@ -228,11 +228,11 @@
 			<pattern>CalculateItemsToUse</pattern>
 			<template>
 				<!-- First, is there a potion? -->
-				<think><set var='potion'><srai>XContains potion <get name='AdventureGameItems'/></srai></set></think>
+				<think><set var='potion'><srai>XContains potion XS <get name='AdventureGameItems'/></srai></set></think>
 				<condition var='potion'>
 					<li value='true'>
 						<think>
-							<set name='AdventureGameItems'><srai>XRemove potion XS <get name='AdventureGameItems'/></srai></set>
+							<set name='AdventureGameItems'><srai>XSetRemove potion XS <get name='AdventureGameItems'/></srai></set>
 							<set name='AdventureGameStr'>unknown</set>
 							<set name='AdventureGameDex'>unknown</set>
 							<set name='AdventureGameInt'>unknown</set>
@@ -287,9 +287,9 @@
 												<li>
 													<set var='stat'><first><get var='weaponStats'/></first></set>
 													<set var='bonus'><rest><get var='weaponStats'/></rest></set>
-													<set var='playerStat'><srai>XAdd <get><name>AdventureGame<get var='stat'/></name></get> <get var='bonus'/></srai></set>
+													<set var='playerStat'><srai>XAdd <get><name>AdventureGame<get var='stat'/></name></get> XS <get var='bonus'/></srai></set>
 													<set var='enemyStat'><get><name>AdventureGameEnemy<get var='stat'/></name></get></set>
-													<set var='advantage'><srai>XSubtract <get var='playerStat'/> <get var='enemyStat'/></srai></set>
+													<set var='advantage'><srai>XSubtract <get var='playerStat'/> XS <get var='enemyStat'/></srai></set>
 													<set var='isBetter'><srai>XGt <get var='advantage'/> XS <get var='bestAdvantage'/></srai></set>
 													<condition var='isBetter' value='true'>
 														<set var='bestWeapon'><get var='item'/></set>
@@ -399,7 +399,7 @@
 		<category>
 			<pattern>ShouldUseItem bellows</pattern>
 			<template>
-				<think><set var='isDragonOrEagle'><srai>XContains <get name='AdventureGameEnemy'/> dragon eagle</srai></set></think>
+				<think><set var='isDragonOrEagle'><srai>XContains <get name='AdventureGameEnemy'/> XS dragon eagle</srai></set></think>
 				<condition var='isDragonOrEagle'>
 					<li value='true'><srai>PressureIsGreaterThan 105</srai></li>
 					<li><srai>PressureIsLessThan 95</srai></li>

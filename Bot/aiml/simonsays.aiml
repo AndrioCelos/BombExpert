@@ -121,10 +121,10 @@
 	</category>
 	<category>
 		<pattern>SouvenirInput SimonSays XS <set>number</set> XS <set>number</set></pattern>
-		<template><srai>XItem <star index='2'/> <srai>SouvenirGet SimonSays XS <star/> XS Colours</srai></srai></template>
+		<template><srai>XItem <star index='2'/> XS <srai>SouvenirGet SimonSays XS <star/> XS Colours</srai></srai></template>
 	</category>
 	<category>
 		<pattern>SouvenirInput SimonSays XS <set>number</set> XS <set>ordinal</set></pattern>
-		<template><srai>XItem <map name='OrdinalToNumber'><star index='2'/></map> <srai>SouvenirGet SimonSays XS <star/> XS Colours</srai></srai></template>
+		<template><srai>XItem <map name='OrdinalToNumber'><star index='2'/></map> XS <srai>SouvenirGet SimonSays XS <star/> XS Colours</srai></srai></template>
 	</category>
 </aiml>

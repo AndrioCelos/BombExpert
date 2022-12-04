@@ -266,10 +266,10 @@
 						D = 2H - B
 					-->
 					<set name='BombBatteryCountAA'>
-						<srai>XMultiply <srai>XSubtract <star index='1'/> <star index='2'/></srai> 2</srai>
+						<srai>XMultiply <srai>XSubtract <star index='1'/> XS <star index='2'/></srai> XS 2</srai>
 					</set>
 					<set name='BombBatteryCountD'>
-						<srai>XSubtract <srai>XMultiply <star index='2'/> 2</srai> <star index='1'/></srai>
+						<srai>XSubtract <srai>XMultiply <star index='2'/> XS 2</srai> XS <star index='1'/></srai>
 					</set>
 				</think>
 				<srai>EdgeworkQueryCallback batteries</srai>
@@ -569,7 +569,7 @@
 									<set><name>BombIndicator<topicstar index='2'/></name>false</set>
 								</condition>
 								<!-- If the indicator is present, it's in the opposite state. -->
-								<set var='present'><srai>XContains <topicstar index='2'/> <get name='BombIndicators'/></srai></set>
+								<set var='present'><srai>XContains <topicstar index='2'/> XS <get name='BombIndicators'/></srai></set>
 								<condition var='present' value='true'>
 									<set><name>BombIndicator<map name='not'><topicstar/></map><topicstar index='2'/></name>true</set>
 								</condition>

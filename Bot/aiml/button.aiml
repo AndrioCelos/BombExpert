@@ -143,7 +143,7 @@
 					<li value='ReleaseOnSecondsDigitSum'>
 						<!-- If possible, either this number or 10 plus this number is accepted. -->
 						<!-- The sum of the seconds digits cannot exceed 15. -->
-						<think><set var='compare'><srai>XCompareDigits <get var='detail'/> 5</srai></set></think>
+						<think><set var='compare'><srai>XCompareDigits <get var='detail'/> XS 5</srai></set></think>
 						<condition var='detail'>
 							<li value='1'>When the two seconds digits on the timer add to <get var='detail'/>, release the button.</li>
 							<li>When the two seconds digits on the timer add to <get var='detail'/> or 1<get var='detail'/>, release the button.</li>

@@ -48,7 +48,7 @@
 		<template>
 			<think>
 				<condition name='LaundrySolves' value='unknown'><set name='LaundrySolves'><get name='SolveCount'/></set></condition>
-				<set var='itemIndex'><srai>X0Mod <srai>XAdd <srai>UnsolvedModuleCount <get name='LaundrySolves'/></srai> <srai>XCount <get name='BombIndicators'/></srai></srai> XS 6</srai></set>
+				<set var='itemIndex'><srai>X0Mod <srai>XAdd <srai>UnsolvedModuleCount <get name='LaundrySolves'/></srai> XS <srai>XCount <get name='BombIndicators'/></srai></srai> XS 6</srai></set>
 				<set var='materialIndex'><srai>X0Mod <calculate><get name='BombPortCount'/> + <get name='LaundrySolves'/> - <get name='BombBatteryHolderCount'/></calculate> XS 6</srai></set>
 				<set var='colourIndex'><srai>X0Mod <calculate><get name='BombSerialNumberLastDigit'/> + <get name='BombBatteryCount'/></calculate> XS 6</srai></set>
 
@@ -153,7 +153,7 @@
 											<li>
 												<set var='materialLetter'><first><get var='materialLetters'/></first></set>
 												<set var='materialLetters'><rest><get var='materialLetters'/></rest></set>
-												<set var='c'><srai>XContains <get var='materialLetter'/> <explode><get name='BombSerialNumber'/></explode></srai></set>
+												<set var='c'><srai>XContains <get var='materialLetter'/> XS <explode><get name='BombSerialNumber'/></explode></srai></set>
 												<condition var='c' value='true'><set var='specialOverride2'>true</set></condition>
 												<loop/>
 											</li>

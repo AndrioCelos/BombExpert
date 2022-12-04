@@ -90,22 +90,22 @@
 									<map><name>MazeData<star/></name><get name='MazeSolverIndex'/> <get name='MazeSolverX'/> <get name='MazeSolverY'/></map> <map name='ReverseDirection'><get name='MazeSolverDir'/></map>
 								</set>
 
-								<set var='cannotgo'><srai>XContains North <get var='cannotgowhere'/></srai></set>
+								<set var='cannotgo'><srai>XContains North XS <get var='cannotgowhere'/></srai></set>
 								<condition var='cannotgo' value='false'>
 									<set name='MazeSolverOpen'><srai>XAppend <get name='MazeSolverX'/> <get name='MazeSolverOpen'/></srai> <map name='predecessor'><get name='MazeSolverY'/></map> North</set>
 								</condition>
 
-								<set var='cannotgo'><srai>XContains South <get var='cannotgowhere'/></srai></set>
+								<set var='cannotgo'><srai>XContains South XS <get var='cannotgowhere'/></srai></set>
 								<condition var='cannotgo' value='false'>
 									<set name='MazeSolverOpen'><srai>XAppend <get name='MazeSolverX'/> <get name='MazeSolverOpen'/></srai> <map name='successor'><get name='MazeSolverY'/></map> South</set>
 								</condition>
 
-								<set var='cannotgo'><srai>XContains West <get var='cannotgowhere'/></srai></set>
+								<set var='cannotgo'><srai>XContains West XS <get var='cannotgowhere'/></srai></set>
 								<condition var='cannotgo' value='false'>
 									<set name='MazeSolverOpen'><srai>XAppend <map name='predecessor'><get name='MazeSolverX'/></map> <get name='MazeSolverOpen'/></srai> <get name='MazeSolverY'/> West</set>
 								</condition>
 
-								<set var='cannotgo'><srai>XContains East <get var='cannotgowhere'/></srai></set>
+								<set var='cannotgo'><srai>XContains East XS <get var='cannotgowhere'/></srai></set>
 								<condition var='cannotgo' value='false'>
 									<set name='MazeSolverOpen'><srai>XAppend <map name='successor'><get name='MazeSolverX'/></map> <get name='MazeSolverOpen'/></srai> <get name='MazeSolverY'/> East</set>
 								</condition>

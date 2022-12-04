@@ -40,7 +40,7 @@
 					<li value='BadMorseCode'>Your input does not seem to be valid Morse code. Please try again.</li>
 					<li value='MultipleWords'>More than one word matches. Please try again.</li>
 					<li value='unknown'>No possible word matches. Please try again.</li>
-					<li>The word is '<srai>XFirst <get var='result'/></srai>'. Tune the module to <srai>XItem 2 <get var='result'/></srai> MHz, then press TX.</li>
+					<li>The word is '<srai>XFirst <get var='result'/></srai>'. Tune the module to <srai>XItem 2 XS <get var='result'/></srai> MHz, then press TX.</li>
 				</condition>
 			</template>
 		</category>
@@ -158,7 +158,7 @@
 					<li value='BadMorseCode'></li>
 					<li value='MultipleWords'></li>
 					<li value='unknown'>No possible word matches. Please try again.</li>
-					<li>The word is '<srai>XFirst <get var='result'/></srai>'. Tune the module to <srai>XItem 2 <get var='result'/></srai> MHz, then press TX.</li>
+					<li>The word is '<srai>XFirst <get var='result'/></srai>'. Tune the module to <srai>XItem 2 XS <get var='result'/></srai> MHz, then press TX.</li>
 				</condition>
 			</template>
 		</category>

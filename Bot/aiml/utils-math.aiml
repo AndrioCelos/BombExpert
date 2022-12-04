@@ -1,9 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <aiml version='2.1'>
-	<!-- Usage: XCompareDigits [a] [b] -->
+	<!-- For the purpose of math categories that allow negative numbers, the negative sign should be normalised as ' dash '.
+		Negative return values will not normalise the negative sign. -->
+
+	<!-- Usage: XCompareDigits [a] XS [b] -->
 	<!-- Returns -1 if a < b, 0 if a = b, 1 if a > b. O(max(a, b)). a and b must be non-negative. -->
 	<category>
-		<pattern>XCompareDigits * *</pattern>
+		<pattern>XCompareDigits * XS *</pattern>
 		<template>
 			<think>
 				<set var='a'><star/></set>
@@ -28,10 +31,10 @@
 		</template>
 	</category>
 
-	<!-- Usage: XAdd [a] [b] -->
-	<!-- Returns a + b. a and b must both be non-negative integers. -->
+	<!-- Usage: XAdd [a] XS [b] -->
+	<!-- Returns a + b. a and b must both be integers. -->
 	<category>
-		<pattern>XAdd <set>number</set> <set>number</set></pattern>
+		<pattern>XAdd <set>number</set> XS <set>number</set></pattern>
 		<template>
 			<think>
 				<set var='a'><star/></set>
@@ -49,22 +52,22 @@
 		</template>
 	</category>
 	<category>
-		<pattern>XAdd <set>number</set> dash <set>number</set></pattern>
-		<template><srai>XSubtract <star/> <star index='2'/></srai></template>
+		<pattern>XAdd <set>number</set> XS dash <set>number</set></pattern>
+		<template><srai>XSubtract <star/> XS <star index='2'/></srai></template>
 	</category>
 	<category>
-		<pattern>XAdd dash <set>number</set> <set>number</set></pattern>
-		<template><srai>XSubtract <star index='2'/> <star/></srai></template>
+		<pattern>XAdd dash <set>number</set> XS <set>number</set></pattern>
+		<template><srai>XSubtract <star index='2'/> XS <star/></srai></template>
 	</category>
 	<category>
-		<pattern>XAdd dash <set>number</set> dash <set>number</set></pattern>
-		<template>-<srai>XAdd <star/> <star index='2'/></srai></template>
+		<pattern>XAdd dash <set>number</set> XS dash <set>number</set></pattern>
+		<template>-<srai>XAdd <star/> XS <star index='2'/></srai></template>
 	</category>
 
-	<!-- Usage: XSubtract [a] [b] -->
-	<!-- Returns a - b. a and b must both be non-negative integers. -->
+	<!-- Usage: XSubtract [a] XS [b] -->
+	<!-- Returns a - b. a and b must both be integers. -->
 	<category>
-		<pattern>XSubtract <set>number</set> <set>number</set></pattern>
+		<pattern>XSubtract <set>number</set> XS <set>number</set></pattern>
 		<template>
 			<think>
 				<set var='a'><star/></set>
@@ -82,22 +85,22 @@
 		</template>
 	</category>
 	<category>
-		<pattern>XSubtract dash <set>number</set> <set>number</set></pattern>
-		<template>-<srai>XAdd <star/> <star index='2'/></srai></template>
+		<pattern>XSubtract dash <set>number</set> XS <set>number</set></pattern>
+		<template>-<srai>XAdd <star/> XS <star index='2'/></srai></template>
 	</category>
 	<category>
-		<pattern>XSubtract <set>number</set> dash <set>number</set></pattern>
-		<template><srai>XAdd <star/> <star index='2'/></srai></template>
+		<pattern>XSubtract <set>number</set> XS dash <set>number</set></pattern>
+		<template><srai>XAdd <star/> XS <star index='2'/></srai></template>
 	</category>
 	<category>
-		<pattern>XSubtract dash <set>number</set> dash <set>number</set></pattern>
-		<template><srai>XSubtract <star index='2'/> <star/></srai></template>
+		<pattern>XSubtract dash <set>number</set> XS dash <set>number</set></pattern>
+		<template><srai>XSubtract <star index='2'/> XS <star/></srai></template>
 	</category>
 
-	<!-- Usage: XMultiply [a] [b] -->
+	<!-- Usage: XMultiply [a] XS [b] -->
 	<!-- Returns a * b. a and b must both be non-negative integers. -->
 	<category>
-		<pattern>XMultiply * *</pattern>
+		<pattern>XMultiply * XS *</pattern>
 		<template>
 			<think>
 				<set var='a'><star/></set>
@@ -106,7 +109,7 @@
 				<condition var='b'>
 					<li value='0'></li>
 					<li>
-						<set var='product'><srai>XAdd <get var='product'/> <get var='a'/></srai></set>
+						<set var='product'><srai>XAdd <get var='product'/> XS <get var='a'/></srai></set>
 						<set var='b'><map name='predecessor'><get var='b'/></map></set>
 						<loop/>
 					</li>
