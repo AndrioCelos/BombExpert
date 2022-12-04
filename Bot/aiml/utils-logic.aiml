@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<aiml version='2.1'>
+	<!-- Usage: XAnd [a] XS [b] XS ... -->
+	<!-- Returns true if all arguments are true; false otherwise. -->
+	<category>
+		<pattern>XAnd true</pattern>
+		<template>true</template>
+	</category>
+	<category>
+		<pattern>XAnd false</pattern>
+		<template>false</template>
+	</category>
+	<category>
+		<pattern>XAnd true XS *</pattern>
+		<template><srai>XAnd <star/></srai></template>
+	</category>
+	<category>
+		<pattern>XAnd false XS *</pattern>
+		<template>false</template>
+	</category>
+
+	<!-- Usage: XOr [a] XS [b] XS ... -->
+	<!-- Returns true if any argument is true; false otherwise. -->
+	<category>
+		<pattern>XOr true</pattern>
+		<template>true</template>
+	</category>
+	<category>
+		<pattern>XOr false</pattern>
+		<template>false</template>
+	</category>
+	<category>
+		<pattern>XOr true XS *</pattern>
+		<template>true</template>
+	</category>
+	<category>
+		<pattern>XOr false XS *</pattern>
+		<template><srai>XOr <star/></srai></template>
+	</category>
+
+	<category>
+		<pattern>XNot true</pattern>
+		<template>false</template>
+	</category>
+	<category>
+		<pattern>XNot ^</pattern>
+		<template>true</template>
+	</category>
+</aiml>
