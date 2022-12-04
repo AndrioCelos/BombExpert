@@ -63,10 +63,11 @@ public class HexamazeSolver : IModuleSolver {
 			var candidateCounts = new Dictionary<int, int>();
 
 			for (var smIx = 0; smIx < allSubmazes.Length; smIx++) {
-				if (allSubmazes[smIx] == null)
+				var submaze = allSubmazes[smIx];
+				if (submaze == null)
 					continue;
 
-				var centerHex = allSubmazes[smIx].Value;
+				var centerHex = submaze.Value;
 
 				// We do not need to examine this submaze if the wall we last removed isn’t even in it
 				if (lastHex1 != null && (lastHex1.Value - centerHex).Distance > SubmazeSize &&
@@ -111,7 +112,7 @@ public class HexamazeSolver : IModuleSolver {
 			walls[randomWall] = false;
 
 			var rcdir = (Direction) (randomWall % 3);
-			lastHex1 = new Hex((randomWall / 3) / sw - Size, (randomWall / 3) % sw - Size);
+			lastHex1 = new Hex(randomWall / 3 / sw - Size, randomWall / 3 % sw - Size);
 			lastHex2 = lastHex1.Value.GetNeighbor(rcdir);
 		}
 
@@ -123,7 +124,7 @@ public class HexamazeSolver : IModuleSolver {
 			missingWalls.RemoveAt(randomMissingWallIndex);
 			walls[randomMissingWall] = true;
 
-			var affectedHex1 = new Hex((randomMissingWall / 3) / sw - Size, (randomMissingWall / 3) % sw - Size);
+			var affectedHex1 = new Hex(randomMissingWall / 3 / sw - Size, randomMissingWall / 3 % sw - Size);
 			var affectedHex2 = affectedHex1.GetNeighbor((Direction) (randomMissingWall % 3));
 
 			var list = Hex.LargeHexagon(Size - SubmazeSize + 1).ToList();
@@ -183,10 +184,8 @@ public class HexamazeSolver : IModuleSolver {
 	private static Hex SpaceIndexToHex(int index) => new(index / sw - Size, index % sw - Size);
 
 	private static SubmazeValidity DetermineSubmazeValidity(Hex centerHex, bool[] walls) {
-		var ret = new SubmazeValidity {
-			Filled = new HashSet<Hex> { centerHex },
-			EdgesReachable = new bool[6]
-		};
+		var edgesReachable = new bool[6];
+		var filled = new HashSet<Hex> { centerHex };
 		var q = new Queue<Hex>();
 		q.Enqueue(centerHex);
 
@@ -196,20 +195,20 @@ public class HexamazeSolver : IModuleSolver {
 			for (Direction dir = 0; dir < (Direction) 6; dir++) {
 				var neighbour = hex.GetNeighbor(dir);
 				var offset = neighbour - centerHex;
-				if (offset.Distance < SubmazeSize && !hasWall(hex, dir, walls) && ret.Filled.Add(neighbour))
+				if (offset.Distance < SubmazeSize && !hasWall(hex, dir, walls) && filled.Add(neighbour))
 					q.Enqueue(neighbour);
 				if (offset.Distance == SubmazeSize && !hasWall(hex, dir, walls))
 					foreach (var edge in offset.GetEdges(SubmazeSize))
-						ret.EdgesReachable[(int) edge] = true;
+						edgesReachable[(int) edge] = true;
 			}
 		}
 
-		ret.IsValid =
+		var isValid =
 			// All hexes filled?
-			(ret.Filled.Count >= 3 * SubmazeSize * (SubmazeSize - 1) + 1) &&
+			(filled.Count >= 3 * SubmazeSize * (SubmazeSize - 1) + 1) &&
 			// All edges reachable?
-			!ret.EdgesReachable.Contains(false);
-		return ret;
+			!edgesReachable.Contains(false);
+		return new(isValid, filled, edgesReachable);
 	}
 
 	private static bool areMarkingsUnique(Marking[] markings) {
@@ -245,7 +244,7 @@ public class HexamazeSolver : IModuleSolver {
 			GridEdge.Clock5 => rotatedDirection is Direction.Clock4 or Direction.Clock6 && rotatedHex.Q + rotatedHex.R == SubmazeSize - 1,
 			GridEdge.Clock7 => rotatedDirection is Direction.Clock6 or Direction.Clock8 && rotatedHex.R == SubmazeSize - 1,
 			GridEdge.Clock9 => rotatedDirection is Direction.Clock8 or Direction.Clock10 && rotatedHex.Q == -(SubmazeSize - 1),
-			_ => throw new ArgumentException(nameof(edge))
+			_ => throw new ArgumentException("Invalid edge", nameof(edge))
 		};
 	}
 
@@ -361,7 +360,7 @@ public class HexamazeSolver : IModuleSolver {
 	}
 
 	/// <summary>Represents coordinates of a space on a hexagonal grid.</summary>
-	public struct Hex : IEquatable<Hex> {
+	public readonly struct Hex : IEquatable<Hex> {
 		/// <summary>Returns the number of columns right of the centre.</summary>
 		/// <remarks>The positive <see cref="Q"/> direction is at 4 o-clock.</remarks>
 		public readonly int Q { get; }
@@ -469,8 +468,8 @@ public class HexamazeSolver : IModuleSolver {
 	public class Maze {
 		private const int stringWidth = 6 * Size - 2;
 		private const int stringHeight = 4 * Size - 1;
-		private bool[] walls;
-		private Dictionary<Hex, Marking> markings;
+		private readonly bool[] walls;
+		private readonly Dictionary<Hex, Marking> markings;
 
 		public IReadOnlyList<bool> Walls { get; }
 
@@ -537,8 +536,14 @@ public class HexamazeSolver : IModuleSolver {
 	}
 
 	private sealed class SubmazeValidity {
+		public bool IsValid;
 		public HashSet<Hex> Filled;
 		public bool[] EdgesReachable;
-		public bool IsValid;
+
+		public SubmazeValidity(bool isValid, HashSet<Hex> filled, bool[] edgesReachable) {
+			this.IsValid = isValid;
+			this.Filled = filled ?? throw new ArgumentNullException(nameof(filled));
+			this.EdgesReachable = edgesReachable ?? throw new ArgumentNullException(nameof(edgesReachable));
+		}
 	}
 }

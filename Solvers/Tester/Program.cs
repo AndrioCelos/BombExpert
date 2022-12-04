@@ -1,14 +1,14 @@
-﻿using Aiml;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Xml;
+using Aiml;
 using BombExpert.Solvers;
-
 using static BombExpert.Solvers.MazeSolver.MazeFlags;
-using System.IO;
 
-namespace BombExpert.Tester; 
+namespace BombExpert.Tester;
 class Program {
 	static void Main(string[] args) {
 		Console.OutputEncoding = Encoding.UTF8;
@@ -33,10 +33,14 @@ class Program {
 			return;
 		}
 
+		var temp = new XmlDocument();
+		temp.LoadXml("<?xml version=\"1.0\"?><temp/>");
+		var emptyAttributeCollection = temp.DocumentElement!.Attributes;
+
 		var user = new User("User", new Bot());
 
 		string evaluate(string serviceName, string text) {
-			return solvers[serviceName].Process(text, null, new RequestProcess(new RequestSentence(new Request(text, user, user.Bot), text), 0, false));
+			return solvers[serviceName].Process(text, emptyAttributeCollection, new RequestProcess(new RequestSentence(new Request(text, user, user.Bot), text), 0, false));
 		}
 
 		while (true) {

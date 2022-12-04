@@ -5,7 +5,7 @@ VisualStudioVersion = 17.1.32228.430
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tester", "Tester\Tester.csproj", "{94F7EDCF-B691-4233-9972-8632CCCF3849}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BombExpert", "BombExpert\BombExpert.csproj", "{2962B0B4-1AB2-4597-A96E-5967CBD9AA6A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BombExpert", "BombExpert\BombExpert.csproj", "{2962B0B4-1AB2-4597-A96E-5967CBD9AA6A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

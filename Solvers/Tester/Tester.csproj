@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <Reference Include="Aiml">
-      <HintPath>..\..\..\Aiml\Aiml\bin\Debug\netstandard2.1\Aiml.dll</HintPath>
+      <HintPath>..\..\..\Aiml\Aiml\bin\Debug\net6.0\Aiml.dll</HintPath>
     </Reference>
   </ItemGroup>
 
