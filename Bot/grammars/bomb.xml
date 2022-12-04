@@ -2,8 +2,13 @@
 	<rule id='root' scope='public'>
 		<one-of>
 			<item><ruleref uri='#defuse'/></item>
-			<item> veemo </item>
+			<item> next one </item>
+			<item> new instance </item>
+			<item> next instance </item>
+			<item> solved </item>
+
 			<item> say again </item>
+
 			<item>
 				<item> strike </item>
 				<one-of>
@@ -13,7 +18,6 @@
 					<item> three </item>
 				</one-of>
 			</item>
-			<item> solved </item>
 			<item>
 				<item> verify </item>
 				<one-of>
@@ -48,7 +52,12 @@
 		</one-of>
 	</rule>
 	<rule id='defuse'>
-		<item> defuse </item>
+		<one-of>
+			<item> defuse </item>
+			<item> next </item>
+			<item> next is </item>
+			<item> new </item>
+		</one-of>
 		<ruleref uri='#module'/>
 	</rule>
 	<rule id='module' scope='public'>
