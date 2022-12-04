@@ -1,0 +1,13 @@
+Wires                :Wires
+Button               :The Button
+Keypad               :Keypad
+SimonSays            :Simon Says
+WhosOnFirst          :Who's on First
+Memory               :Memory
+MorseCode            :Morse Code
+ComplicatedWires     :Complicated Wires
+WireSequence         :Wire Sequence
+Maze                 :Maze
+Password             :Password
+Knob                 :Knob
+
