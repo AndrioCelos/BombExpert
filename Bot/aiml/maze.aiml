@@ -27,8 +27,8 @@
 			<that>Locate the white dot</that>
 			<template>
 				<think>
-					<set name='MazeStartX'><star index='1'/></set>
-					<set name='MazeStartY'><star index='2'/></set>
+					<srai>SouvenirPut StartX XS <set name='MazeStartX'><star index='1'/></set></srai>
+					<srai>SouvenirPut StartY XS <set name='MazeStartY'><star index='2'/></set></srai>
 				</think>
 				Locate the red triangle.
 			</template>
@@ -97,4 +97,9 @@
 			</template>
 		</category>
 	</topic>
+
+	<category>
+		<pattern>SouvenirInput Maze XS <set>number</set></pattern>
+		<template><map name='NatoEncode'><map name='NumberToLetter'><srai>SouvenirGet Maze XS <star/> XS StartX</srai></map></map> <srai>SouvenirGet Maze XS <star/> XS StartY</srai></template>
+	</category>
 </aiml>

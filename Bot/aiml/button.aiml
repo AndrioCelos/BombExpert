@@ -136,6 +136,7 @@
 					<set var='result'><srai>Solver Button <star/></srai></set>
 					<set var='code'><srai>XFirst <get var='result'/></srai></set>
 					<set var='detail'><srai>XRest <get var='result'/></srai></set>
+					<srai>SouvenirPut Colour XS <star/></srai>
 				</think>
 				<condition var='code'>
 					<li value='ReleaseOnTimerDigit'>When any digit on the timer is a <get var='detail'/>, release the button.</li>
@@ -156,4 +157,9 @@
 			</template>
 		</category>
 	</topic>
+
+	<category>
+		<pattern>SouvenirInput Button XS <set>number</set></pattern>
+		<template><srai>SouvenirGet Button XS <star/> XS Colour</srai></template>
+	</category>
 </aiml>

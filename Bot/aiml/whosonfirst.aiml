@@ -257,6 +257,7 @@
 				<condition var='result'>
 					<li value='unknown'>That does not sound like a possible label. Try again.</li>
 					<li>
+						<srai>SouvenirPut Display<get name='WhosOnFirstStage'/> XS <star/></srai>
 						<think><set name='topic'>Bomb WhosOnFirst Button</set></think>
 						Read the text on the <get var='result'/> button.
 					</li>
@@ -331,4 +332,29 @@
 			<template><srai>next stage <star/></srai></template>
 		</category>
 	</topic>
+
+	<category>
+		<pattern>SouvenirInput WhosOnFirst XS <set>number</set></pattern>
+		<template>
+			Stage 1 was <map name='WhosOnFirstButtonDescription'><srai>SouvenirGet WhosOnFirst XS <star/> XS Display1</srai></map>.
+			Stage 2 was <map name='WhosOnFirstButtonDescription'><srai>SouvenirGet WhosOnFirst XS <star/> XS Display2</srai></map>.
+			Stage 3 was <map name='WhosOnFirstButtonDescription'><srai>SouvenirGet WhosOnFirst XS <star/> XS Display3</srai></map>.
+		</template>
+	</category>
+	<category>
+		<pattern>SouvenirInput WhosOnFirst XS <set>number</set> XS <set>number</set></pattern>
+		<template>
+			Stage <star index='2'/> was <map name='WhosOnFirstButtonDescription'><srai>SouvenirGet WhosOnFirst XS <star/> XS Display<star index='2'/></srai></map>.
+		</template>
+	</category>
+	<category>
+		<pattern>SouvenirInput WhosOnFirst XS <set>number</set> XS <set>ordinal</set></pattern>
+		<template>
+			Stage <map name='OrdinalToNumber'><star index='2'/></map> was <map name='WhosOnFirstButtonDescription'><srai>SouvenirGet WhosOnFirst XS <star/> XS Display<map name='OrdinalToNumber'><star index='2'/></map></srai></map>.
+		</template>
+	</category>
+	<category>
+		<pattern>SouvenirInput WhosOnFirst XS <set>number</set> XS stage <set>number</set></pattern>
+		<template><srai>SouvenirInput WhosOnFirst XS <star/> XS <star index='2'/></srai></template>
+	</category>
 </aiml>

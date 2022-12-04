@@ -20,3 +20,4 @@ Maze                                          :Maze
 Password                                      :Password
 Knob                                          :Knob
 
+Souvenir                                      :Souvenir

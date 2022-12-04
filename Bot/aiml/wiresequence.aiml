@@ -216,6 +216,9 @@
 					<li value='true'>Something is wrong. Please try again.</li>
 					<li>
 						<think>
+							<srai>SouvenirPut WireSequence XS Red XS <get var='redTotalCount'/></srai>
+							<srai>SouvenirPut WireSequence XS Blue XS <get var='blueTotalCount'/></srai>
+							<srai>SouvenirPut WireSequence XS Black XS <get var='blackTotalCount'/></srai>
 							<set name='BombWireSequenceRedWires'><get var='redTotalCount'/></set>
 							<set name='BombWireSequenceBlueWires'><get var='blueTotalCount'/></set>
 							<set name='BombWireSequenceBlackWires'><get var='blackTotalCount'/></set>
@@ -308,4 +311,25 @@
 			</template>
 		</category>
 	</topic>
+
+	<category>
+		<pattern>SouvenirInput WireSequence XS <set>number</set></pattern>
+		<template>
+			<srai>SouvenirGet WireSequence XS <star/> XS Red</srai> red,
+			<srai>SouvenirGet WireSequence XS <star/> XS Blue</srai> blue,
+			<srai>SouvenirGet WireSequence XS <star/> XS Black</srai> black.
+		</template>
+	</category>
+	<category>
+		<pattern>SouvenirInput WireSequence XS <set>number</set> XS red</pattern>
+		<template><srai>SouvenirGet WireSequence XS <star/> XS red</srai> red.</template>
+	</category>
+	<category>
+		<pattern>SouvenirInput WireSequence XS <set>number</set> XS blue</pattern>
+		<template><srai>SouvenirGet WireSequence XS <star/> XS blue</srai> blue.</template>
+	</category>
+	<category>
+		<pattern>SouvenirInput WireSequence XS <set>number</set> XS black</pattern>
+		<template><srai>SouvenirGet WireSequence XS <star/> XS black</srai> black.</template>
+	</category>
 </aiml>

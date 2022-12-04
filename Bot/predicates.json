@@ -13,5 +13,8 @@
 	"BombPortsKnown": "false",
 
 	// Rule seed carries over between bombs until explicitly reset.
-	"RuleSeed": "1"
+	"RuleSeed": "1",
+
+	"SouvenirCurrent": "0",
+	"SouvenirModules": "nil"
 }

@@ -50,6 +50,7 @@
 					<li>
 						<think>
 							<set name='BombMemoryStage'><map name='successor'><get name='BombMemoryStage'/></map></set>
+							<srai>SouvenirPut Display <get name='BombMemoryStage'/> XS <star/></srai>
 							<set var='rule'><srai>Solver Memory GetRule <get name='BombMemoryStage'/> <star/></srai></set>
 							<set var='ruleType'><srai>XFirst <get var='rule'/></srai></set>
 							<set var='ruleParam'><srai>XRest <get var='rule'/></srai></set>
@@ -58,12 +59,16 @@
 						<condition var='ruleType'>
 							<li value='Position'>
 								Press the
-								<map name='ordinal'><set><name>MemoryPos<get name='BombMemoryStage'/></name><get var='ruleParam'/></set></map>
+								<map name='ordinal'><srai>SouvenirPut Position <get name='BombMemoryStage'/> XS
+									<set><name>MemoryPos<get name='BombMemoryStage'/></name><get var='ruleParam'/></set>
+								</srai></map>
 								position.
 							</li>
 							<li value='Label'>
 								Press the label
-								<set><name>MemoryLabel<get name='BombMemoryStage'/></name><get var='ruleParam'/></set>.
+								<srai>SouvenirPut Label <get name='BombMemoryStage'/> XS
+									<set><name>MemoryLabel<get name='BombMemoryStage'/></name><get var='ruleParam'/></set>
+								</srai>.
 							</li>
 							<li value='SamePosition'>
 								<think><set var='pos'><get><name>MemoryPos<get var='ruleParam'/></name></get></set></think>
@@ -71,7 +76,9 @@
 									<li value='unknown'>Press the position that you pressed in stage <get var='ruleParam'/>.</li>
 									<li>
 										Press the
-										<map name='ordinal'><set><name>MemoryPos<get name='BombMemoryStage'/></name><get var='pos'/></set></map>
+										<map name='ordinal'><srai>SouvenirPut Position <get name='BombMemoryStage'/> XS
+											<set><name>MemoryPos<get name='BombMemoryStage'/></name><get var='pos'/></set>
+										</srai></map>
 										position.
 									</li>
 								</condition>
@@ -82,7 +89,9 @@
 									<li value='unknown'>Press the label that you pressed in stage <get var='ruleParam'/>.</li>
 									<li>
 										Press the label
-										<set><name>MemoryLabel<get name='BombMemoryStage'/></name><get var='label'/></set>.
+										<srai>SouvenirPut Label <get name='BombMemoryStage'/> XS
+											<set><name>MemoryLabel<get name='BombMemoryStage'/></name><get var='label'/></set>
+										</srai>.
 									</li>
 								</condition>
 							</li>
@@ -99,6 +108,7 @@
 					<li>
 						<think>
 							<set name='BombMemoryStage'><map name='successor'><get name='BombMemoryStage'/></map></set>
+							<srai>SouvenirPut Display <get name='BombMemoryStage'/> XS <star/></srai>
 							<set var='rule'><srai>Solver Memory GetRule <get name='BombMemoryStage'/> <star/></srai></set>
 							<set var='ruleType'><srai>XFirst <get var='rule'/></srai></set>
 							<set var='ruleParam'><srai>XRest <get var='rule'/></srai></set>
@@ -111,8 +121,8 @@
 							</condition>
 
 							<set var='label'><star><index><map name='successor'><get var='pos'/></map></index></star></set>
-							<set><name>MemoryPos<get name='BombMemoryStage'/></name><get var='pos'/></set>
-							<set><name>MemoryLabel<get name='BombMemoryStage'/></name><get var='label'/></set>
+							<srai>SouvenirPut Position <get name='BombMemoryStage'/> XS <set><name>MemoryPos<get name='BombMemoryStage'/></name><get var='pos'/></set></srai>
+							<srai>SouvenirPut Label <get name='BombMemoryStage'/> XS <set><name>MemoryLabel<get name='BombMemoryStage'/></name><get var='label'/></set></srai>
 						</think>
 						Press <get var='label'/>.
 					</li>
@@ -148,7 +158,11 @@
 		<category>
 			<pattern>position <set>number</set></pattern>
 			<template>
-				<think><set><name>MemoryPos<get name='BombMemoryStage'/></name><star/></set></think>
+				<think>
+					<srai>SouvenirPut Position <get name='BombMemoryStage'/> XS
+						<set><name>MemoryPos<get name='BombMemoryStage'/></name><star/></set>
+					</srai>
+				</think>
 				OK.
 			</template>
 		</category>
@@ -159,7 +173,11 @@
 		<category>
 			<pattern>label <set>number</set></pattern>
 			<template>
-				<think><set><name>MemoryLabel<get name='BombMemoryStage'/></name><star/></set></think>
+				<think>
+					<srai>SouvenirPut Label <get name='BombMemoryStage'/> XS
+						<set><name>MemoryLabel<get name='BombMemoryStage'/></name><star/></set>
+					</srai>
+				</think>
 				OK.
 			</template>
 		</category>
@@ -194,4 +212,37 @@
 			</template>
 		</category>
 	</topic>
+
+	<category>
+		<pattern>SouvenirInput Memory XS <set>number</set></pattern>
+		<template>
+			Displays were <srai>SouvenirGet Memory XS <star/> XS Display 1</srai>,
+				<srai>SouvenirGet Memory XS <star/> XS Display 2</srai>,
+				<srai>SouvenirGet Memory XS <star/> XS Display 3</srai>,
+				<srai>SouvenirGet Memory XS <star/> XS Display 4</srai>,
+				<srai>SouvenirGet Memory XS <star/> XS Display 5</srai>.
+			Positions were <srai>SouvenirGet Memory XS <star/> XS Position 1</srai>,
+				<srai>SouvenirGet Memory XS <star/> XS Position 2</srai>,
+				<srai>SouvenirGet Memory XS <star/> XS Position 3</srai>,
+				<srai>SouvenirGet Memory XS <star/> XS Position 4</srai>,
+				<srai>SouvenirGet Memory XS <star/> XS Position 5</srai>.
+			Labels were <srai>SouvenirGet Memory XS <star/> XS Label 1</srai>,
+				<srai>SouvenirGet Memory XS <star/> XS Label 2</srai>,
+				<srai>SouvenirGet Memory XS <star/> XS Label 3</srai>,
+				<srai>SouvenirGet Memory XS <star/> XS Label 4</srai>,
+				<srai>SouvenirGet Memory XS <star/> XS Label 5</srai>.
+		</template>
+	</category>
+	<category>
+		<pattern>SouvenirInput Memory XS <set>number</set> XS display <set>number</set></pattern>
+		<template><srai>SouvenirGet Memory XS <star/> XS display <star index='2'/></srai></template>
+	</category>
+	<category>
+		<pattern>SouvenirInput Memory XS <set>number</set> XS position <set>number</set></pattern>
+		<template><srai>SouvenirGet Memory XS <star/> XS position <star index='2'/></srai></template>
+	</category>
+	<category>
+		<pattern>SouvenirInput Memory XS <set>number</set> XS label <set>number</set></pattern>
+		<template><srai>SouvenirGet Memory XS <star/> XS label <star index='2'/></srai></template>
+	</category>
 </aiml>
