@@ -1,0 +1,57 @@
+# Keys are listed as [keyword] [code word].
+
+Sassy Sassy:Blue
+Sassy Silly:Red
+Sassy Soggy:Green
+Sassy Sally:Cherry
+Sassy Simon:Grape
+Sassy Sausage:Bomb
+Sassy Steven:Coin
+
+Silly Sassy:Blue
+Silly Silly:Green
+Silly Soggy:Red
+Silly Sally:Coin
+Silly Simon:Bomb
+Silly Sausage:Grape
+Silly Steven:Cherry
+
+Soggy Sassy:Green
+Soggy Silly:Blue
+Soggy Soggy:Red
+Soggy Sally:Coin
+Soggy Simon:Cherry
+Soggy Sausage:Bomb
+Soggy Steven:Grape
+
+Sally Sassy:Red
+Sally Silly:Blue
+Sally Soggy:Green
+Sally Sally:Grape
+Sally Simon:Cherry
+Sally Sausage:Bomb
+Sally Steven:Coin
+
+Simon Sassy:Red
+Simon Silly:Green
+Simon Soggy:Blue
+Simon Sally:Bomb
+Simon Simon:Grape
+Simon Sausage:Cherry
+Simon Steven:Coin
+
+Sausage Sassy:Red
+Sausage Silly:Blue
+Sausage Soggy:Green
+Sausage Sally:Grape
+Sausage Simon:Bomb
+Sausage Sausage:Coin
+Sausage Steven:Cherry
+
+Steven Sassy:Green
+Steven Silly:Red
+Steven Soggy:Blue
+Steven Sally:Cherry
+Steven Simon:Bomb
+Steven Sausage:Coin
+Steven Steven:Grape

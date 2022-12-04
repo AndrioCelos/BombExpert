@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml>
+	<category>
+		<pattern>defuse laundry</pattern>
+		<template>
+			<srai>DeselectModule</srai>
+			<think>
+				<set name='topic'>Bomb Laundry</set>
+				<set name='LaundrySolves'>unknown</set>
+			</think>
+			<srai>EdgeworkQuery ModuleCount XS LaundryCallback 1</srai>
+		</template>
+	</category>
+	<category>
+		<pattern>defuse laundry for <set>number</set> ^</pattern>
+		<template>
+			<srai>DeselectModule</srai>
+			<think>
+				<set name='topic'>Bomb Laundry</set>
+				<set name='LaundrySolves'><star/></set>
+			</think>
+			<srai>EdgeworkQuery ModuleCount XS LaundryCallback 1</srai>
+		</template>
+	</category>
+	<category>
+		<pattern>LaundryCallback 1</pattern>
+		<template><srai>EdgeworkQuery NeedyModuleCount XS LaundryCallback 2</srai></template>
+	</category>
+	<category>
+		<pattern>LaundryCallback 2</pattern>
+		<template><srai>EdgeworkQuery Batteries XS LaundryCallback 3</srai></template>
+	</category>
+	<category>
+		<pattern>LaundryCallback 3</pattern>
+		<template><srai>EdgeworkQuery Indicators XS LaundryCallback 4</srai></template>
+	</category>
+	<category>
+		<pattern>LaundryCallback 4</pattern>
+		<template><srai>EdgeworkQuery PortPlates XS LaundryCallback 5</srai></template>
+	</category>
+	<category>
+		<pattern>LaundryCallback 5</pattern>
+		<template><srai>EdgeworkQuery SerialNumber XS LaundryCallback 6</srai></template>
+	</category>
+
+	<category>
+		<pattern>LaundryCallback 6</pattern>
+		<template>
+			<think>
+				<condition name='LaundrySolves' value='unknown'><set name='LaundrySolves'><get name='SolveCount'/></set></condition>
+				<set var='itemIndex'><srai>X0Mod <srai>XAdd <srai>UnsolvedModuleCount <get name='LaundrySolves'/></srai> <srai>XCount <get name='BombIndicators'/></srai></srai> XS 6</srai></set>
+				<set var='materialIndex'><srai>X0Mod <calculate><get name='BombPortCount'/> + <get name='LaundrySolves'/> - <get name='BombBatteryHolderCount'/></calculate> XS 6</srai></set>
+				<set var='colourIndex'><srai>X0Mod <calculate><get name='BombSerialNumberLastDigit'/> + <get name='BombBatteryCount'/></calculate> XS 6</srai></set>
+
+				<set var='unicornValues'><get name='BombBatteryCount'/> <get name='BombBatteryHolderCount'/> <get name='BombIndicatorLitBOB'/></set>
+			</think>
+			<condition var='unicornValues'>
+				<li value='4 2 true'>
+					<!-- Thanks, BOB. -->
+					Insert the coin.
+				</li>
+				<li>
+					<think>
+						<!-- Washing -->
+						<set var='washOverride'><srai>XOr
+							<condition var='materialIndex'><li value='5'>true</li><li>false</li></condition> XS
+							<condition var='colourIndex'><li value='3'>true</li><li>false</li></condition>
+						</srai></set>
+						<condition var='washOverride'>
+							<li value='true'>
+								<!-- If the item is made out of leather, or in the color Jade Cluster, ALWAYS wash at 80°F. -->
+								<set var='washing'>Wash at 30 degrees.</set>
+							</li>
+							<li>
+								<set var='washing'>
+									<condition var='materialIndex'>
+										<li value='0'>Wash at 50 degrees.</li>
+										<li value='1'>Wash at 95 degrees.</li>
+										<li value='2'>Hand wash.</li>
+										<li value='3'>Wash at 30 degrees.</li>
+										<li value='4'>Wash at 40 degrees.</li>
+										<li value='5'>Do not wash.</li>
+									</condition>
+								</set>
+							</li>
+						</condition>
+
+						<!-- Drying -->
+						<set var='dryOverride'><srai>XOr
+							<condition var='materialIndex'><li value='2'>true</li><li>false</li></condition> XS
+							<condition var='colourIndex'><li value='1'>true</li><li>false</li></condition>
+						</srai></set>
+						<condition var='dryOverride'>
+							<li value='true'>
+								<!-- If the material is wool or the color is Star Lemon Quartz ALWAYS dry with high heat. -->
+								<set var='drying'>3 dot dry.</set>
+							</li>
+							<li>
+								<set var='drying'>
+									<condition var='colourIndex'>
+										<li value='0'>3 dot dry.</li>
+										<li value='1'>Horizontal line dry.</li>
+										<li value='2'>Circle dry.</li>
+										<li value='3'>Crossed circle dry.</li>
+										<li value='4'>1 dot dry.</li>
+										<li value='5'>2 dot dry.</li>
+									</condition>
+								</set>
+							</li>
+						</condition>
+
+						<!-- Ironing -->
+						<set var='ironing'>
+							<condition var='itemIndex'>
+								<li value='0'>Iron at 300 degrees Fahrenheit.</li>
+								<li value='1'>Iron with no steam.</li>
+								<li value='2'>Iron.</li>
+								<li value='3'>Iron at 200 degrees Celsius.</li>
+								<li value='4'>Iron at 300 degrees Fahrenheit.</li>
+								<li value='5'>Iron at 110 degrees Celsius.</li>
+							</condition>
+						</set>
+
+						<!-- Special -->
+						<condition var='colourIndex'>
+							<li value='4'>
+								<!-- If the color is Clouded Pearl ALWAYS use non-chlorine bleach. -->
+								<set var='special'>No chlorine.</set>
+							</li>
+							<li>
+								<set var='specialOverride'><srai>XOr
+									<condition var='itemIndex'><li value='0'>true</li><li>false</li></condition> XS
+									<condition var='materialIndex'><li value='4'>true</li><li>false</li></condition>
+								</srai></set>
+								<condition var='specialOverride'>
+									<li value='true'>
+										<!-- If the item is a corset or the material is corduroy then use special instructions based on material. -->
+										<set var='special'>
+											<condition var='materialIndex'>
+												<li value='0'>Petroleum only.</li>
+												<li value='1'>Do not dry clean.</li>
+												<li value='2'>Reduced moisture.</li>
+												<li value='3'>Low heat.</li>
+												<li value='4'>Wet cleaning.</li>
+												<li value='5'>No tetrachlore.</li>
+											</condition>
+										</set>
+									</li>
+									<li>
+										<set var='materialLetters'><explode><map name='LaundryMaterials'><get var='materialIndex'/></map></explode></set>
+										<condition var='materialLetters'>
+											<li value='nil'></li>
+											<li>
+												<set var='materialLetter'><first><get var='materialLetters'/></first></set>
+												<set var='materialLetters'><rest><get var='materialLetters'/></rest></set>
+												<set var='c'><srai>XContains <get var='materialLetter'/> <explode><get name='BombSerialNumber'/></explode></srai></set>
+												<condition var='c' value='true'><set var='specialOverride2'>true</set></condition>
+												<loop/>
+											</li>
+										</condition>
+										<condition var='specialOverride2'>
+											<li value='true'>
+												<!-- If a letter of the clothing material matches a letter in your serial code, then the color takes over the special instructions. -->
+												<set var='special'>
+													<condition var='colourIndex'>
+														<li value='0'>Any solvent.</li>
+														<li value='1'>Low heat.</li>
+														<li value='2'>Short cycle.</li>
+														<li value='3'>No steam finishing.</li>
+														<li value='4'>Low heat.</li>
+														<li value='5'>No chlorine.</li>
+													</condition>
+												</set>
+											</li>
+											<li>
+												<set var='special'>
+													<condition var='itemIndex'>
+														<li value='0'>Bleach.</li>
+														<li value='1'>No tetrachlore.</li>
+														<li value='2'>Reduced moisture.</li>
+														<li value='3'>Reduced moisture.</li>
+														<li value='4'>Do not bleach.</li>
+														<li value='5'>Do not dry clean.</li>
+													</condition>
+												</set>
+											</li>
+										</condition>
+									</li>
+								</condition>
+							</li>
+						</condition>
+					</think>
+					For <get name='LaundrySolves'/> solves:
+					<delay>6</delay> <get var='washing'/>
+					<delay>6</delay> <get var='drying'/>
+					<delay>4</delay> <get var='ironing'/>
+					<delay>8</delay> <get var='special'/>
+				</li>
+			</condition>
+		</template>
+	</category>
+</aiml>

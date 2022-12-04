@@ -1,0 +1,6 @@
+0:Polyester
+1:Cotton
+2:Wool
+3:Nylon
+4:Corduroy
+5:Leather

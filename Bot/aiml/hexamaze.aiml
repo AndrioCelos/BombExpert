@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml>
+	<topic name='Bomb Hexamaze'>
+		<category>
+			<pattern>InitModule</pattern>
+			<template>Locate the pawn and markings.</template>
+		</category>
+
+		<!-- Treat 'next maze' in maze modules other than vanilla Maze as referring to this module instead. -->
+		<category>
+			<pattern>next maze</pattern>
+			<template>next instance</template>
+		</category>
+		<category>
+			<pattern>new maze</pattern>
+			<template>next instance</template>
+		</category>
+
+		<category>
+			<pattern>*</pattern>
+			<template>
+				<think>
+					<set var='words'><star/></set>
+					<set var='list'>nil</set>
+					<set var='x'>unknown</set>
+					<set var='y'>unknown</set>
+					<set var='thing'>unknown</set>
+					<condition var='words'>
+						<li value='nil'></li>
+						<li>
+							<set var='word'><first><get var='words'/></first></set>
+							<set var='words'><rest><get var='words'/></rest></set>
+							<condition var='word'>
+								<li value='red'><set var='thing'><srai>SouvenirPut PawnColour XS red</srai></set></li>
+								<li value='yellow'><set var='thing'><srai>SouvenirPut PawnColour XS yellow</srai></set></li>
+								<li value='green'><set var='thing'><srai>SouvenirPut PawnColour XS green</srai></set></li>
+								<li value='cyan'><set var='thing'><srai>SouvenirPut PawnColour XS cyan</srai></set></li>
+								<li value='blue'><set var='thing'><srai>SouvenirPut PawnColour XS blue</srai></set></li>
+								<li value='pink'><set var='thing'><srai>SouvenirPut PawnColour XS pink</srai></set></li>
+
+								<li value='circle'><set var='thing'>circle</set></li>
+								<li value='hexagon'><set var='thing'>hexagon</set></li>
+								<li value='up'><set var='thing'>Triangleup</set></li>
+								<li value='north'><set var='thing'>Triangleup</set></li>
+								<li value='down'><set var='thing'>Triangledown</set></li>
+								<li value='south'><set var='thing'>Triangledown</set></li>
+								<li value='left'><set var='thing'>Triangleleft</set></li>
+								<li value='west'><set var='thing'>Triangleleft</set></li>
+								<li value='right'><set var='thing'>Triangleright</set></li>
+								<li value='east'><set var='thing'>Triangleright</set></li>
+
+								<li value='a'><set var='x'>1</set></li>
+								<li value='alfa'><set var='x'>1</set></li>
+								<li value='alpha'><set var='x'>1</set></li>
+								<li value='b'><set var='x'>2</set></li>
+								<li value='bravo'><set var='x'>2</set></li>
+								<li value='c'><set var='x'>3</set></li>
+								<li value='charlie'><set var='x'>3</set></li>
+								<li value='d'><set var='x'>4</set></li>
+								<li value='delta'><set var='x'>4</set></li>
+								<li value='e'><set var='x'>5</set></li>
+								<li value='echo'><set var='x'>5</set></li>
+								<li value='f'><set var='x'>6</set></li>
+								<li value='foxtrot'><set var='x'>6</set></li>
+								<li value='g'><set var='x'>7</set></li>
+								<li value='golf'><set var='x'>7</set></li>
+
+								<li>
+									<set var='r'><srai>XIsNumber <get var='word'/></srai></set>
+									<condition var='r' value='true'>
+										<condition var='x'>
+											<li value='unknown'><set var='x'><get var='word'/></set></li>
+											<li><set var='y'><get var='word'/></set></li>
+										</condition>
+									</condition>
+								</li>
+							</condition>
+
+							<condition var='x'>
+								<li value='unknown'></li>
+								<li>
+									<condition var='y'>
+										<li value='unknown'></li>
+										<li>
+											<condition var='thing'>
+												<li value='unknown'></li>
+												<li>
+													<condition var='list'>
+														<li value='nil'><set var='list'><get var='thing'/> <get var='x'/> <get var='y'/></set></li>
+														<li><set var='list'><get var='list'/> <get var='thing'/> <get var='x'/> <get var='y'/></set></li>
+													</condition>
+													<set var='x'>unknown</set>
+													<set var='y'>unknown</set>
+													<set var='thing'>unknown</set>
+												</li>
+											</condition>
+										</li>
+									</condition>
+								</li>
+							</condition>
+
+							<loop/>
+						</li>
+					</condition>
+
+					<set var='result'>
+						<srai>
+							Solver Hexamaze <get var='list'/>
+						</srai>
+					</set>
+				</think>
+				<condition var='result'>
+					<li value='NoPath'>I could not find a path.</li>
+					<li value='NoSubmaze'>Those markings do not seem right.</li>
+					<li value='NoPawn'>I did not catch the pawn colour.</li>
+					<li>
+						<think>
+							<set var='steps'>nil</set>
+							<condition var='result'>
+								<li value='nil'></li>
+								<li>
+									<set var='direction'><srai>XFirst <get var='result'/></srai></set>
+									<set var='result'><srai>XRest <get var='result'/></srai></set>
+									<set var='break'>false</set>
+									<set var='count'>1</set>
+
+									<!-- Count repeated steps in the same direction. -->
+									<condition var='break'>
+										<li value='true'></li>
+										<li>
+											<set var='direction2'><srai>XFirst <get var='result'/></srai></set>
+											<condition var='direction2'>
+												<li value='nil'><set var='break'>true</set></li>
+												<li><value><get var='direction'/></value>
+													<set var='count'><map name='successor'><get var='count'/></map></set>
+													<set var='result'><srai>XRest <get var='result'/></srai></set>
+												</li>
+												<li><set var='break'>true</set>	</li>
+											</condition>
+											<loop/>
+										</li>
+									</condition>
+
+									<condition var='count'>
+										<li value='1'><set var='step'><get var='direction'/></set></li>
+										<li><set var='step'><get var='direction'/> <get var='count'/> times</set></li>
+									</condition>
+
+									<condition var='steps'>
+										<li value='nil'><set var='steps'><get var='step'/></set></li>
+										<li><set var='steps'><get var='steps'/>, <get var='step'/></set></li>
+									</condition>
+									<loop/>
+								</li>
+							</condition>
+						</think>
+						Take these steps: <get var='steps'/>.
+					</li>
+				</condition>
+			</template>
+		</category>
+	</topic>
+
+	<category>
+		<pattern>SouvenirInput Hexamaze XS <set>number</set></pattern>
+		<template><srai>SouvenirGet Hexamaze XS <star/> XS PawnColour</srai></template>
+	</category>
+</aiml>

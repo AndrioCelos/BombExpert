@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml>
+	<category>
+		<pattern>rotary phone <set>number</set> <set>number</set> <set>number</set></pattern>
+		<template>
+			<srai>RotaryPhoneTell
+				<explode>
+					<set name='RotaryPhoneTotal'>
+						<condition name='RotaryPhoneTotal'>
+							<li value='*'><calculate>(<get name='RotaryPhoneTotal'/> + <star/><star index='2'/><star index='3'/>) % 1000</calculate></li>
+							<li><star/><star index='2'/><star index='3'/></li>
+						</condition>
+					</set>
+				</explode>
+			</srai>
+		</template>
+	</category>
+
+	<category>
+		<pattern>reset rotary phone to <set>number</set> <set>number</set> <set>number</set></pattern>
+		<template>
+			<srai>RotaryPhoneTell
+				<explode>
+					<set name='RotaryPhoneTotal'>
+						<star/><star index='2'/><star index='3'/>
+					</set>
+				</explode>
+			</srai>
+		</template>
+	</category>
+
+	<category>
+		<pattern>RotaryPhoneTell <set>number</set> <set>number</set> <set>number</set></pattern>
+		<template><star/> <star index='2'/> <star index='3'/></template>
+	</category>
+
+	<category>
+		<pattern>RotaryPhoneTell <set>number</set> <set>number</set></pattern>
+		<template>0 <star/> <star index='2'/></template>
+	</category>
+
+	<category>
+		<pattern>RotaryPhoneTell <set>number</set></pattern>
+		<template>0 <star/></template>
+	</category>
+</aiml>

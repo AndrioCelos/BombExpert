@@ -20,4 +20,12 @@ Maze                                          :Maze
 Password                                      :Password
 Knob                                          :Knob
 
+Colour Flash                                  :ColourFlash
+Listening                                     :Listening
+Simon States                                  :SimonStates
+Silly Slots                                   :SillySlots
+Laundry                                       :Laundry
 Souvenir                                      :Souvenir
+Hexamaze                                      :Hexamaze
+Third Base                                    :ThirdBase
+Adventure Game                                :AdventureGame

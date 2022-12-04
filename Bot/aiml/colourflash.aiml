@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml>
+	<topic name='Bomb ColourFlash'>
+		<category>
+			<pattern>SelectModule</pattern>
+			<template>Tell me the colour of the last word.</template>
+		</category>
+
+		<category>
+			<pattern><set>colour</set></pattern>
+			<template>
+				<think><srai>SouvenirPut Colour XS <star/></srai></think>
+				<srai>Solver ColourFlash Condition <set name='ColourFlashColour'><star/></set> <set name='ColourFlashRuleIndex'>1</set></srai>?
+			</template>
+		</category>
+
+		<category>
+			<pattern>yes</pattern>
+			<template><srai>Solver ColourFlash Instruction <get name='ColourFlashColour'/> <get name='ColourFlashRuleIndex'/></srai></template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<template>
+				<think>
+					<set var='result'>
+						<srai>Solver ColourFlash Condition <get name='ColourFlashColour'/> <set name='ColourFlashRuleIndex'><map name='successor'><get name='ColourFlashRuleIndex'/></map></set></srai>?
+					</set>
+				</think>
+				<condition var='result'>
+					<li value='nil'>
+						<srai>Solver ColourFlash Instruction <get name='ColourFlashColour'/> <get name='ColourFlashRuleIndex'/></srai>
+					</li>
+					<li><get var='result'/></li>
+				</condition>
+			</template>
+		</category>
+
+		<category><pattern>Solver ColourFlash Condition *</pattern>
+			<template>nil</template>
+		</category>
+
+		<category><pattern>Solver ColourFlash Condition red 1</pattern>
+			<template>The word 'green' appears three times</template>
+		</category>
+		<category><pattern>Solver ColourFlash Instruction red 1</pattern>
+			<template>Press 'yes' the last time the word or colour is green.</template>
+		</category>
+		<category><pattern>Solver ColourFlash Condition red 2</pattern>
+			<template>The colour is blue exactly once</template>
+		</category>
+		<category><pattern>Solver ColourFlash Instruction red 2</pattern>
+			<template>Press 'no' on the word 'magenta'.</template>
+		</category>
+		<category><pattern>Solver ColourFlash Instruction red <set>number</set></pattern>
+			<template>Press 'yes' the last time the word or colour is white.</template>
+		</category>
+
+		<category><pattern>Solver ColourFlash Condition yellow 1</pattern>
+			<template>The word 'blue' appears in green</template>
+		</category>
+		<category><pattern>Solver ColourFlash Instruction yellow 1</pattern>
+			<template>Press 'yes' on the first word in green.</template>
+		</category>
+		<category><pattern>Solver ColourFlash Condition yellow 2</pattern>
+			<template>The word 'white' appears in white or red</template>
+		</category>
+		<category><pattern>Solver ColourFlash Instruction yellow 2</pattern>
+			<template>Press 'yes' the second time the word and colour are different.</template>
+		</category>
+		<category><pattern>Solver ColourFlash Instruction yellow <set>number</set></pattern>
+			<template>Count the number of entries where the word or colour is magenta. Press 'no' on that number.</template>
+		</category>
+
+		<category><pattern>Solver ColourFlash Condition green 1</pattern>
+			<template>A appears consecutively in different colours</template>
+		</category>
+		<category><pattern>Solver ColourFlash Instruction green 1</pattern>
+			<template>Press 'no' on the fifth entry.</template>
+		</category>
+		<category><pattern>Solver ColourFlash Condition green 2</pattern>
+			<template>The word 'magenta' appears three times</template>
+		</category>
+		<category><pattern>Solver ColourFlash Instruction green 2</pattern>
+			<template>Press 'no' the first time the word or colour is yellow.</template>
+		</category>
+		<category><pattern>Solver ColourFlash Instruction green <set>number</set></pattern>
+			<template>Press 'yes' any time the word and colour match.</template>
+		</category>
+
+		<category><pattern>Solver ColourFlash Condition blue 1</pattern>
+			<template>The word and colour are different three times</template>
+		</category>
+		<category><pattern>Solver ColourFlash Instruction blue 1</pattern>
+			<template>Press 'yes' any time the word and colour are different.</template>
+		</category>
+		<category><pattern>Solver ColourFlash Condition blue 2</pattern>
+			<template>The word 'red' appears in yellow or the word 'yellow' appears in white</template>
+		</category>
+		<category><pattern>Solver ColourFlash Instruction blue 2</pattern>
+			<template>Press 'no' when the word 'white' is shown in red</template>
+		</category>
+		<category><pattern>Solver ColourFlash Instruction blue <set>number</set></pattern>
+			<template>Press 'yes' the last time the word or colour is green.</template>
+		</category>
+
+		<category><pattern>Solver ColourFlash Condition magenta 1</pattern>
+			<template>Two consecutive words appear in the same colour</template>
+		</category>
+		<category><pattern>Solver ColourFlash Instruction magenta 1</pattern>
+			<template>Press 'yes' on the third entry.</template>
+		</category>
+		<category><pattern>Solver ColourFlash Condition magenta 2</pattern>
+			<template>The word 'yellow' appears more times than words in blue</template>
+		</category>
+		<category><pattern>Solver ColourFlash Instruction magenta 2</pattern>
+			<template>Press 'no' the last time the word 'yellow' appears</template>
+		</category>
+		<category><pattern>Solver ColourFlash Instruction magenta <set>number</set></pattern>
+			<template>Press 'no' the first time the colour matches the seventh word.</template>
+		</category>
+
+		<category><pattern>Solver ColourFlash Condition white 1</pattern>
+			<template>The colour of the third entry matches the text of the fourth or fifth</template>
+		</category>
+		<category><pattern>Solver ColourFlash Instruction white 1</pattern>
+			<template>Press 'no' the first time the word or colour is blue.</template>
+		</category>
+		<category><pattern>Solver ColourFlash Condition white 2</pattern>
+			<template>The word 'yellow' appears in red</template>
+		</category>
+		<category><pattern>Solver ColourFlash Instruction white 2</pattern>
+			<template>Press 'yes' the last time a word appears in blue.</template>
+		</category>
+		<category><pattern>Solver ColourFlash Instruction white <set>number</set></pattern>
+			<template>Press 'no' any time.</template>
+		</category>
+	</topic>
+
+	<category>
+		<pattern>SouvenirInput ColourFlash XS <set>number</set></pattern>
+		<template><srai>SouvenirGet ColourFlash XS <star/> XS Colour</srai></template>
+	</category>
+</aiml>

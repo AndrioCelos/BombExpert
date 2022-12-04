@@ -1,0 +1,566 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<aiml>
+	<topic name='Bomb AdventureGame ^'>
+		<category>
+			<pattern>SelectModule</pattern>
+			<template>
+				<think><set name='AdventureGameItems'>nil</set></think>
+				What enemy are we fighting?
+			</template>
+		</category>
+
+		<category>
+			<pattern><set>AdventureGameEnemy</set></pattern>
+			<template><srai>ProcessEnemyStats <star/> XS <map name='AdventureGameEnemyStats'><star/></map></srai></template>
+		</category>
+		<category>
+			<pattern>a <set>AdventureGameEnemy</set></pattern>
+			<template><sr/></template>
+		</category>
+		<category>
+			<pattern>an <set>AdventureGameEnemy</set></pattern>
+			<template><sr/></template>
+		</category>
+
+		<category>
+			<pattern>ProcessEnemyStats * XS <set>number</set> <set>number</set> <set>number</set></pattern>
+			<template>
+				<think>
+					<set name='AdventureGameEnemy'><star/></set>
+					<set name='AdventureGameEnemyStr'><star index='2'/></set>
+					<set name='AdventureGameEnemyDex'><star index='3'/></set>
+					<set name='AdventureGameEnemyInt'><star index='4'/></set>
+					<set name='topic'>Bomb AdventureGame Stats</set>
+				</think>
+				Read the player stats.
+			</template>
+		</category>
+
+		<category>
+			<pattern><set>number</set> strength ^</pattern>
+			<template>
+				<think><set name='AdventureGameStr'><star/></set></think>
+				<srai><star index='2'/></srai>
+			</template>
+		</category>
+		<category>
+			<pattern><set>number</set> str ^</pattern>
+			<template>
+				<think><set name='AdventureGameStr'><star/></set></think>
+				<srai><star index='2'/></srai>
+			</template>
+		</category>
+		<category>
+			<pattern><set>number</set> dexterity ^</pattern>
+			<template>
+				<think><set name='AdventureGameDex'><star/></set></think>
+				<srai><star index='2'/></srai>
+			</template>
+		</category>
+		<category>
+			<pattern><set>number</set> dex ^</pattern>
+			<template>
+				<think><set name='AdventureGameDex'><star/></set></think>
+				<srai><star index='2'/></srai>
+			</template>
+		</category>
+		<category>
+			<pattern><set>number</set> intelligence ^</pattern>
+			<template>
+				<think><set name='AdventureGameInt'><star/></set></think>
+				<srai><star index='2'/></srai>
+			</template>
+		</category>
+		<category>
+			<pattern><set>number</set> int ^</pattern>
+			<template>
+				<think><set name='AdventureGameInt'><star/></set></think>
+				<srai><star index='2'/></srai>
+			</template>
+		</category>
+		<category>
+			<pattern><set>number</set> feet <set>number</set> inches ^</pattern>
+			<template>
+				<think><set name='AdventureGameHeight'><srai>XAdd <srai>XMultiply <star/> 12</srai> <star index='2'/></srai></set></think>
+				<srai><star index='3'/></srai>
+			</template>
+		</category>
+		<category>
+			<pattern><set>number</set> feet <set>number</set> inch ^</pattern>
+			<template><srai><star/> feet <star index='2'/> inches <star index='3'/></srai></template>
+		</category>
+		<category>
+			<pattern><set>number</set> feet <set>number</set> ^</pattern>
+			<template><srai><star/> feet <star index='2'/> inches <star index='3'/></srai></template>
+		</category>
+		<category>
+			<pattern><set>number</set> foot <set>number</set> ^</pattern>
+			<template><srai><star/> feet <star index='2'/> inches <star index='3'/></srai></template>
+		</category>
+		<category>
+			<pattern><set>number</set> foot ^</pattern>
+			<template><srai><star/> feet 0 inches <star index='2'/></srai></template>
+		</category>
+		<category>
+			<pattern><set>number</set> degrees ^</pattern>
+			<template>
+				<think><set name='AdventureGameTemperature'><star/></set></think>
+				<srai><star index='2'/></srai>
+			</template>
+		</category>
+		<category>
+			<pattern><set>number</set> degrees Celsius ^</pattern>
+			<template><srai><star/> degrees <star index='2'/></srai></template>
+		</category>
+		<category>
+			<pattern><set>number</set> degrees centigrade ^</pattern>
+			<template><srai><star/> degrees <star index='2'/></srai></template>
+		</category>
+		<category>
+			<pattern><set>number</set> degrees C ^</pattern>
+			<template><srai><star/> degrees <star index='2'/></srai></template>
+		</category>
+		<category>
+			<pattern><set>number</set> temperature ^</pattern>
+			<template><srai><star/> degrees <star index='2'/></srai></template>
+		</category>
+		<category>
+			<pattern>minus <set>number</set> degrees ^</pattern>
+			<template>
+				<think><set name='AdventureGameTemperature'>-<star/></set></think>
+				<srai><star index='2'/></srai>
+			</template>
+		</category>
+		<category>
+			<pattern>minus <set>number</set> degrees Celsius ^</pattern>
+			<template><srai><star/> degrees <star index='2'/></srai></template>
+		</category>
+		<category>
+			<pattern>minus <set>number</set> degrees centigrade ^</pattern>
+			<template><srai><star/> degrees <star index='2'/></srai></template>
+		</category>
+		<category>
+			<pattern>minus <set>number</set> degrees C ^</pattern>
+			<template><srai><star/> degrees <star index='2'/></srai></template>
+		</category>
+		<category>
+			<pattern>minus <set>number</set> temperature ^</pattern>
+			<template><srai><star/> degrees <star index='2'/></srai></template>
+		</category>
+		<category>
+			<pattern><set>number</set> point <set>number</set> gravity ^</pattern>
+			<template>
+				<think><set name='AdventureGameGravity'><star/><star index='2'/></set></think>  <!-- Store it in units of 1/10 m s⁻². -->
+				<srai><star index='3'/></srai>
+			</template>
+		</category>
+		<category>
+			<pattern><set>number</set> kilopascals ^</pattern>
+			<template>
+				<think><set name='AdventureGamePressure'><star/></set></think>
+				<srai><star index='2'/></srai>
+			</template>
+		</category>
+		<category>
+			<pattern><set>number</set> pressure ^</pattern>
+			<template>
+				<think><set name='AdventureGamePressure'><star/></set></think>
+				<srai><star index='2'/></srai>
+			</template>
+		</category>
+
+		<category>
+			<pattern>nil</pattern>
+			<topic>Bomb AdventureGame Stats ^</topic>
+			<template>
+				<!-- Check whether we have all the stats. -->
+				<think>
+					<set var='eq'><normalize>
+						<srai>XEq <get name='AdventureGameStr'/> XS unknown</srai>
+						<srai>XEq <get name='AdventureGameDex'/> XS unknown</srai>
+						<srai>XEq <get name='AdventureGameInt'/> XS unknown</srai>
+						<srai>XEq <get name='AdventureGameHeight'/> XS unknown</srai>
+						<srai>XEq <get name='AdventureGameTemperature'/> XS unknown</srai>
+						<srai>XEq <get name='AdventureGameGravity'/> XS unknown</srai>
+						<srai>XEq <get name='AdventureGamePressure'/> XS unknown</srai>
+					</normalize></set>
+				</think>
+				<condition var='eq'>
+					<li value='false false false false false false false'>
+						<srai>StatsReceived</srai>
+					</li>
+					<li>OK.</li>
+				</condition>
+			</template>
+		</category>
+
+		<category>
+			<pattern>StatsReceived</pattern>
+			<topic>Bomb AdventureGame Stats</topic>
+			<template>
+				<think>
+					<set name='topic'>Bomb AdventureGame Items</set>
+				</think>
+				Read the items.
+			</template>
+		</category>
+
+		<category>
+			<pattern><set>AdventureGameItem</set> ^</pattern>
+			<template>
+				<think>
+					<set name='AdventureGameItems'><srai>XAppend <srai>XImplode <star/></srai> <get name='AdventureGameItems'/></srai></set>
+				</think>
+				<srai><star index='2'/></srai>
+			</template>
+		</category>
+
+		<category>
+			<pattern>nil</pattern>
+			<topic>Bomb AdventureGame Items</topic>
+			<template>
+				<!-- TODO: Better check with the defuser whether that's all the items -->
+				<srai>CalculateItemsToUse</srai>
+			</template>
+		</category>
+
+		<category>
+			<pattern>CalculateItemsToUse</pattern>
+			<template>
+				<!-- First, is there a potion? -->
+				<think><set var='potion'><srai>XContains potion <get name='AdventureGameItems'/></srai></set></think>
+				<condition var='potion'>
+					<li value='true'>
+						<think>
+							<set name='AdventureGameItems'><srai>XRemove potion XS <get name='AdventureGameItems'/></srai></set>
+							<set name='AdventureGameStr'>unknown</set>
+							<set name='AdventureGameDex'>unknown</set>
+							<set name='AdventureGameInt'>unknown</set>
+						</think>
+						Use the potion, then read the new attributes.
+					</li>
+					<li>
+						<!-- Second, find non-weapons that should be used. -->
+						<think>
+							<set var='items'><get name='AdventureGameItems'/></set>
+							<condition var='items'>
+								<li value='nil'></li>
+								<li>
+									<set var='item'><first><get var='items'/></first></set>
+									<set var='items'><rest><get var='items'/></rest></set>
+									<set var='weaponStats'><map name='AdventureGameWeaponStats'><get var='item'/></map></set>
+									<condition var='weaponStats' value='unknown'>
+										<set var='result'><srai>ShouldUseItem <get var='item'/></srai></set>
+										<set var='code'><first><get var='result'/></first></set>
+										<condition var='code'>
+											<li value='NeedEdgework'>
+												<set var='items'>nil</set>
+												<set var='needsEdgework'><rest><get var='result'/></rest></set>
+											</li>
+											<li value='true'>
+												<condition var='itemsToUse'>
+													<li value='*'><set var='itemsToUse'><get var='itemsToUse'/>, then the <map name='AdventureGameItemDescription'><get var='item'/></map></set></li>
+													<li><set var='itemsToUse'>Use the <map name='AdventureGameItemDescription'><get var='item'/></map></set></li>
+												</condition>
+											</li>
+										</condition>
+									</condition>
+									<loop/>
+								</li>
+							</condition>
+						</think>
+						<condition var='needsEdgework'>
+							<li value='*'><srai>EdgeworkQuery <get var='needsEdgework'/> XS CalculateItemsToUse</srai></li>
+							<li>
+								<!-- Third, find the best weapon. -->
+								<think>
+									<set var='items'><get name='AdventureGameItems'/></set>
+									<set var='bestAdvantage'>-100</set>
+									<condition var='items'>
+										<li value='nil'></li>
+										<li>
+											<set var='item'><first><get var='items'/></first></set>
+											<set var='items'><rest><get var='items'/></rest></set>
+											<set var='weaponStats'><map name='AdventureGameWeaponStats'><get var='item'/></map></set>
+											<condition var='weaponStats'>
+												<li value='unknown'></li>
+												<li>
+													<set var='stat'><first><get var='weaponStats'/></first></set>
+													<set var='bonus'><rest><get var='weaponStats'/></rest></set>
+													<set var='playerStat'><srai>XAdd <get><name>AdventureGame<get var='stat'/></name></get> <get var='bonus'/></srai></set>
+													<set var='enemyStat'><get><name>AdventureGameEnemy<get var='stat'/></name></get></set>
+													<set var='advantage'><srai>XSubtract <get var='playerStat'/> <get var='enemyStat'/></srai></set>
+													<set var='isBetter'><srai>XGt <get var='advantage'/> XS <get var='bestAdvantage'/></srai></set>
+													<condition var='isBetter' value='true'>
+														<set var='bestWeapon'><get var='item'/></set>
+														<set var='bestAdvantage'><get var='advantage'/></set>
+													</condition>
+												</li>
+											</condition>
+											<loop/>
+										</li>
+									</condition>
+								</think>
+								<condition var='itemsToUse'>
+									<li value='*'><get var='itemsToUse'/>, then the <map name='AdventureGameItemDescription'><get var='bestWeapon'/></map>.</li>
+									<li>Use the <map name='AdventureGameItemDescription'><get var='bestWeapon'/></map>.</li>
+								</condition>
+							</li>
+						</condition>
+					</li>
+				</condition>
+			</template>
+		</category>
+
+		<category>
+			<pattern>PressureIsGreaterThan <set>number</set></pattern>
+			<template><srai>IsGreaterThan2 <explode><get name='AdventureGamePressure'/></explode> XS <explode><star/></explode></srai></template>
+		</category>
+		<category>
+			<pattern>PressureIsLessThan <set>number</set></pattern>
+			<template><srai>IsGreaterThan2 <explode><star/></explode> XS <explode><get name='AdventureGamePressure'/></explode></srai></template>
+		</category>
+		<category>
+			<pattern>HeightIsGreaterThan <set>number</set></pattern>
+			<template><srai>IsGreaterThan2 <explode><get name='AdventureGameHeight'/></explode> XS <explode><star/></explode></srai></template>
+		</category>
+		<category>
+			<pattern>HeightIsLessThan <set>number</set></pattern>
+			<template><srai>IsGreaterThan2 <explode><star/></explode> XS <explode><get name='AdventureGameHeight'/></explode></srai></template>
+		</category>
+		<category>
+			<pattern>GravityIsGreaterThan <set>number</set></pattern>
+			<template><srai>IsGreaterThan2 <explode><get name='AdventureGameGravity'/></explode> XS <explode><star/></explode></srai></template>
+		</category>
+		<category>
+			<pattern>GravityIsLessThan <set>number</set></pattern>
+			<template><srai>IsGreaterThan2 <explode><star/></explode> XS <explode><get name='AdventureGameGravity'/></explode></srai></template>
+		</category>
+		<category>
+			<pattern>IsGreaterThan2 <set>number</set> <set>number</set> XS <set>number</set> <set>number</set></pattern>
+			<template>
+				<think><set var='tensGt'><srai>XGt <star index='1'/> XS <star index='3'/></srai></set></think>
+				<condition var='tensGt'>
+					<li value='true'>true</li>
+					<li>
+						<think><set var='tensEq'><srai>XEq <star index='1'/> XS <star index='3'/></srai></set></think>
+						<condition var='tensEq'>
+							<li value='true'><srai>XGt <star index='2'/> XS <star index='4'/></srai></li>
+							<li>false</li>
+						</condition>
+					</li>
+				</condition>
+			</template>
+		</category>
+		<category>
+			<pattern>IsGreaterThan2 1 <set>number</set> <set>number</set> XS 1 <set>number</set> <set>number</set></pattern>
+			<template><srai>IsGreaterThan2 <star index='1'/> <star index='2'/> XS <star index='3'/> <star index='4'/></srai></template>
+		</category>
+		<category>
+			<pattern>IsGreaterThan2 <set>number</set> <set>number</set> XS 1 <set>number</set> <set>number</set></pattern>
+			<template>false</template>
+		</category>
+		<category>
+			<pattern>IsGreaterThan2 1 <set>number</set> <set>number</set> XS <set>number</set> <set>number</set></pattern>
+			<template>true</template>
+		</category>
+
+		<category>
+			<pattern>ShouldUseItem balloon</pattern>
+			<template>
+				<condition name='AdventureGameEnemy'>
+					<li value='eagle'>false</li>
+					<li>
+						<srai>XOr
+							<srai>GravityIsLessThan 93</srai> XS
+							<srai>PressureIsGreaterThan 110</srai>
+						</srai>
+					</li>
+				</condition>
+			</template>
+		</category>
+		<category>
+			<pattern>ShouldUseItem battery</pattern>
+			<template>
+				<condition name='AdventureGameEnemy'>
+					<li value='golem'>false</li>
+					<li value='wizard'>false</li>
+					<li>
+						<condition name='BombBatteryCount'>
+							<li value='0'>true</li>
+							<li value='1'>true</li>
+							<li value='unknown'>NeedEdgework BatteryCount</li>
+							<li>false</li>
+						</condition>
+					</li>
+				</condition>
+			</template>
+		</category>
+		<category>
+			<pattern>ShouldUseItem bellows</pattern>
+			<template>
+				<think><set var='isDragonOrEagle'><srai>XContains <get name='AdventureGameEnemy'/> dragon eagle</srai></set></think>
+				<condition var='isDragonOrEagle'>
+					<li value='true'><srai>PressureIsGreaterThan 105</srai></li>
+					<li><srai>PressureIsLessThan 95</srai></li>
+				</condition>
+			</template>
+		</category>
+		<category>
+			<pattern>ShouldUseItem cheatcode</pattern>
+			<template>false</template>
+		</category>
+		<category>
+			<pattern>ShouldUseItem crystalball</pattern>
+			<template>
+				<condition name='AdventureGameEnemy'>
+					<li value='wizard'>false</li>
+					<li>
+						<condition name='BombSerialNumberLastDigit'>
+							<li value='unknown'>NeedEdgework SerialNumberLastDigit</li>
+							<li><srai>XGt <get name='AdventureGameInt'/> XS <get name='BombSerialNumberLastDigit'/></srai></li>
+						</condition>
+					</li>
+				</condition>
+			</template>
+		</category>
+		<category>
+			<pattern>ShouldUseItem feather</pattern>
+			<template>
+				<srai>XOr
+					<srai>XGt <get name='AdventureGameDex'/> XS <get name='AdventureGameStr'/></srai> XS
+					<srai>XGt <get name='AdventureGameDex'/> XS <get name='AdventureGameInt'/></srai>
+				</srai>
+			</template>
+		</category>
+		<category>
+			<pattern>ShouldUseItem harddrive</pattern>
+			<template>
+				<condition name='BombPortPlateCount'>
+					<li value='unknown'>NeedEdgework PortPlates</li>
+					<li>
+						<srai>XOr
+							<srai>XGt <get name='BombPortCountParallel'/> XS 1</srai> XS
+							<srai>XGt <get name='BombPortCountSerial'/> XS 1</srai> XS
+							<srai>XGt <get name='BombPortCountRJ45'/> XS 1</srai> XS
+							<srai>XGt <get name='BombPortCountDVID'/> XS 1</srai> XS
+							<srai>XGt <get name='BombPortCountPS2'/> XS 1</srai> XS
+							<srai>XGt <get name='BombPortCountStereoRCA'/> XS 1</srai>
+						</srai>
+					</li>
+				</condition>
+			</template>
+		</category>
+		<category>
+			<pattern>ShouldUseItem lamp</pattern>
+			<template>
+				<condition name='AdventureGameEnemy'>
+					<li value='lizard'>false</li>
+					<li><srai>XGt 12 XS <get name='AdventureGameTemperature'/></srai></li>
+				</condition>
+			</template>
+		</category>
+		<category>
+			<pattern>ShouldUseItem moonstone</pattern>
+			<template>
+				<condition name='BombIndicatorCountUnlit'>
+					<li value='unknown'>NeedEdgework Indicators</li>
+					<li><srai>XGt <get name='BombIndicatorCountUnlit'/> XS 1</srai></li>
+				</condition>
+			</template>
+		</category>
+		<category>
+			<pattern>ShouldUseItem potion</pattern>
+			<template>true</template>
+		</category>
+		<category>
+			<pattern>ShouldUseItem smalldog</pattern>
+			<template>
+				<condition name='AdventureGameEnemy'>
+					<li value='demon'>false</li>
+					<li value='dragon'>false</li>
+					<li value='troll'>false</li>
+					<li>true</li>
+				</condition>
+			</template>
+		</category>
+		<category>
+			<pattern>ShouldUseItem stepladder</pattern>
+			<template>
+				<condition name='AdventureGameEnemy'>
+					<li value='goblin'>false</li>
+					<li value='lizard'>false</li>
+					<li><srai>HeightIsLessThan 48</srai></li>
+				</condition>
+			</template>
+		</category>
+		<category>
+			<pattern>ShouldUseItem sunstone</pattern>
+			<template>
+				<condition name='BombIndicatorCountLit'>
+					<li value='unknown'>NeedEdgework Indicators</li>
+					<li><srai>XGt <get name='BombIndicatorCountLit'/> XS 1</srai></li>
+				</condition>
+			</template>
+		</category>
+		<category>
+			<pattern>ShouldUseItem symbol</pattern>
+			<template>
+				<condition name='AdventureGameEnemy'>
+					<li value='demon'>true</li>
+					<li value='golem'>true</li>
+					<li><srai>XGt <get name='AdventureGameTemperature'/> XS 31</srai></li>
+				</condition>
+			</template>
+		</category>
+		<category>
+			<pattern>ShouldUseItem ticket</pattern>
+			<template>
+				<srai>XAnd
+					<srai>HeightIsGreaterThan 53</srai> XS
+					<srai>GravityIsGreaterThan 91</srai> XS
+					<srai>GravityIsLessThan 105</srai>
+				</srai>
+			</template>
+		</category>
+		<category>
+			<pattern>ShouldUseItem trophy</pattern>
+			<template>
+				<condition name='AdventureGameEnemy'>
+					<li value='troll'>true</li>
+					<li>
+						<condition name='BombSerialNumber'>
+							<li value='unknown'>NeedEdgework SerialNumber</li>
+							<li>
+								<think>
+									<set var='chars'><explode><get name='BombSerialNumber'/></explode></set>
+									<condition var='digit'>
+										<li value='*'></li>
+										<li>
+											<condition var='chars'>
+												<li value='nil'><set var='digit'>0</set></li>
+												<li>
+													<set var='char'><first><get var='chars'/></first></set>
+													<set var='chars'><rest><get var='chars'/></rest></set>
+													<set var='isNumber'><srai>XIsNumber <get var='char'/></srai></set>
+													<condition var='isNumber' value='true'><set var='digit'><get var='char'/></set></condition>
+												</li>
+											</condition>
+											<loop/>
+										</li>
+									</condition>
+								</think>
+								<srai>XGt <get name='AdventureGameStr'/> XS <get var='digit'/></srai>
+							</li>
+						</condition>
+					</li>
+				</condition>
+			</template>
+		</category>
+	</topic>
+
+	<category>
+		<pattern>SouvenirInput Button XS <set>number</set></pattern>
+		<template><srai>SouvenirGet Button XS <star/> XS Colour</srai></template>
+	</category>
+</aiml>

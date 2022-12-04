@@ -1,0 +1,22 @@
+broadsword:broadsword
+caber:caber
+nastyknife:nasty knife
+longbow:longbow
+magicorb:magic orb
+grimoire:grimoire
+balloon:balloon
+battery:battery
+bellows:bellows
+cheatcode:cheat code
+crystalball:crystal ball
+feather:feather
+harddrive:hard drive
+lamp:lamp
+moonstone:moonstone
+potion:potion
+smalldog:small dog
+stepladder:stepladder
+sunstone:sunstone
+symbol:symbol
+ticket:ticket
+trophy:trophy

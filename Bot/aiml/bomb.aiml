@@ -12,6 +12,7 @@
 				<set name='SolveCount'>0</set>
 				<set name='TurnTheKeysModule'>unknown</set>
 				<set name='SouvenirCurrent'>0</set>
+				<set name='RotaryPhoneTotal'>0</set>
 			</think>
 			<oob>SetGrammar bomb</oob><oob>SetPartialInput false</oob> OK
 		</template>
@@ -237,6 +238,27 @@
 		<pattern>DecodeNato <set>NATO</set> *</pattern>
 		<template><map name='NATO'><star/></map><srai>DecodeNato <star index='2'/></srai></template>
 	</category>
+
+	<category>
+		<pattern>EncodeNATO *</pattern>
+		<template>
+			<think>
+				<set var='chars'><explode><star/></explode></set>
+				<set var='result'></set>
+				<condition var='chars'>
+					<li value='nil'></li>
+					<li>
+						<set var='char'><first><get var='chars'/></first></set>
+						<set var='chars'><rest><get var='chars'/></rest></set>
+						<set var='result'><get var='result'/> <map name='NatoEncode'><get var='char'/></map></set>
+						<loop/>
+					</li>
+				</condition>
+			</think>
+			<get var='result'/>
+		</template>
+	</category>
+
 
 	<!-- Verification -->
 	<category>

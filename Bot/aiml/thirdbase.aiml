@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml>
+	<topic name='Bomb ThirdBase ^'>
+		<category>
+			<pattern>InitModule</pattern>
+			<template>
+				<think>
+					<set name='topic'>Bomb ThirdBase</set>
+					<set name='ThirdBaseStage'>1</set>
+				</think>
+				Read the display as if it were not upside-down.
+			</template>
+		</category>
+
+		<category>
+			<pattern><set>LetterOrDigit</set> <set>LetterOrDigit</set> <set>LetterOrDigit</set> <set>LetterOrDigit</set></pattern>
+			<template><srai>HandleInput <map name='NATO'><star index='1'/></map> <map name='NATO'><star index='2'/></map> <map name='NATO'><star index='3'/></map> <map name='NATO'><star index='4'/></map></srai></template>
+		</category>
+
+		<category>
+			<pattern>HandleInput *</pattern>
+			<topic>Bomb ThirdBase</topic>
+			<template>
+				<think>
+					<set var='result'><srai>XImplode <srai>XInvert <star/></srai></srai></set>
+				</think>
+				<condition var='result'>
+					<li value='unknown'>That does not sound like a possible label. Try again.</li>
+					<li>
+						<srai>SouvenirPut Display<get name='ThirdBaseStage'/> XS <get var='result'/></srai>
+						<think><set name='topic'>Bomb ThirdBase Button</set></think>
+						Read the <map name='ThirdBaseButton'><get var='result'/></map> button.
+					</li>
+				</condition>
+			</template>
+		</category>
+
+		<category>
+			<pattern>HandleInput *</pattern>
+			<topic>Bomb ThirdBase Button</topic>
+			<template>
+				<think>
+					<set var='result'><srai>XImplode <srai>XInvert <star/></srai></srai></set>
+					<set var='list'><map name='ThirdBaseList'><get var='result'/></map></set>
+				</think>
+				<condition var='list'>
+					<li value='unknown'>That does not sound like a possible label. Try again.</li>
+					<li>
+						<think>
+							<set name='topic'>Bomb ThirdBase</set>
+							<set var='result'>nil</set>
+							<condition var='list'>
+								<li value='nil'></li>
+								<li>
+									<set var='label'><srai>EncodeNato <srai>XInvert <srai>XFirst <get var='list'/></srai></srai></srai></set>
+									<set var='list'><srai>XRest <get var='list'/></srai></set>
+									<condition var='result'>
+										<li value='nil'><set var='result'><get var='label'/></set></li>
+										<li><set var='result'><get var='result'/>... <get var='label'/></set></li>
+									</condition>
+									<loop/>
+								</li>
+							</condition>
+						</think>
+						Press the first of these that exists: <get var='result'/>
+					</li>
+				</condition>
+			</template>
+		</category>
+
+		<category>
+			<pattern>next stage ^</pattern>
+			<template>
+				<think>
+					<condition name='ThirdBaseStage'>
+						<li value='1'><set name='ThirdBaseStage'>2</set></li>
+						<li value='2'><set name='ThirdBaseStage'>3</set></li>
+						<li>
+							<srai>NewSouvenirStoreIndex</srai>
+							<set name='ThirdBaseStage'>1</set>
+						</li>
+					</condition>
+					<set name='topic'>Bomb ThirdBase</set>
+				</think>
+				<srai><star/></srai>
+			</template>
+		</category>
+		<category>
+			<pattern>new stage ^</pattern>
+			<template><srai>next stage <star/></srai></template>
+		</category>
+
+		<category>
+			<pattern>XImplode <set>LetterOrDigit</set> <set>LetterOrDigit</set> <set>LetterOrDigit</set> <set>LetterOrDigit</set></pattern>
+			<template><star index='1'/><star index='2'/><star index='3'/><star index='4'/></template>
+		</category>
+
+		<category>
+			<pattern>XInvert *</pattern>
+			<template><srai>XInvert <explode><star/></explode></srai></template>
+		</category>
+		<category>
+			<pattern>XInvert <set>LetterOrDigit</set> *</pattern>
+			<template><srai>XInvert <star index='2'/></srai> <srai>XInvert <star/></srai></template>
+		</category>
+		<category>
+			<pattern>XInvert <set>LetterOrDigit</set></pattern>
+			<template><star/></template>
+		</category>
+		<category>
+			<pattern>XInvert 6</pattern>
+			<template>9</template>
+		</category>
+		<category>
+			<pattern>XInvert 9</pattern>
+			<template>6</template>
+		</category>
+	</topic>
+
+	<category>
+		<pattern>SouvenirInput ThirdBase XS <set>number</set></pattern>
+		<template>
+			Stage 1 was <srai>EncodeNato <srai>SouvenirGet ThirdBase XS <star/> XS Display1</srai></srai>.
+			Stage 2 was <srai>EncodeNato <srai>SouvenirGet ThirdBase XS <star/> XS Display2</srai></srai>.
+			Stage 3 was <srai>EncodeNato <srai>SouvenirGet ThirdBase XS <star/> XS Display3</srai></srai>.
+		</template>
+	</category>
+	<category>
+		<pattern>SouvenirInput ThirdBase XS <set>number</set> XS <set>number</set></pattern>
+		<template>
+			Stage <star index='2'/> was <srai>EncodeNato <srai>SouvenirGet ThirdBase XS <star/> XS Display<star index='2'/></srai></srai>.
+		</template>
+	</category>
+	<category>
+		<pattern>SouvenirInput ThirdBase XS <set>number</set> XS <set>ordinal</set></pattern>
+		<template>
+			Stage <map name='OrdinalToNumber'><star index='2'/></map> was <srai>EncodeNato <srai>SouvenirGet ThirdBase XS <star/> XS Display<map name='OrdinalToNumber'><star index='2'/></map></srai></srai>.
+		</template>
+	</category>
+	<category>
+		<pattern>SouvenirInput ThirdBase XS <set>number</set> XS stage <set>number</set></pattern>
+		<template><srai>SouvenirInput ThirdBase XS <star/> XS <star index='2'/></srai></template>
+	</category>
+</aiml>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml>
+	<category>
+		<pattern>Swan code</pattern>
+		<template>4, 8, 15, 16, 23, 42.</template>
+	</category>
+	<category>
+		<pattern>Swan reset</pattern>
+		<template>
+			OK. <set name='BombSwanResetCount'><map name='successor'><get name='BombSwanResetCount'/></map></set> resets so far.
+		</template>
+	</category>
+
+	<topic name='Bomb Swan'>
+		<category>
+			<pattern>SelectModule</pattern>
+			<template>Is the keypad showing letters?</template>
+		</category>
+
+		<category>
+			<pattern>No</pattern>
+			<template>When the alarm sounds, enter 4, 8, 15, 16, 23, 42. Then tell me when the Swan has reset.</template>
+		</category>
+		<category>
+			<pattern>Yes</pattern>
+			<template>With <get name='BombSwanResetCount'/> resets, enter
+				<explode><map name='SwanSolutions'><get name='BombSwanResetCount'/></map></explode>.
+			</template>
+		</category>
+	</topic>
+</aiml>

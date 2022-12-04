@@ -1,0 +1,4 @@
+bomb
+cherry
+coin
+grape

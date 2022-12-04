@@ -1,0 +1,33 @@
+Aluga              :Aluga
+Asteran            :Asteran
+Bob                :Bob
+Buhar              :Buhar
+Caadarim           :Caadarim
+Clondar            :Clondar
+Cutie Pie          :CutiePie
+Docsplode          :Docsplode
+Flaurim            :Flaurim
+Gloorim            :Gloorim
+Lanaluff           :Lanaluff
+Lugirit            :Lugirit
+Magmy              :Magmy
+Melbor             :Melbor
+Mountoise          :Mountoise
+Myrchat            :Myrchat
+Nibs               :Nibs
+Percy              :Percy
+Pouse              :Pouse
+Ukkens             :Ukkens
+Vellarim           :Vellarim
+Violan             :Violan
+Zapra              :Zapra
+Zenlad             :Zenlad
+Aluga the Fighter  :AlugaFighter
+Bob the Ancestor   :BobAncestor
+Buhar the Protector:BuharProtector
+Melbor the Web Bug :MelborWebBug
+
+common:Common
+uncommon:Uncommon
+rare:Rare
+ultra rare:UltraRare

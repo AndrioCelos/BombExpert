@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml>
+	<category>
+		<pattern>MonsplodeTradingCardsEdgeworkCheck</pattern>
+		<template>
+			<think>
+				<set name='topic'>Bomb MonsplodeTradingCards</set>
+			</think>
+			<condition name='BombSerial'>
+				<li value='unknown'><srai>EdgeworkQuery Serial XS MonsplodeTradingCardsEdgeworkCheck</srai></li>
+				<li>
+					<condition name='BombIndicatorCount'>
+						<li value='unknown'><srai>EdgeworkQuery Indicators XS MonsplodeTradingCardsEdgeworkCheck</srai></li>
+						<li>
+							<condition name='BombBatteryCount'>
+								<li value='unknown'><srai>EdgeworkQuery BatteryCount XS MonsplodeTradingCardsEdgeworkCheck</srai></li>
+								<li>Describe the first of your cards.</li>
+							</condition>
+						</li>
+					</condition>
+				</li>
+			</condition>
+		</template>
+	</category>
+
+	<topic name='Bomb MonsplodeTradingCards'>
+		<category>
+			<pattern>InitModule</pattern>
+			<template>
+				<think>
+					<set name='BombMonsplodeTradingCards1'>unknown</set>
+					<set name='BombMonsplodeTradingCards2'>unknown</set>
+					<set name='BombMonsplodeTradingCards3'>unknown</set>
+					<set name='BombMonsplodeTradingCardsAsking'>1</set>
+				</think>
+				<srai>MonsplodeTradingCardsEdgeworkCheck</srai>
+			</template>
+		</category>
+
+		<!-- Card format: [Monsplode name] [print letter] [print number] [rarity] [foil] [bent corners] -->
+		<category>
+			<pattern><set>MonsplodeTradingCard</set> <set>NATO</set> <set>number</set> <set>MonsplodeTradingCardRarity</set> <set>number</set></pattern>
+			<template><srai>HandleCard <map name='MonsplodeTradingCardParse'><star/></map> <map name='NATO'><star index='2'/></map> <star index='3'/> <map name='MonsplodeTradingCardParse'><star index='4'/></map> false <star index='5'/></srai></template>
+		</category>
+		<category>
+			<pattern><set>MonsplodeTradingCard</set> <set>NATO</set> <set>number</set> <set>MonsplodeTradingCardRarity</set> foil <set>number</set></pattern>
+			<template><srai>HandleCard <map name='MonsplodeTradingCardParse'><star/></map> <map name='NATO'><star index='2'/></map> <star index='3'/> <map name='MonsplodeTradingCardParse'><star index='4'/></map> true <star index='5'/></srai></template>
+		</category>
+
+		<category>
+			<pattern>HandleCard *</pattern>
+			<template>
+				<think>
+					<set var='index'><get name='BombMonsplodeTradingCardsAsking'/></set>
+					<set var='value'><srai>CalculateValue <star/></srai></set>
+					<set><name>BombMonsplodeTradingCards<get name='BombMonsplodeTradingCardsAsking'/></name><star/></set>
+					<set><name>BombMonsplodeTradingCardsValue<get name='BombMonsplodeTradingCardsAsking'/></name><get var='value'/></set>
+					<set name='BombMonsplodeTradingCardsAsking'><map name='successor'><get name='BombMonsplodeTradingCardsAsking'/></map></set>
+				</think>
+				<condition name='BombMonsplodeTradingCardsAsking'>
+					<li value='2'>
+						<think>
+							<set name='BombMonsplodeTradingCardsLowest'>1</set>
+							<set name='BombMonsplodeTradingCardsLowestValue'><get var='value'/></set>
+						</think>
+						OK. Describe the second card.
+					</li>
+					<li value='3'><think><set var='hand'>true</set></think>OK. Describe the third card.</li>
+					<li value='4'><think><set var='hand'>true</set></think>OK. Describe the card on offer.</li>
+					<li>
+						<think><set var='compare'><srai>XCompareDigits <get var='value'/> <get name='BombMonsplodeTradingCardsLowestValue'/></srai></set></think>
+						<condition var='compare'>
+							<li value='-1'>Keep your cards.</li>
+							<li>
+								Trade away <srai>DescribeLowest</srai>.
+								<think>
+									<set><name>BombMonsplodeTradingCards<get name='BombMonsplodeTradingCardsLowest'/></name><star/></set>
+									<srai>CalculateLowest</srai>
+									<set name='BombMonsplodeTradingCardsAsking'>4</set>
+								</think>
+							</li>
+						</condition>
+					</li>
+				</condition>
+				<think>
+					<condition var='hand' value='true'>
+						<set var='compare'><srai>XCompareDigits <get var='value'/> <get name='BombMonsplodeTradingCardsLowestValue'/></srai></set>
+						<condition var='compare' value='-1'>
+							<set name='BombMonsplodeTradingCardsLowest'><get var='index'/></set>
+							<set name='BombMonsplodeTradingCardsLowestValue'><get var='value'/></set>
+						</condition>
+					</condition>
+				</think>
+			</template>
+		</category>
+
+		<category>
+			<pattern>CalculateLowest</pattern>
+			<template>
+				<think>
+					<set name='BombMonsplodeTradingCardsLowestValue'>100</set>
+					<set var='index'>1</set>
+					<condition var='index'>
+						<li value='4'></li>
+						<li>
+							<set var='card'><get><name>BombMonsplodeTradingCards<get var='index'/></name></get></set>
+							<set var='value'><srai>CalculateValue <get var='card'/></srai></set>
+							<set var='compare'><srai>XCompareDigits <get var='value'/> <get name='BombMonsplodeTradingCardsLowestValue'/></srai></set>
+							<condition var='compare' value='-1'>
+								<set name='BombMonsplodeTradingCardsLowest'><get var='index'/></set>
+								<set name='BombMonsplodeTradingCardsLowestValue'><get var='value'/></set>
+							</condition>
+							<set var='index'><map name='successor'><get var='index'/></map></set>
+							<loop/>
+						</li>
+					</condition>
+				</think>
+			</template>
+		</category>
+
+		<category>
+			<pattern>DescribeLowest</pattern>
+			<template>
+				<think>
+					<set var='card'><get><name>BombMonsplodeTradingCards<get name='BombMonsplodeTradingCardsLowest'/></name></get></set>
+				</think>
+				<srai>XItem 1 <get var='card'/></srai>
+				<srai>XItem 2 <get var='card'/></srai>
+				<srai>XItem 3 <get var='card'/></srai>
+ 			</template>
+		</category>
+
+		<category>
+			<pattern>CalculateValue * * * * * *</pattern>
+			<template>
+				<think>
+					<set var='printVersion'><star index='2'/><star index='3'/></set>
+					<condition var='printVersion'>
+						<li value='A1'><set var='value'>0</set></li>
+						<li value='B2'><set var='value'>0</set></li>
+						<li value='C3'><set var='value'>0</set></li>
+						<li value='D4'><set var='value'>0</set></li>
+						<li value='E5'><set var='value'>0</set></li>
+						<li value='F6'><set var='value'>0</set></li>
+						<li value='G7'><set var='value'>0</set></li>
+						<li value='H8'><set var='value'>0</set></li>
+						<li value='I9'><set var='value'>0</set></li>
+						<li>
+							<!-- Not fake -->
+							<set var='value'><map name='MonsplodeTradingCardValue'><star/> <srai>GetSerialCategory</srai></map></set>
+
+							<!-- Indicators -->
+							<set var='indicators'><get name='BombIndicators'/></set>
+							<condition var='indicators'>
+								<li value='nil'></li>
+								<li>
+									<set var='indicator'><srai>XFirst <get var='indicators'/></srai></set>
+									<set var='indicators'><srai>XRest <get var='indicators'/></srai></set>
+									<set var='contains'><srai>XContains <star index='2'/> <explode><get var='indicator'/></explode></srai></set>
+									<condition var='contains' value='true'>
+										<condition>
+											<name>BombIndicatorLit<get var='indicator'/></name>
+											<li value='true'><set var='value'><map name='successor'><get var='value'/></map></set></li>
+											<li><set var='value'><map name='predecessor'><get var='value'/></map></set></li>
+										</condition>
+									</condition>
+									<loop/>
+								</li>
+							</condition>
+
+							<!-- Batteries -->
+							<condition name='BombBatteryCount'>
+								<li value='0'></li>
+								<li>
+									<set var='compare'><srai>XCompareDigits <star index='3'/> <get name='BombBatteryCount'/></srai></set>
+									<condition var='compare'>
+										<li value='-1'><set var='value'><map name='predecessor'><get var='value'/></map></set></li>
+										<li value='1'><set var='value'><map name='successor'><get var='value'/></map></set></li>
+										<li value='0'><set var='value'><map name='successor'><map name='successor'><get var='value'/></map></map></set></li>
+									</condition>
+								</li>
+							</condition>
+
+							<!-- Cap at 0 -->
+							<set var='first'><first><explode><get var='value'/></explode></first></set>
+							<condition var='first' value='-'><set var='value'>0</set></condition>
+
+							<!-- Multiplier -->
+							<set var='rarity'><star index='4'/></set>
+							<condition var='rarity'>
+								<li value='Common'><set var='multiplier'>4</set></li>
+								<li value='Uncommon'><set var='multiplier'>5</set></li>
+								<li value='Rare'><set var='multiplier'>6</set></li>
+								<li value='UltraRare'><set var='multiplier'>7</set></li>
+							</condition>
+
+							<set var='foil'><star index='5'/></set>
+							<condition var='foil' value='true'>
+								<set var='multiplier'><map name='successor'><map name='successor'><get var='multiplier'/></map></map></set>
+							</condition>
+
+							<set var='corners'><star index='6'/></set>
+							<condition var='corners'>
+								<li value='0'></li>
+								<li>
+									<set var='multiplier'><map name='predecessor'><get var='multiplier'/></map></set>
+									<set var='corners'><map name='predecessor'><get var='corners'/></map></set>
+									<loop/>
+								</li>
+							</condition>
+
+							<set var='value'><sraix service='BombExpert.Multiply'><get var='value'/> <get var='multiplier'/></sraix></set>
+						</li>
+					</condition>
+				</think>
+				<get var='value'/>
+			</template>
+		</category>
+
+		<category>
+			<pattern>GetSerialCategory</pattern>
+			<template>
+				<srai>IsLetterOrDigit <srai>XItem 1 <explode><get name='BombSerial'/></explode></srai></srai>
+				<srai>IsLetterOrDigit <srai>XItem 1 <explode><get name='BombSerial'/></explode></srai></srai>
+			</template>
+		</category>
+	</topic>
+</aiml>

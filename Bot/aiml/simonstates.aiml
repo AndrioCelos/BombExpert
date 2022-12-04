@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml>
+	<topic name='Bomb SimonStates'>
+		<category>
+			<pattern>InitModule</pattern>
+			<template>
+				<think>
+					<set name='SimonStatesStage'>unknown</set>
+					<set name='SimonStatesInput'>nil</set>
+				</think>
+				What colour is on the top left?
+			</template>
+		</category>
+
+		<category>
+			<pattern>red ^</pattern>
+			<template><srai>SimonStatesInput <input/></srai></template>
+		</category>
+		<category>
+			<pattern>yellow ^</pattern>
+			<template><srai>SimonStatesInput <input/></srai></template>
+		</category>
+		<category>
+			<pattern>green ^</pattern>
+			<template><srai>SimonStatesInput <input/></srai></template>
+		</category>
+		<category>
+			<pattern>blue ^</pattern>
+			<template><srai>SimonStatesInput <input/></srai></template>
+		</category>
+
+		<!-- Usage: SimonStatesInput [colours ...] -->
+		<!-- Tells the user what to press. -->
+		<category>
+			<pattern>SimonStatesInput *</pattern>
+			<template>
+				<think><set var='count'><srai>XCount <star/></srai></set></think>
+				<condition name='SimonStatesStage'>
+					<li value='unknown'>
+						<condition var='count'>
+							<li value='1'>
+								<think>
+									<set name='SimonStatesPriority'><map name='SimonStatesPriority'><star/></map></set>
+									<set name='SimonStatesStage'>1</set>
+								</think>
+								Which colours flashed?
+							</li>
+							<li>What colour is on the top left?</li>
+						</condition>
+					</li>
+					<li>
+						<think>
+							<srai>SouvenirPut Flashes <get name='SimonStatesStage'/> XS <star/></srai>
+							<set name='SimonStatesInput'><srai>XAppend <srai>Solver SimonStates <get name='SimonStatesStage'/> XS <star/> XS <get name='SimonStatesInput'/></srai> <get name='SimonStatesInput'/></srai></set>
+							<set name='SimonStatesStage'><map name='successor'><get name='SimonStatesStage'/></map></set>
+						</think>
+						Press <get name='SimonStatesInput'/>.
+					</li>
+				</condition>
+			</template>
+		</category>
+
+		<!-- Usage: Solver SimonStates [stage] XS [flashing colours ...] XS [input sequence ...] -->
+		<!-- Returns a list of mapped colours that the Defuser must press. -->
+		<category>
+			<pattern>Solver SimonStates 1 XS * XS ^</pattern>
+			<template>
+				<think><set var='count'><srai>XCount <star/></srai></set></think>
+				<condition var='count'>
+					<li value='1'><star/></li>
+					<li value='2'>
+						<think><set var='blue'><srai>XContains blue <star/></srai></set></think>
+						<condition var='blue'>
+							<li value='true'><srai>HighestPriority <star/></srai></li>
+							<li>blue</li>
+						</condition>
+					</li>
+					<li value='3'>
+						<think><set var='red'><srai>XContains red <star/></srai></set></think>
+						<condition var='red'>
+							<li value='true'><srai>LowestPriority <star/></srai></li>
+							<li>red</li>
+						</condition>
+					</li>
+					<li><srai>XItem 2 <get name='SimonStatesPriority'/></srai></li>
+				</condition>
+			</template>
+		</category>
+		<category>
+			<pattern>Solver SimonStates 2 XS * XS ^</pattern>
+			<template>
+				<think><set var='count'><srai>XCount <star/></srai></set></think>
+				<condition var='count'>
+					<li value='1'>
+						<think><set var='blue'><srai>XContains blue <star/></srai></set></think>
+						<condition var='blue'>
+							<li value='true'>yellow</li>
+							<li>blue</li>
+						</condition>
+					</li>
+					<li value='2'>
+						<think><set var='redblue'><srai>XContains red <star/></srai> <srai>XContains blue <star/></srai></set></think>
+						<condition var='redblue'>
+							<li value='true true'><srai>HighestPriority <srai>NotIn <star/></srai></srai></li>
+							<li><srai>LowestPriority <srai>NotIn <star/></srai></srai></li>
+						</condition>
+					</li>
+					<li value='3'>
+						<srai>NotIn <star/></srai>
+					</li>
+					<li><star index='2'/></li>
+				</condition>
+			</template>
+		</category>
+		<category>
+			<pattern>Solver SimonStates 3 XS * XS ^</pattern>
+			<template>
+				<think><set var='count'><srai>XCount <star/></srai></set></think>
+				<condition var='count'>
+					<li value='1'>
+						<star/>
+					</li>
+					<li value='2'>
+						<think><set var='pressed'><srai>XContains <first><star/></first> <star index='2'/></srai> <srai>XContains <rest><star/></rest> <star index='2'/></srai></set></think>
+						<condition var='pressed'>
+							<li value='true true'><srai>LowestPriority <srai>NotIn <star/></srai></srai></li>
+							<li><first><star index='2'/></first></li>
+						</condition>
+					</li>
+					<li value='3'>
+						<think>
+							<set var='pressed'><normalize>
+								<srai>XContains <srai>XItem 1 <star/></srai> <star index='2'/></srai>
+								<srai>XContains <srai>XItem 2 <star/></srai> <star index='2'/></srai>
+								<srai>XContains <srai>XItem 3 <star/></srai> <star index='2'/></srai>
+							</normalize></set>
+						</think>
+						<condition var='pressed'>
+							<li value='false false false'><srai>HighestPriority <star/></srai></li>
+							<li><srai>HighestPriorityNotPressed <star/> XS <star index='2'/></srai></li>
+						</condition>
+					</li>
+					<li><srai>XItem 3 <get name='SimonStatesPriority'/></srai></li>
+				</condition>
+			</template>
+		</category>
+		<category>
+			<pattern>Solver SimonStates 4 XS * XS ^</pattern>
+			<template>
+				<think>
+					<set var='count'><srai>XCount <star/></srai></set>
+					<set var='notPressed'><srai>NotIn <star index='2'/></srai></set>
+					<set var='countNotPressed'><srai>XCount <get var='notPressed'/></srai></set>
+				</think>
+				<condition var='countNotPressed'>
+					<li value='1'><get var='notPressed'/></li>
+					<li>
+						<condition var='count'>
+							<li value='1'>
+								<star/>
+							</li>
+							<li value='3'>
+								<think>
+									<set var='pressed'><normalize>
+										<srai>XContains <srai>XItem 1 <star/></srai> <star index='2'/></srai>
+										<srai>XContains <srai>XItem 2 <star/></srai> <star index='2'/></srai>
+										<srai>XContains <srai>XItem 3 <star/></srai> <star index='2'/></srai>
+									</normalize></set>
+								</think>
+								<condition var='pressed'>
+									<li value='false true true'><srai>XItem 1 <star/></srai></li>
+									<li value='true false true'><srai>XItem 2 <star/></srai></li>
+									<li value='true true false'><srai>XItem 3 <star/></srai></li>
+									<li><srai>XItem 4 <get name='SimonStatesPriority'/></srai></li>
+								</condition>
+							</li>
+							<li value='4'><srai>XItem 4 <get name='SimonStatesPriority'/></srai></li>
+							<li>green</li>
+						</condition>
+					</li>
+				</condition>
+			</template>
+		</category>
+
+		<category>
+			<pattern>HighestPriority *</pattern>
+			<template>
+				<think>
+					<set var='colours'><get name='SimonStatesPriority'/></set>
+					<condition var='colours'>
+						<li value='nil'></li>
+						<li>
+							<set var='colour'><first><get var='colours'/></first></set>
+							<set var='colours'><rest><get var='colours'/></rest></set>
+							<set var='present'><srai>XContains <get var='colour'/> <star/></srai></set>
+							<condition var='present' value='true'>
+								<set var='colours'>nil</set>
+							</condition>
+							<loop/>
+						</li>
+					</condition>
+				</think>
+				<get var='colour'/>
+			</template>
+		</category>
+		<category>
+			<pattern>LowestPriority *</pattern>
+			<template>
+				<think>
+					<set var='colours'><srai>XReverse <get name='SimonStatesPriority'/></srai></set>
+					<condition var='colours'>
+						<li value='nil'></li>
+						<li>
+							<set var='colour'><first><get var='colours'/></first></set>
+							<set var='colours'><rest><get var='colours'/></rest></set>
+							<set var='present'><srai>XContains <get var='colour'/> <star/></srai></set>
+							<condition var='present' value='true'>
+								<set var='colours'>nil</set>
+							</condition>
+							<loop/>
+						</li>
+					</condition>
+				</think>
+				<get var='colour'/>
+			</template>
+		</category>
+		<category>
+			<pattern>NotIn *</pattern>
+			<template>
+				<think><set var='colours'>red yellow green blue</set></think>
+				<condition var='colours'>
+					<li value='nil'></li>
+					<li>
+						<think>
+							<set var='colour'><first><get var='colours'/></first></set>
+							<set var='colours'><rest><get var='colours'/></rest></set>
+							<set var='present'><srai>XContains <get var='colour'/> <star/></srai></set>
+						</think>
+						<condition var='present' value='false'><get var='colour'/></condition>
+						<loop/>
+					</li>
+				</condition>
+			</template>
+		</category>
+		<category>
+			<pattern>HighestPriorityNotPressed * XS *</pattern>
+			<template>
+				<think>
+					<set var='colours'><get name='SimonStatesPriority'/></set>
+					<condition var='colours'>
+						<li value='nil'></li>
+						<li>
+							<set var='colour'><first><get var='colours'/></first></set>
+							<set var='colours'><rest><get var='colours'/></rest></set>
+							<set var='present'><srai>XContains <get var='colour'/> <star/></srai> <srai>XContains <get var='colour'/> <star index='2'/></srai></set>
+							<condition var='present' value='true false'>
+								<set var='colours'>nil</set>
+							</condition>
+							<loop/>
+						</li>
+					</condition>
+				</think>
+				<get var='colour'/>
+			</template>
+		</category>
+	</topic>
+
+	<category>
+		<pattern>SouvenirInput SimonStates XS <set>number</set></pattern>
+		<template>
+			Stage 1 was <srai>SouvenirGet SimonStates XS <star/> XS Input 1</srai>.
+			Stage 2 was <srai>SouvenirGet SimonStates XS <star/> XS Input 2</srai>.
+			Stage 3 was <srai>SouvenirGet SimonStates XS <star/> XS Input 3</srai>.
+		</template>
+	</category>
+	<category>
+		<pattern>SouvenirInput SimonStates XS <set>number</set> XS stage <set>number</set></pattern>
+		<template><srai>SouvenirGet SimonStates XS <star/> XS Input <star index='2'/></srai></template>
+	</category>
+</aiml>

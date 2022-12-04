@@ -92,6 +92,14 @@ class Program {
 							Console.WriteLine(evaluate(nameof(ComplicatedWiresSolver), text));
 						}
 						break;
+					case "hexamaze":
+						if (fields[1].Equals("rules", StringComparison.CurrentCultureIgnoreCase)) {
+							var maze = HexamazeSolver.GetMaze(int.Parse(fields[2]));
+							Console.WriteLine(maze);
+						} else {
+							Console.WriteLine(evaluate(nameof(HexamazeSolver), text));
+						}
+						break;
 					case "keypad":
 						if (fields[1].Equals("rules", StringComparison.CurrentCultureIgnoreCase)) {
 							var columns = KeypadSolver.GetColumns(int.Parse(fields[2]));

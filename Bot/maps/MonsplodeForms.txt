@@ -1,0 +1,55 @@
+Buhar    :cloud
+Lanaluff :sheep
+Magmy    :ghost
+Bob      :dog tailcurved
+Melbor   :bug 6legs
+Docsplode:binder
+Mountoise:tortoise
+Nibs     :koala upright
+Clondar  :clock
+Aluga    :carpet normal
+Lugirit  :carpet aura
+Zapra    :zebra
+Caadarim :dog tailup hairleft
+Vellarim :dog taildown
+Ukkens   :snake
+Flaurim  :dog tailup hairright
+Gloorim  :dog tailback
+Zenlad   :bug 4legs
+Asteran  :jellyfish 8petals
+Violan   :jellyfish 3petals
+Pouse    :bean
+Myrchat  :cat
+Cutie Pie:koala lay
+Percy    :penguin
+
+3petals   :has three petals on its flower
+4legs     :has four legs
+6legs     :has six legs
+8petals   :has eight petals on its flower
+aura      :has a ghostly aura
+bean      :is shaped like a bean
+binder    :resembles the square Bombs binder
+bug       :resembles a bug
+carpet    :resembles a carpet
+cat       :resembles a cat
+clock     :resembles a clock with mechanical limbs
+cloud     :resembles a cloud with arms
+dog       :resembles a dog
+ghost     :resembles a ghost
+hairleft  :has hair that points to the left
+hairright :has hair that poitns to the right
+jellyfish :resembles a jellyfish
+koala     :resembles a koala
+lay       :sits down in the picture.
+normal    :lacks a ghostly aura
+penguin   :resembles a penguin standing upright
+sheep     :resembles a sheep standing upright
+snake     :resembles a snake
+tailback  :has a tail that points backward
+tailcurved:has a tail that curves backward and upward
+taildown  :has a tail that points downward
+tailup    :has a tail that points upward
+tortoise  :resembles a tortoise with a rocky shell
+upright   :sits upright
+zebra     :resembles a zebra

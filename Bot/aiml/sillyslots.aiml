@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml>
+	<topic name='Bomb SillySlots'>
+		<category>
+			<pattern>SelectModule</pattern>
+			<template>
+				Read the keyword, then the slots.
+			</template>
+		</category>
+
+		<category>
+			<pattern>InitModule</pattern>
+			<template>
+				<think>
+					<set name='SillySlotsStage'>1</set>
+				</think>
+			</template>
+		</category>
+
+		<category>
+			<pattern><set>SillySlotsWord</set> <set>colour</set> <set>SillySlotsSymbol</set> <set>colour</set> <set>SillySlotsSymbol</set> <set>colour</set> <set>SillySlotsSymbol</set></pattern>
+			<template><srai>ProcessInput <star/> XS <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/> <star index='6'/> <star index='7'/></srai></template>
+		</category>
+		<category>
+			<pattern><set>SillySlotsWord</set> <set>colour</set> <set>colour</set> <set>colour</set> <set>SillySlotsSymbol</set> <set>SillySlotsSymbol</set> <set>SillySlotsSymbol</set></pattern>
+			<template><srai>ProcessInput <star/> XS <star index='2'/> <star index='5'/> <star index='3'/> <star index='6'/> <star index='4'/> <star index='7'/></srai></template>
+		</category>
+
+		<!-- Usage: ProcessInput [keyword] XS [colour] [symbol] [colour] [symbol] [colour] [symbol] -->
+		<category>
+			<pattern>ProcessInput <set>SillySlotsWord</set> XS *</pattern>
+			<template>
+				<think>
+					<set var='ruleNum'>1</set>
+					<srai>SouvenirPut <get name='SillySlotsStage'/> XS <star index='2'/></srai>
+					<set><name>SillySlotsInput<get name='SillySlotsStage'/></name><star index='2'/></set>
+				</think>
+				<condition var='ruleNum'>
+					<li value='0'></li>
+					<li value='11'>Keep the slots.</li>
+					<li>
+						<think><set var='valid'><srai>CheckRule <get var='ruleNum'/> <star/> XS <star index='2'/></srai></set></think>
+						<condition var='valid'>
+							<li value='false'>
+								Pull the lever.
+								<think><set var='ruleNum'>0</set></think>
+							</li>
+							<li>
+								<think>
+									<set var='ruleNum'><map name='successor'><get var='ruleNum'/></map></set>
+								</think>
+							</li>
+						</condition>
+						<loop/>
+					</li>
+				</condition>
+				<think>
+					<set name='SillySlotsStage'><map name='successor'><get name='SillySlotsStage'/></map></set>
+				</think>
+			</template>
+		</category>
+
+		<category>
+			<pattern>CheckRule 1 <set>SillySlotsWord</set> XS *</pattern>
+			<template>
+				<think>
+					<set var='count'>
+						<srai>CountSlots <map name='SillySlotsTable'><star/> silly</map> <map name='SillySlotsTable'><star/> sausage</map> XS <star index='2'/></srai>
+					</set>
+				</think>
+				<condition var='count'>
+					<li value='1'>false</li>
+					<li>true</li>
+				</condition>
+			</template>
+		</category>
+		<category>
+			<pattern>CheckRule 2 <set>SillySlotsWord</set> XS *</pattern>
+			<template>
+				<think>
+					<set var='count'>
+						<srai>CountSlots <map name='SillySlotsTable'><star/> sassy</map> <map name='SillySlotsTable'><star/> sally</map> XS <star index='2'/></srai>
+					</set>
+				</think>
+				<condition var='count'>
+					<li value='1'>
+						<think>
+							<set var='position'><srai>PositionOfSlot <map name='SillySlotsTable'><star/> sassy</map> <map name='SillySlotsTable'><star/> sally</map> XS <star index='2'/></srai></set>
+							<set var='pastColour'>
+								<srai>XItem
+									<calculate><get var='position'/> * 2 - 1</calculate>
+									<get><name>SillySlotsInput<calculate><get name='SillySlotsStage'/> - 2</calculate></name></get>
+								</srai>
+							</set>
+						</think>
+						<condition var='pastColour'>
+							<li><value><map name='SillySlotsTable'><star/> soggy</map></value>true</li>
+							<li>false</li>
+						</condition>
+					</li>
+					<li>true</li>
+				</condition>
+			</template>
+		</category>
+		<category>
+			<pattern>CheckRule 3 <set>SillySlotsWord</set> XS *</pattern>
+			<template>
+				<think>
+					<set var='count'>
+						<srai>CountSlots <map name='SillySlotsTable'><star/> soggy</map> <map name='SillySlotsTable'><star/> steven</map> XS <star index='2'/></srai>
+					</set>
+				</think>
+				<condition var='count'>
+					<li value='2'>false</li>
+					<li value='3'>false</li>
+					<li>true</li>
+				</condition>
+			</template>
+		</category>
+		<category>
+			<pattern>CheckRule 4 <set>SillySlotsWord</set> XS *</pattern>
+			<template>
+				<think>
+					<set var='counts'>
+						<srai>CountSlots _ <map name='SillySlotsTable'><star/> simon</map> XS <star index='2'/></srai>
+						<srai>CountSlots <map name='SillySlotsTable'><star/> sassy</map> _ XS <star index='2'/></srai>
+					</set>
+				</think>
+				<condition var='counts'>
+					<li value='3 0'>false</li>
+					<li>true</li>
+				</condition>
+			</template>
+		</category>
+		<category>
+			<pattern>CheckRule 5 <set>SillySlotsWord</set> XS *</pattern>
+			<template>
+				<think>
+					<set var='result'>true</set>
+					<set var='c1'><srai>XItem 1 <star index='2'/></srai></set>
+					<set var='s1'><srai>XItem 2 <star index='2'/></srai></set>
+					<set var='c2'><srai>XItem 3 <star index='2'/></srai></set>
+					<set var='s2'><srai>XItem 4 <star index='2'/></srai></set>
+					<set var='c3'><srai>XItem 5 <star index='2'/></srai></set>
+					<set var='s3'><srai>XItem 6 <star index='2'/></srai></set>
+					<condition var='s1'><value><map name='SillySlotsTable'><star/> sausage</map></value>
+						<condition var='s2'><value><map name='SillySlotsTable'><star/> sally</map></value>
+							<condition var='c2'>
+								<li><value><map name='SillySlotsTable'><star/> soggy</map></value></li>
+								<li><set var='result'>false</set></li>
+							</condition>
+						</condition>
+					</condition>
+
+					<condition var='s2'><value><map name='SillySlotsTable'><star/> sausage</map></value>
+						<set var='sallyCount'><srai>CountSlots _ <map name='SillySlotsTable'><star/> sally</map> XS <star index='2'/></srai></set>
+						<set var='soggyCount'><srai>CountSlots <map name='SillySlotsTable'><star/> soggy</map> <map name='SillySlotsTable'><star/> sally</map> XS <star index='2'/></srai></set>
+						<condition var='sallyCount'>
+							<li value='0'></li>
+							<li>
+								<condition var='soggyCount'>
+									<li><value><get var='sallyCount'/></value></li>
+									<li><set var='result'>false</set></li>
+								</condition>
+							</li>
+						</condition>
+					</condition>
+
+					<condition var='s3'><value><map name='SillySlotsTable'><star/> sausage</map></value>
+						<condition var='s2'><value><map name='SillySlotsTable'><star/> sally</map></value>
+							<condition var='c2'>
+								<li><value><map name='SillySlotsTable'><star/> soggy</map></value></li>
+								<li><set var='result'>false</set></li>
+							</condition>
+						</condition>
+					</condition>
+				</think>
+				<get var='result'/>
+			</template>
+		</category>
+		<category>
+			<pattern>CheckRule 6 <set>SillySlotsWord</set> XS *</pattern>
+			<template>
+				<think>
+					<set var='counts'>
+						<srai>CountSlots <map name='SillySlotsTable'><star/> silly</map> _ XS <star index='2'/></srai>
+						<srai>CountSlots <map name='SillySlotsTable'><star/> silly</map> <map name='SillySlotsTable'><star/> steven</map> XS <star index='2'/></srai>
+					</set>
+				</think>
+				<condition var='counts'>
+					<li value='2 0'>false</li>
+					<li value='2 1'>false</li>
+					<li>true</li>
+				</condition>
+			</template>
+		</category>
+		<category>
+			<pattern>CheckRule 7 <set>SillySlotsWord</set> XS *</pattern>
+			<template>
+				<think>
+					<set var='count'>
+						<srai>CountSlots <map name='SillySlotsTable'><star/> soggy</map> _ XS <star index='2'/></srai>
+					</set>
+				</think>
+				<condition var='count'>
+					<li value='1'>
+						<think>
+							<set var='count'>
+								<srai>CountSlots _ <map name='SillySlotsTable'><star/> sausage</map>
+									XS <get><name>SillySlotsInput<calculate><get name='SillySlotsStage'/> - 1</calculate></name></get></srai>
+							</set>
+						</think>
+						<condition var='count'>
+							<li value='0'>false</li>
+							<li>true</li>
+						</condition>
+					</li>
+					<li>true</li>
+				</condition>
+			</template>
+		</category>
+		<category>
+			<pattern>CheckRule 8 <set>SillySlotsWord</set> XS *</pattern>
+			<template>
+				<think>
+					<set var='c1'><srai>XItem 1 <star index='2'/></srai></set>
+					<set var='s1'><srai>XItem 2 <star index='2'/></srai></set>
+
+					<set var='match'>
+						<condition var='c1'><value><srai>XItem 3 <star index='2'/></srai></value>true</condition>
+						<condition var='s1'><value><srai>XItem 4 <star index='2'/></srai></value>true</condition>
+						<condition var='c1'><value><srai>XItem 5 <star index='2'/></srai></value>true</condition>
+						<condition var='s1'><value><srai>XItem 6 <star index='2'/></srai></value>true</condition>
+					</set>
+				</think>
+				<condition var='match'>
+					<li value='true true true true'>
+						<think>
+							<set var='counts'>
+								<srai>CountSlots <map name='SillySlotsTable'><star/> soggy</map> <map name='SillySlotsTable'><star/> sausage</map>
+									XS <get><name>SillySlotsInput<calculate><get name='SillySlotsStage'/> - 1</calculate></name></get></srai>
+								<srai>CountSlots <map name='SillySlotsTable'><star/> soggy</map> <map name='SillySlotsTable'><star/> sausage</map>
+									XS <get><name>SillySlotsInput<calculate><get name='SillySlotsStage'/> - 2</calculate></name></get></srai>
+								<srai>CountSlots <map name='SillySlotsTable'><star/> soggy</map> <map name='SillySlotsTable'><star/> sausage</map>
+									XS <get><name>SillySlotsInput<calculate><get name='SillySlotsStage'/> - 3</calculate></name></get></srai>
+								<srai>CountSlots <map name='SillySlotsTable'><star/> soggy</map> <map name='SillySlotsTable'><star/> sausage</map>
+									XS <get><name>SillySlotsInput<calculate><get name='SillySlotsStage'/> - 4</calculate></name></get></srai>
+							</set>
+						</think>
+						<condition var='counts'>
+							<li value='0 0 0 0'>false</li>
+							<li>true</li>
+						</condition>
+					</li>
+					<li>true</li>
+				</condition>
+			</template>
+		</category>
+		<category>
+			<pattern>CheckRule 9 <set>SillySlotsWord</set> XS *</pattern>
+			<template>
+				<think>
+					<set var='c1'><srai>XItem 1 <star index='2'/></srai></set>
+					<set var='match'>
+						<condition var='c1'><value><srai>XItem 3 <star index='2'/></srai></value>true</condition>
+						<condition var='c1'><value><srai>XItem 5 <star index='2'/></srai></value>true</condition>
+					</set>
+				</think>
+				<condition var='match'>
+					<li value='true true'>
+						<think>
+							<set var='count'>
+								<srai>CountSlots _ <map name='SillySlotsTable'><star/> sally</map> XS <star index='2'/></srai>
+							</set>
+						</think>
+						<condition var='count'>
+							<li value='0'>
+								<think>
+									<set var='count'>
+										<srai>CountSlots <map name='SillySlotsTable'><star/> silly</map> <map name='SillySlotsTable'><star/> steven</map>
+											XS <get><name>SillySlotsInput<calculate><get name='SillySlotsStage'/> - 1</calculate></name></get></srai>
+									</set>
+								</think>
+								<condition var='count'>
+									<li value='0'>false</li>
+									<li>true</li>
+								</condition>
+							</li>
+							<li>true</li>
+						</condition>
+					</li>
+					<li>true</li>
+				</condition>
+			</template>
+		</category>
+		<category>
+			<pattern>CheckRule 10 <set>SillySlotsWord</set> XS *</pattern>
+			<template>
+				<think>
+					<set var='count'>
+						<srai>CountSlots <map name='SillySlotsTable'><star/> silly</map> <map name='SillySlotsTable'><star/> simon</map> XS <star index='2'/></srai>
+					</set>
+				</think>
+				<condition var='count'>
+					<li value='0'>true</li>
+					<li>
+						<think>
+							<set var='counts'>
+								<srai>CountSlots <map name='SillySlotsTable'><star/> sassy</map> <map name='SillySlotsTable'><star/> sausage</map>
+									XS <get><name>SillySlotsInput<calculate><get name='SillySlotsStage'/> - 1</calculate></name></get></srai>
+								<srai>CountSlots <map name='SillySlotsTable'><star/> sassy</map> <map name='SillySlotsTable'><star/> sausage</map>
+									XS <get><name>SillySlotsInput<calculate><get name='SillySlotsStage'/> - 2</calculate></name></get></srai>
+								<srai>CountSlots <map name='SillySlotsTable'><star/> sassy</map> <map name='SillySlotsTable'><star/> sausage</map>
+									XS <get><name>SillySlotsInput<calculate><get name='SillySlotsStage'/> - 3</calculate></name></get></srai>
+								<srai>CountSlots <map name='SillySlotsTable'><star/> sassy</map> <map name='SillySlotsTable'><star/> sausage</map>
+									XS <get><name>SillySlotsInput<calculate><get name='SillySlotsStage'/> - 4</calculate></name></get></srai>
+							</set>
+						</think>
+						<condition var='counts'>
+							<li value='0 0 0 0'>false</li>
+							<li>true</li>
+						</condition>
+					</li>
+				</condition>
+			</template>
+		</category>
+
+		<!-- Usage: CountSlots [colour]|_ [symbol]|_ XS [slots ...] -->
+		<category>
+			<pattern>CountSlots * * XS <set>colour</set> <set>SillySlotsSymbol</set> <set>colour</set> <set>SillySlotsSymbol</set> <set>colour</set> <set>SillySlotsSymbol</set></pattern>
+			<template>
+				<think>
+					<set var='m1'><srai>MatchSlot <star index='1'/> <star index='2'/> XS <star index='3'/> <star index='4'/></srai></set>
+					<set var='m2'><srai>MatchSlot <star index='1'/> <star index='2'/> XS <star index='5'/> <star index='6'/></srai></set>
+					<set var='m3'><srai>MatchSlot <star index='1'/> <star index='2'/> XS <star index='7'/> <star index='8'/></srai></set>
+				</think>
+				<srai>XCountMatch true <get var='m1'/> <get var='m2'/> <get var='m3'/></srai>
+			</template>
+		</category>
+		<category>
+			<pattern>CountSlots * * XS *</pattern>
+			<template>0</template>
+		</category>
+
+		<category>
+			<pattern>PositionOfSlot * * XS <set>colour</set> <set>SillySlotsSymbol</set> <set>colour</set> <set>SillySlotsSymbol</set> <set>colour</set> <set>SillySlotsSymbol</set></pattern>
+			<template>
+				<think>
+					<set var='m1'><srai>MatchSlot <star index='1'/> <star index='2'/> XS <star index='3'/> <star index='4'/></srai></set>
+					<set var='m2'><srai>MatchSlot <star index='1'/> <star index='2'/> XS <star index='5'/> <star index='6'/></srai></set>
+					<set var='m3'><srai>MatchSlot <star index='1'/> <star index='2'/> XS <star index='7'/> <star index='8'/></srai></set>
+				</think>
+				<condition var='m1'>
+					<li value='true'>1</li>
+					<li>
+						<condition var='m2'>
+							<li value='true'>2</li>
+							<li>
+								<condition var='m3'>
+									<li value='true'>3</li>
+									<li>nil</li>
+								</condition>
+							</li>
+						</condition>
+					</li>
+				</condition>
+			</template>
+		</category>
+
+		<category>
+			<pattern>MatchSlot * * XS <set>colour</set> <set>SillySlotsSymbol</set></pattern>
+			<template>
+				<think>
+					<set var='c'><star index='1'/></set>
+					<set var='s'><star index='2'/></set>
+					<condition var='c'>
+						<li value='_'><set var='cMatch'>true</set></li>
+						<li><set var='cMatch'><condition var='c'><li><value><star index='3'/></value>true</li><li>false</li></condition></set></li>
+					</condition>
+					<condition var='s'>
+						<li value='_'><set var='sMatch'>true</set></li>
+						<li><set var='sMatch'><condition var='s'><li><value><star index='4'/></value>true</li><li>false</li></condition></set></li>
+					</condition>
+					<set var='match'><get var='cMatch'/> <get var='sMatch'/></set>
+				</think>
+				<condition var='match'><li value='true true'>true</li><li>false</li></condition>
+			</template>
+		</category>
+	</topic>
+
+	<category>
+		<pattern>SouvenirInput SillySlots XS <set>number</set></pattern>
+		<template>
+			Stage 1 was <srai>SillySlotsFormat <srai>SouvenirGet SillySlots XS <star/> XS 1</srai></srai>.
+			Stage 2 was <srai>SillySlotsFormat <srai>SouvenirGet SillySlots XS <star/> XS 2</srai></srai>.
+			Stage 3 was <srai>SillySlotsFormat <srai>SouvenirGet SillySlots XS <star/> XS 3</srai></srai>.
+			Stage 4 was <srai>SillySlotsFormat <srai>SouvenirGet SillySlots XS <star/> XS 4</srai></srai>.
+		</template>
+	</category>
+	<category>
+		<pattern>SouvenirInput SillySlots XS <set>number</set> XS stage <set>number</set></pattern>
+		<template><srai>SillySlotsFormat <srai>SouvenirGet SillySlots XS <star/> XS <star index='2'/></srai></srai></template>
+	</category>
+	<category>
+		<pattern>SillySlotsFormat <set>colour</set> <set>SillySlotsSymbol</set> <set>colour</set> <set>SillySlotsSymbol</set> <set>colour</set> <set>SillySlotsSymbol</set></pattern>
+		<template>
+			<star index='1'/> <star index='2'/>,
+			<star index='3'/> <star index='4'/>,
+			<star index='5'/> <star index='6'/>
+		</template>
+	</category>
+	<category>
+		<pattern>SillySlotsFormat unknown</pattern>
+		<template>unknown</template>
+	</category>
+</aiml>

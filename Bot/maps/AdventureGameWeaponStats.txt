@@ -1,0 +1,6 @@
+broadsword: Str 0
+caber: Str 2
+nastyknife: Dex 0
+longbow: Dex 2
+magicorb: Int 0
+grimoire: Int 2

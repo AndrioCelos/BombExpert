@@ -2,6 +2,7 @@
 	<rule id='root' scope='public'>
 		<one-of>
 			<item><ruleref uri='#defuse'/></item>
+			<item> veemo </item>
 			<item> say again </item>
 			<item>
 				<item> strike </item>
@@ -36,9 +37,14 @@
 
 			<item> we have Turn the Keys </item>
 			<item> next module </item>
+
+			<item> defuse laundry for <ruleref uri='#number2'/> solves </item>
+
 			<!-- Needy module shortcuts -->
 			<item> knob <ruleref uri='#digit'/> <ruleref uri='#digit'/></item>
 			<item> knob <item repeat='4-12'><one-of><item> off </item><item> on </item></one-of></item></item>
+			<item> rotary phone <ruleref uri='#digit'/> <ruleref uri='#digit'/> <ruleref uri='#digit'/></item>
+			<item> reset rotary phone to <ruleref uri='#digit'/> <ruleref uri='#digit'/> <ruleref uri='#digit'/></item>
 		</one-of>
 	</rule>
 	<rule id='defuse'>
@@ -68,6 +74,13 @@
 			<item> maze </item>
 			<item> password </item>
 			<item> knob </item>
+
+			<item> colour flash </item>
+			<item> listening </item>
+			<item> simon states </item>
+			<item> silly slots </item>
+			<item> laundry </item>
+			<item> souvenir </item>
 		</one-of>
 	</rule>
 	<rule id='colour' scope='public'>

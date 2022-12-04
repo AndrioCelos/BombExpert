@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml>
+	<topic name='bomb listening'>
+		<category>
+			<pattern>SelectModule</pattern>
+			<template>Describe the sound.</template>
+		</category>
+
+		<category><pattern>taxi ^</pattern><template><srai>ListeningCode Amper Amper Amper Star Star</srai></template></category>
+		<category><pattern>cow ^</pattern><template><srai>ListeningCode Amper Dollar Hash Dollar Amper</srai></template></category>
+		<category><pattern>^ fan ^</pattern><template><srai>ListeningCode Dollar Hash Dollar Star Amper</srai></template></category>
+		<category><pattern>train ^</pattern><template><srai>ListeningCode Hash Dollar Dollar Star Star</srai></template></category>
+		<category><pattern>arcade ^</pattern><template><srai>ListeningCode Dollar Hash Dollar Hash Star</srai></template></category>
+		<category><pattern>casino ^</pattern><template><srai>ListeningCode Star Star Dollar Star Hash</srai></template></category>
+		<category><pattern>supermarket ^</pattern><template><srai>ListeningCode Hash Dollar Dollar Amper Star</srai></template></category>
+		<category><pattern>shop ^</pattern><template><srai>ListeningCode Hash Dollar Dollar Amper Star</srai></template></category>
+		<category><pattern>shopping ^</pattern><template><srai>ListeningCode Hash Dollar Dollar Amper Star</srai></template></category>
+		<category><pattern>soccer ^</pattern><template><srai>ListeningCode Hash Hash Star Dollar Star</srai></template></category>
+		<category><pattern>football ^</pattern><template><srai>ListeningCode Hash Hash Star Dollar Star</srai></template></category>
+		<category><pattern>sport ^</pattern><template><srai>ListeningCode Hash Hash Star Dollar Star</srai></template></category>
+		<category><pattern>^ owl ^</pattern><template><srai>ListeningCode Dollar Hash Star Dollar Amper</srai></template></category>
+		<category><pattern>sewing ^</pattern><template><srai>ListeningCode Hash Amper Amper Star Hash</srai></template></category>
+		<category><pattern>thrush ^</pattern><template><srai>ListeningCode Star Star Hash Star Star</srai></template></category>
+		<category><pattern>bird ^</pattern><template><srai>ListeningCode Star Star Hash Star Star</srai></template></category>
+		<category><pattern>birb ^</pattern><template><srai>ListeningCode Star Star Hash Star Star</srai></template></category>
+		<category><pattern>car ^</pattern><template><srai>ListeningCode Amper Hash Star Star Amper</srai></template></category>
+		<category><pattern>reload ^</pattern><template><srai>ListeningCode Dollar Amper Star Star Hash</srai></template></category>
+		<category><pattern>gun ^</pattern><template><srai>ListeningCode Dollar Amper Star Star Hash</srai></template></category>
+		<category><pattern>glock ^</pattern><template><srai>ListeningCode Dollar Amper Star Star Hash</srai></template></category>
+		<category><pattern>oboe ^</pattern><template><srai>ListeningCode Amper Hash Dollar Dollar Hash</srai></template></category>
+		<category><pattern>saxophone ^</pattern><template><srai>ListeningCode Dommar Amper Amper Star Star</srai></template></category>
+		<category><pattern>tuba ^</pattern><template><srai>ListeningCode Hash Amper Dollar Hash Hash</srai></template></category>
+		<category><pattern>marimba ^</pattern><template><srai>ListeningCode Amper Star Dollar Star Dollar</srai></template></category>
+		<category><pattern>phone ^</pattern><template><srai>ListeningCode Amper Dollar Dollar Amper Star</srai></template></category>
+		<category><pattern>telephone ^</pattern><template><srai>ListeningCode Amper Dollar Dollar Amper Star</srai></template></category>
+		<category><pattern>Tibetan ^</pattern><template><srai>ListeningCode Hash Amper Amper Amper Amper</srai></template></category>
+		<category><pattern>nuns ^</pattern><template><srai>ListeningCode Hash Amper Amper Amper Amper</srai></template></category>
+		<category><pattern>throat ^</pattern><template><srai>ListeningCode Star Star Dollar Dollar Dollar</srai></template></category>
+		<category><pattern>beach ^</pattern><template><srai>ListeningCode Star Amper Star Amper Amper</srai></template></category>
+		<category><pattern>dial ^</pattern><template><srai>ListeningCode Star Hash Amper Star Amper</srai></template></category>
+		<category><pattern>dial-up ^</pattern><template><srai>ListeningCode Star Hash Amper Star Amper</srai></template></category>
+		<category><pattern>police ^</pattern><template><srai>ListeningCode Star Star Hash Hash Hash</srai></template></category>
+		<category><pattern>censor ^</pattern><template><srai>ListeningCode Amper Amper Dollar Amper Star</srai></template></category>
+		<category><pattern>censorship ^</pattern><template><srai>ListeningCode Amper Amper Dollar Amper Star</srai></template></category>
+		<category><pattern>swear ^</pattern><template><srai>ListeningCode Amper Amper Dollar Amper Star</srai></template></category>
+		<category><pattern>bleep ^</pattern><template><srai>ListeningCode Amper Amper Dollar Amper Star</srai></template></category>
+		<category><pattern>beep ^</pattern><template><srai>ListeningCode Amper Amper Dollar Amper Star</srai></template></category>
+		<category><pattern>medieval ^</pattern><template><srai>ListeningCode Amper Dollar Star Star Amper</srai></template></category>
+		<category><pattern>weapons ^</pattern><template><srai>ListeningCode Amper Dollar Star Star Amper</srai></template></category>
+		<category><pattern>sword ^</pattern><template><srai>ListeningCode Amper Dollar Star Star Amper</srai></template></category>
+		<category><pattern>swords ^</pattern><template><srai>ListeningCode Amper Dollar Star Star Amper</srai></template></category>
+		<category><pattern>door ^</pattern><template><srai>ListeningCode Hash Dollar Hash Amper Dollar</srai></template></category>
+		<category><pattern>chainsaw ^</pattern><template><srai>ListeningCode Amper Hash Amper Amper Hash</srai></template></category>
+		<category><pattern>compressed ^</pattern><template><srai>ListeningCode Dollar Dollar Star Dollar Star</srai></template></category>
+		<category><pattern>servo ^</pattern><template><srai>ListeningCode Dollar Amper Hash Dollar Dollar</srai></template></category>
+		<category><pattern>waterfall ^</pattern><template><srai>ListeningCode Amper Star Star Dollar Dollar</srai></template></category>
+		<category><pattern>tearing ^</pattern><template><srai>ListeningCode Dollar Amper Amper Star Amper</srai></template></category>
+		<category><pattern>ripping ^</pattern><template><srai>ListeningCode Dollar Amper Amper Star Amper</srai></template></category>
+		<category><pattern>fabric ^</pattern><template><srai>ListeningCode Dollar Amper Amper Star Amper</srai></template></category>
+		<category><pattern>zipper ^</pattern><template><srai>ListeningCode Amper Dollar Amper Hash Hash</srai></template></category>
+		<category><pattern>zip ^</pattern><template><srai>ListeningCode Amper Dollar Amper Hash Hash</srai></template></category>
+		<category><pattern>vacuum ^</pattern><template><srai>ListeningCode Hash Amper Dollar Star Amper</srai></template></category>
+		<category><pattern>ballpoint ^</pattern><template><srai>ListeningCode Dollar Star Dollar Star Star</srai></template></category>
+		<category><pattern>pen ^</pattern><template><srai>ListeningCode Dollar Star Dollar Star Star</srai></template></category>
+		<category><pattern>writing ^</pattern><template><srai>ListeningCode Dollar Star Dollar Star Star</srai></template></category>
+		<category><pattern>rattling ^</pattern><template><srai>ListeningCode Star Hash Dollar Amper Amper</srai></template></category>
+		<category><pattern>chain ^</pattern><template><srai>ListeningCode Star Hash Dollar Amper Amper</srai></template></category>
+		<category><pattern>book ^</pattern><template><srai>ListeningCode Hash Hash Hash Amper Dollar</srai></template></category>
+		<category><pattern>page ^</pattern><template><srai>ListeningCode Hash Hash Hash Amper Dollar</srai></template></category>
+		<category><pattern>^ tennis ^</pattern><template><srai>ListeningCode Star Dollar Dollar Amper Dollar</srai></template></category>
+		<category><pattern>squeaky ^</pattern><template><srai>ListeningCode Dollar Star Amper Hash Hash</srai></template></category>
+		<category><pattern>squeak ^</pattern><template><srai>ListeningCode Dollar Star Amper Hash Hash</srai></template></category>
+		<category><pattern>toy ^</pattern><template><srai>ListeningCode Dollar Star Amper Hash Hash</srai></template></category>
+		<category><pattern>helicopter ^</pattern><template><srai>ListeningCode Hash Amper Dollar Amper Amper</srai></template></category>
+		<category><pattern>firework ^</pattern><template><srai>ListeningCode Dollar Amper Dollar Dollar Star</srai></template></category>
+		<category><pattern>fireworks ^</pattern><template><srai>ListeningCode Dollar Amper Dollar Dollar Star</srai></template></category>
+		<category><pattern>glass ^</pattern><template><srai>ListeningCode Star Dollar Star Dollar Star</srai></template></category>
+		<category><pattern>shatter ^</pattern><template><srai>ListeningCode Star Dollar Star Dollar Star</srai></template></category>
+		<category><pattern>shattering ^</pattern><template><srai>ListeningCode Star Dollar Star Dollar Star</srai></template></category>
+
+		<category>
+			<pattern>ListeningCode *</pattern>
+			<template><srai>SouvenirPut Code XS <star/></srai></template>
+		</category>
+	</topic>
+
+	<category>
+		<pattern>SouvenirInput Listening XS <set>number</set></pattern>
+		<template><srai>SouvenirGet Listening XS <star/> XS Code</srai></template>
+	</category>
+</aiml>
