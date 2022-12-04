@@ -10,6 +10,7 @@
 				<set name='ModuleCount'>unknown</set>
 				<set name='NeedyModuleCount'>unknown</set>
 				<set name='SolveCount'>0</set>
+				<set name='TurnTheKeysModule'>unknown</set>
 			</think>
 			<oob>SetGrammar bomb</oob><oob>SetPartialInput false</oob> OK
 		</template>

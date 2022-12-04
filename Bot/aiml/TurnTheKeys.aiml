@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<aiml version='2.1'>
+	<category>
+		<pattern>we have Turn the Keys</pattern>
+		<template>Begin with <set name='TurnTheKeysModule'>Password</set>.</template>
+	</category>
+
+	<category>
+		<pattern>next module</pattern>
+		<template>
+			<set name='TurnTheKeysModule'>
+				<condition name='TurnTheKeysModule'>
+					<li value='Password'>Who's on First</li>
+					<li value="Who's on First">Crazy Talk</li>
+					<li value='Crazy Talk'>Keypad</li>
+					<li value='Keypad'>Listening</li>
+					<li value='Listening'>Orientation Cube</li>
+					<li value='Orientation Cube'>Morse Code</li>
+					<li value='Morse Code'>Wires</li>
+					<li value='Wires'>Two Bits</li>
+					<li value='Two Bits'>The Button</li>
+					<li value='The Button'>Colour Flash</li>
+					<li value='Colour Flash'>Round Keypad</li>
+					<li value='Round Keypad'>You may now turn the keys.</li>
+				</condition>
+			</set>
+		</template>
+	</category>
+</aiml>

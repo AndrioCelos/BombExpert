@@ -12,6 +12,7 @@
 					<item> three </item>
 				</one-of>
 			</item>
+			<item> solved </item>
 			<item>
 				<item> verify </item>
 				<one-of>
@@ -33,6 +34,8 @@
 			<item> ports </item>
 			<item> serial number </item>
 
+			<item> we have Turn the Keys </item>
+			<item> next module </item>
 			<!-- Needy module shortcuts -->
 			<item> knob <ruleref uri='#digit'/> <ruleref uri='#digit'/></item>
 			<item> knob <item repeat='4-12'><one-of><item> off </item><item> on </item></one-of></item></item>
