@@ -6,6 +6,7 @@
 
 	// Bomb properties: the 'new bomb' category should reset these.
 	"BombStrikeCount": "0",
+	"SolveCount": "0",
 	"BombBatteriesKnown": "false",
 	"BombIndicatorsChecked": "nil",
 	"BombIndicatorsKnown": "false",

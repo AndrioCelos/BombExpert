@@ -6,6 +6,10 @@
 			<think>
 				<set name='topic'>bomb</set>
 				<srai>ResetEdgework</srai>
+				<set name='BombStrikeCount'>0</set>
+				<set name='ModuleCount'>unknown</set>
+				<set name='NeedyModuleCount'>unknown</set>
+				<set name='SolveCount'>0</set>
 			</think>
 			<oob>SetGrammar bomb</oob><oob>SetPartialInput false</oob> OK
 		</template>
@@ -43,6 +47,45 @@
 		</template>
 	</category>
 
+	<category>
+		<pattern>solved</pattern>
+		<topic>bomb *</topic>
+		<template>
+			<set name='SolveCount'>
+				<condition name='SolveCount'>
+					<li value='*'><map name='successor'><get name='SolveCount'/></map></li>
+					<li>1</li>
+				</condition>
+			</set> solves so far.
+		</template>
+	</category>
+	<category>
+		<pattern>SolvableModuleCount</pattern>
+		<template>
+			<condition name='SolvableModuleCount'>
+				<li value='unknown'>unknown</li>
+				<li><calculate><get name='ModuleCount'/> - <get name='NeedyModuleCount'/></calculate></li>
+			</condition>
+		</template>
+	</category>
+	<category>
+		<pattern>UnsolvedModuleCount</pattern>
+		<template><srai>UnsolvedModuleCount <get name='SolveCount'/></srai></template>
+	</category>
+	<category>
+		<pattern>UnsolvedModuleCount <set>number</set></pattern>
+		<template>
+			<condition name='ModuleCount'>
+				<li value='unknown'>unknown</li>
+				<li>
+					<condition name='NeedyModuleCount'>
+						<li value='unknown'>unknown</li>
+						<li><calculate><get name='ModuleCount'/> - <get name='NeedyModuleCount'/> - <star/></calculate></li>
+					</condition>
+				</li>
+			</condition>
+		</template>
+	</category>
 
 	<category>
 		<pattern>defuse <set>module</set></pattern>
