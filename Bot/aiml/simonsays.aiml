@@ -1,26 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml>
-	<category>
-		<pattern>defuse simon ^</pattern>
-		<template>
-			<condition name='BombSerialNumberHasVowel'>
-				<li value='unknown'>
-					<srai>EdgeworkQuery SerialNumberHasVowel XS defuse simon</srai>
-				</li>
-				<li>
-					<think><set name='topic'>bomb SimonSays</set></think>
-					<oob>SetGrammar simonsays</oob><oob>SetPartialInput false</oob>
-					Tell me which colours flash, in order.
-				</li>
-			</condition>
-		</template>
-	</category>
-	<category>
-		<pattern>reset simon ^</pattern>
-		<template>Nothing happens.</template>
-	</category>
-
 	<topic name='Bomb SimonSays'>
+		<category>
+			<pattern>SelectModule</pattern>
+			<template><srai>EdgeworkQuery SerialNumberHasVowel XS SimonCallback</srai></template>
+		</category>
+
+		<category>
+			<pattern>SimonCallback</pattern>
+			<template>
+				<oob>SetGrammar simonsays</oob><oob>SetPartialInput false</oob>
+				Tell me which colours flash, in order.
+			</template>
+		</category>
+
 		<!-- Usage: SimonSaysInput [colours ...] -->
 		<!-- Tells the user what to press. -->
 		<category>

@@ -1,28 +1,46 @@
-BLANK  :BLANK
-DONE   :DONE
-FIRST  :FIRST
-HOLD   :HOLD
-LEFT   :LEFT
-LIKE   :LIKE
-MIDDLE :MIDDLE
-NEXT   :NEXT
-NO     :NO
-NOTHING:NOTHING
-OKAY   :OKAY
-PRESS  :PRESS
-READY  :READY
-RIGHT  :RIGHT
-SURE   :SURE
-U      :letter U
-UH_HUH :UH HUH positive
-UH_UH  :UH UH negative
-UHHH   :U triple H
-UR     :letters U R
-WAIT   :WAIT
-WHAT   :WHAT no question mark
-WHAT_  :WHAT question mark
-YES    :YES
-YOU    :YOU
-YOU_ARE:words YOU ARE
-YOU_RE :YOU'RE with apostrophe
-YOUR   :YOUR no apostrophe
+BLANK   :word BLANK
+C       :letter C
+CEE     :Cee Spain
+DISPLAY :word DISPLAY
+DONE    :DONE
+FIRST   :FIRST
+HOLD    :HOLD
+HOLD_ON :HOLD ON
+LEAD    :L E A D
+LED     :L E D
+LEED    :L E E D
+LEFT    :LEFT
+LIKE    :LIKE
+MIDDLE  :MIDDLE
+NEXT    :NEXT
+nil     :literally empty
+NO      :NO
+NOTHING :word NOTHING
+OKAY    :OKAY
+PRESS   :PRESS
+READ    :R E A D
+READY   :READY
+RED     :R E D
+REED    :R E E D
+RIGHT   :RIGHT
+SAYS    :SAYS
+SEE     :SEE a movie
+SURE    :SURE
+THEIR   :THEIR possessive
+THERE   :THERE location
+THEY ARE:words THEY ARE
+THEY_RE :THEY'RE with apostrophe
+U       :letter U
+UH_HUH  :UH HUH positive
+UH_UH   :UH UH negative
+UHHH    :U triple H
+UR      :letters U R
+WAIT    :WAIT
+WHAT    :WHAT no question mark
+WHAT_   :WHAT question mark
+WHAT?   :WHAT question mark
+YES     :YES
+YOU     :word YOU
+YOU_ARE :words YOU ARE
+YOU_RE  :YOU'RE with apostrophe
+YOUR    :YOUR no apostrophe

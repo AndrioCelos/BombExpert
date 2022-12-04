@@ -1,0 +1,22 @@
+Wires                                         :Wires
+Simple Wires                                  :Wires
+Button                                        :Button
+The Button                                    :Button
+Keypad                                        :Keypad
+Simon Says                                    :SimonSays
+Who's on First                                :WhosOnFirst
+Who is on First                               :WhosOnFirst
+Words                                         :WhosOnFirst
+Memory                                        :Memory
+Morse Code                                    :MorseCode
+Complicated                                   :ComplicatedWires
+Complicated Wires                             :ComplicatedWires
+Sequence                                      :WireSequence
+Wire Sequence                                 :WireSequence
+Wire Sequences                                :WireSequence
+Panels                                        :WireSequence
+Wire Panels                                   :WireSequence
+Maze                                          :Maze
+Password                                      :Password
+Knob                                          :Knob
+

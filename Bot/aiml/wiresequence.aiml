@@ -1,43 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml>
 	<category>
-		<pattern>defuse wire sequence</pattern>
-		<template>
-			<think>
-				<set name='topic'>Bomb WireSequence</set>
-				<srai>reset wire sequence</srai>
-			</think>
-			<oob>SetGrammar wiresequence</oob><oob>SetPartialInput false</oob> For each wire in order from 1 to 3, say what colour it is and what letter it connects to.
-		</template>
-	</category>
-	<category>
-		<pattern>defuse wire sequences</pattern>
-		<template><srai>defuse wire sequence</srai></template>
-	</category>
-	<category>
-		<pattern>defuse panels</pattern>
-		<template><srai>defuse wire sequence</srai></template>
-	</category>
-	<category>
-		<pattern>defuse wire panels</pattern>
-		<template><srai>defuse wire sequence</srai></template>
-	</category>
-	<category>
-		<pattern>defuse sequence</pattern>
-		<template><srai>defuse wire sequence</srai></template>
-	</category>
-	<category>
-		<pattern>defuse sequences</pattern>
-		<template><srai>defuse wire sequence</srai></template>
-	</category>
-	<category>
 		<pattern>reset wire sequence</pattern>
 		<template>
-			<think>
-				<set name='BombWireSequenceRedWires'>0</set>
-				<set name='BombWireSequenceBlueWires'>0</set>
-				<set name='BombWireSequenceBlackWires'>0</set>
-			</think>
+			<srai>DeselectModule</srai>
+			<think><set name='topic'>Bomb WireSequence</set></think>
+			<srai>InitModule</srai>
 			OK
 		</template>
 	</category>
@@ -45,12 +13,12 @@
 	<category>
 		<pattern>resume wire sequence</pattern>
 		<template>
-			<think>
-				<set name='topic'>Bomb WireSequence</set>
-			</think>
+			<srai>DeselectModule</srai>
+			<think><set name='topic'>Bomb WireSequence</set></think>
 			OK
 		</template>
 	</category>
+
 	<category>
 		<pattern>resume wire sequences</pattern>
 		<template><srai>resume wire sequence</srai></template>
@@ -74,12 +42,28 @@
 
 	<topic name='Bomb WireSequence'>
 		<category>
+			<pattern>SelectModule</pattern>
+			<template>Ready for Wire Sequence.</template>
+		</category>
+
+		<category>
+			<pattern>InitModule</pattern>
+			<template>
+				<think>
+					<set name='BombWireSequenceRedWires'>0</set>
+					<set name='BombWireSequenceBlueWires'>0</set>
+					<set name='BombWireSequenceBlackWires'>0</set>
+				</think>
+			</template>
+		</category>
+
+		<category>
 			<pattern>new sequence</pattern>
-			<template><srai>reset wire sequence</srai></template>
+			<template><srai>next instance</srai></template>
 		</category>
 		<category>
 			<pattern>next sequence</pattern>
-			<template><srai>reset wire sequence</srai></template>
+			<template><srai>next instance</srai></template>
 		</category>
 
 		<category>
@@ -268,8 +252,8 @@
 															<condition><var><get var='colour'/>ToNotCutCount</var>
 																<li value='0'>
 																	<condition><var><get var='colour'/>ToCutCount</var>
-																		<li value='1'><set var='result'><get var='result'/> Cut the <get var='colour'/> wire.</set></li>
-																		<li><set var='result'><get var='result'/> Cut both <get var='colour'/> wires.</set></li>
+																		<li value='1'><set var='result'><get var='result'/> Cut the <get var='colour'/> wire</set></li>
+																		<li><set var='result'><get var='result'/> Cut both <get var='colour'/> wires</set></li>
 																	</condition>
 																</li>
 																<li>
@@ -279,7 +263,13 @@
 																		<li>
 																			<set var='wire'><srai>XFirst <get var='toCut'/></srai></set>
 																			<set var='toCut'><srai>XRest <get var='toCut'/></srai></set>
-																			<set var='result'><get var='result'/> Cut the <map name='Ordinal'><get var='wire'/></map> <get var='colour'/> wire.</set>
+																			<set var='result'>
+																				<condition var='result'>
+																					<li value=''>Cut </li>
+																					<li><get var='result'/> and </li>
+																				</condition>
+																				the <map name='Ordinal'><get var='wire'/></map> <get var='colour'/> wire
+																			</set>
 																			<loop/>
 																		</li>
 																	</condition>
@@ -291,7 +281,7 @@
 												</li>
 											</condition>
 										</think>
-										<get var='result'/>
+										<get var='result'/>.
 									</li>
 								</condition>
 							</li>

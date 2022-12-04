@@ -43,6 +43,73 @@
 		</template>
 	</category>
 
+
+	<category>
+		<pattern>defuse <set>module</set></pattern>
+		<template>
+			<srai>DeselectModule</srai>
+			<think><set name='topic'>Bomb <map name='ModuleCode'><star/></map></set></think>
+			<oob><setgrammar><map name='ModuleCode'><star/></map></setgrammar></oob>
+			<srai>SelectModule</srai>
+			<srai>InitModule</srai>
+		</template>
+	</category>
+
+	<!-- Called when the topic is changed to this module type. -->
+	<category>
+		<pattern>SelectModule</pattern>
+		<topic>Bomb * ^</topic>
+		<template><!-- Does nothing by default. --></template>
+	</category>
+	<!-- Called when the topic is changed from this module type. -->
+	<category>
+		<pattern>DeselectModule</pattern>
+		<template><!-- Does nothing by default. --></template>
+	</category>
+	<!-- Called when work is started on an instance of this module. -->
+	<category>
+		<pattern>InitModule</pattern>
+		<topic>Bomb * ^</topic>
+		<template><!-- Does nothing by default. --></template>
+	</category>
+
+	<!-- next [module] starts a new instance of the specified module. -->
+	<category>
+		<pattern>next <set>module</set></pattern>
+		<template>
+			<srai>DeselectModule</srai>
+			<think><set name='topic'>Bomb <map name='ModuleCode'><star/></map></set></think>
+			<srai>SelectModule</srai>
+			<srai>NewSouvenirStoreIndex</srai>
+			<srai>InitModule</srai>
+		</template>
+	</category>
+	<category>
+		<pattern>next is <set>module</set></pattern>
+		<template><srai>next <star/></srai></template>
+	</category>
+	<category>
+		<pattern>new <set>module</set></pattern>
+		<template><srai>next <star/></srai></template>
+	</category>
+	<!-- 'next instance' starts a new instance of the selected module type. -->
+	<category>
+		<pattern>next one</pattern>
+		<template><srai>next instance</srai></template>
+	</category>
+	<category>
+		<pattern>new instance</pattern>
+		<template><srai>next instance</srai></template>
+	</category>
+	<category>
+		<pattern>next instance</pattern>
+		<template>
+			<think><srai>NewSouvenirStoreIndex</srai></think>
+			<srai>InitModule</srai>
+		</template>
+	</category>
+	<!-- 'next module' asks for the next module type on the Turn the Keys list. -->
+
 	<category>
 		<pattern>rule seed <set>number</set></pattern>
 		<template>

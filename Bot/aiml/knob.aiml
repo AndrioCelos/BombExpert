@@ -1,32 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml>
 	<category>
-		<pattern>defuse knob</pattern>
-		<template>
-			<think>
-				<set name='topic'>Bomb Knob</set>
-				<srai>KnobSetup</srai>
-			</think>
-			<oob>SetGrammar knob</oob><oob>SetPartialInput false</oob>
-			<condition name='KnobPattern'>
-				<li value='Top'>Read the six lights on the top row.</li>
-				<li value='Bottom'>Read the six lights on the bottom row.</li>
-				<li value='Left'>Read the six lights on the left side.</li>
-				<li value='Right'>Read the six lights on the right side.</li>
-				<li value='Outer'>Read the four lights in the outer corners in reading order.</li>
-				<li value='Middle'>Read the four lights in the inner corners in reading order.</li>
-				<li value='Inner'>Read the four lights in the middle columns in reading order.</li>
-				<li value='All'>Read the twelve lights in reading order.</li>
-				<li value='Counts'>
-					<condition name='KnobIndices'>
-						<li value='left right'>Tell me the number of lit LEDs on the left and right half.</li>
-						<li value='top bottom'>Tell me the number of lit LEDs on the top and bottom rows.</li>
-					</condition>
-				</li>
-			</condition>
-		</template>
-	</category>
-	<category>
 		<pattern>defuse knob *</pattern>
 		<template><srai>knob <star/></srai></template>
 	</category>
@@ -47,19 +21,39 @@
 		<template><srai>KnobSetup</srai><srai>Knob HandleInput <star/> <star index='2'/></srai></template>
 	</category>
 
-	<category>
-		<pattern>KnobSetup</pattern>
-		<template>
-			<think>
-				<set var='result'><srai>Solver Knob GetPattern</srai></set>
-				<set name='KnobPattern'><srai>XFirst <get var='result'/></srai></set>
-				<set name='KnobIndices'><srai>XRest <get var='result'/></srai></set>
-			</think>
-		</template>
-	</category>
-
-
 	<topic name='Bomb Knob'>
+		<category>
+			<pattern>SelectModule</pattern>
+			<template>
+				<think>
+					<set var='result'><srai>Solver Knob GetPattern</srai></set>
+					<set name='KnobPattern'><srai>XFirst <get var='result'/></srai></set>
+					<set name='KnobIndices'><srai>XRest <get var='result'/></srai></set>
+				</think>
+			</template>
+		</category>
+		<category>
+			<pattern>InitModule</pattern>
+			<template>
+				<condition name='KnobPattern'>
+					<li value='Top'>Read the six lights on the top row.</li>
+					<li value='Bottom'>Read the six lights on the bottom row.</li>
+					<li value='Left'>Read the six lights on the left side.</li>
+					<li value='Right'>Read the six lights on the right side.</li>
+					<li value='Outer'>Read the four lights in the outer corners in reading order.</li>
+					<li value='Middle'>Read the four lights in the inner corners in reading order.</li>
+					<li value='Inner'>Read the four lights in the middle columns in reading order.</li>
+					<li value='All'>Read the twelve lights in reading order.</li>
+					<li value='Counts'>
+						<condition name='KnobIndices'>
+							<li value='left right'>Tell me the number of lit LEDs on the left and right half.</li>
+							<li value='top bottom'>Tell me the number of lit LEDs on the top and bottom rows.</li>
+						</condition>
+					</li>
+				</condition>
+			</template>
+		</category>
+
 		<category>
 			<pattern>on *</pattern>
 			<template>

@@ -1,29 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <aiml>
-	<category>
-		<pattern>defuse wires</pattern>
-		<template>
-			<think><set name='topic'>bomb wires</set></think>
-			<oob>SetGrammar wires</oob><oob>SetPartialInput false</oob>
-			Tell me the colours of the wires from top to bottom.
-		</template>
-	</category>
-	<category>
-		<pattern>defuse wires *</pattern>
-		<template>
-			<think><set name='topic'>bomb wires</set></think>
-			<sr/>
-		</template>
-	</category>
-	<category>
-		<pattern>defuse simple wires ^</pattern>
-		<template><srai>defuse wires <star/></srai></template>
-	</category>
-
 	<topic name='Bomb Wires ^'>
 		<category>
-			<pattern>new wires</pattern>
-			<template>OK.</template>
+			<pattern>SelectModule</pattern>
+			<template>Tell me the colours of the wires from top to bottom.</template>
 		</category>
 
 		<category>

@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml>
-	<category>
-		<pattern>defuse venting gas</pattern>
-		<template>Respond to the computer prompts by pressing "Y" for "Yes" or "N" for "No".</template>
-	</category>
-	<category>
-		<pattern>defuse venting</pattern>
-		<template><srai>defuse venting gas</srai></template>
-	</category>
-	<category>
-		<pattern>defuse gas</pattern>
-		<template><srai>defuse venting gas</srai></template>
-	</category>
+	<topic name='Bomb VentingGas'>
+		<category>
+			<pattern>SelectModule</pattern>
+			<template>Respond to the computer prompts by pressing "Y" for "Yes" or "N" for "No".</template>
+		</category>
+	</topic>
 </aiml>

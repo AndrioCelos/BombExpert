@@ -1,21 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml>
-	<category>
-		<pattern>defuse morse ^</pattern>
-		<template>
-			<think>
-				<set name='topic'>Bomb MorseCode</set>
-				<!-- Pre-generate the word list, as this takes a long time. -->
-				<condition name='SraixUnavailable'>
-					<li value='true'></li>
-					<li><sraix service='BombExpert.Solvers.MorseCodeSolver'>CacheWords <get name='RuleSeed'/></sraix></li>
-				</condition>
-			</think>
-			<oob>SetGrammar morsecode</oob><oob>SetPartialInput true</oob> Tell me part of the sequence of dashes, dots, spaces and the start of the word.
-		</template>
-	</category>
-
 	<topic name='Bomb MorseCode ^'>
+		<category>
+			<pattern>SelectModule</pattern>
+			<template>
+				<think>
+					<!-- Pre-generate the word list, as this takes a long time. -->
+					<condition name='SraixUnavailable'>
+						<li value='true'></li>
+						<li><sraix service='BombExpert.Solvers.MorseCodeSolver'>CacheWords <get name='RuleSeed'/></sraix></li>
+					</condition>
+				</think>
+				<oob><setpartialinput>on</setpartialinput></oob>
+				Tell me part of the sequence of dashes, dots, spaces and the start of the word.
+			</template>
+		</category>
+
+		<category>
+			<pattern>DeselectModule</pattern>
+			<template>
+				<oob><setpartialinput>off</setpartialinput></oob>
+			</template>
+		</category>
+
 		<category>
 			<pattern><set>MorseCodeWord</set> *</pattern>
 			<template><srai>MorseCodeInput <star/> <star index='2'/></srai></template>

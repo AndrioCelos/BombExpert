@@ -1,37 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml>
-	<category>
-		<pattern>defuse who is on first</pattern>
-		<template>
-			<think><set name='topic'>Bomb WhosOnFirst Display</set></think>
-			<oob>SetGrammar whosonfirst</oob><oob>SetPartialInput false</oob> Read the text on the top of the module.
-		</template>
-	</category>
-	<category>
-		<pattern>defuse who is on first *</pattern>
-		<template>
-			<think><set name='topic'>Bomb WhosOnFirst Display</set></think>
-			<sr/>
-		</template>
-	</category>
-	<category>
-		<pattern>defuse who's on first</pattern>
-		<template><srai>defuse who is on first</srai></template>
-	</category>
-	<category>
-		<pattern>defuse who's on first *</pattern>
-		<template><srai>defuse who is on first <star/></srai></template>
-	</category>
-	<category>
-		<pattern>defuse words</pattern>
-		<template><srai>defuse who is on first</srai></template>
-	</category>
-	<category>
-		<pattern>defuse words *</pattern>
-		<template><srai>defuse who is on first <star/></srai></template>
-	</category>
-
 	<topic name='Bomb WhosOnFirst ^'>
+		<category>
+			<pattern>InitModule</pattern>
+			<template>
+				<think>
+					<set name='topic'>Bomb WhosOnFirst Display</set>
+					<set name='WhosOnFirstStage'>1</set>
+				</think>
+				Read the display.
+			</template>
+		</category>
+
 		<category>
 			<pattern>Parse *</pattern>
 			<template><srai>Parse2 <star/></srai></template>
@@ -331,12 +311,24 @@
 		</category>
 
 		<category>
-			<pattern>next set ^</pattern>
-			<template><srai>defuse who is on first <star/></srai></template>
+			<pattern>next stage ^</pattern>
+			<template>
+				<think>
+					<condition name='WhosOnFirstStage'>
+						<li value='1'><set name='WhosOnFirstStage'>2</set></li>
+						<li value='2'><set name='WhosOnFirstStage'>3</set></li>
+						<li>
+							<srai>NewSouvenirStoreIndex</srai>
+							<set name='WhosOnFirstStage'>1</set>
+						</li>
+					</condition>
+				</think>
+				<srai>defuse who's on first <star/></srai>
+			</template>
 		</category>
 		<category>
-			<pattern>new set ^</pattern>
-			<template><srai>defuse who is on first <star/></srai></template>
+			<pattern>new stage ^</pattern>
+			<template><srai>next stage <star/></srai></template>
 		</category>
 	</topic>
 </aiml>

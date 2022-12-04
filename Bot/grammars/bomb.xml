@@ -42,7 +42,7 @@
 		<item> defuse </item>
 		<ruleref uri='#module'/>
 	</rule>
-	<rule id='module'>
+	<rule id='module' scope='public'>
 		<one-of>
 			<item> wires </item>
 			<item> simple wires </item>
@@ -60,7 +60,6 @@
 			<item> complicated wires </item>
 			<item> sequence </item>
 			<item> wire sequence </item>
-			<item> wire sequences </item>
 			<item> panels </item>
 			<item> wire panels </item>
 			<item> maze </item>

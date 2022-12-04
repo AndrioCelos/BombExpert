@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml>
-	<category>
-		<pattern>defuse button</pattern>
-		<template>
-			<think><set name='topic'>bomb button</set></think>
-			<oob>SetGrammar button</oob><oob>SetPartialInput false</oob> Tell me the colour and label of the button.
-		</template>
-	</category>
-
 	<topic name='bomb button'>
 		<category>
-			<pattern>new button</pattern>
-			<template>OK.</template>
+			<pattern>SelectModule</pattern>
+			<template>Tell me the colour and label of the button.</template>
+		</category>
+
+		<category>
+			<pattern>next button *</pattern>
+			<template>
+				<think><srai>next instance</srai></think>
+				<sr/>
+			</template>
 		</category>
 
 		<category>
@@ -33,9 +33,9 @@
 				</think>
 				<condition var='code'>
 					<li value='NeedEdgework'><srai>EdgeworkQuery <get var='detail'/> XS SolveAndTellButton <star/></srai></li>
-					<li value='Tap'>Press and release the button.</li>
-					<li value='Hold'>Press and hold the button. Keep holding it, and tell me what colour light appears.</li>
-					<li value='TapWhenSecondsMatch'>When the two seconds digits on the timer match, press and release the button.</li>
+					<li value='Tap'>Tap the button.</li>
+					<li value='Hold'>Hold the button.</li>
+					<li value='TapWhenSecondsMatch'>When the two seconds digits on the timer match, tap the button.</li>
 				</condition>
 			</template>
 		</category>
@@ -130,7 +130,7 @@
 
 		<category>
 			<pattern><set>BombColours</set></pattern>
-			<that>Keep holding it and tell me what colour light appears</that>
+			<that>^ Hold the button</that>
 			<template>
 				<think>
 					<set var='result'><srai>Solver Button <star/></srai></set>

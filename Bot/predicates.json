@@ -2,6 +2,8 @@
 	// Change this to 'true' to disable use of the <sraix> tag.
 	"SraixUnavailable": "false",
 
+	"Fast": "true",
+
 	// Bomb properties: the 'new bomb' category should reset these.
 	"BombStrikeCount": "0",
 	"BombBatteriesKnown": "false",

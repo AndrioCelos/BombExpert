@@ -1,45 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml>
 	<category>
-		<pattern>defuse memory</pattern>
-		<template>
-			<think>
-				<set name='topic'>Bomb Memory</set>
-				<srai>reset memory</srai>
-			</think>
-			<oob>SetGrammar memory</oob><oob>SetPartialInput false</oob>
-			Read me the number on the display.
-		</template>
-	</category>
-	<category>
 		<pattern>resume memory</pattern>
 		<template>
+			<srai>DeselectModule</srai>
 			<think><set name='topic'>Bomb Memory</set></think>
-			<oob>SetGrammar memory</oob><oob>SetPartialInput false</oob>
 			Stage <get name='BombMemoryStage'/>.
-		</template>
-	</category>
-	<category>
-		<pattern>reset memory</pattern>
-		<template>
-			<think>
-				<set name='BombMemoryStage'>0</set>
-				<set name='MemoryPos1'>unknown</set>
-				<set name='MemoryPos2'>unknown</set>
-				<set name='MemoryPos3'>unknown</set>
-				<set name='MemoryPos4'>unknown</set>
-				<set name='MemoryPos5'>unknown</set>
-				<set name='MemoryLabel1'>unknown</set>
-				<set name='MemoryLabel2'>unknown</set>
-				<set name='MemoryLabel3'>unknown</set>
-				<set name='MemoryLabel4'>unknown</set>
-				<set name='MemoryLabel5'>unknown</set>
-			</think>
-			OK
 		</template>
 	</category>
 
 	<topic name='Bomb Memory ^'>
+		<category>
+			<pattern>SelectModule</pattern>
+			<template>Read me the number on the display.</template>
+		</category>
+
+		<category>
+			<pattern>InitModule</pattern>
+			<template>
+				<think>
+					<set name='BombMemoryStage'>0</set>
+					<set name='MemoryPos1'>unknown</set>
+					<set name='MemoryPos2'>unknown</set>
+					<set name='MemoryPos3'>unknown</set>
+					<set name='MemoryPos4'>unknown</set>
+					<set name='MemoryPos5'>unknown</set>
+					<set name='MemoryLabel1'>unknown</set>
+					<set name='MemoryLabel2'>unknown</set>
+					<set name='MemoryLabel3'>unknown</set>
+					<set name='MemoryLabel4'>unknown</set>
+					<set name='MemoryLabel5'>unknown</set>
+				</think>
+			</template>
+		</category>
+
 		<category>
 			<pattern><set>number</set></pattern>
 			<template><srai>MemoryRead <explode><star/></explode></srai></template>
@@ -127,34 +121,9 @@
 		</category>
 
 		<category>
-			<pattern>next set</pattern>
-			<template><srai>reset memory</srai></template>
-		</category>
-		<category>
-			<pattern>next memory</pattern>
-			<template><srai>next set</srai></template>
-		</category>
-		<category>
-			<pattern>next module</pattern>
-			<template><srai>next set</srai></template>
-		</category>
-		<category>
-			<pattern>new set</pattern>
-			<template><think><set name='BombMemoryStage'>1</set></think></template>
-		</category>
-		<category>
-			<pattern>new memory</pattern>
-			<template><srai>next set</srai></template>
-		</category>
-		<category>
-			<pattern>new module</pattern>
-			<template><srai>next set</srai></template>
-		</category>
-
-		<category>
 			<pattern>yes</pattern>
 			<that>Are we starting a new module</that>
-			<template><srai>reset memory</srai></template>
+			<template><srai>next set</srai></template>
 		</category>
 		<category>
 			<pattern>no</pattern>

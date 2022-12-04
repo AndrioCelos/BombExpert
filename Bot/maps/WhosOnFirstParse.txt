@@ -20,6 +20,8 @@ empty:nil
 :nil
 literal blank:nil
 literally blank:nil
+literal empty:nil
+literally empty:nil
 literal nothing:nil
 literally nothing:nil
 

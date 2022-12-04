@@ -1,40 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml>
-	<category>
-		<pattern>defuse keypad</pattern>
-		<template>
-			<think>
-				<set name='topic'>bomb keypad describe</set>
-				<srai>reset keypad</srai>
-			</think>
-			<oob>SetGrammar KeypadDescribe</oob><oob>SetPartialInput false</oob> Describe one of the glyphs on the keypad.
-		</template>
-	</category>
-	<category>
-		<pattern>reset keypad</pattern>
-		<template>
-			<think>
-				<set name='BombKeypadTry'>1</set>     <!-- Stage 1: which try we are at; incremented on an unknown description -->
-				<set name='BombKeypadAsking'>1</set>  <!-- Stage 1: number of glyph we're asking about. Others: glyph name we're asking about. -->
-				<set name='BombKeypadAsked'>unknown</set>    <!-- Space-separated list of which glyphs we've asked about -->
-				<set name='BombKeypadColumns'>unknown</set>  <!-- Stage 3: Space-separated list of possible column indices -->
-				<set name='BombKeypadGlyph1'>unknown</set>   <!-- Glyph specified by the Defuser -->
-				<set name='BombKeypadGlyph2'>unknown</set>   <!-- Glyph specified by the Defuser -->
-				<set name='BombKeypadGlyph3'>unknown</set>   <!-- Glyph specified by the Defuser -->
-				<set name='BombKeypadGlyph4'>unknown</set>   <!-- Glyph specified by the Defuser -->
-			</think> OK
-		</template>
-	</category>
-	<category>
-		<pattern>new keypad</pattern>
-		<template>OK. <srai>defuse keypad</srai></template>
-	</category>
-	<category>
-		<pattern>next keypad</pattern>
-		<template>OK. <srai>defuse keypad</srai></template>
-	</category>
-
 	<topic name='bomb keypad ^'>
+		<category>
+			<pattern>SelectModule</pattern>
+			<template>Describe one of the symbols.</template>
+		</category>
+
+		<category>
+			<pattern>InitModule</pattern>
+			<template>
+				<think>
+					<set name='BombKeypadTry'>1</set>     <!-- Stage 1: which try we are at; incremented on an unknown description -->
+					<set name='BombKeypadAsking'>1</set>  <!-- Stage 1: number of glyph we're asking about. Others: glyph name we're asking about. -->
+					<set name='BombKeypadAsked'>unknown</set>    <!-- Space-separated list of which glyphs we've asked about -->
+					<set name='BombKeypadColumns'>unknown</set>  <!-- Stage 3: Space-separated list of possible column indices -->
+					<set name='BombKeypadGlyph1'>unknown</set>   <!-- Glyph specified by the Defuser -->
+					<set name='BombKeypadGlyph2'>unknown</set>   <!-- Glyph specified by the Defuser -->
+					<set name='BombKeypadGlyph3'>unknown</set>   <!-- Glyph specified by the Defuser -->
+					<set name='BombKeypadGlyph4'>unknown</set>   <!-- Glyph specified by the Defuser -->
+				</think>
+			</template>
+		</category>
+
 		<category>
 			<pattern>*</pattern>
 			<topic>bomb keypad describe</topic>

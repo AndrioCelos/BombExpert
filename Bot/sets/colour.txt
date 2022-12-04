@@ -1,0 +1,8 @@
+red
+orange
+yellow
+green
+cyan
+blue
+magenta
+white

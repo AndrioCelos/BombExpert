@@ -9,7 +9,7 @@
 					<item> reset </item>
 				</one-of>
 				<one-of>
-					<item> set </item>
+					<item> stage </item>
 				</one-of>
 				<item repeat='0-1'><ruleref uri='#label'/></item>
 			</item>

@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml>
-	<category>
-		<pattern>defuse capacitor discharge</pattern>
-		<template>Hold down the lever to discharge the capacitor and prevent it from overcharging.</template>
-	</category>
-	<category>
-		<pattern>defuse capacitor</pattern>
-		<template><srai>defuse capacitor discharge</srai></template>
-	</category>
+	<topic name='Bomb CapacitorDischarge'>
+		<category>
+			<pattern>SelectModule</pattern>
+			<template>Hold down the lever to discharge the capacitor and prevent it from overcharging.</template>
+		</category>
+	</topic>
 </aiml>

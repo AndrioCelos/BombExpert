@@ -1,26 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml>
-	<category>
-		<pattern>defuse complicated wires</pattern>
-		<template>
-			<think><set name='topic'>Bomb ComplicatedWires</set></think>
-			<oob>SetGrammar complicatedwires</oob><oob>SetPartialInput false</oob>
-			For each wire, left to right, say these key words if they apply: Red, Blue, Light, Star. Say 'then' after each wire.
-		</template>
-	</category>
-	<category>
-		<pattern>defuse complicated</pattern>
-		<template><srai>defuse complicated wires</srai></template>
-	</category>
-
 	<topic name='Bomb ComplicatedWires'>
+		<category>
+			<pattern>SelectModule</pattern>
+			<template>
+				<condition name='Fast'>
+					<li value='true'>Complicated Wires.</li>
+					<li>For each wire, left to right, say these key words if they apply: Red, Blue, Light, Star. Say 'then' after each wire.</li>
+				</condition>
+			</template>
+		</category>
+
 		<category><pattern>red ^</pattern><template><srai>ProcessInput red <star/></srai></template></category>
 		<category><pattern>blue ^</pattern><template><srai>ProcessInput blue <star/></srai></template></category>
 		<category><pattern>light ^</pattern><template><srai>ProcessInput light <star/></srai></template></category>
 		<category><pattern>star ^</pattern><template><srai>ProcessInput star <star/></srai></template></category>
 		<category><pattern>white ^</pattern><template><srai>ProcessInput white <star/></srai></template></category>
 		<category><pattern>nothing ^</pattern><template><srai>ProcessInput nothing <star/></srai></template></category>
-		<category><pattern>plain ^</pattern><template><srai>ProcessInput nothing <star/></srai></template></category>
+		<category><pattern>plain ^</pattern><template><srai>ProcessInput plain <star/></srai></template></category>
 
 		<category>
 			<pattern>ProcessInput *</pattern>
