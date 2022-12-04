@@ -54,7 +54,8 @@
 		BombIndicatorCount        Integer
 		BombIndicatorCountLit     Integer
 		BombIndicatorCountUnlit   Integer
-		BombIndicators            String: list of indicator labels.
+		BombIndicators            String: list of indicator labels that are present.
+		BombIndicatorsKnown       Boolean: true if we know there are no unknown indicators.
 		BombIndicatorsChecked     String: list of indicator labels we know are or are not present.
 		BombIndicatorLit[label]   Boolean: true if we know a lit indicator with this label is present; false if we know it isn't.
 		BombIndicatorUnlit[label] Boolean: true if we know an unlit indicator with this label is present; false if we know it isn't.
@@ -196,8 +197,14 @@
 	<category>
 		<pattern>EdgeworkQuery _ XS *</pattern>
 		<template>
-			<think><set name='EdgeworkCallback'><star index='2'/></set></think>
-			<srai>EdgeworkQuery <star/></srai>
+			<think>
+				<set name='EdgeworkCallback'><star index='2'/></set>
+				<set var='known'><srai>EdgeworkKnown <star/></srai></set>
+			</think>
+			<condition var='known'>
+				<li value='true'><srai><star index='2'/></srai></li>
+				<li><srai>EdgeworkQuery <star/></srai></li>
+			</condition>
 		</template>
 	</category>
 
@@ -207,11 +214,21 @@
 			BatteryCount - asks for the number of batteries
 	-->
 	<category>
+		<pattern>EdgeworkKnown Batteries</pattern>
+		<template>
+			<condition name='BombBatteryCount'><li value='unknown'>false</li><li><condition name='BombBatteryHolderCount'><li value='unknown'>false</li><li>true</li></condition></li></condition>
+		</template>
+	</category>
+	<category>
 		<pattern>EdgeworkQuery Batteries</pattern>
 		<template>
 			<srai>EdgeworkQueryStart batteries Batteries</srai>
 			How many batteries and holders are there?
 		</template>
+	</category>
+	<category>
+		<pattern>EdgeworkKnown BatteryCount</pattern>
+		<template><condition name='BombBatteryCount'><li value='unknown'>false</li><li>true</li></condition></template>
 	</category>
 	<category>
 		<pattern>EdgeworkQuery BatteryCount</pattern>
@@ -221,12 +238,20 @@
 		</template>
 	</category>
 	<category>
+		<pattern>EdgeworkKnown BatteryCountAA</pattern>
+		<template><srai>EdgeworkKnown Batteries</srai></template>
+	</category>
+	<category>
 		<pattern>EdgeworkQuery BatteryCountAA</pattern>
-		<template><srai>EdgeworkQuery BatteryCount</srai></template>
+		<template><srai>EdgeworkQuery Batteries</srai></template>
+	</category>
+	<category>
+		<pattern>EdgeworkKnown BatteryCountD</pattern>
+		<template><srai>EdgeworkKnown Batteries</srai></template>
 	</category>
 	<category>
 		<pattern>EdgeworkQuery BatteryCountD</pattern>
-		<template><srai>EdgeworkQuery BatteryCount</srai></template>
+		<template><srai>EdgeworkQuery Batteries</srai></template>
 	</category>
 	<topic name='Bomb Edgework Batteries ^'>
 		<category>
@@ -333,15 +358,25 @@
 			IndicatorUnlit <label> - asks whether there is an unlit indicator with this label.
 	-->
 	<category>
+		<pattern>EdgeworkKnown Indicators</pattern>
+		<template><get name='BombIndicatorsKnown'/></template>
+	</category>
+	<category>
 		<pattern>EdgeworkQuery Indicators</pattern>
 		<template>
 			<think>
 				<set name='BombIndicatorCount'>0</set>
+				<set name='BombIndicatorCountUnlit'>0</set>
+				<set name='BombIndicatorCountLit'>0</set>
 				<set name='BombIndicators'>nil</set>
 			</think>
 			<srai>EdgeworkQueryStart indicators Indicators</srai>
 			List the indicators on the bomb.
 		</template>
+	</category>
+	<category>
+		<pattern>EdgeworkKnown IndicatorLit *</pattern>
+		<template><condition><name>BombIndicatorLit<star/></name><li value='unknown'>false</li><li>true</li></condition></template>
 	</category>
 	<category>
 		<pattern>EdgeworkQuery IndicatorLit *</pattern>
@@ -351,11 +386,19 @@
 		</template>
 	</category>
 	<category>
+		<pattern>EdgeworkKnown IndicatorLit *</pattern>
+		<template><condition><name>BombIndicatorUnlit<star/></name><li value='unknown'>false</li><li>true</li></condition></template>
+	</category>
+	<category>
 		<pattern>EdgeworkQuery IndicatorUnlit *</pattern>
 		<template>
 			<srai>EdgeworkQueryStart indicators Indicator Unlit <star/></srai>
 			Is there an unlit indicator labelled <star/>?
 		</template>
+	</category>
+	<category>
+		<pattern>EdgeworkKnown Indicator *</pattern>
+		<template><condition><name>BombIndicatorLit<star/></name><li value='unknown'>false</li><li>true</li></condition></template>
 	</category>
 	<category>
 		<pattern>EdgeworkQuery Indicator *</pattern>
@@ -578,9 +621,14 @@
 			EmptyPortPlate - asks whether there is an empty port plate.
 	-->
 	<category>
+		<pattern>EdgeworkKnown PortPlates</pattern>
+		<template><condition name='BombPortPlateCount'><li value='unknown'>false</li><li>true</li></condition></template>
+	</category>
+	<category>
 		<pattern>EdgeworkQuery PortPlates</pattern>
 		<template>
 			<think>
+				<set name='BombPortCount'>0</set>
 				<set name='BombPortPlateCount'>0</set>
 				<set var='types'>Parallel Serial RJ45 DVID PS2 StereoRCA</set>
 				<set var='word'><srai>XFirst <get var='types'/></srai></set>
@@ -600,11 +648,19 @@
 		</template>
 	</category>
 	<category>
+		<pattern>EdgeworkKnown Port *</pattern>
+		<template><condition><name>BombPort<star/></name><li value='unknown'>false</li><li>true</li></condition></template>
+	</category>
+	<category>
 		<pattern>EdgeworkQuery Port *</pattern>
 		<template>
 			<srai>EdgeworkQueryStart ports Port <star/></srai>
 			Does the bomb have a <star/> port?
 		</template>
+	</category>
+	<category>
+		<pattern>EdgeworkKnown EmptyPortPlate</pattern>
+		<template><condition name='BombEmptyPortPlate'><li value='unknown'>false</li><li>true</li></condition></template>
 	</category>
 	<category>
 		<pattern>EdgeworkQuery EmptyPortPlate</pattern>
@@ -729,7 +785,7 @@
 		<template>
 			<think>
 				<set var='answer'><map name='ParseBoolean'><star/></map></set>
-				<set><name>BombEmptyPortPlate</name><get var='answer'/></set>
+				<set name='BombEmptyPortPlate'><get var='answer'/></set>
 			</think>
 			<srai>EdgeworkQueryCallback ports</srai>
 		</template>
@@ -809,6 +865,10 @@
 			SerialNumberHasVowel - asks whether the serial number has a vowel. (Y is not a vowel.)
 	-->
 	<category>
+		<pattern>EdgeworkKnown SerialNumber</pattern>
+		<template><condition name='BombSerialNumber'><li value='unknown'>false</li><li>true</li></condition></template>
+	</category>
+	<category>
 		<pattern>EdgeworkQuery SerialNumber</pattern>
 		<template>
 			<srai>EdgeworkQueryStart serialnumber Serial</srai>
@@ -816,8 +876,16 @@
 		</template>
 	</category>
 	<category>
+		<pattern>EdgeworkKnown Serial</pattern>
+		<template><srai>EdgeworkKnown Serial</srai></template>
+	</category>
+	<category>
 		<pattern>EdgeworkQuery Serial</pattern>
 		<template><srai>EdgeworkQuery SerialNumber</srai></template>
+	</category>
+	<category>
+		<pattern>EdgeworkKnown SerialNumberLastDigit</pattern>
+		<template><condition name='BombSerialNumberLastDigit'><li value='unknown'>false</li><li>true</li></condition></template>
 	</category>
 	<category>
 		<pattern>EdgeworkQuery SerialNumberLastDigit</pattern>
@@ -827,8 +895,16 @@
 		</template>
 	</category>
 	<category>
+		<pattern>EdgeworkKnown SerialNumberIsOdd</pattern>
+		<template><srai>EdgeworkKnown SerialNumberLastDigit</srai></template>
+	</category>
+	<category>
 		<pattern>EdgeworkQuery SerialNumberIsOdd</pattern>
 		<template><srai>EdgeworkQuery SerialNumberLastDigit</srai></template>
+	</category>
+	<category>
+		<pattern>EdgeworkKnown SerialNumberStartsWithLetter</pattern>
+		<template><condition name='BombSerialNumberStartsWithLetter'><li value='unknown'>false</li><li>true</li></condition></template>
 	</category>
 	<category>
 		<pattern>EdgeworkQuery SerialNumberStartsWithLetter</pattern>
@@ -836,6 +912,10 @@
 			<srai>EdgeworkQueryStart serialnumber Serial StartsWithLetter</srai>
 			Does the serial number start with a letter?
 		</template>
+	</category>
+	<category>
+		<pattern>EdgeworkKnown SerialNumberHasVowel</pattern>
+		<template><condition name='BombSerialNumberHasVowel'><li value='unknown'>false</li><li>true</li></condition></template>
 	</category>
 	<category>
 		<pattern>EdgeworkQuery SerialNumberHasVowel</pattern>
@@ -983,4 +1063,52 @@
 		<pattern>verify serial number</pattern>
 		<template><srai>verify serial</srai></template>
 	</category>
+
+	<!--
+		Edgework queries relating to modules, despite them not being edgework:
+		ModuleCount - number of modules
+		NeedyModuleCount - number of needy modules
+		SolveCount - number of solved modules
+	-->
+	<category>
+		<pattern>EdgeworkKnown NeedyModuleCount</pattern>
+		<template><condition name='NeedyModuleCount'><li value='unknown'>false</li><li>true</li></condition></template>
+	</category>
+	<category>
+		<pattern>EdgeworkQuery NeedyModuleCount</pattern>
+		<template>
+			<srai>EdgeworkQueryStart modulecount ModuleCount NeedyModuleCount</srai>
+			How many needy modules are there?
+		</template>
+	</category>
+	<category>
+		<pattern>EdgeworkKnown ModuleCount</pattern>
+		<template><condition name='ModuleCount'><li value='unknown'>false</li><li>true</li></condition></template>
+	</category>
+	<category>
+		<pattern>EdgeworkQuery ModuleCount</pattern>
+		<template>
+			<srai>EdgeworkQueryStart modulecount ModuleCount ModuleCount</srai>
+			How many modules are there?
+		</template>
+	</category>
+	<category>
+		<pattern>EdgeworkKnown UnsolvedCount</pattern>
+		<template><srai>EdgeworkKnown NeedyModuleCount</srai></template>
+	</category>
+	<category>
+		<pattern>EdgeworkQuery UnsolvedCount</pattern>
+		<template><srai>EdgeworkQuery NeedyModuleCount</srai></template>
+	</category>
+	<topic name='Bomb Edgework ModuleCount ^'>
+		<category>
+			<pattern><set>number</set></pattern>
+			<template>
+				<think>
+					<set><name><topicstar/></name><star/></set>
+				</think>
+				<srai>EdgeworkQueryCallback modulecount</srai>
+			</template>
+		</category>
+	</topic>
 </aiml>
