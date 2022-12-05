@@ -26,7 +26,7 @@
 			<pattern>ProcessEnemyStats * XS <set>number</set> <set>number</set> <set>number</set></pattern>
 			<template>
 				<think>
-					<set name='AdventureGameEnemy'><star/></set>
+					<srai>SouvenirPut enemy XS <set name='AdventureGameEnemy'><star/></set></srai>
 					<set name='AdventureGameEnemyStr'><star index='2'/></set>
 					<set name='AdventureGameEnemyDex'><star index='3'/></set>
 					<set name='AdventureGameEnemyInt'><star index='4'/></set>
@@ -237,6 +237,7 @@
 							<set name='AdventureGameDex'>unknown</set>
 							<set name='AdventureGameInt'>unknown</set>
 						</think>
+						<srai>SouvenirPut Items XS potion</srai>
 						Use the potion, then read the new attributes.
 					</li>
 					<li>
@@ -258,6 +259,7 @@
 												<set var='needsEdgework'><rest><get var='result'/></rest></set>
 											</li>
 											<li value='true'>
+												<srai>UsingItem <get var='item'/></srai>
 												<condition var='itemsToUse'>
 													<li value='*'><set var='itemsToUse'><get var='itemsToUse'/>, then the <map name='AdventureGameItemDescription'><get var='item'/></map></set></li>
 													<li><set var='itemsToUse'>Use the <map name='AdventureGameItemDescription'><get var='item'/></map></set></li>
@@ -301,6 +303,7 @@
 										</li>
 									</condition>
 								</think>
+								<srai>UsingItem <get var='bestWeapon'/></srai>
 								<condition var='itemsToUse'>
 									<li value='*'><get var='itemsToUse'/>, then the <map name='AdventureGameItemDescription'><get var='bestWeapon'/></map>.</li>
 									<li>Use the <map name='AdventureGameItemDescription'><get var='bestWeapon'/></map>.</li>
@@ -309,6 +312,19 @@
 						</condition>
 					</li>
 				</condition>
+			</template>
+		</category>
+
+		<category>
+			<pattern>UsingItem *</pattern>
+			<template>
+				<think>
+					<set var='existing'><srai>SouvenirGet AdventureGame XS items</srai></set>
+					<condition var='existing'>
+						<li value='unknown'><srai>SouvenirPut items XS <star/></srai></li>
+						<li><srai>SouvenirPut items XS <srai>XSetAdd <star/> XS <get var='existing'/></srai></srai></li>
+					</condition>
+				</think>
 			</template>
 		</category>
 
@@ -560,7 +576,28 @@
 	</topic>
 
 	<category>
-		<pattern>SouvenirInput Button XS <set>number</set></pattern>
-		<template><srai>SouvenirGet Button XS <star/> XS Colour</srai></template>
+		<pattern>SouvenirInput AdventureGame XS <set>number</set></pattern>
+		<template>
+			<think>
+				<set var='items'><srai>SouvenirGet AdventureGame XS <star/> XS items</srai></set>
+			</think>
+			The enemy was <srai>SouvenirGet AdventureGame XS <star/> XS enemy</srai>.
+			The items were:
+			<condition var='items'>
+				<li value='nil'></li>
+				<li>
+					<think>
+						<set var='description'><map name='AdventureGameItemDescription'><first><get var='items'/></first></map></set>
+						<set var='items'><rest><get var='items'/></rest></set>
+					</think>
+					<condition var='any'>
+						<li value='*'>, <get var='description'/></li>
+						<li><get var='description'/></li>
+					</condition>
+					<think><set var='any'>true</set></think>
+					<loop/>
+				</li>
+			</condition>.
+		</template>
 	</category>
 </aiml>
