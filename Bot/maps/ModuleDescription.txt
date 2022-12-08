@@ -20,3 +20,4 @@ Souvenir             :Souvenir
 Hexamaze             :Hexamaze
 ThirdBase            :Third Base
 AdventureGame        :Adventure Game
+PianoKeys            :Piano Keys

@@ -1,0 +1,15 @@
+natural:Natural
+flat:Flat
+sharp:Sharp
+mordent:Mordent
+turn:Turn
+common:CommonTime
+common time:CommonTime
+cut common:CutCommonTime
+cut common time:CutCommonTime
+cut time:CutCommonTime
+fermata:Fermata
+clef:CClef
+alto:CClef
+alto clef:CClef
+C clef:CClef

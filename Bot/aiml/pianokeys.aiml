@@ -1,0 +1,252 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<aiml>
+	<topic name='Bomb PianoKeys'>
+		<category>
+			<pattern>SelectModule</pattern>
+			<template>Read the symbols on the display.</template>
+		</category>
+
+		<category>
+			<pattern>InitModule</pattern>
+			<template>
+				<think><set name='PianoKeysSymbols'>nil</set></think>
+			</template>
+		</category>
+
+		<category>
+			<pattern>ProcessSymbol *</pattern>
+			<template>
+				<think>
+					<set name='PianoKeysSymbols'><srai>XAppend <map name='PianoKeysParse'><star/></map> XS <get name='PianoKeysSymbols'/></srai></set>
+				</think>
+			</template>
+		</category>
+
+		<category>
+			<pattern><set>PianoKeysSymbol</set> <set>PianoKeysSymbol</set> <set>PianoKeysSymbol</set></pattern>
+			<template>
+				<srai>ProcessSymbol <star index='1'/></srai>
+				<srai>ProcessSymbol <star index='2'/></srai>
+				<srai>ProcessSymbol <star index='3'/></srai>
+				<srai>CheckRule 1</srai>
+			</template>
+		</category>
+
+		<category>
+			<pattern>CheckRule 1</pattern>
+			<template>
+				<think><set var='match'><srai>XContains Flat XS <get name='PianoKeysSymbols'/></srai></set></think>
+				<condition var='match'>
+					<li value='true'>
+						<condition name='BombSerialNumberIsOdd'>
+							<li value='false'>Final Fantasy: <srai>ReadSong Bb Bb Bb Bb Gb Ab Bb Ab Bb</srai></li>
+							<li value='unknown'><srai>EdgeworkQuery SerialNumberIsOdd XS CheckRule 1</srai></li>
+							<li><srai>CheckRule 2</srai></li>
+						</condition>
+					</li>
+					<li><srai>CheckRule 2</srai></li>
+				</condition>
+			</template>
+		</category>
+
+		<category>
+			<pattern>CheckRule 2</pattern>
+			<template>
+				<think><set var='match'><srai>XOr <srai>XContains CommonTime XS <get name='PianoKeysSymbols'/></srai> XS <srai>XContains Sharp XS <get name='PianoKeysSymbols'/></srai></srai></set></think>
+				<condition var='match'>
+					<li value='true'>
+						<condition name='BombBatteryHolderCount'>
+							<li value='0'><srai>CheckRule 3</srai></li>
+							<li value='1'><srai>CheckRule 3</srai></li>
+							<li value='unknown'><srai>EdgeworkQuery Batteries XS CheckRule 2</srai></li>
+							<li>Guile's Theme: <srai>ReadSong Eb Eb D D Eb Eb D Eb Eb D D Eb</srai></li>
+						</condition>
+					</li>
+					<li><srai>CheckRule 3</srai></li>
+				</condition>
+			</template>
+		</category>
+
+		<category>
+			<pattern>CheckRule 3</pattern>
+			<template>
+				<think><set var='match'><srai>XAnd <srai>XContains Natural XS <get name='PianoKeysSymbols'/></srai> XS <srai>XContains Fermata XS <get name='PianoKeysSymbols'/></srai></srai></set></think>
+				<condition var='match'>
+					<li value='true'>James Bond: <srai>ReadSong E Fs Fs Fs Fs E E E</srai></li>
+					<li><srai>CheckRule 4</srai></li>
+				</condition>
+			</template>
+		</category>
+
+		<category>
+			<pattern>CheckRule 4</pattern>
+			<template>
+				<think><set var='match'><srai>XOr <srai>XContains CutCommonTime XS <get name='PianoKeysSymbols'/></srai> XS <srai>XContains Turn XS <get name='PianoKeysSymbols'/></srai></srai></set></think>
+				<condition var='match'>
+					<li value='true'>
+						<condition name='BombPortStereoRCA'>
+							<li value='true'>Jurassic Park: <srai>ReadSong Bb A Bb F Eb Bb A Bb F Eb</srai></li>
+							<li value='unknown'><srai>EdgeworkQuery Port StereoRCA XS CheckRule 4</srai></li>
+							<li><srai>CheckRule 5</srai></li>
+						</condition>
+					</li>
+					<li><srai>CheckRule 5</srai></li>
+				</condition>
+			</template>
+		</category>
+
+		<category>
+			<pattern>CheckRule 5</pattern>
+			<template>
+				<think><set var='match'><srai>XContains CClef XS <get name='PianoKeysSymbols'/></srai></set></think>
+				<condition var='match'>
+					<li value='true'>
+						<condition name='BombIndicatorLitSND'>
+							<li value='true'>Super Mario: <srai>ReadSong E E E C E G G</srai></li>
+							<li value='unknown'><srai>EdgeworkQuery IndicatorLit SND XS CheckRule 5</srai></li>
+							<li><srai>CheckRule 6</srai></li>
+						</condition>
+					</li>
+					<li><srai>CheckRule 6</srai></li>
+				</condition>
+			</template>
+		</category>
+
+		<category>
+			<pattern>CheckRule 6</pattern>
+			<template>
+				<think><set var='match'><srai>XOr
+					<srai>XContains Mordent XS <get name='PianoKeysSymbols'/></srai> XS
+					<srai>XContains Fermata XS <get name='PianoKeysSymbols'/></srai> XS
+					<srai>XContains CommonTime XS <get name='PianoKeysSymbols'/></srai>
+				</srai></set></think>
+				<condition var='match'>
+					<li value='true'>
+						<condition name='BombBatteryHolderCount'>
+							<li value='0'><srai>CheckRule 7</srai></li>
+							<li value='1'><srai>CheckRule 7</srai></li>
+							<li value='2'><srai>CheckRule 7</srai></li>
+							<li value='unknown'><srai>EdgeworkQuery BatteryCount XS CheckRule 6</srai></li>
+							<li>Pink Panther: <srai>ReadSong Cs D E F Cs D E F Bb A</srai></li>
+						</condition>
+					</li>
+					<li><srai>CheckRule 7</srai></li>
+				</condition>
+			</template>
+		</category>
+
+		<category>
+			<pattern>CheckRule 7</pattern>
+			<template>
+				<think><set var='match'><srai>XAnd <srai>XContains Flat XS <get name='PianoKeysSymbols'/></srai> XS <srai>XContains Sharp XS <get name='PianoKeysSymbols'/></srai></srai></set></think>
+				<condition var='match'>
+					<li value='true'>Superman: <srai>ReadSong G G C G G C G C</srai></li>
+					<li><srai>CheckRule 8</srai></li>
+				</condition>
+			</template>
+		</category>
+
+		<category>
+			<pattern>CheckRule 8</pattern>
+			<template>
+				<think><set var='match'><srai>XOr <srai>XContains CutCommonTime XS <get name='PianoKeysSymbols'/></srai> XS <srai>XContains Mordent XS <get name='PianoKeysSymbols'/></srai></srai></set></think>
+				<condition var='match'>
+					<li value='true'>
+						<condition name='BombSerialNumber'>
+							<li value='unknown'><srai>EdgeworkQuery SerialNumber XS CheckRule 8</srai></li>
+							<li>
+								<think>
+									<set var='chars'><explode><get name='BombSerialNumber'/></explode></set>
+									<set var='match'><srai>XOr
+										<srai>XContains 3 XS <get var='chars'/></srai> XS
+										<srai>XContains 7 XS <get var='chars'/></srai> XS
+										<srai>XContains 8 XS <get var='chars'/></srai>
+									</srai></set>
+								</think>
+								<condition var='match'>
+									<li value='true'>Tetris: <srai>ReadSong A E F G F E D D F A</srai></li>
+									<li><srai>CheckRule 9</srai></li>
+								</condition>
+							</li>
+						</condition>
+					</li>
+					<li><srai>CheckRule 9</srai></li>
+				</condition>
+			</template>
+		</category>
+
+		<category>
+			<pattern>CheckRule 9</pattern>
+			<template>
+				<think><set var='match'><srai>XOr
+					<srai>XContains Natural XS <get name='PianoKeysSymbols'/></srai> XS
+					<srai>XContains Turn XS <get name='PianoKeysSymbols'/></srai> XS
+					<srai>XContains CClef XS <get name='PianoKeysSymbols'/></srai>
+				</srai></set></think>
+				<condition var='match'>
+					<li value='true'>Empire Strikes Back: <srai>ReadSong G G G Eb Bb G Eb Bb G</srai></li>
+					<li><srai>CheckRule 10</srai></li>
+				</condition>
+			</template>
+		</category>
+
+		<category>
+			<pattern>CheckRule 10</pattern>
+			<template>Zelda's Lullaby: <srai>ReadSong B D A G A B D A</srai></template>
+		</category>
+
+		<category>
+			<pattern>ReadSong *</pattern>
+			<template>
+				<think>
+					<set var='notes'><star/> z</set>
+					<condition var='notes'>
+						<li value='nil'></li>
+						<li>
+							<set var='note'><explode><first><get var='notes'/></first></explode></set>
+							<set var='notes'><rest><get var='notes'/></rest></set>
+							<condition var='note'>
+								<li><value><get var='lastNote'/></value>
+									<set var='lastNoteCount'><map name='successor'><get var='lastNoteCount'/></map></set>
+								</li>
+								<li>
+									<condition var='lastNote' value='*'>
+										<set var='instruction'>
+											<condition var='lastNoteCount'>
+												<li value='1'><srai>ReadNote <get var='lastNote'/></srai></li>
+												<li><srai>ReadNote <get var='lastNote'/></srai> <get var='lastNoteCount'/> times</li>
+											</condition>
+										</set>
+										<set var='output'>
+											<condition var='output'>
+												<li value='*'><get var='output'/>, <get var='instruction'/></li>
+												<li><get var='instruction'/></li>
+											</condition>
+										</set>
+									</condition>
+									<set var='lastNote'><get var='note'/></set>
+									<set var='lastNoteCount'>1</set>
+								</li>
+							</condition>
+							<loop/>
+						</li>
+					</condition>
+				</think>
+				<get var='output'/>
+			</template>
+		</category>
+
+		<category>
+			<pattern>ReadNote *</pattern>
+			<template><map name='NatoEncode'><star/></map></template>
+		</category>
+		<category>
+			<pattern>ReadNote * s</pattern>
+			<template><map name='NatoEncode'><star/></map> sharp</template>
+		</category>
+		<category>
+			<pattern>ReadNote * b</pattern>
+			<template><map name='NatoEncode'><star/></map> flat</template>
+		</category>
+	</topic>
+</aiml>
