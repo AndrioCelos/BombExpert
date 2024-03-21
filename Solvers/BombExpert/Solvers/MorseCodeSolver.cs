@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using Aiml;
+﻿using Aiml;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +8,7 @@ using System.IO;
 
 namespace BombExpert.Solvers;
 public class MorseCodeSolver : IModuleSolver {
-	private static readonly string[] words = new[] {
+	private static readonly string[] words = [
 		// Vanilla Morse words
 		"trick", "bravo", "vector", "brain",
 		"boxes", "alien", "beats", "bombs",
@@ -198,15 +196,15 @@ public class MorseCodeSolver : IModuleSolver {
 		"wasted", "wastes", "waters", "waving", "weaken", "weaker", "weakly", "wealth", "weapon", "weekly", "weight", "whales", "wheels", "whilst", "whisky", "whites", "wholly", "wicket", "widely",
 		"widest", "widows", "wildly", "window", "winger", "winner", "winter", "wiping", "wiring", "wisdom", "wisely", "wished", "wishes", "within", "wizard", "wolves", "wonder", "worked", "worker",
 		"worlds", "wounds", "wrists", "writer", "writes", "yachts", "yelled", "yields", "youths"
-	};
-	private static readonly string[] frequencies = new[] {
+	];
+	private static readonly string[] frequencies = [
 		"3.502", "3.505", "3.512", "3.515",
 		"3.522", "3.525", "3.532", "3.535",
 		"3.542", "3.545", "3.552", "3.555",
 		"3.562", "3.565", "3.572", "3.575",
 		"3.582", "3.585", "3.592", "3.595",
 		"3.600"
-	};
+	];
 	private const int FrequenciesUsed = 16;
 
 	private static readonly Cache<int, Dictionary<string, string>> wordMapCache = new(Utils.CacheSize, GetRulesInternal);
@@ -241,7 +239,7 @@ public class MorseCodeSolver : IModuleSolver {
 
 		int i = FrequenciesUsed / 2;
 		for (int j = 0; j < FrequenciesUsed / 2; ++j) {
-			var s = words[j].Substring(1);
+			var s = words[j][1..];
 			var toAdd = (from w in MorseCodeSolver.words where !words.Contains(w) && !w.EndsWith(s)
 						 select (word: w, pref: random.NextDouble(), dist: CyclingLevenshteinDistance(w, words[j]))).ToArray();
 			Array.Sort(toAdd, (a, b) => {
@@ -382,8 +380,7 @@ public class MorseCodeSolver : IModuleSolver {
 			}
 		}
 
-		if (solutionWord == null) return "unknown";
-		return solutionWord + " " + words[solutionWord];
+		return solutionWord != null ? $"{solutionWord} {words[solutionWord]}" : "unknown";
 	}
 
 	public void GenerateAiml(string path, int ruleSeed) {

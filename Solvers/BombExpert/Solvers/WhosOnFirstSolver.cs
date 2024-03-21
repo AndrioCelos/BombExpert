@@ -1,23 +1,25 @@
-﻿#nullable enable
-
-using Aiml;
+﻿using Aiml;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml.Linq;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace BombExpert.Solvers;
-public class WhosOnFirstSolver : IModuleSolver {
-	private static readonly string[] displayTexts = new[] {
+public partial class WhosOnFirstSolver : IModuleSolver {
+	private static readonly string[] displayTexts = [
 		"YES", "FIRST", "DISPLAY", "OKAY", "SAYS", "NOTHING", "", "BLANK", "NO", "LED",
 		"LEAD", "READ", "RED", "REED", "LEED", "HOLD ON", "YOU", "YOU ARE", "YOUR",
 		"YOU'RE", "UR", "THERE", "THEY'RE", "THEIR", "THEY ARE", "SEE", "C", "CEE"
-	};
-	private static readonly string[][] buttonTexts = new[] {
-		new[] { "READY", "FIRST", "NO", "BLANK", "NOTHING", "YES", "WHAT", "UHHH", "LEFT", "RIGHT", "MIDDLE", "OKAY", "WAIT", "PRESS" },
-		new[] { "YOU", "YOU ARE", "YOUR", "YOU'RE", "UR", "U", "UH HUH", "UH UH", "WHAT?", "DONE", "NEXT", "HOLD", "SURE", "LIKE" }
-	};
+	];
+	private static readonly string[][] buttonTexts = [
+		["READY", "FIRST", "NO", "BLANK", "NOTHING", "YES", "WHAT", "UHHH", "LEFT", "RIGHT", "MIDDLE", "OKAY", "WAIT", "PRESS"],
+		["YOU", "YOU ARE", "YOUR", "YOU'RE", "UR", "U", "UH HUH", "UH UH", "WHAT?", "DONE", "NEXT", "HOLD", "SURE", "LIKE"]
+	];
+
+	[GeneratedRegex(@"\W")]
+	private static partial Regex SymbolRegex();
 
 	public static RuleSet GetRules(int ruleSeed) {
 		var random = new MonoRandom(ruleSeed);
@@ -92,7 +94,7 @@ public class WhosOnFirstSolver : IModuleSolver {
 				var builder = new StringBuilder();
 				var result = rules.ButtonRules[label];
 				foreach (var label2 in result) {
-					if (builder.Length > 0) builder.Append(" ");
+					if (builder.Length > 0) builder.Append(' ');
 					builder.Append(AimlEncode(label2));
 
 					if (label2 == label) break;
@@ -104,10 +106,7 @@ public class WhosOnFirstSolver : IModuleSolver {
 		}
 	}
 
-	public static string AimlEncode(string text) {
-		if (text == "") return "empty";
-		return text.Replace(' ', '_').Replace('\'', '_').Replace('?', '_');
-	}
+	public static string AimlEncode(string text) => text != "" ? SymbolRegex().Replace(text, "_") : "empty";
 
 	public static string AimlDecode(string text) => text switch {
 		"empty" => "",
@@ -122,13 +121,5 @@ public class WhosOnFirstSolver : IModuleSolver {
 		_ => text
 	};
 
-	public class RuleSet {
-		public Dictionary<string, int> DisplayRules;
-		public Dictionary<string, string[]> ButtonRules;
-
-		public RuleSet(Dictionary<string, int> displayRules, Dictionary<string, string[]> buttonRules) {
-			this.DisplayRules = displayRules;
-			this.ButtonRules = buttonRules;
-		}
-	}
+	public record RuleSet(Dictionary<string, int> DisplayRules, Dictionary<string, string[]> ButtonRules);
 }

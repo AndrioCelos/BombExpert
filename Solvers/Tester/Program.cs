@@ -36,9 +36,8 @@ class Program {
 		var user = new User("User", new Bot());
 		var dummyElement = XElement.Parse("<dummy/>");
 
-		string evaluate(string serviceName, string text) {
-			return solvers[serviceName].Process(text, dummyElement, new RequestProcess(new RequestSentence(new Request(text, user, user.Bot), text), 0, false));
-		}
+		string evaluate(string serviceName, string text)
+			=> solvers[serviceName].Process(text, dummyElement, new RequestProcess(new RequestSentence(new Request(text, user, user.Bot), text), 0, false));
 
 		while (true) {
 			Console.Write("> ");

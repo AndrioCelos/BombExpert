@@ -1,10 +1,13 @@
 ﻿using Aiml;
 using BombExpert.Conditions;
 
-namespace BombExpert; 
+namespace BombExpert;
 /// <summary>Represents a specific, queryable condition as used with modules such as Wires.</summary>
-/// <typeparam name="TData">A module-specific type passed to the delegate for the condition. Not all conditions use this type.</typeparam>
-public abstract class Condition<TData> {
+/// <typeparam name="TData">A module-specific type passed to the delegate for the condition. Not all conditions need use this type.</typeparam>
+/// <param name="key">A value used to associate a weight to this condition for random selection.</param>
+/// <param name="code">The code that should be output to query this condition.</param>
+/// <param name="text">A human-readable description of this condition.</param>
+public abstract class Condition<TData>(string key, string code, string text) {
 	public delegate ConditionResult ConditionDelegate(RequestProcess process, TData data);
 
 	/// <summary>Returns a value used to associate a weight to this condition for random selection.</summary>
@@ -13,16 +16,11 @@ public abstract class Condition<TData> {
 	///		This means that all of those conditions will share the same weight and modifications to this weight.
 	///		For example, Wires does this with port conditions, but The Button does not.
 	/// </remarks>
-	public string Key { get; }
-	public virtual string Code { get; }
+	public string Key { get; } = key;
+	/// <summary>Returns the code that should be output to query this condition.</summary>
+	public virtual string Code { get; } = code;
 	/// <summary>Returns a human-readable description of this condition.</summary>
-	public virtual string Text { get; }
-
-	public Condition(string key, string code, string text) {
-		this.Key = key;
-		this.Code = code;
-		this.Text = text;
-	}
+	public virtual string Text { get; } = text;
 
 	/// <summary>Queries this condition for the specified <see cref="RequestProcess"/> and returns the result.</summary>
 	/// <param name="process">The <see cref="RequestProcess"/> currently being processed.</param>
@@ -35,9 +33,11 @@ public abstract class Condition<TData> {
 	public override string ToString() => this.Text;
 
 	/// <summary>Returns a <see cref="Condition{TData}"/> that checks whether the bomb's serial number ends with an odd digit.</summary>
-	public static SerialNumberParityCondition<TData> SerialNumberIsOdd() => new(true);
+	public static SerialNumberParityCondition<TData> SerialNumberIsOdd { get; } = new(true);
 	/// <summary>Returns a <see cref="Condition{TData}"/> that checks whether the bomb's serial number starts with a letter.</summary>
-	public static SerialNumberStartsWithLetterCondition<TData> SerialNumberStartsWithLetter() => new();
+	public static SerialNumberStartsWithLetterCondition<TData> SerialNumberStartsWithLetter { get; } = new();
+	/// <summary>Returns a <see cref="Condition{TData}"/> that checks whether the bomb has an empty port plate.</summary>
+	public static EmptyPortPlateCondition<TData> EmptyPortPlate { get; } = new();
 }
 
 /// <summary>Specifies whether a condition is met or not met.</summary>
@@ -51,12 +51,12 @@ public enum ConditionResultCode {
 }
 
 /// <summary>Specifies the result of a condition query.</summary>
-public struct ConditionResult {
+public readonly struct ConditionResult {
 	/// <summary>The <see cref="ConditionResultCode"/> indicating whether the condition is met or not met.</summary>
 	public ConditionResultCode Code { get; }
 	/// <summary>
 	///		If <see cref="ConditionResultCode"/> is <see cref="ConditionResultCode.Unknown"/>,
-	///		returns a code indicating what information is missing, or null otherwise.
+	///		returns a code indicating what information is missing, or <see langword="null"/> otherwise.
 	/// </summary>
 	public string? Details { get; }
 
@@ -68,17 +68,17 @@ public struct ConditionResult {
 
 	/// <summary>Returns the logical conjunction of two <see cref="ConditionResult"/> values.</summary>
 	/// <returns>False if either value is false; otherwise, an unknown operand if either is unknown; otherwise, true.</returns>
-	public static ConditionResult operator &(ConditionResult x, ConditionResult y) {
-		if (x.Code == ConditionResultCode.False) return x;
-		if (y.Code == ConditionResultCode.False) return y;
-		if (x.Code == ConditionResultCode.Unknown) return x;
-		return y;
-	}
+	public static ConditionResult operator &(ConditionResult x, ConditionResult y)
+		=> x.Code == ConditionResultCode.False ? x
+		: y.Code == ConditionResultCode.False ? y
+		: x.Code == ConditionResultCode.Unknown ? x : y;
 
-	/// <summary>Returns true if this value is definitely true.</summary>
+	/// <summary>Returns <see langword="true"/> if this value is definitely true: that is, its <see cref="Code"/> property equals <see cref="ConditionResultCode.True"/>.</summary>
 	public static bool operator true(ConditionResult value) => value.Code == ConditionResultCode.True;
-	/// <summary>Returns true if this value is definitely false.</summary>
+	/// <summary>Returns <see langword="true"/> if this value is definitely false: that is, its <see cref="Code"/> property equals <see cref="ConditionResultCode.False"/>.</summary>
 	public static bool operator false(ConditionResult value) => value.Code == ConditionResultCode.False;
+
+	public static implicit operator ConditionResult(bool value) => FromBool(value);
 
 	/// <summary>Creates a <see cref="Condition{TData}"/> from a <see cref="bool"/> value.</summary>
 	public static ConditionResult FromBool(bool value) => new(value ? ConditionResultCode.True : ConditionResultCode.False);

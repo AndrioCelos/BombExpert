@@ -77,19 +77,12 @@ public class MemorySolver : IModuleSolver {
 		throw new ArgumentException("Unknown command");
 	}
 
-	public class Instruction {
+	public class Instruction(string key, int number, string text, Instruction.SolutionDelegate solutionDelegate) {
 		public delegate int SolutionDelegate(RequestProcess process, int[] numbers);
-		public string Key { get; }
-		public int Number { get; }
-		public string Text { get; }
-		public SolutionDelegate Delegate { get; }
-
-		public Instruction(string key, int number, string text, SolutionDelegate solutionDelegate) {
-			this.Key = key;
-			this.Number = number;
-			this.Text = text;
-			this.Delegate = solutionDelegate;
-		}
+		public string Key { get; } = key;
+		public int Number { get; } = number;
+		public string Text { get; } = text;
+		public SolutionDelegate Delegate { get; } = solutionDelegate;
 
 		public override string ToString() => this.Text;
 

@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using Aiml;
+﻿using Aiml;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +7,7 @@ using System.IO;
 
 namespace BombExpert.Solvers;
 public class PasswordSolver : IModuleSolver {
-	private static readonly string[] vanillaPasswords = new[] {
+	private static readonly string[] vanillaPasswords = [
 		"about", "after", "again", "below", "could",
 		"every", "first", "found", "great", "house",
 		"large", "learn", "never", "other", "place",
@@ -17,8 +15,8 @@ public class PasswordSolver : IModuleSolver {
 		"spell", "still", "study", "their", "there",
 		"these", "thing", "think", "three", "water",
 		"where", "which", "world", "would", "write"
-	};
-	private static readonly string[] passwords = new[] {
+	];
+	private static readonly string[] passwords = [
 		"there", "which", "their", "other", "about", "these", "would",
 		"write", "could", "first", "water", "sound", "place", "after",
 		"thing", "think", "great", "where", "right", "three", "small",
@@ -110,7 +108,7 @@ public class PasswordSolver : IModuleSolver {
 		"wider", "widow", "width", "wills", "winds", "windy", "wines", "wings", "wiped", "wires", "wiser", "witch", "witty", "wives", "woken", "woman", "women", "woods",
 		"words", "works", "worms", "worry", "worse", "worst", "worth", "wound", "woven", "wrath", "wreck", "wrist", "wrong", "wrote", "wryly", "xerox", "yacht", "yards",
 		"yawns", "years", "yeast", "yield", "young", "yours", "youth", "zilch", "zones"
-	};
+	];
 
 	private static readonly Cache<int, string[]> cache = new(64, GetWordsInternal);
 

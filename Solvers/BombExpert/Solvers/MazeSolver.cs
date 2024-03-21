@@ -1,14 +1,11 @@
-﻿#nullable enable
-
-using Aiml;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Linq;
 using System.Xml.Linq;
-
+using Aiml;
 using static BombExpert.Solvers.MazeSolver.MazeFlags;
-using System.IO;
-using System.Diagnostics.CodeAnalysis;
 
 namespace BombExpert.Solvers;
 public class MazeSolver : IModuleSolver {
@@ -45,17 +42,17 @@ public class MazeSolver : IModuleSolver {
 				if (point.HasValue) {
 					var (x2, y2) = point.Value;
 					if (x2 - x > 0) {
-						maze[x, y] |= MazeFlags.East;
-						maze[x2, y2] |= MazeFlags.West;
+						maze[x, y] |= East;
+						maze[x2, y2] |= West;
 					} else if (x2 - x < 0) {
-						maze[x, y] |= MazeFlags.West;
-						maze[x2, y2] |= MazeFlags.East;
+						maze[x, y] |= West;
+						maze[x2, y2] |= East;
 					} else if (y2 - y > 0) {
-						maze[x, y] |= MazeFlags.South;
-						maze[x2, y2] |= MazeFlags.North;
+						maze[x, y] |= South;
+						maze[x2, y2] |= North;
 					} else if (y2 - y < 0) {
-						maze[x, y] |= MazeFlags.North;
-						maze[x2, y2] |= MazeFlags.South;
+						maze[x, y] |= North;
+						maze[x2, y2] |= South;
 					}
 					stack.Push((x, y));
 					(x, y) = (x2, y2);
@@ -83,8 +80,7 @@ public class MazeSolver : IModuleSolver {
 		if (y > 0 && !visited.Contains((x, y - 1))) list.Add((x, y - 1));
 		if (y < MazeSize - 1 && !visited.Contains((x, y + 1))) list.Add((x, y + 1));
 
-		if (list.Count == 0) return null;
-		return list[random.Next(list.Count)];
+		return list.Count > 0 ? list[random.Next(list.Count)] : null;
 	}
 
 	public static bool TryGetMazeFromMarker(Maze[] mazes, int markerX, int markerY, [MaybeNullWhen(false)] out Maze maze) {
@@ -110,9 +106,7 @@ public class MazeSolver : IModuleSolver {
 
 		// Solve the maze.
 		var path = Search(maze, startX, startY, goalX, goalY);
-		if (path == null) return "NoPath";
-
-		return string.Join(" ", path);
+		return path != null ? string.Join(" ", path) : "NoPath";
 	}
 
 	private static Stack<MazeFlags>? Search(Maze maze, int x, int y, int goalX, int goalY) {
@@ -124,15 +118,13 @@ public class MazeSolver : IModuleSolver {
 		// Perform a breadth-first search to find a path.
 		while (openSet.Count > 0) {
 			var (px, py, dir) = openSet.Dequeue();
-
-			MazeFlags reverseDir;
-			switch (dir) {
-				case North: reverseDir = South; break;
-				case South: reverseDir = North; break;
-				case West: reverseDir = East; break;
-				case East: reverseDir = West; break;
-				default: reverseDir = 0; break;
-			}
+			var reverseDir = dir switch {
+				North => South,
+				South => North,
+				West => East,
+				East => West,
+				_ => (MazeFlags) 0,
+			};
 			closedSet.Add((px, py), dir);
 
 			if (px == goalX && py == goalY) {
@@ -205,30 +197,9 @@ public class MazeSolver : IModuleSolver {
 		South = 8
 	}
 
-	public struct Point {
-		public int X;
-		public int Y;
-
-		public Point(int x, int y) {
-			this.X = x;
-			this.Y = y;
-		}
-
-		public void Deconstruct(out int x, out int y) {
-			x = this.X;
-			y = this.Y;
-		}
-
-		public override string ToString() => $"({this.X}, {this.Y})";
+	public record struct Point(int X, int Y) {
+		public override readonly string ToString() => $"({this.X}, {this.Y})";
 	}
 
-	public class Maze {
-		public Point[] Indicators;
-		public MazeFlags[,] Cells;
-
-		public Maze(Point[] indicators, MazeFlags[,] cells) {
-			this.Indicators = indicators;
-			this.Cells = cells;
-		}
-	}
+	public record Maze(Point[] Indicators, MazeFlags[,] Cells);
 }

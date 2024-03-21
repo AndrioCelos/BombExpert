@@ -1,18 +1,13 @@
-﻿#nullable enable
-
-using Aiml;
-using System;
-using System.Linq;
-using System.Text;
-using System.Xml.Linq;
-
-using static BombExpert.Solvers.ComplicatedWiresSolver.Flags;
+﻿using System;
 using System.IO;
-using System.Collections.Generic;
+using System.Linq;
+using System.Xml.Linq;
+using Aiml;
+using static BombExpert.Solvers.ComplicatedWiresSolver.Flags;
 
 namespace BombExpert.Solvers;
 public class ComplicatedWiresSolver : IModuleSolver {
-	private static readonly Instruction[] instructions = new[] { Instruction.Cut, Instruction.DoNotCut, Instruction.CutIfSerialNumberEven, Instruction.CutIfParallelPort, Instruction.CutIfTwoOrMoreBatteries };
+	private static readonly Instruction[] instructions = [Instruction.Cut, Instruction.DoNotCut, Instruction.CutIfSerialNumberEven, Instruction.CutIfParallelPort, Instruction.CutIfTwoOrMoreBatteries];
 
 	public static Instruction[] GetRules(int seed) {
 		var array = new Instruction[16];

@@ -1,13 +1,10 @@
-﻿#nullable enable
-
-using Aiml;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Xml.Linq;
-
+using Aiml;
 using static BombExpert.Colour;
-using System.IO;
 
 namespace BombExpert.Solvers;
 public class SimonSaysSolver : IModuleSolver {

@@ -11,19 +11,14 @@ public enum Operations {
 	MoreThanOrEqualTo
 }
 
-public class BatteriesCondition<TData> : Condition<TData> {
+public class BatteriesCondition<TData>(Operations operation, int number) : Condition<TData>(
+	"Batteries" + operation,
+	$"Batteries {operation} {number}",
+	$"there {(number == 1 ? "is" : "are")} {operation switch { LessThan => "less than", LessThanOrEqualTo => "at most", EqualTo => "exactly", MoreThanOrEqualTo => "at least", MoreThan => "more than", _ => "" }} {number} {(number == 1 ? "battery" : "batteries")} on the bomb"
+) {
 
-	public Operations Operation { get; }
-	public int Number { get; }
-
-	public BatteriesCondition(Operations operation, int number) : base(
-			"Batteries" + operation,
-			$"Batteries {operation} {number}",
-			$"there {(number == 1 ? "is" : "are")} {operation switch { LessThan => "less than", LessThanOrEqualTo => "at most", EqualTo => "exactly", MoreThanOrEqualTo => "at least", MoreThan => "more than", _ => "" }} {number} {(number == 1 ? "battery" : "batteries")} on the bomb"
-		) {
-		this.Operation = operation;
-		this.Number = number;
-	}
+	public Operations Operation { get; } = operation;
+	public int Number { get; } = number;
 
 	public override ConditionResult Query(RequestProcess process, TData data) {
 		var s = process.User.GetPredicate("BombBatteryCount").ToLower();
@@ -31,11 +26,11 @@ public class BatteriesCondition<TData> : Condition<TData> {
 
 		var batteries = int.Parse(s);
 		return this.Operation switch {
-			LessThan => ConditionResult.FromBool(batteries < this.Number),
-			LessThanOrEqualTo => ConditionResult.FromBool(batteries <= this.Number),
-			EqualTo => ConditionResult.FromBool(batteries == this.Number),
-			MoreThanOrEqualTo => ConditionResult.FromBool(batteries >= this.Number),
-			MoreThan => ConditionResult.FromBool(batteries > this.Number),
+			LessThan => batteries < this.Number,
+			LessThanOrEqualTo => batteries <= this.Number,
+			EqualTo => batteries == this.Number,
+			MoreThanOrEqualTo => batteries >= this.Number,
+			MoreThan => batteries > this.Number,
 			_ => throw new InvalidOperationException("Unknown operation"),
 		};
 	}

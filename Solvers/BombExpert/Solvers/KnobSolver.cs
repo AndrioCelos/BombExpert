@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using Aiml;
+﻿using Aiml;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,7 +41,7 @@ public class KnobSolver : IModuleSolver {
 		return rules;
 	}
 
-	private static readonly List<(string name, int[] indices)> patterns = new() {
+	private static readonly List<(string name, int[] indices)> patterns = [
 		("Top", new[] { 0, 1, 2, 3, 4, 5 } ),
 		("Bottom", new[] { 6, 7, 8, 9, 10, 11 } ),
 		("Left", new[] { 0, 1, 2, 6, 7, 8 } ),
@@ -52,9 +50,9 @@ public class KnobSolver : IModuleSolver {
 		("Middle", new[] { 1, 4, 7, 10 } ),
 		("Inner", new[] { 2, 3, 8, 9 } ),
 		("All", new[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 } )
-	};
+	];
 
-	private static readonly string[][] countPatterns = new[] { new[] { "Left", "Right" }, new[] { "Top", "Bottom" } };
+	private static readonly string[][] countPatterns = [["Left", "Right"], ["Top", "Bottom"]];
 
 	/// <param name="text">[rule seed] GetPattern -or- [rule seed] Lights ( [light number]:[state] )*</param>
 	public string Process(string text, XElement element, RequestProcess process) {
@@ -94,7 +92,7 @@ public class KnobSolver : IModuleSolver {
 			var known = new List<(int index, bool on)>();
 
 			for (var i = 2; i < fields.Length; ++i) {
-				var fields2 = fields[i].Split(new[] { ':' });
+				var fields2 = fields[i].Split([':']);
 				known.Add((int.Parse(fields2[0]), fields2[1].Equals("on", StringComparison.CurrentCultureIgnoreCase)));
 			}
 

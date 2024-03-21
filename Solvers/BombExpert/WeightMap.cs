@@ -11,11 +11,9 @@ namespace BombExpert;
 ///		When performing a random selection, not all possible choices need have a weight assigned.
 ///		All elements have a weight of 1 by default.
 ///	</remarks>
-public class WeightMap<T, TKey> : IEnumerable<KeyValuePair<TKey, float>> where TKey : notnull {
-	private readonly Dictionary<TKey, float> weights = new();
-	private readonly Func<T, TKey> keySelector;
-
-	public WeightMap(Func<T, TKey> keySelector) => this.keySelector = keySelector;
+public class WeightMap<T, TKey>(Func<T, TKey> keySelector) : IEnumerable<KeyValuePair<TKey, float>> where TKey : notnull {
+	private readonly Dictionary<TKey, float> weights = [];
+	private readonly Func<T, TKey> keySelector = keySelector;
 
 	/// <summary>Returns the weight associated with the specified item (1 by default).</summary>
 	public float GetWeight(T item) => this.weights.TryGetValue(this.keySelector(item), out var weight) ? weight : 1;

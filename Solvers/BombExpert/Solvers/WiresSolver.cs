@@ -1,16 +1,14 @@
-﻿#nullable enable
-
-using Aiml;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
+using Aiml;
 
 namespace BombExpert.Solvers;
 public class WiresSolver : IModuleSolver {
-	private static readonly Colour[] colours = new[] { Colour.Black, Colour.Blue, Colour.Red, Colour.White, Colour.Yellow };
+	private static readonly Colour[] colours = [Colour.Black, Colour.Blue, Colour.Red, Colour.White, Colour.Yellow];
 
 	private static readonly InstructionType CutWire1 = new(nameof(CutWire1), "cut the first wire", (p, c, w) => Result.CutFirstWire);
 	private static readonly InstructionType CutWire2 = new(nameof(CutWire2), "cut the second wire", (p, c, w) => Result.CutSecondWire);
@@ -24,15 +22,15 @@ public class WiresSolver : IModuleSolver {
 
 	private static Result ProcessCutWireColourFirst(RequestProcess p, Colour colour, Colour[] wires) {
 		var index = Array.IndexOf(wires, colour);
-		if (index < 0) throw new ArgumentException("No wires of the specified colour were found.");
-		if (index == wires.Length - 1) return Result.CutLastWire;
-		return Result.CutFirstWire + index;
+		return index < 0 ? throw new ArgumentException("No wires of the specified colour were found.")
+			: index == wires.Length - 1 ? Result.CutLastWire
+			: Result.CutFirstWire + index;
 	}
 	private static Result ProcessCutWireColourLast(RequestProcess p, Colour colour, Colour[] wires) {
 		var index = Array.LastIndexOf(wires, colour);
-		if (index < 0) throw new ArgumentException("No wires of the specified colour were found.");
-		if (index == wires.Length - 1) return Result.CutLastWire;
-		return Result.CutFirstWire + index;
+		return index < 0 ? throw new ArgumentException("No wires of the specified colour were found.")
+			: index == wires.Length - 1 ? Result.CutLastWire
+			: Result.CutFirstWire + index;
 	}
 
 	private static ConditionType ExactlyOneColourWire => new(nameof(ExactlyOneColourWire), "there is exactly one {0} wire", true, 1,
@@ -73,7 +71,7 @@ public class WiresSolver : IModuleSolver {
 					conditionResult = conditionResult && condition.Query(process, colours);
 				}
 				if (conditionResult) {
-					var result = rule.Solution.Type.Delegate(process, rule.Solution.Colour ?? 0, colours);
+					var result = rule.Solution.Type.SolutionDelegate(process, rule.Solution.Colour ?? 0, colours);
 					return result.ToString();
 				} else if (conditionResult.Code == ConditionResultCode.Unknown) {
 					return conditionResult.Details!;
@@ -86,37 +84,37 @@ public class WiresSolver : IModuleSolver {
 
 	public static Rule[][] GetRules(int ruleSeed) {
 		if (ruleSeed == 1) {
-			return new[] {
+			return [
 				// 3 wires
-				new[] {
-					new Rule(new[] { NoColourWire.GetCondition(Colour.Red) }, new Instruction(CutWire2)),
-					new Rule(new[] { LastWireIsColour.GetCondition(Colour.White) }, new Instruction(CutWireLast)),
-					new Rule(new[] { MoreThanOneColourWire.GetCondition(Colour.Blue) }, new Instruction(CutWireColourLast, Colour.Blue)),
+				[
+					new Rule([NoColourWire.GetCondition(Colour.Red)], new Instruction(CutWire2)),
+					new Rule([LastWireIsColour.GetCondition(Colour.White)], new Instruction(CutWireLast)),
+					new Rule([MoreThanOneColourWire.GetCondition(Colour.Blue)], new Instruction(CutWireColourLast, Colour.Blue)),
 					new Rule(new Instruction(CutWireLast))
-				},
+				],
 				// 4 wires
-				new[] {
-					new Rule(new[] { MoreThanOneColourWire.GetCondition(Colour.Red), Condition<Colour[]>.SerialNumberIsOdd() }, new Instruction(CutWireColourLast, Colour.Red)),
-					new Rule(new[] { LastWireIsColour.GetCondition(Colour.Yellow), NoColourWire.GetCondition(Colour.Red) }, new Instruction(CutWire1)),
-					new Rule(new[] { ExactlyOneColourWire.GetCondition(Colour.Blue) }, new Instruction(CutWire1)),
-					new Rule(new[] { MoreThanOneColourWire.GetCondition(Colour.Yellow) }, new Instruction(CutWireLast)),
+				[
+					new Rule([MoreThanOneColourWire.GetCondition(Colour.Red), Condition<Colour[]>.SerialNumberIsOdd], new Instruction(CutWireColourLast, Colour.Red)),
+					new Rule([LastWireIsColour.GetCondition(Colour.Yellow), NoColourWire.GetCondition(Colour.Red)], new Instruction(CutWire1)),
+					new Rule([ExactlyOneColourWire.GetCondition(Colour.Blue)], new Instruction(CutWire1)),
+					new Rule([MoreThanOneColourWire.GetCondition(Colour.Yellow)], new Instruction(CutWireLast)),
 					new Rule(new Instruction(CutWire2))
-				},
+				],
 				// 5 wires
-				new[] {
-					new Rule(new[] { LastWireIsColour.GetCondition(Colour.Black), Condition<Colour[]>.SerialNumberIsOdd() }, new Instruction(CutWire4)),
-					new Rule(new[] { ExactlyOneColourWire.GetCondition(Colour.Red), MoreThanOneColourWire.GetCondition(Colour.Yellow) }, new Instruction(CutWire1)),
-					new Rule(new[] { NoColourWire.GetCondition(Colour.Black) }, new Instruction(CutWire2)),
+				[
+					new Rule([LastWireIsColour.GetCondition(Colour.Black), Condition<Colour[]>.SerialNumberIsOdd], new Instruction(CutWire4)),
+					new Rule([ExactlyOneColourWire.GetCondition(Colour.Red), MoreThanOneColourWire.GetCondition(Colour.Yellow)], new Instruction(CutWire1)),
+					new Rule([NoColourWire.GetCondition(Colour.Black)], new Instruction(CutWire2)),
 					new Rule(new Instruction(CutWire1))
-				},
+				],
 				// 6 wires
-				new[] {
-					new Rule(new[] { NoColourWire.GetCondition(Colour.Yellow), Condition<Colour[]>.SerialNumberIsOdd() }, new Instruction(CutWire3)),
-					new Rule(new[] { ExactlyOneColourWire.GetCondition(Colour.Yellow), MoreThanOneColourWire.GetCondition(Colour.White) }, new Instruction(CutWire4)),
-					new Rule(new[] { NoColourWire.GetCondition(Colour.Red) }, new Instruction(CutWireLast)),
+				[
+					new Rule([NoColourWire.GetCondition(Colour.Yellow), Condition<Colour[]>.SerialNumberIsOdd], new Instruction(CutWire3)),
+					new Rule([ExactlyOneColourWire.GetCondition(Colour.Yellow), MoreThanOneColourWire.GetCondition(Colour.White)], new Instruction(CutWire4)),
+					new Rule([NoColourWire.GetCondition(Colour.Red)], new Instruction(CutWireLast)),
 					new Rule(new Instruction(CutWire4))
-				}
-			};
+				]
+			];
 		}
 
 		var random = new MonoRandom(ruleSeed);
@@ -128,22 +126,22 @@ public class WiresSolver : IModuleSolver {
 			var list2 = new List<Rule>();
 			list = ruleSeed == 1
 				? new[] {
-					new[] { new ConditionType(Condition<Colour[]>.SerialNumberStartsWithLetter()), new ConditionType(Condition<Colour[]>.SerialNumberIsOdd()) },
+					new[] { new ConditionType(Condition<Colour[]>.SerialNumberStartsWithLetter), new ConditionType(Condition<Colour[]>.SerialNumberIsOdd) },
 					new[] { ExactlyOneColourWire, NoColourWire, LastWireIsColour, MoreThanOneColourWire }
 				}
-				: new[] {
-					new[] { new ConditionType(Condition<Colour[]>.SerialNumberStartsWithLetter()), new ConditionType(Condition<Colour[]>.SerialNumberIsOdd()) },
-					new[] { ExactlyOneColourWire, NoColourWire, LastWireIsColour, MoreThanOneColourWire },
-					new[] {
+				: [
+					[new ConditionType(Condition<Colour[]>.SerialNumberStartsWithLetter), new ConditionType(Condition<Colour[]>.SerialNumberIsOdd)],
+					[ExactlyOneColourWire, NoColourWire, LastWireIsColour, MoreThanOneColourWire],
+					[
 						new ConditionType(new Conditions.PortCondition<Colour[]>(PortType.DviD, true)),
 						new ConditionType(new Conditions.PortCondition<Colour[]>(PortType.PS2, true)),
 						new ConditionType(new Conditions.PortCondition<Colour[]>(PortType.RJ45, true)),
 						new ConditionType(new Conditions.PortCondition<Colour[]>(PortType.StereoRCA, true)),
 						new ConditionType(new Conditions.PortCondition<Colour[]>(PortType.Parallel, true)),
 						new ConditionType(new Conditions.PortCondition<Colour[]>(PortType.Serial, true)),
-						new ConditionType(new Conditions.EmptyPortPlateCondition<Colour[]>())
-					}
-				};
+						new ConditionType(Condition<Colour[]>.EmptyPortPlate)
+					]
+				];
 
 			var rules = new Rule[random.NextDouble() < 0.6 ? 3 : 4];
 			ruleSets[i - 3] = rules;
@@ -198,7 +196,7 @@ public class WiresSolver : IModuleSolver {
 				list4.RemoveAll(l => l.Key == forbiddenId);
 			}
 			list2.Add(new Rule(new Instruction(random.Pick(list4), null)));
-			ruleSets[i - 3] = list2.ToArray();
+			ruleSets[i - 3] = [.. list2];
 		}
 		return ruleSets;
 	}
@@ -230,15 +228,6 @@ public class WiresSolver : IModuleSolver {
 		}
 
 		return list;
-	}
-
-	private static bool TryGetSerialNumberIsOdd(RequestProcess process, out bool result) {
-		if (!process.User.Predicates.TryGetValue("BombSerialNumberIsOdd", out var predicate) && predicate != "unknown") {
-			result = false;
-			return false;
-		}
-		result = bool.Parse(predicate);
-		return true;
 	}
 
 	public void GenerateAiml(string path, int ruleSeed) {
@@ -362,18 +351,9 @@ public class WiresSolver : IModuleSolver {
 		CutLastWire
 	}
 
-	public class InstructionType {
-		public delegate Result SolutionDelegate(RequestProcess process, Colour conditionColour, Colour[] wireColours);
-		public string Key { get; }
-		public string Text { get; }
-		public SolutionDelegate Delegate { get; }
+	public delegate Result SolutionDelegate(RequestProcess process, Colour conditionColour, Colour[] wireColours);
 
-		public InstructionType(string key, string text, SolutionDelegate solutionDelegate) {
-			this.Key = key;
-			this.Text = text;
-			this.Delegate = solutionDelegate;
-		}
-
+	public record InstructionType(string Key, string Text, SolutionDelegate SolutionDelegate) {
 		public override string ToString() => $"{{{this.Key}}}";
 	}
 
@@ -405,7 +385,7 @@ public class WiresSolver : IModuleSolver {
 		public ConditionType(Condition<Colour[]> condition) {
 			this.Key = condition.Key;
 			this.Delegate = c => condition;
-			this.AdditionalSolutions = Array.Empty<InstructionType>();
+			this.AdditionalSolutions = [];
 		}
 
 		public Condition<Colour[]> GetCondition(Colour colour) => this.Delegate(colour);
@@ -413,42 +393,21 @@ public class WiresSolver : IModuleSolver {
 		public override string ToString() => $"{{{this.Key}}}";
 	}
 
-	public class WireCondition : Condition<Colour[]> {
-		public Colour Colour { get; }
-		public ConditionDelegate Delegate { get; }
-		public ConditionType Type { get; }
-
-		public WireCondition(ConditionType type, string text, Colour colour, ConditionDelegate conditionDelegate) : base(type.Key, $"{type.Key} {colour}", text) {
-			this.Type = type;
-			this.Colour = colour;
-			this.Delegate = conditionDelegate;
-		}
+	public class WireCondition(ConditionType type, string text, Colour colour, Condition<Colour[]>.ConditionDelegate conditionDelegate) : Condition<Colour[]>(type.Key, $"{type.Key} {colour}", text) {
+		public Colour Colour { get; } = colour;
+		public ConditionDelegate Delegate { get; } = conditionDelegate;
+		public ConditionType Type { get; } = type;
 
 		public override ConditionResult Query(RequestProcess process, Colour[] data) => this.Delegate.Invoke(process, data);
 	}
 
-	public struct Instruction {
-		public InstructionType Type { get; }
-		public Colour? Colour { get; }
-
+	public record struct Instruction(InstructionType Type, Colour? Colour) {
 		public Instruction(InstructionType type) : this(type, null) { }
-		public Instruction(InstructionType type, Colour? colour) {
-			this.Type = type;
-			this.Colour = colour;
-		}
-
-		public override string ToString() => string.Format(this.Type.Text, this.Colour);
+		public override readonly string ToString() => string.Format(this.Type.Text, this.Colour);
 	}
 
-	public class Rule {
-		public Condition<Colour[]>[] Queries { get; }
-		public Instruction Solution { get; }
-
-		public Rule(Instruction solution) : this(Array.Empty<Condition<Colour[]>>(), solution) { }
-		public Rule(Condition<Colour[]>[] queries, Instruction solution) {
-			this.Queries = queries;
-			this.Solution = solution;
-		}
+	public record Rule(Condition<Colour[]>[] Queries, Instruction Solution) {
+		public Rule(Instruction solution) : this([], solution) { }
 
 		private bool Has(string conditionKey, Colour colour)
 			=> this.Queries.Any(c => c is WireCondition c2 && c2.Key == conditionKey && c2.Colour == colour);

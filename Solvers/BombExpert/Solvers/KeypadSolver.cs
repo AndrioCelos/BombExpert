@@ -1,12 +1,9 @@
-﻿#nullable enable
-
-using Aiml;
+﻿using Aiml;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
-
 using static BombExpert.Solvers.KeypadSolver.Glyph;
 
 namespace BombExpert.Solvers;
@@ -164,10 +161,7 @@ public class KeypadSolver : IModuleSolver {
 				}
 			}
 
-			if (glyphs.Count > 0)
-				return "Ask " + Pick(glyphs);
-
-			throw new InvalidOperationException("Ruled out every glyph in stage 2?!");
+			return glyphs.Count > 0 ? "Ask " + Pick(glyphs) : throw new InvalidOperationException("Ruled out every glyph in stage 2?!");
 		} else if (possibleColumns.Count == 1) {
 			return "Tell " + string.Join(" ", columns[possibleColumns[0]]);
 		} else {
@@ -186,10 +180,7 @@ public class KeypadSolver : IModuleSolver {
 				glyphs.AddRange(columns[columnIndex].Where(g => !askedGlyphs.Contains(g) && !possibleColumns.Any(i => i != columnIndex && columns[i].Contains(g))));
 			}
 
-			if (glyphs.Count > 0)
-				return "Ask " + Pick(glyphs);
-
-			throw new InvalidOperationException("Ruled out every glyph in stage 3?!");
+			return glyphs.Count > 0 ? "Ask " + Pick(glyphs) : throw new InvalidOperationException("Ruled out every glyph in stage 3?!");
 		}
 		throw new ArgumentException("Unknown command");
 	}

@@ -60,13 +60,10 @@ public class MonoRandom : Random {
 	/// <summary>Returns a non-negative random integer that is less than the specified maximum.</summary>
 	public override int Next(int maxValue) => maxValue == 1 ? 0 : (int) Math.Floor(this.NextDouble() * maxValue);
 	/// <summary>Returns a random integer that is between the specified minimum (inclusive) and the specified maximum (exclusive).</summary>
-	public override int Next(int minValue, int maxValue) {
-		if (maxValue - minValue <= 1) return minValue;
-		return minValue + this.Next(maxValue - minValue);
-	}
+	public override int Next(int minValue, int maxValue) => maxValue - minValue <= 1 ? minValue : minValue + this.Next(maxValue - minValue);
 
 	/// <summary>Returns an array that contains the elements from the specified enumerable in a random order.</summary>
-	public T[] Shuffle<T>(IEnumerable<T> enumerable) => enumerable.OrderBy(x => this.NextDouble()).ToArray();
+	public T[] Shuffle<T>(IEnumerable<T> enumerable) => [.. enumerable.OrderBy(x => this.NextDouble())];
 	/// <summary>Shuffles the elements of the specified list in place using a Fisher-Yates shuffle.</summary>
 	public void ShuffleFisherYates<T>(IList<T> list) {
 		var i = list.Count;

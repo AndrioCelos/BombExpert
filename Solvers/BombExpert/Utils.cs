@@ -5,7 +5,7 @@ namespace BombExpert;
 public class Utils {
 	internal const int CacheSize = 64;
 
-	internal static string[] IndicatorLabels = new[] { "SND", "CLR", "CAR", "IND", "FRQ", "SIG", "NSA", "MSA", "TRN", "BOB", "FRK" };
+	internal static string[] IndicatorLabels = ["SND", "CLR", "CAR", "IND", "FRQ", "SIG", "NSA", "MSA", "TRN", "BOB", "FRK"];
 
 	public static string GetPortDescriptionAn(PortType portType)
 		=> portType switch {

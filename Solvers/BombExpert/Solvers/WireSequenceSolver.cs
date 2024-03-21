@@ -1,15 +1,10 @@
-﻿#nullable enable
-
-using Aiml;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Xml.Linq;
-
-using static BombExpert.Solvers.WireSequenceSolver.Instruction;
 using System.IO;
-using System.Text;
-using System.Diagnostics.Metrics;
 using System.Linq;
+using System.Xml.Linq;
+using Aiml;
+using static BombExpert.Solvers.WireSequenceSolver.Instruction;
 
 namespace BombExpert.Solvers;
 public class WireSequenceSolver : IModuleSolver {
@@ -21,9 +16,9 @@ public class WireSequenceSolver : IModuleSolver {
 
 	public static RuleSet GetRules(int ruleSeed) {
 		if (ruleSeed == 1) return new RuleSet(
-			new[] { CutC, CutB, CutA, CutA | CutC, CutB, CutA | CutC, CutA | CutB | CutC, CutA | CutB, CutB },
-			new[] { CutB, CutA | CutC, CutB, CutA, CutB, CutB | CutC, CutC, CutA | CutC, CutA },
-			new[] { CutA | CutB | CutC, CutA | CutC, CutB, CutA | CutC, CutB, CutB | CutC, CutA | CutB, CutC, CutC }
+			[CutC, CutB, CutA, CutA | CutC, CutB, CutA | CutC, CutA | CutB | CutC, CutA | CutB, CutB],
+			[CutB, CutA | CutC, CutB, CutA, CutB, CutB | CutC, CutC, CutA | CutC, CutA],
+			[CutA | CutB | CutC, CutA | CutC, CutB, CutA | CutC, CutB, CutB | CutC, CutA | CutB, CutC, CutC]
 		);
 
 		var random = new MonoRandom(ruleSeed);
@@ -105,17 +100,7 @@ public class WireSequenceSolver : IModuleSolver {
 		CutC = 4
 	}
 
-	public class RuleSet {
-		public Instruction[] RedRules { get; }
-		public Instruction[] BlueRules { get; }
-		public Instruction[] BlackRules { get; }
-
-		public RuleSet(Instruction[] redRules, Instruction[] blueRules, Instruction[] blackRules) {
-			this.RedRules = redRules;
-			this.BlueRules = blueRules;
-			this.BlackRules = blackRules;
-		}
-
+	public record RuleSet(Instruction[] RedRules, Instruction[] BlueRules, Instruction[] BlackRules) {
 		public Instruction[] this[Colour colour] => colour switch {
 			Colour.Red => this.RedRules,
 			Colour.Blue => this.BlueRules,

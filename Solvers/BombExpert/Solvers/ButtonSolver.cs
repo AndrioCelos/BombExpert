@@ -11,39 +11,33 @@ public class ButtonSolver : IModuleSolver {
 	private const int MaxInitialRules = 6;
 	private const int MaxHeldRules = 3;
 
-	public class ButtonColourCondition : Condition<ButtonData> {
-		public Colour Colour { get; }
-		public ButtonColourCondition(Colour colour) : base(nameof(ButtonColourCondition), $"ButtonColour {colour}", $"the button is {colour.ToString().ToLower()}") {
-			this.Colour = colour;
-		}
-		public override ConditionResult Query(RequestProcess process, ButtonData data) => ConditionResult.FromBool(data.Colour == this.Colour);
+	public class ButtonColourCondition(Colour colour) : Condition<ButtonData>(nameof(ButtonColourCondition), $"ButtonColour {colour}", $"the button is {colour.ToString().ToLower()}") {
+		public Colour Colour { get; } = colour;
+		public override ConditionResult Query(RequestProcess process, ButtonData data) => data.Colour == this.Colour;
 	}
 
-	public class ButtonLabelCondition : Condition<ButtonData> {
-		public Label Label { get; }
-		public ButtonLabelCondition(Label label) : base(nameof(ButtonLabelCondition), $"ButtonLabel {label}", $"the button says '{label}'") {
-			this.Label = label;
-		}
-		public override ConditionResult Query(RequestProcess process, ButtonData data) => ConditionResult.FromBool(data.Label == this.Label);
+	public class ButtonLabelCondition(Label label) : Condition<ButtonData>(nameof(ButtonLabelCondition), $"ButtonLabel {label}", $"the button says '{label}'") {
+		public Label Label { get; } = label;
+		public override ConditionResult Query(RequestProcess process, ButtonData data) => data.Label == this.Label;
 	}
 
 	public static RuleSet GetRules(int ruleSeed) {
 		if (ruleSeed == 1) return new RuleSet(
-			new[] {
-				new InitialRule(new List<Condition<ButtonData>>() { new ButtonColourCondition(Colour.Blue), new ButtonLabelCondition(Label.Abort) }, InitialSolution.Hold),
-				new InitialRule(new List<Condition<ButtonData>>() { new BatteriesCondition<ButtonData>(Operations.MoreThan, 1), new ButtonLabelCondition(Label.Detonate) }, InitialSolution.Tap),
-				new InitialRule(new List<Condition<ButtonData>>() { new ButtonColourCondition(Colour.White), IndicatorCondition<ButtonData>.Lit("CAR") }, InitialSolution.Hold),
-				new InitialRule(new List<Condition<ButtonData>>() { new BatteriesCondition<ButtonData>(Operations.MoreThan, 2), IndicatorCondition<ButtonData>.Lit("FRK") }, InitialSolution.Tap),
-				new InitialRule(new List<Condition<ButtonData>>() { new ButtonColourCondition(Colour.Yellow) }, InitialSolution.Hold),
-				new InitialRule(new List<Condition<ButtonData>>() { new ButtonColourCondition(Colour.Red), new ButtonLabelCondition(Label.Hold) }, InitialSolution.Tap),
+			[
+				new InitialRule([new ButtonColourCondition(Colour.Blue), new ButtonLabelCondition(Label.Abort)], InitialSolution.Hold),
+				new InitialRule([new BatteriesCondition<ButtonData>(Operations.MoreThan, 1), new ButtonLabelCondition(Label.Detonate)], InitialSolution.Tap),
+				new InitialRule([new ButtonColourCondition(Colour.White), IndicatorCondition<ButtonData>.Lit("CAR")], InitialSolution.Hold),
+				new InitialRule([new BatteriesCondition<ButtonData>(Operations.MoreThan, 2), IndicatorCondition<ButtonData>.Lit("FRK")], InitialSolution.Tap),
+				new InitialRule([new ButtonColourCondition(Colour.Yellow)], InitialSolution.Hold),
+				new InitialRule([new ButtonColourCondition(Colour.Red), new ButtonLabelCondition(Label.Hold)], InitialSolution.Tap),
 				new InitialRule(InitialSolution.Hold)
-			},
-			new[] {
+			],
+			[
 				new HeldRule(Colour.Blue, new HeldSolution(HeldSolutionType.ReleaseOnTimerDigit, 4)),
 				new HeldRule(Colour.White, new HeldSolution(HeldSolutionType.ReleaseOnTimerDigit, 1)),
 				new HeldRule(Colour.Yellow, new HeldSolution(HeldSolutionType.ReleaseOnTimerDigit, 5)),
 				new HeldRule(null, new HeldSolution(HeldSolutionType.ReleaseOnTimerDigit, 1)),
-			}
+			]
 		);
 
 		var random = new MonoRandom(ruleSeed);
@@ -71,18 +65,18 @@ public class ButtonSolver : IModuleSolver {
 		}
 		foreach (var port in ports)
 			PrimaryConditions.Add(new PortCondition<ButtonData>(port));
-		PrimaryConditions.Add(new EmptyPortPlateCondition<ButtonData>());
-		SecondaryConditions.Add(Condition<ButtonData>.SerialNumberStartsWithLetter());
-		SecondaryConditions.Add(Condition<ButtonData>.SerialNumberIsOdd());
+		PrimaryConditions.Add(Condition<ButtonData>.EmptyPortPlate);
+		SecondaryConditions.Add(Condition<ButtonData>.SerialNumberStartsWithLetter);
+		SecondaryConditions.Add(Condition<ButtonData>.SerialNumberIsOdd);
 
 		// Generate initial rules.
 		var initialRules = new List<InitialRule>();
 		while (initialRules.Count < MaxInitialRules && PrimaryConditions.Count > 0) {
 			var query = Utils.RemoveRandom(PrimaryConditions, random);
 			if (random.Next(2) == 0)
-				initialRules.Add(CreateInitialRule(new List<Condition<ButtonData>>() { query }, initialInstructionWeights, random));
+				initialRules.Add(CreateInitialRule([query], initialInstructionWeights, random));
 			else
-				initialRules.Add(CreateInitialRule(new List<Condition<ButtonData>>() { query, Utils.RemoveRandom(SecondaryConditions, random) }, initialInstructionWeights, random));
+				initialRules.Add(CreateInitialRule([query, Utils.RemoveRandom(SecondaryConditions, random)], initialInstructionWeights, random));
 		}
 		initialRules.Add(new InitialRule(InitialSolution.Hold));
 
@@ -96,7 +90,7 @@ public class ButtonSolver : IModuleSolver {
 
 		RemoveRedundantRules(initialRules, initialInstructionWeights, random, PrimaryConditions, SecondaryConditions);
 
-		return new RuleSet(initialRules.ToArray(), heldRules.ToArray());
+		return new RuleSet([.. initialRules], [.. heldRules]);
 	}
 
 	private static void RemoveRedundantRules(List<InitialRule> rules, WeightMap<InitialSolution, InitialSolution> weights, Random random, List<Condition<ButtonData>> PrimaryQueryList, List<Condition<ButtonData>> SecondaryQueryList) {
@@ -198,9 +192,7 @@ public class ButtonSolver : IModuleSolver {
 		return solutions;
 	}
 	private static List<HeldSolution> GetHeldSolutions() {
-		var list = new List<HeldSolution>() {
-			new HeldSolution(HeldSolutionType.ReleaseOnTimerDigit, 5)
-		};
+		var list = new List<HeldSolution>() { new(HeldSolutionType.ReleaseOnTimerDigit, 5) };
 		for (int i = 1; i <= 4; ++i)
 			list.Add(new HeldSolution(HeldSolutionType.ReleaseOnTimerDigit, i));
 		for (int i = 6; i <= 9; ++i)
@@ -239,9 +231,7 @@ public class ButtonSolver : IModuleSolver {
 					break;
 				} else if (result.Code == ConditionResultCode.Unknown) return result.Details!;
 			}
-			if (instruction == null) throw new InvalidOperationException("No rules matched?!");
-
-			return instruction.Value.ToString();
+			return instruction != null ? instruction.Value.ToString() : throw new InvalidOperationException("No rules matched?!");
 		} else {
 			// Held stage
 			var rule = rules.HeldRules.FirstOrDefault(r => r.Colour == colour) ?? rules.HeldRules.Single(r => r.Colour == null);
@@ -268,10 +258,10 @@ public class ButtonSolver : IModuleSolver {
 			writer.WriteLine($"<!-- {i + 1}. {rule} -->\n<condition var='result' value='unknown'>");
 
 			// Check button conditions before edgework ones.
-			static bool isButtonCondition(Condition<ButtonData> condition) => condition is ButtonColourCondition || condition is ButtonLabelCondition;
+			static bool isButtonCondition(Condition<ButtonData> condition) => condition is ButtonColourCondition or ButtonLabelCondition;
 			var conditions = rule.Conditions;
 			if (conditions.Count == 2 && isButtonCondition(conditions[1]) && !isButtonCondition(conditions[0]))
-				conditions = new List<Condition<ButtonData>>() { conditions[1], conditions[0] };
+				conditions = [conditions[1], conditions[0]];
 
 			var closeTags = new Stack<string>();
 			foreach (var condition in conditions) {
@@ -301,11 +291,11 @@ public class ButtonSolver : IModuleSolver {
 						writer.WriteLine($"<condition name='BombPort{portCondition.PortType}'>\n<li value='true'>");
 						closeTags.Push($"</li>\n<li value='unknown'><set var='result'>NeedEdgework Port {portCondition.PortType}</set></li>\n</condition>");
 						break;
-					case EmptyPortPlateCondition<ButtonData> _:
+					case EmptyPortPlateCondition<ButtonData>:
 						writer.WriteLine("<condition name='BombEmptyPortPlate'>\n<li value='true'>");
 						closeTags.Push("</li>\n<li value='unknown'><set var='result'>NeedEdgework EmptyPortPlate</set></li>\n</condition>");
 						break;
-					case SerialNumberStartsWithLetterCondition<ButtonData> _:
+					case SerialNumberStartsWithLetterCondition<ButtonData>:
 						writer.WriteLine("<condition name='BombSerialNumberStartsWithLetter'>\n<li value='true'>");
 						closeTags.Push("</li>\n<li value='unknown'><set var='result'>NeedEdgework SerialNumberStartsWithLetter</set></li>\n</condition>");
 						break;
@@ -374,17 +364,12 @@ public class ButtonSolver : IModuleSolver {
 		ReleaseAnyTime
 	}
 
-	public class HeldSolution {
-		public string Key { get; }
-		public HeldSolutionType Type { get; }
-		public int Digit { get; }
+	public class HeldSolution(HeldSolutionType type, int digit) {
+		public string Key { get; } = type.ToString() + digit;
+		public HeldSolutionType Type { get; } = type;
+		public int Digit { get; } = digit;
 
 		public HeldSolution(HeldSolutionType type) : this(type, 0) { }
-		public HeldSolution(HeldSolutionType type, int digit) {
-			this.Key = type.ToString() + digit;
-			this.Type = type;
-			this.Digit = digit;
-		}
 
 		public override string ToString() => this.Type switch {
 			HeldSolutionType.ReleaseOnTimerDigit => $"release when the countdown timer has a {this.Digit} in any position",
@@ -402,7 +387,7 @@ public class ButtonSolver : IModuleSolver {
 		public InitialSolution Solution { get; internal set; }
 
 		public InitialRule(InitialSolution solution) {
-			this.Conditions = new List<Condition<ButtonData>>();
+			this.Conditions = [];
 			this.Solution = solution;
 		}
 		public InitialRule(List<Condition<ButtonData>> conditions, InitialSolution solution) {
@@ -420,37 +405,13 @@ public class ButtonSolver : IModuleSolver {
 				} + ".";
 	}
 
-	public class HeldRule {
-		public Colour? Colour { get; }
-		public HeldSolution Solution { get; }
-
-		public HeldRule(Colour? colour, HeldSolution solution) {
-			this.Colour = colour;
-			this.Solution = solution;
-		}
-
+	public record HeldRule(Colour? Colour, HeldSolution Solution) {
 		public override string ToString()
 			=> (this.Colour != null ? this.Colour.ToString() + " strip: " : "Any other color strip: ") +
 			this.Solution;
 	}
 
-	public class RuleSet {
-		public InitialRule[] InitialRules;
-		public HeldRule[] HeldRules;
+	public record RuleSet(InitialRule[] InitialRules, HeldRule[] HeldRules);
 
-		public RuleSet(InitialRule[] initialRules, HeldRule[] heldRules) {
-			this.InitialRules = initialRules;
-			this.HeldRules = heldRules;
-		}
-	}
-
-	public struct ButtonData {
-		public Colour Colour;
-		public Label Label;
-
-		public ButtonData(Colour colour, Label label) {
-			this.Colour = colour;
-			this.Label = label;
-		}
-	}
+	public record struct ButtonData(Colour Colour, Label Label);
 }
