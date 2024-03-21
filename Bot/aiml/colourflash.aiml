@@ -72,7 +72,7 @@
 		</category>
 
 		<category><pattern>Solver ColourFlash Condition green 1</pattern>
-			<template>A appears consecutively in different colours</template>
+			<template>A single word appears consecutively in different colours</template>
 		</category>
 		<category><pattern>Solver ColourFlash Instruction green 1</pattern>
 			<template>Press 'no' on the fifth entry.</template>
@@ -91,10 +91,10 @@
 			<template>The word and colour are different three times</template>
 		</category>
 		<category><pattern>Solver ColourFlash Instruction blue 1</pattern>
-			<template>Press 'yes' any time the word and colour are different.</template>
+			<template>Press 'yes' the first time the word and colour are different.</template>
 		</category>
 		<category><pattern>Solver ColourFlash Condition blue 2</pattern>
-			<template>The word 'red' appears in yellow or the word 'yellow' appears in white</template>
+			<template>The word 'red' appears in yellow, or the word 'yellow' appears in white</template>
 		</category>
 		<category><pattern>Solver ColourFlash Instruction blue 2</pattern>
 			<template>Press 'no' when the word 'white' is shown in red</template>
@@ -116,7 +116,7 @@
 			<template>Press 'no' the last time the word 'yellow' appears</template>
 		</category>
 		<category><pattern>Solver ColourFlash Instruction magenta <set>number</set></pattern>
-			<template>Press 'no' the first time the colour matches the seventh word.</template>
+			<template>Press 'no' the first time the colour matches the text of the seventh word.</template>
 		</category>
 
 		<category><pattern>Solver ColourFlash Condition white 1</pattern>

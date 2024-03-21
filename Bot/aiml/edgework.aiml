@@ -533,13 +533,11 @@
 								<!-- If the indicator is present, add it to the list. -->
 								<set name='BombIndicators'><srai>XAppend <topicstar index='2'/> <get name='BombIndicators'/></srai></set>
 								<!-- If we were previously told the indicator is not lit or unlit, we know it is in the opposite state. -->
-								<condition value='false'>
-									<li>
-										<name>BombIndicatorLit<topicstar index='2'/></name>
+								<condition>
+									<li value='false'><name>BombIndicatorLit<topicstar index='2'/></name>
 										<set><name>BombIndicatorUnlit<topicstar index='2'/></name>true</set>
 									</li>
-									<li>
-										<name>BombIndicatorUnlit<topicstar index='2'/></name>
+									<li value='false'><name>BombIndicatorUnlit<topicstar index='2'/></name>
 										<set><name>BombIndicatorLit<topicstar index='2'/></name>true</set>
 									</li>
 								</condition>

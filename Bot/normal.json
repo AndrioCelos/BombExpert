@@ -1,4 +1,7 @@
 [
+	[ " who's "         , " who is "      ],
+	[ " you're "        , " you are "      ],
+	[ "'"               , " "             ],
 	[ ","               , " "             ],
 	[ " upside-down "   , " upside down " ],
 	[ " X-ray "         , " Xray "        ],

@@ -1,3 +1,5 @@
+empty   :literally empty
+nil     :literally empty
 BLANK   :word BLANK
 C       :letter C
 CEE     :Cee Spain
@@ -13,7 +15,6 @@ LEFT    :LEFT
 LIKE    :LIKE
 MIDDLE  :MIDDLE
 NEXT    :NEXT
-nil     :literally empty
 NO      :NO
 NOTHING :word NOTHING
 OKAY    :OKAY
@@ -28,7 +29,7 @@ SEE     :SEE a movie
 SURE    :SURE
 THEIR   :THEIR possessive
 THERE   :THERE location
-THEY ARE:words THEY ARE
+THEY_ARE:words THEY ARE
 THEY_RE :THEY'RE with apostrophe
 U       :letter U
 UH_HUH  :UH HUH positive

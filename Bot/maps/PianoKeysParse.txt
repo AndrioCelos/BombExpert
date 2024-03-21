@@ -3,8 +3,11 @@ flat:Flat
 sharp:Sharp
 mordent:Mordent
 turn:Turn
+c:CommonTime
 common:CommonTime
 common time:CommonTime
+cut:CutCommonTime
+cut c:CutCommonTime
 cut common:CutCommonTime
 cut common time:CutCommonTime
 cut time:CutCommonTime

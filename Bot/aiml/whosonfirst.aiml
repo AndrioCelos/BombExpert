@@ -8,8 +8,12 @@
 					<set name='topic'>Bomb WhosOnFirst Display</set>
 					<set name='WhosOnFirstStage'>1</set>
 				</think>
-				Read the display.
 			</template>
+		</category>
+
+		<category>
+			<pattern>SelectModule</pattern>
+			<template>Read the display.</template>
 		</category>
 
 		<category>

@@ -15,15 +15,15 @@ nothing:NOTHING
 word nothing:NOTHING
 nothing word:NOTHING
 
-nil:nil
-empty:nil
-:nil
-literal blank:nil
-literally blank:nil
-literal empty:nil
-literally empty:nil
-literal nothing:nil
-literally nothing:nil
+nil:empty
+empty:empty
+:empty
+literal blank:empty
+literally blank:empty
+literal empty:empty
+literally empty:empty
+literal nothing:empty
+literally nothing:empty
 
 blank:BLANK
 word blank:BLANK

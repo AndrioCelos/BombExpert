@@ -6,3 +6,4 @@ cyan
 blue
 magenta
 white
+black

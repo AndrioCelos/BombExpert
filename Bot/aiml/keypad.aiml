@@ -10,8 +10,14 @@
 			<pattern>InitModule</pattern>
 			<template>
 				<think>
-					<set name='BombKeypadTry'>1</set>     <!-- Stage 1: which try we are at; incremented on an unknown description -->
-					<set name='BombKeypadAsking'>1</set>  <!-- Stage 1: number of glyph we're asking about. Others: glyph name we're asking about. -->
+					<condition name='BombKeypadStage'>
+						<li value='2'></li>
+						<li>
+							<set name='BombKeypadTry'>1</set>     <!-- Stage 1: which try we are at; incremented on an unknown description -->
+							<set name='BombKeypadAsking'>1</set>  <!-- Stage 1: number of glyph we're asking about. Others: glyph name we're asking about. -->
+						</li>
+					</condition>
+					<set name='KeypadAbsent'>nil</set>
 					<set name='BombKeypadAsked'>unknown</set>    <!-- Space-separated list of which glyphs we've asked about -->
 					<set name='BombKeypadColumns'>unknown</set>  <!-- Stage 3: Space-separated list of possible column indices -->
 					<set name='BombKeypadGlyph1'>unknown</set>   <!-- Glyph specified by the Defuser -->
@@ -24,7 +30,7 @@
 
 		<category>
 			<pattern>*</pattern>
-			<topic>bomb keypad describe</topic>
+			<topic>bomb keypad</topic>
 			<template>
 				<think><set var='valid'><srai>KeypadAppendGlyphDescription <star/></srai></set></think>
 				<condition var='valid'>
@@ -62,7 +68,7 @@
 											</li>
 											<li>
 												<think><set name='BombKeypadColumn'><get var='result'/></set></think>
-												<srai>KeypadOrderRead</srai>
+												<srai>KeypadOrderRead <get var='result'/></srai>
 											</li>
 										</condition>
 									</li>
@@ -79,7 +85,7 @@
 
 		<category>
 			<pattern>* then *</pattern>
-			<topic>bomb keypad describe</topic>
+			<topic>bomb keypad</topic>
 			<template>
 				<think><set var='valid'><srai>KeypadAppendGlyphDescription <star/></srai></set></think>
 				<condition var='valid'>
@@ -292,31 +298,25 @@
 		<!-- Usage: KeypadOrderRead -->
 		<!-- Tells the Defuser the order to press the buttons. -->
 		<category>
-			<pattern>KeypadOrderRead</pattern>
+			<pattern>KeypadOrderRead *</pattern>
 			<template>
+				<think><set var='column'><star/></set></think>
 				Press in this order:
-				<srai>KeypadDescribe <srai>XItem 1 XS <get name='BombKeypadColumn'/></srai></srai>,
-				<srai>KeypadDescribe <srai>XItem 2 XS <get name='BombKeypadColumn'/></srai></srai>,
-				<srai>KeypadDescribe <srai>XItem 3 XS <get name='BombKeypadColumn'/></srai></srai>,
-				<srai>KeypadDescribe <srai>XItem 4 XS <get name='BombKeypadColumn'/></srai></srai>.
-			</template>
-		</category>
-
-		<!-- Usage: KeypadOrderTell [n] -->
-		<!-- Tells the Defuser to press the nth glyph in the correct order. -->
-		<category>
-			<pattern>KeypadOrderTell <set>number</set></pattern>
-			<template>Press the <srai>KeypadDescribe <srai>XItem <star/> XS <get name='BombKeypadColumn'/></srai></srai>. Then say OK.</template>
-		</category>
-
-		<category>
-			<pattern>OK ^</pattern>
-			<topic>bomb keypad order</topic>
-			<template>
-				<condition name='BombKeypadIndex'>
-					<li value='4'>The keypad should be finished now.</li>
-					<li><srai>KeypadOrderTell <set name='BombKeypadIndex'><map name='successor'><get name='BombKeypadIndex'/></map></set></srai></li>
-				</condition>
+				<condition var='column'>
+					<li value='nil'></li>
+					<li>
+						<think>
+							<set var='absent'><srai>XContains <first><get var='column'/></first> XS <get name='KeypadAbsent'/></srai></set>
+						</think>
+						<condition var='absent' value='false'>
+							<condition var='any' value='true'>,</condition>
+							<map name='KeypadGlyphDescription'><first><get var='column'/></first></map>
+							<think><set var='any'>true</set></think>
+						</condition>
+						<think><set var='column'><rest><get var='column'/></rest></set></think>
+						<loop/>
+					</li>
+				</condition>.
 			</template>
 		</category>
 
@@ -461,7 +461,7 @@
 					<set name='BombKeypadColumn'><star/></set>
 					<set name='topic'>bomb keypad column</set>
 				</think>
-				<srai>TellKeypadColumnItem <set name='BombKeypadIndex'>1</set></srai>
+				<srai>KeypadOrderRead <star/></srai>
 			</template>
 		</category>
 
@@ -469,7 +469,12 @@
 			<pattern><set>YesOrNo</set></pattern>
 			<that>^ Is there a *</that>
 			<template>
-				<!--<think><set name='BombKeypadAsked'><get name='BombKeypadAsked'/> <get name='BombKeypadAsking'/></set></think>-->
+				<think>
+					<set var='answer'><star/></set>
+					<condition var='answer' value='no'>
+						<set name='KeypadAbsent'><srai>XAppend <get name='BombKeypadAsking'/> <get name='KeypadAbsent'/></srai></set>
+					</condition>
+				</think>
 				<srai>KeypadResult <srai>Solver Keypad GlyphPresent <map name='ParseBoolean'><star/></map> <get name='BombKeypadAsking'/></srai></srai>
 			</template>
 		</category>

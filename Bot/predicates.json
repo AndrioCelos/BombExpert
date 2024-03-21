@@ -16,5 +16,7 @@
 	"RuleSeed": "1",
 
 	"SouvenirCurrent": "0",
-	"SouvenirModules": "nil"
+	"SouvenirModules": "nil",
+
+	"topic": "bomb"
 }

@@ -4,7 +4,7 @@ DISPLAY:bottom right
 OKAY:top right
 SAYS:bottom right
 NOTHING:middle left
-nil:bottom left
+empty:bottom left
 BLANK:middle right
 NO:bottom right
 LED:middle left

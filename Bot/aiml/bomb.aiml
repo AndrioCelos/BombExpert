@@ -161,6 +161,7 @@
 		<template>
 			<think><srai>NewSouvenirStoreIndex</srai></think>
 			<srai>InitModule</srai>
+			<srai>SelectModule<condition name='YesNoChallenge' value='true'> YNC</condition></srai>
 		</template>
 	</category>
 	<!-- 'next module' asks for the next module type on the Turn the Keys list. -->

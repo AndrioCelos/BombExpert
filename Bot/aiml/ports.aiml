@@ -25,10 +25,6 @@
 		<template>Parallel <srai>ParsePortList <star/></srai></template>
 	</category>
 	<category>
-		<pattern>ParsePortList Parallel ^</pattern>
-		<template>Parallel <srai>ParsePortList <star/></srai></template>
-	</category>
-	<category>
 		<pattern>ParsePortList Serial ^</pattern>
 		<template>Serial <srai>ParsePortList <star/></srai></template>
 	</category>
