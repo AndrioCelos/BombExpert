@@ -6,7 +6,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml;
+using System.Xml.Linq;
 
 using static Aiml.TemplateNode;
 using static BombExpert.Solvers.MazeSolver;
@@ -249,7 +249,7 @@ public class HexamazeSolver : IModuleSolver {
 	}
 
 	public void GenerateAiml(string path, int ruleSeed) => throw new NotImplementedException();
-	public string Process(string text, XmlAttributeCollection attributes, RequestProcess process) {
+	public string Process(string text, XElement element, RequestProcess process) {
 		// Parameters: [rule seed] [colour]|[marking] [x] [y] ...
 		var words = text.Split((char[]?) null, StringSplitOptions.RemoveEmptyEntries);
 		var maze = GetMaze(int.Parse(words[0]));

@@ -14,11 +14,13 @@ public abstract class Condition<TData> {
 	///		For example, Wires does this with port conditions, but The Button does not.
 	/// </remarks>
 	public string Key { get; }
+	public virtual string Code { get; }
 	/// <summary>Returns a human-readable description of this condition.</summary>
 	public virtual string Text { get; }
 
-	public Condition(string key, string text) {
+	public Condition(string key, string code, string text) {
 		this.Key = key;
+		this.Code = code;
 		this.Text = text;
 	}
 

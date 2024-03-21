@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Xml;
+using System.Xml.Linq;
 
 namespace BombExpert.Solvers;
 public class WiresSolver : IModuleSolver {
@@ -44,26 +44,44 @@ public class WiresSolver : IModuleSolver {
 	private static ConditionType LastWireIsColour => new(nameof(LastWireIsColour), "the last wire is {0}", true, 1,
 		(colour, wires) => wires[^1] == colour);
 
-	public string Process(string text, XmlAttributeCollection attributes, RequestProcess process) {
+	public string Process(string text, XElement element, RequestProcess process) {
 		var fields = text.Split((char[]?) null, StringSplitOptions.RemoveEmptyEntries);
 		var ruleSeed = int.Parse(fields[0]);
-		var colours = (from s in fields.Skip(1) select (Colour) Enum.Parse(typeof(Colour), s, true)).ToArray();
 		var rules = GetRules(ruleSeed);
 
-		foreach (var rule in rules[colours.Length - 3]) {
-			var conditionResult = ConditionResult.FromBool(true);
-			foreach (var condition in rule.Queries) {
-				conditionResult = conditionResult && condition.Query(process, colours);
+		if (fields.Length > 1 && fields[1].Equals("GetRule", StringComparison.InvariantCultureIgnoreCase)) {
+			var numberOfWires = int.Parse(fields[3]);
+			var ruleIndex = int.Parse(fields[4]) - 1;
+			var ruleList = rules[numberOfWires - 3];
+			if (fields[2].Equals("Condition", StringComparison.InvariantCultureIgnoreCase)) {
+				var conditionIndex = int.Parse(fields[5]) - 1;
+				if (ruleIndex >= ruleList.Length)
+					return "nil";
+				var queries = ruleList[ruleIndex].Queries;
+				return conditionIndex >= queries.Length ? "nil" :
+					queries[conditionIndex] is WireCondition ? $"Query {queries[conditionIndex].Code}" : $"EdgeworkQuery {queries[conditionIndex].Code}";
+			} else {
+				var solution = ruleList[ruleIndex].Solution;
+				return solution.Colour != null ? $"{solution.Type.Key} {solution.Colour}" : solution.Type.Key;
 			}
-			if (conditionResult) {
-				var result = rule.Solution.Type.Delegate(process, rule.Solution.Colour ?? 0, colours);
-				return result.ToString();
-			} else if (conditionResult.Code == ConditionResultCode.Unknown) {
-				return conditionResult.Details!;
-			}
-		}
+		} else {
+			var colours = (from s in fields.Skip(1) select (Colour) Enum.Parse(typeof(Colour), s, true)).ToArray();
 
-		throw new InvalidOperationException("No rules matched?!");
+			foreach (var rule in rules[colours.Length - 3]) {
+				var conditionResult = ConditionResult.FromBool(true);
+				foreach (var condition in rule.Queries) {
+					conditionResult = conditionResult && condition.Query(process, colours);
+				}
+				if (conditionResult) {
+					var result = rule.Solution.Type.Delegate(process, rule.Solution.Colour ?? 0, colours);
+					return result.ToString();
+				} else if (conditionResult.Code == ConditionResultCode.Unknown) {
+					return conditionResult.Details!;
+				}
+			}
+
+			throw new InvalidOperationException("No rules matched?!");
+		}
 	}
 
 	public static Rule[][] GetRules(int ruleSeed) {
@@ -400,7 +418,7 @@ public class WiresSolver : IModuleSolver {
 		public ConditionDelegate Delegate { get; }
 		public ConditionType Type { get; }
 
-		public WireCondition(ConditionType type, string text, Colour colour, ConditionDelegate conditionDelegate) : base(type.Key, text) {
+		public WireCondition(ConditionType type, string text, Colour colour, ConditionDelegate conditionDelegate) : base(type.Key, $"{type.Key} {colour}", text) {
 			this.Type = type;
 			this.Colour = colour;
 			this.Delegate = conditionDelegate;

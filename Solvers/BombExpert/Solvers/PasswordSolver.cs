@@ -4,10 +4,10 @@ using Aiml;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml;
+using System.Xml.Linq;
 using System.IO;
 
-namespace BombExpert.Solvers; 
+namespace BombExpert.Solvers;
 public class PasswordSolver : IModuleSolver {
 	private static readonly string[] vanillaPasswords = new[] {
 		"about", "after", "again", "below", "could",
@@ -169,7 +169,7 @@ public class PasswordSolver : IModuleSolver {
 		writer.WriteLine("</aiml>");
 	}
 
-	public string Process(string text, XmlAttributeCollection attributes, RequestProcess process) {
+	public string Process(string text, XElement element, RequestProcess process) {
 		var words = text.Split((char[]?) null, StringSplitOptions.RemoveEmptyEntries);
 		if (words[1].Equals("GetPasswords", StringComparison.CurrentCultureIgnoreCase)) {
 			return string.Join(" ", GetWords(int.Parse(words[0])));

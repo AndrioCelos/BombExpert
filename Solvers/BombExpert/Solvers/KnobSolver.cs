@@ -4,10 +4,10 @@ using Aiml;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml;
+using System.Xml.Linq;
 using System.IO;
 
-namespace BombExpert.Solvers; 
+namespace BombExpert.Solvers;
 public class KnobSolver : IModuleSolver {
 	public static Rule[] GetRules(int ruleSeed) {
 		var random = new MonoRandom(ruleSeed);
@@ -57,7 +57,7 @@ public class KnobSolver : IModuleSolver {
 	private static readonly string[][] countPatterns = new[] { new[] { "Left", "Right" }, new[] { "Top", "Bottom" } };
 
 	/// <param name="text">[rule seed] GetPattern -or- [rule seed] Lights ( [light number]:[state] )*</param>
-	public string Process(string text, XmlAttributeCollection attributes, RequestProcess process) {
+	public string Process(string text, XElement element, RequestProcess process) {
 		var fields = text.Split((char[]?) null, StringSplitOptions.RemoveEmptyEntries);
 		var rules = GetRules(int.Parse(fields[0]));
 

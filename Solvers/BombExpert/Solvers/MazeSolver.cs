@@ -4,13 +4,13 @@ using Aiml;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml;
+using System.Xml.Linq;
 
 using static BombExpert.Solvers.MazeSolver.MazeFlags;
 using System.IO;
 using System.Diagnostics.CodeAnalysis;
 
-namespace BombExpert.Solvers; 
+namespace BombExpert.Solvers;
 public class MazeSolver : IModuleSolver {
 	private const int MazeCount = 9;
 	private const int MazeSize = 6;
@@ -92,7 +92,7 @@ public class MazeSolver : IModuleSolver {
 		return maze != null;
 	}
 
-	public string Process(string text, XmlAttributeCollection attributes, RequestProcess process) {
+	public string Process(string text, XElement element, RequestProcess process) {
 		var inputWords = text.Split((char[]?) null, StringSplitOptions.RemoveEmptyEntries);
 		var mazes = GetMazes(int.Parse(inputWords[0]));
 

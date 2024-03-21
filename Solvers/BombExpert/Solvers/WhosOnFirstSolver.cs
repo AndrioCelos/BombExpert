@@ -4,10 +4,10 @@ using Aiml;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Xml;
+using System.Xml.Linq;
 using System.IO;
 
-namespace BombExpert.Solvers; 
+namespace BombExpert.Solvers;
 public class WhosOnFirstSolver : IModuleSolver {
 	private static readonly string[] displayTexts = new[] {
 		"YES", "FIRST", "DISPLAY", "OKAY", "SAYS", "NOTHING", "", "BLANK", "NO", "LED",
@@ -71,11 +71,11 @@ public class WhosOnFirstSolver : IModuleSolver {
 	}
 
 	/// <param name="text">[rule seed] (Display|Button) [text]</param>
-	public string Process(string text, XmlAttributeCollection attributes, RequestProcess process) {
+	public string Process(string text, XElement element, RequestProcess process) {
 		try {
 			var words = text.Split((char[]?) null, 3, StringSplitOptions.RemoveEmptyEntries);
 			var rules = GetRules(int.Parse(words[0]));
-			var label = AimlDecode(words.Length > 2 ? words[2] : "nil");
+			var label = AimlDecode(words.Length > 2 ? words[2] : "empty");
 
 			if (words[1].Equals("Display", StringComparison.CurrentCultureIgnoreCase)) {
 				var result = rules.DisplayRules[label];
@@ -105,12 +105,12 @@ public class WhosOnFirstSolver : IModuleSolver {
 	}
 
 	public static string AimlEncode(string text) {
-		if (text == "") return "nil";
+		if (text == "") return "empty";
 		return text.Replace(' ', '_').Replace('\'', '_').Replace('?', '_');
 	}
 
 	public static string AimlDecode(string text) => text switch {
-		"nil" => "",
+		"empty" => "",
 		"HOLD_ON" => "HOLD ON",
 		"THEY_ARE" => "THEY ARE",
 		"THEY_RE" => "THEY'RE",

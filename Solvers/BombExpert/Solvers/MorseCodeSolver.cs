@@ -5,10 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Xml;
+using System.Xml.Linq;
 using System.IO;
 
-namespace BombExpert.Solvers; 
+namespace BombExpert.Solvers;
 public class MorseCodeSolver : IModuleSolver {
 	private static readonly string[] words = new[] {
 		// Vanilla Morse words
@@ -327,7 +327,7 @@ public class MorseCodeSolver : IModuleSolver {
 	};
 
 	/// <param name="text">[rule seed] CacheWords -or- [rule seed] Solve [dash|dot|space|start ...]</param>
-	public string Process(string text, XmlAttributeCollection attributes, RequestProcess process) {
+	public string Process(string text, XElement element, RequestProcess process) {
 		// The input should be a sequence of 'dash' and 'dot', with 'space' in between letters.
 		var inputWords = text.Split((char[]?) null, StringSplitOptions.RemoveEmptyEntries);
 		var words = GetRules(int.Parse(inputWords[0]));

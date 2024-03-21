@@ -4,28 +4,28 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Xml;
+using System.Xml.Linq;
 
-namespace BombExpert.Solvers; 
+namespace BombExpert.Solvers;
 public class ButtonSolver : IModuleSolver {
 	private const int MaxInitialRules = 6;
 	private const int MaxHeldRules = 3;
 
-		public class ButtonColourCondition : Condition<ButtonData> {
-			public Colour Colour { get; }
-			public ButtonColourCondition(Colour colour) : base(nameof(ButtonColourCondition), $"the button is {colour.ToString().ToLower()}") {
-				this.Colour = colour;
-			}
-			public override ConditionResult Query(RequestProcess process, ButtonData data) => ConditionResult.FromBool(data.Colour == this.Colour);
+	public class ButtonColourCondition : Condition<ButtonData> {
+		public Colour Colour { get; }
+		public ButtonColourCondition(Colour colour) : base(nameof(ButtonColourCondition), $"ButtonColour {colour}", $"the button is {colour.ToString().ToLower()}") {
+			this.Colour = colour;
 		}
+		public override ConditionResult Query(RequestProcess process, ButtonData data) => ConditionResult.FromBool(data.Colour == this.Colour);
+	}
 
-		public class ButtonLabelCondition : Condition<ButtonData> {
-			public Label Label { get; }
-			public ButtonLabelCondition(Label label) : base(nameof(ButtonLabelCondition), $"the button says '{label}'") {
-				this.Label = label;
-			}
-			public override ConditionResult Query(RequestProcess process, ButtonData data) => ConditionResult.FromBool(data.Label == this.Label);
+	public class ButtonLabelCondition : Condition<ButtonData> {
+		public Label Label { get; }
+		public ButtonLabelCondition(Label label) : base(nameof(ButtonLabelCondition), $"ButtonLabel {label}", $"the button says '{label}'") {
+			this.Label = label;
 		}
+		public override ConditionResult Query(RequestProcess process, ButtonData data) => ConditionResult.FromBool(data.Label == this.Label);
+	}
 
 	public static RuleSet GetRules(int ruleSeed) {
 		if (ruleSeed == 1) return new RuleSet(
@@ -219,7 +219,7 @@ public class ButtonSolver : IModuleSolver {
 	}
 
 	/// <param name="text">Usage: [rule seed] [colour] [label]?</param>
-	public string Process(string text, XmlAttributeCollection attributes, RequestProcess process) {
+	public string Process(string text, XElement element, RequestProcess process) {
 		var fields = text.Split((char[]?) null, StringSplitOptions.RemoveEmptyEntries);
 		var colour = (Colour) Enum.Parse(typeof(Colour), fields[1], true);
 		var rules = GetRules(int.Parse(fields[0]));
@@ -254,11 +254,11 @@ public class ButtonSolver : IModuleSolver {
 		using var writer = new StreamWriter(Path.Combine(path, "aiml", $"button{ruleSeed}.aiml"));
 		writer.Write("<?xml version='1.0' encoding='UTF-8'?>\n" +
 			"<aiml version='2.0'>\n" +
-			"<category>\n" + 
-			$"<pattern>SolverFallback Button {ruleSeed} <set>BombColours</set> <set>ButtonLabels</set></pattern>\n" + 
-			"<template>\n" + 
-			"<think>\n" + 
-			"<set var='colour'><star/></set>\n" + 
+			"<category>\n" +
+			$"<pattern>SolverFallback Button {ruleSeed} <set>BombColours</set> <set>ButtonLabels</set></pattern>\n" +
+			"<template>\n" +
+			"<think>\n" +
+			"<set var='colour'><star/></set>\n" +
 			"<set var='label'><star index='2'/></set>\n");
 
 		for (int i = 0; i < rules.InitialRules.Length; ++i) {
@@ -333,7 +333,7 @@ public class ButtonSolver : IModuleSolver {
 		writer.WriteLine("<template>");
 		writer.WriteLine("<think><set var='colour'><star/></set></think>");
 		writer.WriteLine("<condition var='colour'>");
-		
+
 		foreach (var rule in rules.HeldRules) {
 			writer.Write(rule.Colour.HasValue ? $"<li value='{rule.Colour}'>" : "<li>");
 			writer.WriteLine($"{rule.Solution.Type} {rule.Solution.Digit}</li>");

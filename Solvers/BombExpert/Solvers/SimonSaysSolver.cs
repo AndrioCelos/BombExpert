@@ -4,12 +4,12 @@ using Aiml;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml;
+using System.Xml.Linq;
 
 using static BombExpert.Colour;
 using System.IO;
 
-namespace BombExpert.Solvers; 
+namespace BombExpert.Solvers;
 public class SimonSaysSolver : IModuleSolver {
 	public static Colour[,,] GetRules(int ruleSeed) {
 		if (ruleSeed == 1) return new[,,] {
@@ -45,7 +45,7 @@ public class SimonSaysSolver : IModuleSolver {
 	}
 
 	/// <param name="text">[rule seed] [vowel] [strikes] [colours ...]</param>
-	public string Process(string text, XmlAttributeCollection attributes, RequestProcess process) {
+	public string Process(string text, XElement element, RequestProcess process) {
 		var words = text.Split((char[]?) null, StringSplitOptions.RemoveEmptyEntries);
 		var ruleSeed = int.Parse(words[0]);
 		var vowel = bool.Parse(words[1]);

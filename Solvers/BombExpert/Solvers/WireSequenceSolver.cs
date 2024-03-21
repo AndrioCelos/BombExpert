@@ -3,12 +3,15 @@
 using Aiml;
 using System;
 using System.Collections.Generic;
-using System.Xml;
+using System.Xml.Linq;
 
 using static BombExpert.Solvers.WireSequenceSolver.Instruction;
 using System.IO;
+using System.Text;
+using System.Diagnostics.Metrics;
+using System.Linq;
 
-namespace BombExpert.Solvers; 
+namespace BombExpert.Solvers;
 public class WireSequenceSolver : IModuleSolver {
 	private const int NUM_PAGES = 4;
 	private const int NUM_PER_PAGE = 3;
@@ -66,21 +69,32 @@ public class WireSequenceSolver : IModuleSolver {
 	}
 
 	/// <param name="text">[rule seed] [red total] [blue total] [black total] [colour] [letter]</param>
-	public string Process(string text, XmlAttributeCollection attributes, RequestProcess process) {
+	public string Process(string text, XElement element, RequestProcess process) {
 		var words = text.Split((char[]?) null, StringSplitOptions.RemoveEmptyEntries);
 		var rules = GetRules(int.Parse(words[0]));
 
-		var redWireCount = int.Parse(words[1]);
-		var blueWireCount = int.Parse(words[2]);
-		var blackWireCount = int.Parse(words[3]);
+		if (words[1].Equals("GetRule", StringComparison.InvariantCultureIgnoreCase)) {
+			var colour = (Colour) Enum.Parse(typeof(Colour), words[2], true);
+			var total = int.Parse(words[3]);
 
-		var colour = (Colour) Enum.Parse(typeof(Colour), words[4], true);
-		var letter = char.ToUpperInvariant(words[5][0]);
+			var ruleSet = colour == Colour.Red ? rules.RedRules : colour == Colour.Blue ? rules.BlueRules : rules.BlackRules;
+			var cut = ruleSet[total - 1];
 
-		var ruleSet = colour == Colour.Red ? rules.RedRules : colour == Colour.Blue ? rules.BlueRules : rules.BlackRules;
-		var total = colour == Colour.Red ? redWireCount : colour == Colour.Blue ? blueWireCount : blackWireCount;
-		var cut = ruleSet[total - 1].HasFlag(letter == 'A' ? CutA : letter == 'B' ? CutB : CutC);
-		return cut ? "true" : "false";
+			var result = string.Join(' ', Enumerable.Range(0, 3).Where(i => cut.HasFlag((Instruction) (1 << i))).Select(i => (char) ('A' + i)));
+			return result != "" ? result : "nil";
+		} else {
+			var redWireCount = int.Parse(words[1]);
+			var blueWireCount = int.Parse(words[2]);
+			var blackWireCount = int.Parse(words[3]);
+
+			var colour = (Colour) Enum.Parse(typeof(Colour), words[4], true);
+			var letter = char.ToUpperInvariant(words[5][0]);
+
+			var ruleSet = colour == Colour.Red ? rules.RedRules : colour == Colour.Blue ? rules.BlueRules : rules.BlackRules;
+			var total = colour == Colour.Red ? redWireCount : colour == Colour.Blue ? blueWireCount : blackWireCount;
+			var cut = ruleSet[total - 1].HasFlag(letter == 'A' ? CutA : letter == 'B' ? CutB : CutC);
+			return cut ? "true" : "false";
+		}
 	}
 
 	[Flags]

@@ -18,6 +18,7 @@ public class BatteriesCondition<TData> : Condition<TData> {
 
 	public BatteriesCondition(Operations operation, int number) : base(
 			"Batteries" + operation,
+			$"Batteries {operation} {number}",
 			$"there {(number == 1 ? "is" : "are")} {operation switch { LessThan => "less than", LessThanOrEqualTo => "at most", EqualTo => "exactly", MoreThanOrEqualTo => "at least", MoreThan => "more than", _ => "" }} {number} {(number == 1 ? "battery" : "batteries")} on the bomb"
 		) {
 		this.Operation = operation;

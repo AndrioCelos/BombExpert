@@ -2,9 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Xml;
+using System.Xml.Linq;
 
-namespace BombExpert.Solvers; 
+namespace BombExpert.Solvers;
 public class MemorySolver : IModuleSolver {
 	private const int NumStages = 5;
 
@@ -57,7 +57,7 @@ public class MemorySolver : IModuleSolver {
 		}
 	}
 
-	public string Process(string text, XmlAttributeCollection attributes, RequestProcess process) {
+	public string Process(string text, XElement element, RequestProcess process) {
 		var words = text.Split((char[]?) null, StringSplitOptions.RemoveEmptyEntries);
 		if (words[1].Equals("GetRule", StringComparison.CurrentCultureIgnoreCase)) {
 			// [rule seed] GetRule [stage] [display]

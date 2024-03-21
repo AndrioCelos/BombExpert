@@ -4,13 +4,13 @@ using Aiml;
 using System;
 using System.Linq;
 using System.Text;
-using System.Xml;
+using System.Xml.Linq;
 
 using static BombExpert.Solvers.ComplicatedWiresSolver.Flags;
 using System.IO;
 using System.Collections.Generic;
 
-namespace BombExpert.Solvers; 
+namespace BombExpert.Solvers;
 public class ComplicatedWiresSolver : IModuleSolver {
 	private static readonly Instruction[] instructions = new[] { Instruction.Cut, Instruction.DoNotCut, Instruction.CutIfSerialNumberEven, Instruction.CutIfParallelPort, Instruction.CutIfTwoOrMoreBatteries };
 
@@ -51,7 +51,7 @@ public class ComplicatedWiresSolver : IModuleSolver {
 		}
 	}
 
-	public string Process(string text, XmlAttributeCollection attributes, RequestProcess process) {
+	public string Process(string text, XElement element, RequestProcess process) {
 		var inputWords = text.Split((char[]?) null, StringSplitOptions.RemoveEmptyEntries);
 
 		var flags = (Flags) 0;

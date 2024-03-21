@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Xml;
+using System.Xml.Linq;
 using Aiml;
 using BombExpert.Solvers;
 using static BombExpert.Solvers.MazeSolver.MazeFlags;
@@ -23,7 +23,7 @@ class Program {
 			Console.WriteLine("Usage: Tester [options]");
 			Console.WriteLine("Without options, enters interactive tester mode.");
 			Console.WriteLine("Options:");
-			Console.WriteLine("  -g <rule seed> [out directory]: Generates AIML bot files for the specified rule seed.");
+			Console.WriteLine("  -g <rule seed> [out directory], --generate <rule seed> [out directory] : Generates AIML files for the specified rule seed.");
 			return;
 		}
 		if (args.Length > 0 && (args[0] == "-g" || args[0] == "--generate")) {
@@ -33,14 +33,11 @@ class Program {
 			return;
 		}
 
-		var temp = new XmlDocument();
-		temp.LoadXml("<?xml version=\"1.0\"?><temp/>");
-		var emptyAttributeCollection = temp.DocumentElement!.Attributes;
-
 		var user = new User("User", new Bot());
+		var dummyElement = XElement.Parse("<dummy/>");
 
 		string evaluate(string serviceName, string text) {
-			return solvers[serviceName].Process(text, emptyAttributeCollection, new RequestProcess(new RequestSentence(new Request(text, user, user.Bot), text), 0, false));
+			return solvers[serviceName].Process(text, dummyElement, new RequestProcess(new RequestSentence(new Request(text, user, user.Bot), text), 0, false));
 		}
 
 		while (true) {

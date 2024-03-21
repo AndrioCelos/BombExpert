@@ -10,6 +10,7 @@ public class IndicatorCondition<TData> : Condition<TData> {
 	/// <param name="state">If true, the indicator must be lit; if false, it must be unlit; if null, the state is not checked.</param>
 	public IndicatorCondition(bool? state, string label) : base(
 			state switch { true => "IndicatorLit", false => "IndicatorUnlit", null => "Indicator" },
+			$"{state switch { true => "IndicatorLit", false => "IndicatorUnlit", null => "Indicator" }} {label}",
 			$"there is {state switch { true => "a lit", false => "an unlit", null => "an" }} indicator with label {label}"
 		) {
 		this.State = state;

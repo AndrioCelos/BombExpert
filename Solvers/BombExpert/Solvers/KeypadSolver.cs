@@ -5,11 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Xml;
+using System.Xml.Linq;
 
 using static BombExpert.Solvers.KeypadSolver.Glyph;
 
-namespace BombExpert.Solvers; 
+namespace BombExpert.Solvers;
 public class KeypadSolver : IModuleSolver {
 	public static Glyph[][] GetColumns(int ruleSeed) {
 		var random = new MonoRandom(ruleSeed);
@@ -74,7 +74,7 @@ public class KeypadSolver : IModuleSolver {
 	///         <c>Ask [glyph]</c> - the caller should ask the Defuser whether this glyph is on the keypad.
 	///         <c>Tell [7 glyphs]</c> - the caller should present this column to the Defuser.
 	/// </remarks>
-	public string Process(string text, XmlAttributeCollection attributes, RequestProcess process) {
+	public string Process(string text, XElement element, RequestProcess process) {
 		var words = text.Split((char[]?) null, StringSplitOptions.RemoveEmptyEntries);
 		var columns = GetColumns(int.Parse(words[0]));
 
