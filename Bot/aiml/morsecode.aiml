@@ -45,6 +45,171 @@
 			</template>
 		</category>
 
+		<category>
+			<pattern>SelectModule YNC</pattern>
+			<template>Does the first letter start with a dash?</template>
+		</category>
+
+		<category>
+			<pattern>yes</pattern>
+			<that>Does the first letter start with a dash</that>
+			<template>Is the second letter 'dot dash dot'?</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Is the second letter dot dash dot</that>
+			<template>Is the third letter two dots?</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Is the third letter two dots</that>
+			<template>Is the first letter only a dash?</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Is the first letter only a dash</that>
+			<template><srai>YNCWord trick</srai></template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Is the first letter only a dash</that>
+			<template><srai>YNCWord brick</srai></template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Is the third letter two dots</that>
+			<template><srai>YNCWord break</srai></template>
+		</category>
+
+		<category>
+			<pattern>no</pattern>
+			<that>Is the second letter dot dash dot</that>
+			<template>Does the third letter start with a dash?</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Does the third letter start with a dash</that>
+			<template>Does the fourth letter start with a dash?</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Does the fourth letter start with a dash</that>
+			<template><srai>YNCWord bombs</srai></template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Does the fourth letter start with a dash</that>
+			<template><srai>YNCWord boxes</srai></template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Does the third letter start with a dash</that>
+			<template>Was it three dots?</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Was it three dots</that>
+			<template><srai>YNCWord bistro</srai></template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Was it three dots</that>
+			<template><srai>YNCWord beats</srai></template>
+		</category>
+
+		<category>
+			<pattern>no</pattern>
+			<that>Does the first letter start with a dash</that>
+			<template>Is the second letter only a dot or dash?</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Is the second letter only a dot or dash</that>
+			<template>Was it a dash?</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Was it a dash</that>
+			<template>Is the third letter 'dot'?</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Is the third letter dot</that>
+			<template><srai>YNCWord steak</srai></template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Is the third letter dot</that>
+			<template>Is the third letter 'dot dot'?</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Is the third letter dot dot</that>
+			<template><srai>YNCWord sting</srai></template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Is the third letter dot dot</that>
+			<template><srai>YNCWord strobe</srai></template>
+		</category>
+
+		<category>
+			<pattern>no</pattern>
+			<that>Was it a dash</that>
+			<template>Is the third letter 'dot dash'?</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Is the third letter dot dash</that>
+			<template><srai>YNCWord leaks</srai></template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Is the third letter dot dash</that>
+			<template><srai>YNCWord vector</srai></template>
+		</category>
+
+		<category>
+			<pattern>no</pattern>
+			<that>Is the second letter only a dot or dash</that>
+			<template>Is the third 'dot dot'?</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Is the third dot dot</that>
+			<template>Is the first letter 'dot dot dot'?</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Is the first letter dot dot dot</that>
+			<template><srai>YNCWord slick</srai></template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Is the first letter dot dot dot</that>
+			<template><srai>YNCWord flick</srai></template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Is the third dot dot</that>
+			<template>Is it 'dot'?</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Is it dot</that>
+			<template><srai>YNCWord shell</srai></template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Is it dot</that>
+			<template><srai>YNCWord halls</srai></template>
+		</category>
+
+		<category>
+			<pattern>YNCWord *</pattern>
+			<template>The word is '<star/>'. Tune the module to <map><name>MorseCodeFrequency<get name='RuleSeed'/></name><star/></map> MHz, then press TX. Solved?</template>
+		</category>
+
 		<!-- Usage: Solver MorseCode (dash|dot|start|space)+ -->
 		<!-- Returns one of the following:
 				[word] [frequency]: found the solution. The frequency includes '3.'.

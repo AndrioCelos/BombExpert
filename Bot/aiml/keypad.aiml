@@ -5,6 +5,13 @@
 			<pattern>SelectModule</pattern>
 			<template>Describe one of the symbols.</template>
 		</category>
+		<category>
+			<pattern>SelectModule YNC</pattern>
+			<template>
+				<think><set name='BombKeypadStage'>2</set></think>
+				<srai>KeypadResult <srai>Solver Keypad Start</srai></srai>
+			</template>
+		</category>
 
 		<category>
 			<pattern>InitModule</pattern>

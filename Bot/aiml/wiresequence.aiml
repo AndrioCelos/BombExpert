@@ -45,6 +45,10 @@
 			<pattern>SelectModule</pattern>
 			<template>Ready for Wire Sequence.</template>
 		</category>
+		<category>
+			<pattern>SelectModule YNC</pattern>
+			<template>Is the first wire red?</template>
+		</category>
 
 		<category>
 			<pattern>InitModule</pattern>
@@ -292,6 +296,66 @@
 					</li>
 				</condition>
 			</template>
+		</category>
+
+		<category>
+			<pattern>yes</pattern>
+			<that>Is there another wire</that>
+			<template>Is the wire red?</template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Is there another wire</that>
+			<template><srai>YNCAskModule</srai></template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Is the ^ wire <set>colour</set></that>
+			<template><srai>YNCWireColour <thatstar index='2'/></srai></template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Is the ^ wire red</that>
+			<template>Is the wire blue?</template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Is the wire blue</that>
+			<template><srai>YNCWireColour black</srai></template>
+		</category>
+
+		<category>
+			<pattern>YNCWireColour *</pattern>
+			<template>
+				<think>
+					<set var='total'><map name='successor'><get><name>BombWireSequence<star/>Wires</name></get></map></set>
+					<set><name>BombWireSequence<star/>Wires</name><get var='total'/></set>
+					<set var='allWires'><srai>XAdd <srai>XAdd <get name='BombWireSequenceRedWires'/> XS <get name='BombWireSequenceBlueWires'/></srai> XS <get name='BombWireSequenceBlackWires'/></srai></set>
+				</think>
+				<srai>YNCRead <srai>Solver WireSequence GetRule <star/> <get var='total'/></srai></srai>
+				<condition var='allWires'>
+					<li value='9'>Is there another wire?</li>
+					<li value='10'>Is there another wire?</li>
+					<li>Is the next wire red?</li>
+				</condition>
+			</template>
+		</category>
+
+		<category>
+			<pattern>YNCRead nil</pattern>
+			<template>Do not cut the wire.</template>
+		</category>
+		<category>
+			<pattern>YNCRead *</pattern>
+			<template>Cut if connected to <star/>.</template>
+		</category>
+		<category>
+			<pattern>YNCRead * *</pattern>
+			<template>Cut if connected to <star/> or <star index='2'/>.</template>
+		</category>
+		<category>
+			<pattern>YNCRead * * *</pattern>
+			<template>Cut the wire.</template>
 		</category>
 
 		<!-- Usage: Solver WireSequence [red count] [blue count] [black count] [colour] [letter] -->

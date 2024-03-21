@@ -264,6 +264,7 @@
 						<srai>SouvenirPut Display<get name='WhosOnFirstStage'/> XS <star/></srai>
 						<think><set name='topic'>Bomb WhosOnFirst Button</set></think>
 						Read the text on the <get var='result'/> button.
+						<condition name='YesNoChallenge' value='true'>Are there exactly 4 letters?</condition>
 					</li>
 				</condition>
 			</template>
@@ -293,23 +294,34 @@
 				<condition var='list'>
 					<li value='unknown'>That does not sound like a possible label. Try again.</li>
 					<li>
-						<think>
-							<set name='topic'>Bomb WhosOnFirst</set>
-							<set var='result'>nil</set>
-							<condition var='list'>
-								<li value='nil'></li>
-								<li>
-									<set var='label'><map name='WhosOnFirstButtonDescription'><srai>XFirst <get var='list'/></srai></map></set>
-									<set var='list'><srai>XRest <get var='list'/></srai></set>
-									<condition var='result'>
-										<li value='nil'><set var='result'><get var='label'/></set></li>
-										<li><set var='result'><get var='result'/>... <get var='label'/></set></li>
+						<condition name='YesNoChallenge'>
+							<li value='true'>
+								<think>
+									<set name='WhosOnFirstButtonList'><get var='list'/></set>
+									<set name='topic'>Bomb WhosOnFirst ButtonList</set>
+								</think>
+								Press the first label that exists: <srai>YNCReadButton</srai>
+							</li>
+							<li>
+								<think>
+									<set name='topic'>Bomb WhosOnFirst</set>
+									<set var='result'>nil</set>
+									<condition var='list'>
+										<li value='nil'></li>
+										<li>
+											<set var='label'><map name='WhosOnFirstButtonDescription'><srai>XFirst <get var='list'/></srai></map></set>
+											<set var='list'><srai>XRest <get var='list'/></srai></set>
+											<condition var='result'>
+												<li value='nil'><set var='result'><get var='label'/></set></li>
+												<li><set var='result'><get var='result'/>; <get var='label'/></set></li>
+											</condition>
+											<loop/>
+										</li>
 									</condition>
-									<loop/>
-								</li>
-							</condition>
-						</think>
-						Press the first of these that exists: <get var='result'/>
+								</think>
+								Press the first of these that exists: <get var='result'/>
+							</li>
+						</condition>
 					</li>
 				</condition>
 			</template>
@@ -334,6 +346,299 @@
 		<category>
 			<pattern>new stage ^</pattern>
 			<template><srai>next stage <star/></srai></template>
+		</category>
+
+		<category>
+			<pattern>SelectModule YNC</pattern>
+			<template>Are there at least 5 letters?</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Are there at least 5 letters</that>
+			<template>Are there at least 6 letters?</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Are there at least 6 letters</that>
+			<template>Are there 7 letters?</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Are there 7 letters</that>
+			<template><srai>YNCAskDisplayList DISPLAY NOTHING THEY_ARE</srai></template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Are there 7 letters</that>
+			<template><srai>YNCAskDisplayList HOLD_ON THEY_RE YOU_ARE</srai></template>
+		</category>
+
+		<category>
+			<pattern>no</pattern>
+			<that>Are there at least 6 letters</that>
+			<template>Is the first letter a T?</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Is the first letter a T</that>
+			<template><srai>YNCAskDisplayList THEIR THERE</srai></template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Is the first letter a T</that>
+			<template><srai>YNCAskDisplayList BLANK FIRST YOU_RE</srai></template>
+		</category>
+
+		<category>
+			<pattern>no</pattern>
+			<that>Are there at least 5 letters</that>
+			<template>Are there 4 letters?</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Are there 4 letters</that>
+			<template>Is there an E?</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Is there an E</that>
+			<template>Is the first letter an L?</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Is the first letter an L</that>
+			<template><srai>YNCAskDisplayList LEAD LEED</srai></template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Is the first letter an L</that>
+			<template><srai>YNCAskDisplayList READ REED</srai></template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Is there an E</that>
+			<template><srai>YNCAskDisplayList OKAY SAYS YOUR</srai></template>
+		</category>
+
+		<category>
+			<pattern>no</pattern>
+			<that>Are there 4 letters</that>
+			<template>Are there 3 letters?</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Are there 3 letters</that>
+			<template>Is there exactly one E?</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Is there exactly one E</that>
+			<template><srai>YNCAskDisplayList LED RED YES</srai></template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Is there exactly one E</that>
+			<template><srai>YNCAskDisplayList YOU SEE CEE</srai></template>
+		</category>
+
+		<category>
+			<pattern>no</pattern>
+			<that>Are there 3 letters</that>
+			<template>Are there 2 letters?</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Are there 2 letters</that>
+			<template><srai>YNCAskDisplayList NO UR</srai></template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Are there 2 letters</that>
+			<template><srai>YNCAskDisplayList C empty</srai></template>
+		</category>
+
+		<category>
+			<pattern>YNCAskDisplayList *</pattern>
+			<template>
+				<think><set name='WhosOnFirstYNCDisplayList'><star/></set></think>
+				<srai>YNCAskDisplayListNext</srai>
+			</template>
+		</category>
+		<category>
+			<pattern>YNCAskDisplayListNext</pattern>
+			<template>
+				<condition name='WhosOnFirstYNCDisplayList'>
+					<li value='nil'>Unknown Display</li>
+					<li>Is it <map name='WhosOnFirstButtonDescription'><first><get name='WhosOnFirstYNCDisplayList'/></first></map>?</li>
+				</condition>
+			</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Is it *</that>
+			<template><srai>HandleDisplay <first><get name='WhosOnFirstYNCDisplayList'/></first></srai></template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Is it *</that>
+			<topic>Bomb WhosOnFirst Button</topic>
+			<template><srai>HandleButton <first><get name='WhosOnFirstYNCDisplayList'/></first></srai></template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Is it *</that>
+			<template>
+				<think><set name='WhosOnFirstYNCDisplayList'><rest><get name='WhosOnFirstYNCDisplayList'/></rest></set></think>
+				<srai>YNCAskDisplayListNext</srai>
+			</template>
+		</category>
+	</topic>
+
+	<topic name='Bomb WhosOnFirst Button'>
+		<category>
+			<pattern>yes</pattern>
+			<that>Are there exactly 4 letters</that>
+			<template>Is the first letter between S and Z?</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Is the first letter between S and Z</that>
+			<template>Is the first letter a W?</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Is the first letter a W</that>
+			<template><srai>YNCAskDisplayList WAIT WHAT WHAT_</srai></template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Is the first letter a W</that>
+			<template>Is the first letter a U?</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Is the first letter a U</that>
+			<template><srai>YNCAskDisplayList UH_UH UHHH</srai></template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Is the first letter a U</that>
+			<template><srai>YNCAskDisplayList SURE YOUR</srai></template>
+		</category>
+
+		<category>
+			<pattern>no</pattern>
+			<that>Is the first letter between S and Z</that>
+			<template>Is the first letter an L?</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Is the first letter an L</that>
+			<template><srai>YNCAskDisplayList LEFT LIKE</srai></template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Is the first letter an L</that>
+			<template>Is the first letter after L?</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Is the first letter after L</that>
+			<template><srai>YNCAskDisplayList NEXT OKAY</srai></template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Is the first letter after L</that>
+			<template><srai>YNCAskDisplayList DONE HOLD</srai></template>
+		</category>
+
+		<category>
+			<pattern>no</pattern>
+			<that>Are there exactly 4 letters</that>
+			<template>Are there exactly 5 letters?</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Are there exactly 5 letters</that>
+			<template>Is the first letter between R and Z?</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Is the first letter between R and Z</that>
+			<template>Is the first letter an R?</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Is the first letter an R</that>
+			<template><srai>YNCAskDisplayList READY RIGHT</srai></template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Is the first letter an R</that>
+			<template><srai>YNCAskDisplayList UH_HUH YOU_RE</srai></template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Is the first letter between R and Z</that>
+			<template><srai>YNCAskDisplayList BLANK FIRST PRESS</srai></template>
+		</category>
+
+		<category>
+			<pattern>no</pattern>
+			<that>Are there exactly 5 letters</that>
+			<template>Are there at least 6 letters?</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Are there at least 6 letters</that>
+			<template><srai>YNCAskDisplayList MIDDLE YOU_ARE NOTHING</srai></template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Are there at least 6 letters</that>
+			<template>Are there exactly 3 letters?</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Are there exactly 3 letters</that>
+			<template><srai>YNCAskDisplayList YES YOU</srai></template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Are there exactly 3 letters</that>
+			<template><srai>YNCAskDisplayList NO UR U</srai></template>
+		</category>
+	</topic>
+
+	<topic name='Bomb WhosOnFirst ButtonList'>
+		<category>
+			<pattern>YNCReadButton</pattern>
+			<template>
+				<condition name='WhosOnFirstButtonList'>
+					<li value='nil'>Unknown Button</li>
+					<li>
+						<map name='WhosOnFirstButtonDescription'><first><get name='WhosOnFirstButtonList'/></first></map>?
+					</li>
+				</condition>
+			</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<template>
+				<think><set name='topic'>Bomb WhosOnFirst</set></think>
+				<condition name='WhosOnFirstStage'>
+					<li value='1'><think><set name='WhosOnFirstStage'>2</set></think><srai>SelectModule YNC</srai></li>
+					<li value='2'><think><set name='WhosOnFirstStage'>3</set></think><srai>SelectModule YNC</srai></li>
+					<li>Solved?</li>
+				</condition>
+			</template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<template>
+				<think><set name='WhosOnFirstButtonList'><rest><get name='WhosOnFirstButtonList'/></rest></set></think>
+				<srai>YNCReadButton</srai>
+			</template>
 		</category>
 	</topic>
 

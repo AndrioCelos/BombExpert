@@ -164,9 +164,88 @@
 								</condition>
 							</li>
 						</condition>
+						<condition name='YesNoChallenge' value='true'>Is there another wire?</condition>
 					</li>
 				</condition>
 			</template>
+		</category>
+
+		<category>
+			<pattern>SelectModule YNC</pattern>
+			<template>
+				<think><set name='ComplicatedWiresFlags'>nil</set></think>
+				Is the first wire red?
+			</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Is the * wire red</that>
+			<template>
+				<think><set name='ComplicatedWiresFlags'><srai>XAppend red <get name='ComplicatedWiresFlags'/></srai></set></think>
+				<srai>YNCContinue</srai>
+			</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Is the wire blue</that>
+			<template>
+				<think><set name='ComplicatedWiresFlags'><srai>XAppend blue <get name='ComplicatedWiresFlags'/></srai></set></think>
+				<srai>YNCContinue</srai>
+			</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Is the light on</that>
+			<template>
+				<think><set name='ComplicatedWiresFlags'><srai>XAppend light <get name='ComplicatedWiresFlags'/></srai></set></think>
+				<srai>YNCContinue</srai>
+			</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Is there a star</that>
+			<template>
+				<think><set name='ComplicatedWiresFlags'><srai>XAppend star <get name='ComplicatedWiresFlags'/></srai></set></think>
+				<srai>YNCContinue</srai>
+			</template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<template><srai>YNCContinue</srai></template>
+		</category>
+		<category>
+			<pattern>YNCContinue</pattern>
+			<that>Is the * wire red</that>
+			<template>Is the wire blue?</template>
+		</category>
+		<category>
+			<pattern>YNCContinue</pattern>
+			<that>Is the wire blue</that>
+			<template>Is the light on?</template>
+		</category>
+		<category>
+			<pattern>YNCContinue</pattern>
+			<that>Is the light on</that>
+			<template>Is there a star?</template>
+		</category>
+		<category>
+			<pattern>YNCContinue</pattern>
+			<that>Is there a star</that>
+			<template><srai>ProcessInput <condition name='ComplicatedWiresFlags'><li value='nil'>plain</li><li><get name='ComplicatedWiresFlags'/></li></condition></srai></template>
+		</category>
+
+		<category>
+			<pattern>yes</pattern>
+			<that>Is there another wire</that>
+			<template>
+				<think><set name='ComplicatedWiresFlags'>nil</set></think>
+				Is the next wire red?
+			</template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Is there another wire</that>
+			<template><srai>YNCAskModule</srai></template>
 		</category>
 
 		<!-- Usage: Solver ComplicatedWires [flags] -->

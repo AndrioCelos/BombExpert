@@ -33,11 +33,125 @@
 				</think>
 				<condition var='code'>
 					<li value='NeedEdgework'><srai>EdgeworkQuery <get var='detail'/> XS SolveAndTellButton <star/></srai></li>
-					<li value='Tap'>Tap the button.</li>
-					<li value='Hold'>Hold the button.</li>
-					<li value='TapWhenSecondsMatch'>When the two seconds digits on the timer match, tap the button.</li>
+					<li value='Tap'>Tap the button. Solved?</li>
+					<li value='Hold'>Hold the button. <condition name='YesNoChallenge' value='true'>Is the light white or red?</condition></li>
+					<li value='TapWhenSecondsMatch'>When the two seconds digits on the timer match, tap the button. Solved?</li>
 				</condition>
 			</template>
+		</category>
+
+		<category>
+			<pattern>SelectModule YNC</pattern>
+			<template>Is the button white or red?</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Is the button white or red</that>
+			<template>Is the button white?</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Is the button white</that>
+			<template><srai>YNCButtonColour white</srai></template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Is the button white</that>
+			<template><srai>YNCButtonColour red</srai></template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Is the button white or red</that>
+			<template>Is the button blue?</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Is the button blue</that>
+			<template><srai>YNCButtonColour blue</srai></template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Is the button blue</that>
+			<template><srai>YNCButtonColour yellow</srai></template>
+		</category>
+
+		<category>
+			<pattern>YNCButtonColour *</pattern>
+			<template>
+				<think><set name='ButtonColour'><star/></set></think>
+				Does the button say 'Press' or 'Abort'?
+			</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Does the button say Press or Abort</that>
+			<template>Does it say 'Press'?</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Does it say Press</that>
+			<template><srai>YNCButtonLabel Press</srai></template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Does it say Press</that>
+			<template><srai>YNCButtonLabel Abort</srai></template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Does the button say Press or Abort</that>
+			<template>Does it say Hold?</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Does it say Hold</that>
+			<template><srai>YNCButtonLabel Hold</srai></template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Does it say Hold</that>
+			<template><srai>YNCButtonLabel Detonate</srai></template>
+		</category>
+
+		<category>
+			<pattern>YNCButtonLabel *</pattern>
+			<template><srai>SolveAndTellButton <get name='ButtonColour'/> <star/></srai></template>
+		</category>
+
+		<category>
+			<pattern>yes</pattern>
+			<that>Is the light white or red</that>
+			<template>Is it white?</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Is it white</that>
+			<template><srai>YNCLightColour white</srai></template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Is it white</that>
+			<template><srai>YNCLightColour red</srai></template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Is the light white or red</that>
+			<template>Is it blue?</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Is it blue</that>
+			<template><srai>YNCLightColour blue</srai></template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Is it blue</that>
+			<template><srai>YNCLightColour yellow</srai></template>
+		</category>
+
+		<category>
+			<pattern>YNCLightColour *</pattern>
+			<template><srai>ButtonLightColour <star/></srai> Solved?</template>
 		</category>
 
 		<!-- Usage: Solver Button [colour] [label]? -->
@@ -130,7 +244,12 @@
 
 		<category>
 			<pattern><set>BombColours</set></pattern>
-			<that>^ Hold the button</that>
+			<that>^ Hold the button ^</that>
+			<template><srai>ButtonLightColour <star/></srai></template>
+		</category>
+
+		<category>
+			<pattern>ButtonLightColour <set>BombColours</set></pattern>
 			<template>
 				<think>
 					<set var='result'><srai>Solver Button <star/></srai></set>

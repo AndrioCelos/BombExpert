@@ -58,28 +58,17 @@
 
 						<condition var='ruleType'>
 							<li value='Position'>
-								Press the
-								<map name='ordinal'><srai>SouvenirPut Position <get name='BombMemoryStage'/> XS
-									<set><name>MemoryPos<get name='BombMemoryStage'/></name><get var='ruleParam'/></set>
-								</srai></map>
-								position.
+								<srai>PressPosition <get var='ruleParam'/></srai>
 							</li>
 							<li value='Label'>
-								Press the label
-								<srai>SouvenirPut Label <get name='BombMemoryStage'/> XS
-									<set><name>MemoryLabel<get name='BombMemoryStage'/></name><get var='ruleParam'/></set>
-								</srai>.
+								<srai>PressLabel <get var='ruleParam'/></srai>
 							</li>
 							<li value='SamePosition'>
 								<think><set var='pos'><get><name>MemoryPos<get var='ruleParam'/></name></get></set></think>
 								<condition var='pos'>
 									<li value='unknown'>Press the position that you pressed in stage <get var='ruleParam'/>.</li>
 									<li>
-										Press the
-										<map name='ordinal'><srai>SouvenirPut Position <get name='BombMemoryStage'/> XS
-											<set><name>MemoryPos<get name='BombMemoryStage'/></name><get var='pos'/></set>
-										</srai></map>
-										position.
+										<srai>PressPosition <get var='pos'/></srai>
 									</li>
 								</condition>
 							</li>
@@ -88,10 +77,7 @@
 								<condition var='label'>
 									<li value='unknown'>Press the label that you pressed in stage <get var='ruleParam'/>.</li>
 									<li>
-										Press the label
-										<srai>SouvenirPut Label <get name='BombMemoryStage'/> XS
-											<set><name>MemoryLabel<get name='BombMemoryStage'/></name><get var='label'/></set>
-										</srai>.
+										<srai>PressLabel <get var='label'/></srai>
 									</li>
 								</condition>
 							</li>
@@ -131,6 +117,38 @@
 		</category>
 
 		<category>
+			<pattern>PressPosition *</pattern>
+			<template>
+				Press the
+				<map name='ordinal'><srai>SouvenirPut Position <get name='BombMemoryStage'/> XS
+					<set><name>MemoryPos<get name='BombMemoryStage'/></name><star/></set>
+				</srai></map>
+				position.
+				<condition name='YesNoChallenge' value='true'>
+					<condition name='BombMemoryStage'>
+						<li value='5'>Solved?</li>
+						<li>Is the label odd?</li>
+					</condition>
+				</condition>
+			</template>
+		</category>
+		<category>
+			<pattern>PressLabel *</pattern>
+			<template>
+				Press the label
+				<srai>SouvenirPut Label <get name='BombMemoryStage'/> XS
+					<set><name>MemoryLabel<get name='BombMemoryStage'/></name><star/></set>
+				</srai>.
+				<condition name='YesNoChallenge' value='true'>
+					<condition name='BombMemoryStage'>
+						<li value='5'>Solved?</li>
+						<li>Is it in the right half?</li>
+					</condition>
+				</condition>
+			</template>
+		</category>
+
+		<category>
 			<pattern>yes</pattern>
 			<that>Are we starting a new module</that>
 			<template><srai>next set</srai></template>
@@ -163,7 +181,10 @@
 						<set><name>MemoryPos<get name='BombMemoryStage'/></name><star/></set>
 					</srai>
 				</think>
-				OK.
+				<condition name='YesNoChallenge'>
+					<li value='true'>Is the next display odd?</li>
+					<li>OK.</li>
+				</condition>
 			</template>
 		</category>
 		<category>
@@ -178,7 +199,10 @@
 						<set><name>MemoryLabel<get name='BombMemoryStage'/></name><star/></set>
 					</srai>
 				</think>
-				OK.
+				<condition name='YesNoChallenge'>
+					<li value='true'>Is the next display odd?</li>
+					<li>OK.</li>
+				</condition>
 			</template>
 		</category>
 		<category>
@@ -196,6 +220,83 @@
 		<category>
 			<pattern>the * is *</pattern>
 			<template><srai><star/> <star index='2'/></srai></template>
+		</category>
+
+		<category>
+			<pattern>SelectModule YNC</pattern>
+			<template>Is the display odd?</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Is the ^ display odd</that>
+			<template>Is it 3?</template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Is the ^ display odd</that>
+			<template>Is it 4?</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Is it <set>number</set></that>
+			<template><srai><thatstar/></srai></template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Is it <set>number</set></that>
+			<template><srai><map name='predecessor'><map name='predecessor'><thatstar/></map></map></srai></template>
+		</category>
+
+		<category>
+			<pattern>yes</pattern>
+			<that>Is the label odd</that>
+			<template>Is the label 3?</template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Is the label odd</that>
+			<template>Is the label 4?</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Is the label <set>number</set></that>
+			<template><srai>label <thatstar/></srai></template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Is the label <set>number</set></that>
+			<template><srai>label <map name='predecessor'><map name='predecessor'><thatstar/></map></map></srai></template>
+		</category>
+
+		<category>
+			<pattern>yes</pattern>
+			<that>Is it in the right half</that>
+			<template>Is it the rightmost button?</template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Is it in the right half</that>
+			<template>Is it the leftmost button?</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Is it the leftmost button</that>
+			<template><srai>position 1</srai></template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Is it the leftmost button</that>
+			<template><srai>position 2</srai></template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Is it the rightmost button</that>
+			<template><srai>position 4</srai></template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Is it the rightmost button</that>
+			<template><srai>position 3</srai></template>
 		</category>
 
 		<!-- Usage: Solver Memory GetRule [stage] [display] -->

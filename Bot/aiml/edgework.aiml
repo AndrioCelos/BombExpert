@@ -234,7 +234,10 @@
 		<pattern>EdgeworkQuery BatteryCount</pattern>
 		<template>
 			<srai>EdgeworkQueryStart batteries Batteries BatteryCount</srai>
-			How many batteries are there?
+			<condition name='YesNoChallenge'>
+				<li value='true'>Are there at least 2 batteries?</li>
+				<li>How many batteries are there?</li>
+			</condition>
 		</template>
 	</category>
 	<category>
@@ -327,6 +330,67 @@
 			<pattern><set>number</set> batteries</pattern>
 			<topic>Bomb Edgework Batteries BatteryCount</topic>
 			<template><sr/></template>
+		</category>
+
+		<!-- Yes/no challenge dialogue tree
+			In a normal game, the probability distribution for the number of batteries is approximately as follows:
+			 0: 13.2%
+			 1: 16.4%
+			 2: 24.7%
+			 3: 18.5%
+			 4: 14.7%
+			 5:  7.2%
+			 6:  3.7%
+			 7:  1.2%
+			 8:  0.39%
+			 9:  0.064%
+			10:  0.013%
+		-->
+		<category>
+			<pattern>yes</pattern>
+			<that>Are there exactly <set>number</set> batteries</that>
+			<template><srai><thatstar/></srai></template>
+		</category>
+
+		<category>
+			<pattern>yes</pattern>
+			<that>^ Are there at least 2 batteries</that>
+			<template>Are there at least 4 batteries?</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Are there at least 4 batteries</that>
+			<template>Are there exactly 4 batteries?</template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Are there exactly <set>number</set> batteries</that>
+			<template>Are there exactly <map name='successor'><thatstar/></map> batteries?</template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Are there at least 4 batteries</that>
+			<template>Are there exactly 3 batteries?</template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Are there exactly 3 batteries</that>
+			<template><srai>2</srai></template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>^ Are there at least 2 batteries</that>
+			<template>Is there a single battery?</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Is there a single battery</that>
+			<template><srai>1</srai></template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Is there a single battery</that>
+			<template><srai>0</srai></template>
 		</category>
 	</topic>
 	<category>
@@ -894,11 +958,19 @@
 	</category>
 	<category>
 		<pattern>EdgeworkKnown SerialNumberIsOdd</pattern>
-		<template><srai>EdgeworkKnown SerialNumberLastDigit</srai></template>
+		<template><condition name='BombSerialNumberIsOdd'><li value='unknown'>false</li><li>true</li></condition></template>
 	</category>
 	<category>
 		<pattern>EdgeworkQuery SerialNumberIsOdd</pattern>
-		<template><srai>EdgeworkQuery SerialNumberLastDigit</srai></template>
+		<template>
+			<condition name='YesNoChallenge'>
+				<li value='true'>
+					<srai>EdgeworkQueryStart serialnumber Serial IsOdd</srai>
+					Is the serial number odd?
+				</li>
+				<li><srai>EdgeworkQuery SerialNumberLastDigit</srai></li>
+			</condition>
+		</template>
 	</category>
 	<category>
 		<pattern>EdgeworkKnown SerialNumberStartsWithLetter</pattern>

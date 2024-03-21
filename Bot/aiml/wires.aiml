@@ -45,6 +45,156 @@
 		</category>
 
 		<category>
+			<pattern>SelectModule YNC</pattern>
+			<template>Are there at least 5 wires?</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<that>Are there at least 5 wires</that>
+			<template>Are there 6 wires?</template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Are there at least 5 wires</that>
+			<template>Are there 4 wires?</template>
+		</category>
+
+		<category>
+			<pattern>yes</pattern>
+			<that>Are there <set>number</set> wires</that>
+			<template><srai>YNCConditions <thatstar/></srai></template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<that>Are there <set>number</set> wires</that>
+			<template><srai>YNCConditions <map name='predecessor'><thatstar/></map></srai></template>
+		</category>
+
+		<category>
+			<pattern>YNCConditions *</pattern>
+			<template>
+				<think><set name='topic'>Bomb Wires YNC <star/> XS 1 XS 1</set></think>
+				<srai>YNCAsk</srai>
+			</template>
+		</category>
+		<category>
+			<pattern>YNCAsk</pattern>
+			<topic>Bomb Wires YNC * XS * XS *</topic>
+			<template>
+				<think>
+					<set var='result'><srai>SolverFallback Wires <get name='RuleSeed'/> YNCCondition <topicstar/> <topicstar index='2'/> <topicstar index='3'/></srai></set>
+					<set var='code'><first><get var='result'/></first></set>
+				</think>
+				<condition var='code'>
+					<li value='nil'><srai>YNCRuleHit</srai></li>
+					<li value='EdgeworkQuery'>
+						<think><set name='WiresYNCEdgeworkQuery'><rest><get var='result'/></rest></set></think>
+						<srai>EdgeworkQuery <rest><get var='result'/></rest> XS YNCEdgeworkCallback</srai>
+					</li>
+					<li>
+						<think><set name='WiresYNCCode'><get var='code'/></set></think>
+						<srai>YNCAsk <rest><get var='result'/></rest></srai>
+					</li>
+				</condition>
+			</template>
+		</category>
+		<category>
+			<pattern>YNCEdgeworkCallback</pattern>
+			<template>
+				<think><set var='result'><get><name>Bomb<get name='WiresYNCEdgeworkQuery'/></name></get></set></think>
+				<srai>
+					<condition var='result'>
+						<li value='true'>YNCRuleHit</li>
+						<li>YNCRuleMiss</li>
+					</condition>
+				</srai>
+			</template>
+		</category>
+		<category>
+			<pattern>yes</pattern>
+			<topic>Bomb Wires YNC * XS * XS *</topic>
+			<template>
+				<condition name='WiresYNCCode'>
+					<li value='NotQuery'><srai>YNCRuleMiss</srai></li>
+					<li><srai>YNCRuleHit</srai></li>
+				</condition>
+			</template>
+		</category>
+		<category>
+			<pattern>no</pattern>
+			<topic>Bomb Wires YNC * XS * XS *</topic>
+			<template>
+				<condition name='WiresYNCCode'>
+					<li value='NotQuery'><srai>YNCRuleHit</srai></li>
+					<li><srai>YNCRuleMiss</srai></li>
+				</condition>
+			</template>
+		</category>
+		<category>
+			<pattern>YNCRuleHit</pattern>
+			<topic>Bomb Wires YNC * XS * XS 1</topic>
+			<template>
+				<think><set name='topic'>Bomb Wires YNC <topicstar/> XS <topicstar index='2'/> XS 2</set></think>
+				<srai>YNCAsk</srai>
+			</template>
+		</category>
+		<category>
+			<pattern>YNCRuleHit</pattern>
+			<topic>Bomb Wires YNC * XS * XS 2</topic>
+			<template>
+				<think>
+					<set name='topic'>Bomb Wires YNC Action</set>
+					<set var='result'><srai>SolverFallback Wires <get name='RuleSeed'/> YNCAction <topicstar/> <topicstar index='2'/></srai></set>
+					<set var='code'><srai>XFirst <get var='result'/></srai></set>
+					<set var='detail'><srai>XRest <get var='result'/></srai></set>
+				</think>
+				<condition var='code'>
+					<li value='CutFirstWire'>Cut the first wire.</li>
+					<li value='CutSecondWire'>Cut the second wire.</li>
+					<li value='CutThirdWire'>Cut the third wire.</li>
+					<li value='CutFourthWire'>Cut the fourth wire.</li>
+					<li value='CutFifthWire'>Cut the fifth wire.</li>
+					<li value='CutLastWire'>Cut the last wire.</li>
+					<li value='CutLastWireColour'>Cut the last <get var='detail'/> wire.</li>
+				</condition>
+				Solved?
+			</template>
+		</category>
+		<category>
+			<pattern>YNCRuleMiss</pattern>
+			<topic>Bomb Wires YNC * XS * XS *</topic>
+			<template>
+				<think><set name='topic'>Bomb Wires YNC <topicstar/> XS <map name='successor'><topicstar index='2'/></map> XS 1</set></think>
+				<srai>YNCAsk</srai>
+			</template>
+		</category>
+
+		<category>
+			<pattern>YNCAsk AtLeastColour 1 *</pattern>
+			<template>Are there any <star/> wires?</template>
+		</category>
+		<category>
+			<pattern>YNCAsk AtLeastColour *</pattern>
+			<template>Are there at least <star/> wires?</template>
+		</category>
+		<category>
+			<pattern>YNCAsk ExactlyColour 1 *</pattern>
+			<template>Is there exactly 1 <star/> wire?</template>
+		</category>
+		<category>
+			<pattern>YNCAsk ExactlyColour *</pattern>
+			<template>Are there exactly <star/> wires?</template>
+		</category>
+		<category>
+			<pattern>YNCAsk WireIsColour last *</pattern>
+			<template>Is the last wire <star/>?</template>
+		</category>
+		<category>
+			<pattern>YNCAsk nil</pattern>
+			<template><srai>YNCRuleHit</srai></template>
+		</category>
+
+		<category>
 			<!-- 3 wires -->
 			<pattern>SolverFallback Wires 1 <set>BombColours</set> <set>BombColours</set> <set>BombColours</set></pattern>
 			<template>
@@ -208,6 +358,162 @@
 				</think>
 				<get var='result'/>
 			</template>
+		</category>
+
+		<!-- Yes/no challenge dialogue tree -->
+		<!-- Solver arguments: YNCCondition [number of wires] [line number] [1|2] -->
+		<!-- Solver arguments: YNCAction [number of wires] [line number] -->
+		<category>
+			<pattern>SolverFallback Wires 1 YNCCondition *</pattern>
+			<template>nil</template>
+		</category>
+
+		<category>
+			<pattern>SolverFallback Wires 1 YNCCondition 3 1 1</pattern>
+			<template>NotQuery AtLeastColour 1 red</template>
+		</category>
+		<category>
+			<pattern>SolverFallback Wires 1 YNCAction 3 1</pattern>
+			<template>CutSecondWire</template>
+		</category>
+		<category>
+			<pattern>SolverFallback Wires 1 YNCCondition 3 2 1</pattern>
+			<template>Query WireIsColour last white</template>
+		</category>
+		<category>
+			<pattern>SolverFallback Wires 1 YNCAction 3 2</pattern>
+			<template>CutLastWire</template>
+		</category>
+		<category>
+			<pattern>SolverFallback Wires 1 YNCCondition 3 3 1</pattern>
+			<template>Query AtLeastColour 2 blue</template>
+		</category>
+		<category>
+			<pattern>SolverFallback Wires 1 YNCAction 3 3</pattern>
+			<template>CutLastWireColour blue</template>
+		</category>
+		<category>
+			<pattern>SolverFallback Wires 1 YNCAction 3 4</pattern>
+			<template>CutLastWire</template>
+		</category>
+
+		<category>
+			<pattern>SolverFallback Wires 1 YNCCondition 4 1 1</pattern>
+			<template>EdgeworkQuery SerialNumberIsOdd</template>
+		</category>
+		<category>
+			<pattern>SolverFallback Wires 1 YNCCondition 4 1 2</pattern>
+			<template>Query AtLeastColour 2 red</template>
+		</category>
+		<category>
+			<pattern>SolverFallback Wires 1 YNCAction 4 1</pattern>
+			<template>CutLastWireColour red</template>
+		</category>
+		<category>
+			<pattern>SolverFallback Wires 1 YNCCondition 4 2 1</pattern>
+			<template>Query WireIsColour last yellow</template>
+		</category>
+		<category>
+			<pattern>SolverFallback Wires 1 YNCCondition 4 2 2</pattern>
+			<template>NotQuery AtLeastColour 1 red</template>
+		</category>
+		<category>
+			<pattern>SolverFallback Wires 1 YNCAction 4 2</pattern>
+			<template>CutFirstWire</template>
+		</category>
+		<category>
+			<pattern>SolverFallback Wires 1 YNCCondition 4 3 1</pattern>
+			<template>Query ExactlyColour 1 blue</template>
+		</category>
+		<category>
+			<pattern>SolverFallback Wires 1 YNCAction 4 3</pattern>
+			<template>CutFirstWire</template>
+		</category>
+		<category>
+			<pattern>SolverFallback Wires 1 YNCCondition 4 4 1</pattern>
+			<template>Query AtLeastColour 2 yellow</template>
+		</category>
+		<category>
+			<pattern>SolverFallback Wires 1 YNCAction 4 4</pattern>
+			<template>CutLastWire</template>
+		</category>
+		<category>
+			<pattern>SolverFallback Wires 1 YNCAction 4 5</pattern>
+			<template>CutSecondWire</template>
+		</category>
+
+		<category>
+			<pattern>SolverFallback Wires 1 YNCCondition 5 1 1</pattern>
+			<template>EdgeworkQuery SerialNumberIsOdd</template>
+		</category>
+		<category>
+			<pattern>SolverFallback Wires 1 YNCCondition 5 1 2</pattern>
+			<template>Query WireIsColour last black</template>
+		</category>
+		<category>
+			<pattern>SolverFallback Wires 1 YNCAction 5 1</pattern>
+			<template>CutFourthWire</template>
+		</category>
+		<category>
+			<pattern>SolverFallback Wires 1 YNCCondition 5 2 1</pattern>
+			<template>Query ExactlyColour 1 red</template>
+		</category>
+		<category>
+			<pattern>SolverFallback Wires 1 YNCCondition 5 2 2</pattern>
+			<template>NotQuery AtLeastColour 2 yellow</template>
+		</category>
+		<category>
+			<pattern>SolverFallback Wires 1 YNCAction 5 2</pattern>
+			<template>CutFirstWire</template>
+		</category>
+		<category>
+			<pattern>SolverFallback Wires 1 YNCCondition 5 3 1</pattern>
+			<template>NotQuery AtLeastColour 1 black</template>
+		</category>
+		<category>
+			<pattern>SolverFallback Wires 1 YNCAction 5 3</pattern>
+			<template>CutSecondWire</template>
+		</category>
+		<category>
+			<pattern>SolverFallback Wires 1 YNCAction 5 4</pattern>
+			<template>CutFirstWire</template>
+		</category>
+
+		<category>
+			<pattern>SolverFallback Wires 1 YNCCondition 6 1 1</pattern>
+			<template>EdgeworkQuery SerialNumberIsOdd</template>
+		</category>
+		<category>
+			<pattern>SolverFallback Wires 1 YNCCondition 6 1 2</pattern>
+			<template>NotQuery AtLeastColour 1 yellow</template>
+		</category>
+		<category>
+			<pattern>SolverFallback Wires 1 YNCAction 6 1</pattern>
+			<template>CutThirdWire</template>
+		</category>
+		<category>
+			<pattern>SolverFallback Wires 1 YNCCondition 6 2 1</pattern>
+			<template>Query ExactlyColour 1 yellow</template>
+		</category>
+		<category>
+			<pattern>SolverFallback Wires 1 YNCCondition 6 2 2</pattern>
+			<template>Query AtLeastColour 2 white</template>
+		</category>
+		<category>
+			<pattern>SolverFallback Wires 1 YNCAction 6 2</pattern>
+			<template>CutFourthWire</template>
+		</category>
+		<category>
+			<pattern>SolverFallback Wires 1 YNCCondition 6 3 1</pattern>
+			<template>NotQuery AtLeastColour 1 red</template>
+		</category>
+		<category>
+			<pattern>SolverFallback Wires 1 YNCAction 6 3</pattern>
+			<template>CutLastWire</template>
+		</category>
+		<category>
+			<pattern>SolverFallback Wires 1 YNCAction 6 4</pattern>
+			<template>CutFourthWire</template>
 		</category>
 	</topic>
 </aiml>

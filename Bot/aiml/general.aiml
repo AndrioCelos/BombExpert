@@ -10,6 +10,11 @@
 	</category>
 
 	<category>
+		<pattern>veemo</pattern>
+		<template>Woomy!</template>
+	</category>
+
+	<category>
 		<pattern>PartialInput</pattern>
 		<template></template>
 	</category>
