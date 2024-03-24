@@ -1,21 +1,21 @@
-Copyright   : copyright symbol
+Copyright   : copyright
 FilledStar  : filled star
 HollowStar  : hollow star
 SmileyFace  : smiley face
-DoubleK     : double Ks
+DoubleK     : double K
 Omega       : Omega
 SquidKnife  : squid with a knife
 Pumpkin     : pumpkin
-HookN       : hooked N
+HookN       : hooked H
 Teepee      : tent
 Six         : six
-SquigglyN   : squiggly N
+SquigglyN   : lightning
 AT          : pyramid
 Ae          : a e
 MeltedThree : melted three
 Euro        : Euro symbol
 Circle      : circle of hills
-NWithHat    : upside-down N with hat
+NWithHat    : mirrored N with a hat
 Dragon      : dragon
 QuestionMark: question mark
 Paragraph   : paragraph mark
@@ -26,5 +26,5 @@ Cursive     : cursive loop
 Tracks      : square track
 Balloon     : balloon
 WeirdNose   : zeta
-UpsideDownY : upside-down Y
-BT          : B and T
+UpsideDownY : lambda
+BT          : B T
