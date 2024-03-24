@@ -450,7 +450,7 @@
 		</template>
 	</category>
 	<category>
-		<pattern>EdgeworkKnown IndicatorLit *</pattern>
+		<pattern>EdgeworkKnown IndicatorUnlit *</pattern>
 		<template><condition><name>BombIndicatorUnlit<star/></name><li value='unknown'>false</li><li>true</li></condition></template>
 	</category>
 	<category>

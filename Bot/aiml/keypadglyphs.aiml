@@ -596,10 +596,6 @@
 		<template>Balloon</template>
 	</category>
 	<category>
-		<pattern>GetKeypadGlyphName2 ^ racquet</pattern>
-		<template>Balloon</template>
-	</category>
-	<category>
 		<pattern>GetKeypadGlyphName2 ^ racket</pattern>
 		<template>Balloon</template>
 	</category>
