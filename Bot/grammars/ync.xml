@@ -1,8 +1,8 @@
 <grammar version='1.0' xml:lang='en-gb' root='root' xmlns='http://www.w3.org/2001/06/grammar'>
 	<rule id='root' scope='public'>
 		<one-of>
-			<item> no <item repeat='0-1'> and exploded </item></item>
-			<item> yes <item repeat='0-1'> and defused </item></item>
+			<item> no </item>
+			<item> yes </item>
 			<item> defused </item>
 			<item> exploded </item>
 			<item> new bomb </item>
