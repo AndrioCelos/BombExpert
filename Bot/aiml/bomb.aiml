@@ -91,8 +91,9 @@
 	</category>
 
 	<category>
-		<pattern>defuse <set>module</set></pattern>
+		<pattern>start <set>module</set></pattern>
 		<template>
+			<!-- TODO: For now, this is unclear about whether the previous module was solved or not. This matters if we need to count solves, or for Souvenir with duplicate modules. -->
 			<srai>DeselectModule</srai>
 			<think><set name='topic'>Bomb <map name='ModuleCode'><star/></map></set></think>
 			<oob><setgrammar><map name='ModuleCode'><star/></map></setgrammar></oob>
@@ -100,6 +101,19 @@
 			<srai>InitModule</srai>
 		</template>
 	</category>
+	<category>
+		<pattern><set>module</set></pattern>
+		<template><srai>start <star/></srai></template>
+	</category>
+	<category>
+		<pattern>begin <set>module</set></pattern>
+		<template><srai>start <star/></srai></template>
+	</category>
+	<category>
+		<pattern>defuse <set>module</set></pattern>
+		<template><srai>start <star/></srai></template>
+	</category>
+
 	<category>
 		<pattern>resume <set>module</set></pattern>
 		<template>

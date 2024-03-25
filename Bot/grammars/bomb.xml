@@ -53,13 +53,17 @@
 		</one-of>
 	</rule>
 	<rule id='defuse'>
-		<one-of>
-			<item> defuse </item>
-			<item> resume </item>
-			<item> next </item>
-			<item> next is </item>
-			<item> new </item>
-		</one-of>
+		<item repeat='0-1'>
+			<one-of>
+				<item> start </item>
+				<item> begin </item>
+				<item> defuse </item>
+				<item> resume </item>
+				<item> next </item>
+				<item> next is </item>
+				<item> new </item>
+			</one-of>
+		</item>
 		<ruleref uri='#module'/>
 	</rule>
 	<rule id='module' scope='public'>
