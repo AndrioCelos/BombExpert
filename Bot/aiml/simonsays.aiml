@@ -9,8 +9,13 @@
 		<category>
 			<pattern>SimonCallback</pattern>
 			<template>
-				<oob>SetGrammar simonsays</oob><oob>SetPartialInput false</oob>
-				Tell me which colours flash, in order.
+				<condition name='YesNoChallenge'>
+					<li value='true'><srai>SimonPromptYNC</srai></li>
+					<li>
+						<oob>SetGrammar simonsays</oob><oob>SetPartialInput false</oob>
+						Tell me which colours flash, in order.
+					</li>
+				</condition>
 			</template>
 		</category>
 
@@ -36,6 +41,7 @@
 					</condition>
 				</think>
 				Press: <get var='result'/>.
+				<condition name='YesNoChallenge' value='true'>Solved?</condition>
 			</template>
 		</category>
 
@@ -114,6 +120,47 @@
 			<template><srai>SimonSaysInput <star index='1'/> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/> <star index='6'/></srai></template>
 		</category>
 	</topic>
+
+	<category>
+		<pattern>SimonPromptYNC</pattern>
+		<template>
+			<!-- TODO: For both this and normal play, we should describe the mapping rather than ask for colours. -->
+			Did red or blue flash?
+		</template>
+	</category>
+
+	<category>
+		<pattern>yes</pattern>
+		<that>Did red or blue flash</that>
+		<template>Did red flash?</template>
+	</category>
+	<category>
+		<pattern>no</pattern>
+		<that>Did red or blue flash</that>
+		<template>Did green flash?</template>
+	</category>
+
+	<category>
+		<pattern>yes</pattern>
+		<that>Did <set>colour</set> flash</that>
+		<template><srai><thatstar/></srai></template>
+	</category>
+	<category>
+		<pattern>no</pattern>
+		<that>Did red flash</that>
+		<template>blue</template>
+	</category>
+	<category>
+		<pattern>no</pattern>
+		<that>Did green flash</that>
+		<template>yellow</template>
+	</category>
+
+	<category>
+		<pattern>no</pattern>
+		<that>Solved</that>
+		<template><srai>SimonPromptYNC</srai></template>
+	</category>
 
 	<category>
 		<pattern>SouvenirInput SimonSays XS <set>number</set></pattern>
