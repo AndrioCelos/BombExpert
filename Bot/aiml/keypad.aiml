@@ -308,22 +308,33 @@
 			<pattern>KeypadOrderRead *</pattern>
 			<template>
 				<think><set var='column'><star/></set></think>
-				Press in this order:
 				<condition var='column'>
-					<li value='nil'></li>
-					<li>
-						<think>
-							<set var='absent'><srai>XContains <first><get var='column'/></first> XS <get name='KeypadAbsent'/></srai></set>
-						</think>
-						<condition var='absent' value='false'>
-							<condition var='any' value='true'>,</condition>
-							<map name='KeypadGlyphDescription'><first><get var='column'/></first></map>
-							<think><set var='any'>true</set></think>
-						</condition>
-						<think><set var='column'><rest><get var='column'/></rest></set></think>
-						<loop/>
+					<li><value><get name='BombKeypadGlyph1'/> <get name='BombKeypadGlyph2'/> <get name='BombKeypadGlyph3'/> <get name='BombKeypadGlyph4'/></value>
+						Press in that order.
 					</li>
-				</condition>.
+					<li><value><get name='BombKeypadGlyph4'/> <get name='BombKeypadGlyph3'/> <get name='BombKeypadGlyph2'/> <get name='BombKeypadGlyph1'/></value>
+						Press in the reverse order.
+					</li>
+					<li>
+						Press in this order:
+						<condition var='column'>
+							<li value='nil'></li>
+							<li>
+								<think>
+									<set var='absent'><srai>XContains <first><get var='column'/></first> XS <get name='KeypadAbsent'/></srai></set>
+								</think>
+								<condition var='absent' value='false'>
+									<condition var='any' value='true'>,</condition>
+									<map name='KeypadGlyphDescription'><first><get var='column'/></first></map>
+									<think><set var='any'>true</set></think>
+								</condition>
+								<think><set var='column'><rest><get var='column'/></rest></set></think>
+								<loop/>
+							</li>
+						</condition>.
+					</li>
+				</condition>
+				Solved?
 			</template>
 		</category>
 
