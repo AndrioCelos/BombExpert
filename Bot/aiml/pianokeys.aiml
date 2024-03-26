@@ -25,6 +25,7 @@
 		<category>
 			<pattern><set>PianoKeysSymbol</set> <set>PianoKeysSymbol</set> <set>PianoKeysSymbol</set></pattern>
 			<template>
+				<think><set name='PianoKeysSymbols'>nil</set></think>
 				<srai>ProcessSymbol <star index='1'/></srai>
 				<srai>ProcessSymbol <star index='2'/></srai>
 				<srai>ProcessSymbol <star index='3'/></srai>

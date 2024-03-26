@@ -50,6 +50,8 @@
 			<item> knob <item repeat='4-12'><one-of><item> off </item><item> on </item></one-of></item></item>
 			<item> rotary phone <ruleref uri='#digit'/> <ruleref uri='#digit'/> <ruleref uri='#digit'/></item>
 			<item> reset rotary phone to <ruleref uri='#digit'/> <ruleref uri='#digit'/> <ruleref uri='#digit'/></item>
+
+			<item> veemo </item>
 		</one-of>
 	</rule>
 	<rule id='defuse'>
@@ -91,6 +93,8 @@
 			<item> knob </item>
 
 			<item> colour flash </item>
+			<item> piano keys </item>
+			<item> semaphore </item>
 			<item> listening </item>
 			<item> simon states </item>
 			<item> silly slots </item>

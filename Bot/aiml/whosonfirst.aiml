@@ -339,8 +339,9 @@
 							<set name='WhosOnFirstStage'>1</set>
 						</li>
 					</condition>
+					<set name='topic'>Bomb WhosOnFirst Display</set>
 				</think>
-				<srai>defuse who's on first <star/></srai>
+				<sr/>
 			</template>
 		</category>
 		<category>

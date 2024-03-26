@@ -23,14 +23,14 @@
 			<template>
 				<think>
 					<set var='result'>
-						<srai>Solver ColourFlash Condition <get name='ColourFlashColour'/> <set name='ColourFlashRuleIndex'><map name='successor'><get name='ColourFlashRuleIndex'/></map></set></srai>?
+						<srai>Solver ColourFlash Condition <get name='ColourFlashColour'/> <set name='ColourFlashRuleIndex'><map name='successor'><get name='ColourFlashRuleIndex'/></map></set></srai>
 					</set>
 				</think>
 				<condition var='result'>
 					<li value='nil'>
 						<srai>Solver ColourFlash Instruction <get name='ColourFlashColour'/> <get name='ColourFlashRuleIndex'/></srai>
 					</li>
-					<li><get var='result'/></li>
+					<li><get var='result'/>?</li>
 				</condition>
 			</template>
 		</category>

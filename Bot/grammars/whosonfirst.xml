@@ -8,34 +8,16 @@
 					<item> next </item>
 					<item> reset </item>
 				</one-of>
-				<one-of>
-					<item> stage </item>
-				</one-of>
+				stage
 				<item repeat='0-1'><ruleref uri='#label'/></item>
 			</item>
-			<item>
-				<ruleref uri='#label'/>
-			</item>
+			<item><ruleref uri='#label'/></item>
 			<item> got it </item>
 			<item> back </item>
 			<item> go back </item>
 		</one-of>
 	</rule>
 	<rule id='label' scope='public'>
-		<item repeat='0-1'>
-			<item repeat='0-1'> the </item>
-			<one-of>
-				<item> it </item>
-				<item> word </item>
-				<item> display </item>
-				<item> label </item>
-			</one-of>
-			<one-of>
-				<item> is </item>
-				<item> says </item>
-			</one-of>
-		</item>
-		<item repeat='0-1'> the </item>
 		<item repeat='0-1'>
 			<one-of>
 				<item> letter </item>
@@ -54,27 +36,21 @@
 					<item> triple </item>
 				</one-of>
 			</item>
-			<item repeat='1-8'>
-				<one-of>
-					<item><ruleref uri='#letter'/></item>
-					<item> space </item>
-					<item> apostrophe </item>
-					<item> double </item>
-					<item> triple </item>
-				</one-of>
-			</item>
 
 			<item> literally blank </item>
 			<item> literal blank </item>
 			<item> literally nothing </item>
 			<item> literal nothing </item>
 			<item> empty </item>
+			<item> literally empty </item>
 			<item> nil </item>
 
 			<item> blank <item repeat='0-1'> word </item></item>
 
-			<item> letter c </item>
+			<item> c </item>
 			<item> c letter </item>
+			<item> charlie </item>
+			<item> charlie letter </item>
 
 			<item> Cee Spain </item>
 

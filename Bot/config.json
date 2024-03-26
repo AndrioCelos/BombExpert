@@ -10,6 +10,7 @@
 	//"Timeout": 10000,
 	//"TimeoutMessage": "That query took too long for me to process.",
 	//"RecursionLimit": 50,
+	//"LogRecursionLimit": 3,
 	//"RecursionLimitMessage": "Too much recursion in AIML.",
 	//"LogLevel": "Chat",
 	//"AimlDirectory": "aiml",
