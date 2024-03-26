@@ -159,7 +159,7 @@
 				<set name='EdgeworkCallbackTopic'><get name='topic'/></set>
 				<set name='topic'>Edgework <star index='2'/></set>
 			</think>
-			<oob>EnableGrammar <star/></oob>
+			<oob><enablegrammar><star/></enablegrammar></oob>
 		</template>
 	</category>
 	<!-- Usage: EdgeworkQueryStart <grammar> -->
@@ -167,7 +167,7 @@
 	<category><pattern>EdgeworkQueryCallback *</pattern>
 		<template>
 			<think><set name='topic'><get name='EdgeworkCallbackTopic'/></set></think>
-			<oob>DisableGrammar <star/></oob>
+			<oob><disablegrammar><star/></disablegrammar></oob>
 			<srai><get name='EdgeworkCallback'/></srai>
 		</template>
 	</category>
