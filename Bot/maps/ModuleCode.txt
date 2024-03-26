@@ -30,3 +30,4 @@ Hexamaze                                      :Hexamaze
 Third Base                                    :ThirdBase
 Adventure Game                                :AdventureGame
 Piano Keys                                    :PianoKeys
+Semaphore                                     :Semaphore

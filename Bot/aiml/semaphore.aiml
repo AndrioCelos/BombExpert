@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<aiml>
+	<topic name='Semaphore'>
+		<category><pattern>SelectModule</pattern>
+			<template><srai>EdgeworkQuery SerialNumber XS SemaphoreCallback</srai></template>
+		</category>
+
+		<category><pattern>SemaphoreCallback</pattern>
+			<template>Read the flags.</template>
+		</category>
+
+		<category><pattern>InitModule</pattern>
+			<template><think><set name='SemaphoreMode'>unknown</set></think></template>
+		</category>
+
+		<category><pattern>SemaphoreNormalise <set>cardinaldirection</set></pattern>
+			<template><star/></template>
+		</category>
+		<category><pattern>SemaphoreNormalise <set>cardinaldirection</set> <set>cardinaldirection</set></pattern>
+			<template><star/> <star index='2'/></template>
+		</category>
+		<category><pattern>SemaphoreNormalise <set>cardinaldirection</set> up</pattern>
+			<template>up <star/></template>
+		</category>
+		<category><pattern>SemaphoreNormalise <set>cardinaldirection</set> down</pattern>
+			<template>down <star/></template>
+		</category>
+		<category><pattern>SemaphoreNormalise ^</pattern>
+			<template>unknown</template>
+		</category>
+
+		<category><pattern>* and *</pattern>
+			<template>
+				<think>
+					<set var='left'><srai>SemaphoreNormalise <star index='1'/></srai></set>
+					<set var='right'><srai>SemaphoreNormalise <star index='2'/></srai></set>
+					<set var='dirs'><get var='left'/> XS <get var='right'/></set>
+					<set var='key'><get name='SemaphoreMode'/> XS <get var='left'/> XS <get var='right'/></set>
+
+					<!-- Check for control signals. -->
+					<condition var='dirs'>
+						<li value='up XS right'>
+							<condition name='SemaphoreMode'>
+								<li value='letters'></li>
+								<li>
+									<set name='SemaphoreMode'>letters</set>
+									<set var='control'>true</set>
+								</li>
+							</condition>
+						</li>
+						<li value='up XS up right'>
+							<set name='SemaphoreMode'>numerals</set>
+							<set var='control'>true</set>
+						</li>
+					</condition>
+
+					<condition var='control'>
+						<li value='true'></li>
+						<li>
+							<!-- If it's not a control signal, decode the character. -->
+							<set var='c'><map name='Semaphore'><get var='key'/></map></set>
+							<!-- Look for the character in the serial number. -->
+							<set var='found'><srai>XContains <get var='c'/> XS <explode><get name='SerialNumber'/></explode></srai></set>
+						</li>
+					</condition>
+				</think>
+				<condition var='control'>
+					<li value='true'>Next?</li>
+					<li>
+						<condition var='c'>
+							<li value='unknown'>That is not a valid signal.</li>
+							<li>
+								<condition var='found'>
+									<li value='true'>Next?</li>
+									<li>Submit that.</li>
+								</condition>
+							</li>
+						</condition>
+					</li>
+				</condition>
+			</template>
+		</category>
+	</topic>
+</aiml>

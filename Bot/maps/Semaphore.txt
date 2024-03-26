@@ -1,0 +1,37 @@
+letters XS down left XS down:A
+letters XS left XS down:B
+letters XS up left XS down:C
+letters XS up XS down:D
+letters XS down XS up right:E
+letters XS down XS right:F
+letters XS down XS down right:G
+letters XS left XS down left:H
+letters XS down left XS up left:I
+letters XS up XS right:J
+letters XS down left XS up:K
+letters XS down left XS up right:L
+letters XS down left XS right:M
+letters XS down left XS down right:N
+letters XS left XS up left:O
+letters XS left XS up:P
+letters XS left XS up right:Q
+letters XS left XS right:R
+letters XS left XS down right:S
+letters XS up left XS up:T
+letters XS up left XS up right:U
+letters XS up XS down right:V
+letters XS up right XS right:W
+letters XS up right XS down right:X
+letters XS up left XS right:Y
+letters XS down right XS right:Z
+
+numerals XS down left XS down:1
+numerals XS left XS down:2
+numerals XS up left XS down:3
+numerals XS up XS down:4
+numerals XS down XS up right:5
+numerals XS down XS right:6
+numerals XS down XS down right:7
+numerals XS left XS down left:8
+numerals XS down left XS up left:9
+numerals XS down left XS up:0
