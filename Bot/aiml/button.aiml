@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml>
-	<topic name='bomb button'>
+	<topic name='button'>
 		<category>
 			<pattern>SelectModule</pattern>
 			<template>Tell me the colour and label of the button.</template>
@@ -171,7 +171,7 @@
 					<condition var='result' value='unknown'>
 						<!-- If there is more than 1 battery on the bomb and the button says "Detonate", press and immediately release the button. -->
 						<condition var='label' value='Detonate'>
-							<condition name='BombBatteryCount'>
+							<condition name='BatteryCount'>
 								<li value='unknown'><set var='result'>NeedEdgework BatteryCount</set></li>
 								<li value='0'></li>
 								<li value='1'></li>
@@ -183,7 +183,7 @@
 					<condition var='result' value='unknown'>
 						<!-- If the button is white and there is a lit indicator with label CAR, hold the button and refer to "Releasing a Held Button". -->
 						<condition var='colour' value='white'>
-							<condition name='BombIndicatorLitCAR'>
+							<condition name='IndicatorLitCAR'>
 								<li value='unknown'><set var='result'>NeedEdgework IndicatorLit CAR</set></li>
 								<li value='true'><set var='result'>Hold</set></li>
 							</condition>
@@ -192,13 +192,13 @@
 
 					<condition var='result' value='unknown'>
 						<!-- If there are more than 2 batteries on the bomb and there is a lit indicator with label FRK, press and immediately release the button. -->
-						<condition name='BombBatteryCount'>
+						<condition name='BatteryCount'>
 							<li value='unknown'><set var='result'>NeedEdgework BatteryCount</set></li>
 							<li value='0'></li>
 							<li value='1'></li>
 							<li value='2'></li>
 							<li>
-								<condition name='BombIndicatorLitFRK'>
+								<condition name='IndicatorLitFRK'>
 									<li value='unknown'><set var='result'>NeedEdgework IndicatorLit FRK</set></li>
 									<li value='true'><set var='result'>Tap</set></li>
 								</condition>

@@ -5,7 +5,7 @@
 		<template>
 			<think>
 				<set name='SraixUnavailable'>true</set>
-				<set name='topic'>Bomb Keypad</set>
+				<set name='topic'>Keypad</set>
 				<test name='Keypad Solve Keypad 1' expected='Balloon UpsideDownY SquidKnife LeftC'>Solver Keypad Keypad Balloon UpsideDownY SquidKnife LeftC</test>
 				<test name='Keypad Solve Keypad 2' expected='Euro Balloon LeftC Cursive'>Solver Keypad Keypad Euro Balloon LeftC Cursive</test>
 				<test name='Keypad Solve Keypad 3' expected='Cursive DoubleK UpsideDownY HollowStar'>Solver Keypad Keypad HollowStar UpsideDownY DoubleK Cursive</test>

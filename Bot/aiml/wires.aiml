@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <aiml>
-	<topic name='Bomb Wires ^'>
+	<topic name='Wires ^'>
 		<category>
 			<pattern>SelectModule</pattern>
 			<template>Tell me the colours of the wires from top to bottom.</template>
@@ -73,13 +73,13 @@
 		<category>
 			<pattern>YNCConditions *</pattern>
 			<template>
-				<think><set name='topic'>Bomb Wires YNC <star/> XS 1 XS 1</set></think>
+				<think><set name='topic'>Wires YNC <star/> XS 1 XS 1</set></think>
 				<srai>YNCAsk</srai>
 			</template>
 		</category>
 		<category>
 			<pattern>YNCAsk</pattern>
-			<topic>Bomb Wires YNC * XS * XS *</topic>
+			<topic>Wires YNC * XS * XS *</topic>
 			<template>
 				<think>
 					<set var='result'><srai>SolverFallback Wires <get name='RuleSeed'/> YNCCondition <topicstar/> <topicstar index='2'/> <topicstar index='3'/></srai></set>
@@ -101,7 +101,7 @@
 		<category>
 			<pattern>YNCEdgeworkCallback</pattern>
 			<template>
-				<think><set var='result'><get><name>Bomb<get name='WiresYNCEdgeworkQuery'/></name></get></set></think>
+				<think><set var='result'><get><name><get name='WiresYNCEdgeworkQuery'/></name></get></set></think>
 				<srai>
 					<condition var='result'>
 						<li value='true'>YNCRuleHit</li>
@@ -112,7 +112,7 @@
 		</category>
 		<category>
 			<pattern>yes</pattern>
-			<topic>Bomb Wires YNC * XS * XS *</topic>
+			<topic>Wires YNC * XS * XS *</topic>
 			<template>
 				<condition name='WiresYNCCode'>
 					<li value='NotQuery'><srai>YNCRuleMiss</srai></li>
@@ -122,7 +122,7 @@
 		</category>
 		<category>
 			<pattern>no</pattern>
-			<topic>Bomb Wires YNC * XS * XS *</topic>
+			<topic>Wires YNC * XS * XS *</topic>
 			<template>
 				<condition name='WiresYNCCode'>
 					<li value='NotQuery'><srai>YNCRuleHit</srai></li>
@@ -132,18 +132,18 @@
 		</category>
 		<category>
 			<pattern>YNCRuleHit</pattern>
-			<topic>Bomb Wires YNC * XS * XS 1</topic>
+			<topic>Wires YNC * XS * XS 1</topic>
 			<template>
-				<think><set name='topic'>Bomb Wires YNC <topicstar/> XS <topicstar index='2'/> XS 2</set></think>
+				<think><set name='topic'>Wires YNC <topicstar/> XS <topicstar index='2'/> XS 2</set></think>
 				<srai>YNCAsk</srai>
 			</template>
 		</category>
 		<category>
 			<pattern>YNCRuleHit</pattern>
-			<topic>Bomb Wires YNC * XS * XS 2</topic>
+			<topic>Wires YNC * XS * XS 2</topic>
 			<template>
 				<think>
-					<set name='topic'>Bomb Wires YNC Action</set>
+					<set name='topic'>Wires YNC Action</set>
 					<set var='result'><srai>SolverFallback Wires <get name='RuleSeed'/> YNCAction <topicstar/> <topicstar index='2'/></srai></set>
 					<set var='code'><srai>XFirst <get var='result'/></srai></set>
 					<set var='detail'><srai>XRest <get var='result'/></srai></set>
@@ -162,9 +162,9 @@
 		</category>
 		<category>
 			<pattern>YNCRuleMiss</pattern>
-			<topic>Bomb Wires YNC * XS * XS *</topic>
+			<topic>Wires YNC * XS * XS *</topic>
 			<template>
-				<think><set name='topic'>Bomb Wires YNC <topicstar/> XS <map name='successor'><topicstar index='2'/></map> XS 1</set></think>
+				<think><set name='topic'>Wires YNC <topicstar/> XS <map name='successor'><topicstar index='2'/></map> XS 1</set></think>
 				<srai>YNCAsk</srai>
 			</template>
 		</category>
@@ -236,7 +236,7 @@
 					<!-- If there is more than one red wire and the last digit of the serial number is odd, cut the last red wire. -->
 					<set var='temp'><srai>XCompareDigits <srai>XCountMatch red XS <star/> <star index='2'/> <star index='3'/> <star index='4'/></srai> XS 1</srai></set>
 					<condition var='temp' value='1'>
-						<condition name='BombSerialNumberIsOdd'>
+						<condition name='SerialNumberIsOdd'>
 							<li value='true'><set var='result'><srai>XItem <srai>XLastIndex red XS <star/> XS <star index='2'/> <star index='3'/> <star index='4'/></srai> CutFirstWire CutSecondWire CutThirdWire CutLastWire</srai></set></li>
 							<li value='unknown'><set var='result'>NeedEdgework SerialNumberIsOdd</set></li>
 						</condition>
@@ -284,7 +284,7 @@
 					<!-- If the last wire is black and the last digit of the serial number is odd, cut the fourth wire. -->
 					<set var='temp'><star index='5'/></set>
 					<condition var='temp' value='black'>
-						<condition name='BombSerialNumberIsOdd'>
+						<condition name='SerialNumberIsOdd'>
 							<li value='true'><set var='result'>CutFourthWire</set></li>
 							<li value='unknown'><set var='result'>NeedEdgework SerialNumberIsOdd</set></li>
 						</condition>
@@ -326,7 +326,7 @@
 					<!-- If there are no yellow wires and the last digit of the serial number is odd, cut the third wire. -->
 					<set var='temp'><srai>XContains yellow XS <star/> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/> <star index='6'/></srai></set>
 					<condition var='temp' value='false'>
-						<condition name='BombSerialNumberIsOdd'>
+						<condition name='SerialNumberIsOdd'>
 							<li value='true'><set var='result'>CutThirdWire</set></li>
 							<li value='unknown'><set var='result'>NeedEdgework SerialNumberIsOdd</set></li>
 						</condition>

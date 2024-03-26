@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml>
-	<topic name='Bomb Maze ^'>
+	<topic name='Maze ^'>
 		<category>
 			<pattern>SelectModule</pattern>
 			<template>Locate a green circle.</template>
@@ -17,29 +17,29 @@
 				<think>
 					<set name='MazeCircleX'><star index='1'/></set>
 					<set name='MazeCircleY'><star index='2'/></set>
-					<set name='topic'>Bomb Maze Start</set>
+					<set name='topic'>Maze Start</set>
 				</think>
 				Locate the white dot. <condition name='YesNoChallenge' value='true'><srai>YNCGetGridSpace</srai></condition>
 			</template>
 		</category>
 		<category>
 			<pattern><set>number</set> <set>number</set></pattern>
-			<topic>Bomb Maze Start</topic>
+			<topic>Maze Start</topic>
 			<template>
 				<think>
 					<srai>SouvenirPut StartX XS <set name='MazeStartX'><star index='1'/></set></srai>
 					<srai>SouvenirPut StartY XS <set name='MazeStartY'><star index='2'/></set></srai>
-					<set name='topic'>Bomb Maze Goal</set>
+					<set name='topic'>Maze Goal</set>
 				</think>
 				Locate the red triangle. <condition name='YesNoChallenge' value='true'><srai>YNCGetGridSpace</srai></condition>
 			</template>
 		</category>
 		<category>
 			<pattern><set>number</set> <set>number</set></pattern>
-			<topic>Bomb Maze Goal</topic>
+			<topic>Maze Goal</topic>
 			<template>
 				<think>
-					<set name='topic'>Bomb Maze</set>
+					<set name='topic'>Maze</set>
 					<set var='result'>
 						<srai>
 							Solver Maze

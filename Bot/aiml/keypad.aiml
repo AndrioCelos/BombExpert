@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml>
-	<topic name='bomb keypad ^'>
+	<topic name='keypad ^'>
 		<category>
 			<pattern>SelectModule</pattern>
 			<template>Describe one of the symbols.</template>
@@ -8,7 +8,7 @@
 		<category>
 			<pattern>SelectModule YNC</pattern>
 			<template>
-				<think><set name='BombKeypadStage'>2</set></think>
+				<think><set name='KeypadStage'>2</set></think>
 				<srai>KeypadResult <srai>Solver Keypad Start</srai></srai>
 			</template>
 		</category>
@@ -17,27 +17,27 @@
 			<pattern>InitModule</pattern>
 			<template>
 				<think>
-					<condition name='BombKeypadStage'>
+					<condition name='KeypadStage'>
 						<li value='2'></li>
 						<li>
-							<set name='BombKeypadTry'>1</set>     <!-- Stage 1: which try we are at; incremented on an unknown description -->
-							<set name='BombKeypadAsking'>1</set>  <!-- Stage 1: number of glyph we're asking about. Others: glyph name we're asking about. -->
+							<set name='KeypadTry'>1</set>     <!-- Stage 1: which try we are at; incremented on an unknown description -->
+							<set name='KeypadAsking'>1</set>  <!-- Stage 1: number of glyph we're asking about. Others: glyph name we're asking about. -->
 						</li>
 					</condition>
 					<set name='KeypadAbsent'>nil</set>
-					<set name='BombKeypadAsked'>unknown</set>    <!-- Space-separated list of which glyphs we've asked about -->
-					<set name='BombKeypadColumns'>unknown</set>  <!-- Stage 3: Space-separated list of possible column indices -->
-					<set name='BombKeypadGlyph1'>unknown</set>   <!-- Glyph specified by the Defuser -->
-					<set name='BombKeypadGlyph2'>unknown</set>   <!-- Glyph specified by the Defuser -->
-					<set name='BombKeypadGlyph3'>unknown</set>   <!-- Glyph specified by the Defuser -->
-					<set name='BombKeypadGlyph4'>unknown</set>   <!-- Glyph specified by the Defuser -->
+					<set name='KeypadAsked'>unknown</set>    <!-- Space-separated list of which glyphs we've asked about -->
+					<set name='KeypadColumns'>unknown</set>  <!-- Stage 3: Space-separated list of possible column indices -->
+					<set name='KeypadGlyph1'>unknown</set>   <!-- Glyph specified by the Defuser -->
+					<set name='KeypadGlyph2'>unknown</set>   <!-- Glyph specified by the Defuser -->
+					<set name='KeypadGlyph3'>unknown</set>   <!-- Glyph specified by the Defuser -->
+					<set name='KeypadGlyph4'>unknown</set>   <!-- Glyph specified by the Defuser -->
 				</think>
 			</template>
 		</category>
 
 		<category>
 			<pattern>*</pattern>
-			<topic>bomb keypad</topic>
+			<topic>keypad</topic>
 			<template>
 				<think><set var='valid'><srai>KeypadAppendGlyphDescription <star/></srai></set></think>
 				<condition var='valid'>
@@ -45,7 +45,7 @@
 						<think>
 							<!-- Check whether any columns match. -->
 							<set var='check'>
-								<srai>Solver Keypad CheckKeypad <get name='BombKeypadGlyph1'/> <get name='BombKeypadGlyph2'/> <get name='BombKeypadGlyph3'/> <get name='BombKeypadGlyph4'/></srai>
+								<srai>Solver Keypad CheckKeypad <get name='KeypadGlyph1'/> <get name='KeypadGlyph2'/> <get name='KeypadGlyph3'/> <get name='KeypadGlyph4'/></srai>
 							</set>
 						</think>
 						<condition var='check'>
@@ -54,13 +54,13 @@
 								<think><srai>new keypad</srai></think>
 							</li>
 							<li>
-								<condition name='BombKeypadAsking'>
+								<condition name='KeypadAsking'>
 									<li value='5'>
 										<!-- Got all glyphs, now determine the order to press them. -->
 										<think>
-											<set name='topic'>bomb keypad order</set>
+											<set name='topic'>keypad order</set>
 											<set var='result'>
-												<srai>Solver Keypad Keypad <get name='BombKeypadGlyph1'/> <get name='BombKeypadGlyph2'/> <get name='BombKeypadGlyph3'/> <get name='BombKeypadGlyph4'/></srai>
+												<srai>Solver Keypad Keypad <get name='KeypadGlyph1'/> <get name='KeypadGlyph2'/> <get name='KeypadGlyph3'/> <get name='KeypadGlyph4'/></srai>
 											</set>
 										</think>
 										<oob>SetGrammar keypadOK</oob>
@@ -74,7 +74,7 @@
 												<think><srai>new keypad</srai></think>
 											</li>
 											<li>
-												<think><set name='BombKeypadColumn'><get var='result'/></set></think>
+												<think><set name='KeypadColumn'><get var='result'/></set></think>
 												<srai>KeypadOrderRead <get var='result'/></srai>
 											</li>
 										</condition>
@@ -92,16 +92,16 @@
 
 		<category>
 			<pattern>* then *</pattern>
-			<topic>bomb keypad</topic>
+			<topic>keypad</topic>
 			<template>
 				<think><set var='valid'><srai>KeypadAppendGlyphDescription <star/></srai></set></think>
 				<condition var='valid'>
 					<li value='true'><srai><star index='2'/></srai></li>
 					<li>
-						<condition name='BombKeypadTry'>
+						<condition name='KeypadTry'>
 							<li value='1'>
 								<!-- First time: ask them to rephrase. -->
-								<think><set name='BombKeypadTry'>2</set></think>
+								<think><set name='KeypadTry'>2</set></think>
 								I do not recognise that description.
 							</li>
 							<li>
@@ -119,8 +119,8 @@
 			<that>Want to use the yes-no strategy</that>
 			<template>
 				<think>
-					<set name='BombKeypadStage'>2</set>
-					<set name='topic'>bomb keypad</set>
+					<set name='KeypadStage'>2</set>
+					<set name='topic'>keypad</set>
 				</think>
 				<oob>SetGrammar keypadOK</oob>
 				<srai>KeypadResult <srai>Solver Keypad Start</srai></srai>
@@ -135,7 +135,7 @@
 		<category>
 			<pattern>NextSymbolPrompt</pattern>
 			<template>
-				<condition name='BombKeypadAsking'>
+				<condition name='KeypadAsking'>
 					<li value='1'>OK. Describe the first symbol.</li>
 					<li value='2'>OK. Describe the second symbol.</li>
 					<li value='3'>OK. Describe the third symbol.</li>
@@ -168,10 +168,10 @@
 					</li>
 					<li>
 						<think>
-							<set><name>BombKeypadDescription<get var='glyph'/></name><star/></set>
-							<set><name>BombKeypadGlyph<get name='BombKeypadAsking'/></name><get var='glyph'/></set>
-							<set name='BombKeypadAsked'><srai>XAppend <get var='glyph'/> <get name='BombKeypadAsked'/></srai></set>
-							<think><set name='BombKeypadAsking'><map name='successor'><get name='BombKeypadAsking'/></map></set></think>
+							<set><name>KeypadDescription<get var='glyph'/></name><star/></set>
+							<set><name>KeypadGlyph<get name='KeypadAsking'/></name><get var='glyph'/></set>
+							<set name='KeypadAsked'><srai>XAppend <get var='glyph'/> <get name='KeypadAsked'/></srai></set>
+							<think><set name='KeypadAsking'><map name='successor'><get name='KeypadAsking'/></map></set></think>
 						</think>
 						true
 					</li>
@@ -185,8 +185,8 @@
 			<pattern>KeypadDescribe *</pattern>
 			<template>
 				<condition>
-					<name>BombKeypadDescription<star/></name>
-					<li value='*'><denormalize><get><name>BombKeypadDescription<star/></name></get></denormalize></li>
+					<name>KeypadDescription<star/></name>
+					<li value='*'><denormalize><get><name>KeypadDescription<star/></name></get></denormalize></li>
 					<li><map name='KeypadGlyphDescription'><star/></map></li>
 				</condition>
 			</template>
@@ -309,10 +309,10 @@
 			<template>
 				<think><set var='column'><star/></set></think>
 				<condition var='column'>
-					<li><value><get name='BombKeypadGlyph1'/> <get name='BombKeypadGlyph2'/> <get name='BombKeypadGlyph3'/> <get name='BombKeypadGlyph4'/></value>
+					<li><value><get name='KeypadGlyph1'/> <get name='KeypadGlyph2'/> <get name='KeypadGlyph3'/> <get name='KeypadGlyph4'/></value>
 						Press in that order.
 					</li>
-					<li><value><get name='BombKeypadGlyph4'/> <get name='BombKeypadGlyph3'/> <get name='BombKeypadGlyph2'/> <get name='BombKeypadGlyph1'/></value>
+					<li><value><get name='KeypadGlyph4'/> <get name='KeypadGlyph3'/> <get name='KeypadGlyph2'/> <get name='KeypadGlyph1'/></value>
 						Press in the reverse order.
 					</li>
 					<li>
@@ -341,7 +341,7 @@
 		<category>
 			<pattern>SolverFallback Keypad <set>number</set> Start ^</pattern>
 			<template>
-				<think><set name='BombKeypadToAsk'><srai>XGlyphs <get name='RuleSeed'/> 2</srai></set></think>
+				<think><set name='KeypadToAsk'><srai>XGlyphs <get name='RuleSeed'/> 2</srai></set></think>
 				<srai>KeypadPrompt</srai>
 			</template>
 		</category>
@@ -355,18 +355,18 @@
 			<pattern>SolverFallback Keypad <set>number</set> GlyphPresent true *</pattern>
 			<template>
 				<think>
-					<condition name='BombKeypadColumns'>
+					<condition name='KeypadColumns'>
 						<li value='unknown'>
 							<!-- Stage 2: find possible columns from the glyph asked about. -->
 							<set var='columnIndex'>1</set>
-							<set name='BombKeypadColumns'>nil</set>
+							<set name='KeypadColumns'>nil</set>
 							<set var='numberPossible'>0</set>
 							<condition var='columnIndex'>
 								<li value='7'></li>
 								<li>
 									<set var='contains'><srai>XContains <star index='2'/> XS <map><name>KeypadColumns<star/></name><get var='columnIndex'/></map></srai></set>
 									<condition var='contains' value='true'>
-										<set name='BombKeypadColumns'><srai>XAppend <get var='columnIndex'/> <get name='BombKeypadColumns'/></srai></set>
+										<set name='KeypadColumns'><srai>XAppend <get var='columnIndex'/> <get name='KeypadColumns'/></srai></set>
 										<set var='numberPossible'><map name='successor'><get var='numberPossible'/></map></set>
 									</condition>
 									<set var='columnIndex'><map name='successor'><get var='columnIndex'/></map></set>
@@ -374,12 +374,12 @@
 								</li>
 							</condition>
 							<condition var='numberPossible'>
-								<li value='1'><set var='result'>Tell <map><name>KeypadColumns<star/></name><get name='BombKeypadColumns'/></map></set></li>
+								<li value='1'><set var='result'>Tell <map><name>KeypadColumns<star/></name><get name='KeypadColumns'/></map></set></li>
 								<li>
 									<!-- Two possible columns: ask about other glyphs in exactly one of those columns. -->
-									<set name='BombKeypadToAsk'>nil</set>
-									<set var='column1'><map><name>KeypadColumns<star/></name><srai>XFirst <get name='BombKeypadColumns'/></srai></map></set>
-									<set var='column2'><map><name>KeypadColumns<star/></name><srai>XRest <get name='BombKeypadColumns'/></srai></map></set>
+									<set name='KeypadToAsk'>nil</set>
+									<set var='column1'><map><name>KeypadColumns<star/></name><srai>XFirst <get name='KeypadColumns'/></srai></map></set>
+									<set var='column2'><map><name>KeypadColumns<star/></name><srai>XRest <get name='KeypadColumns'/></srai></map></set>
 
 									<set var='column'><get var='column1'/></set>
 									<condition var='column'>
@@ -389,7 +389,7 @@
 											<set var='column'><srai>XRest <get var='column'/></srai></set>
 											<set var='contains'><srai>XContains <get var='glyph'/> XS <get var='column2'/></srai></set>
 											<condition var='contains' value='false'>
-												<set name='BombKeypadToAsk'><srai>XAppend <get var='glyph'/> <get name='BombKeypadToAsk'/></srai></set>
+												<set name='KeypadToAsk'><srai>XAppend <get var='glyph'/> <get name='KeypadToAsk'/></srai></set>
 											</condition>
 											<loop/>
 										</li>
@@ -403,7 +403,7 @@
 											<set var='column'><srai>XRest <get var='column'/></srai></set>
 											<set var='contains'><srai>XContains <get var='glyph'/> XS <get var='column1'/></srai></set>
 											<condition var='contains' value='false'>
-												<set name='BombKeypadToAsk'><srai>XAppend <get var='glyph'/> <get name='BombKeypadToAsk'/></srai></set>
+												<set name='KeypadToAsk'><srai>XAppend <get var='glyph'/> <get name='KeypadToAsk'/></srai></set>
 											</condition>
 											<loop/>
 										</li>
@@ -415,11 +415,11 @@
 						</li>
 						<li>
 							<!-- Stage 3: Which of the two columns contains this glyph? -->
-							<set var='glyph'><srai>XFirst <get name='BombKeypadToAsk'/></srai></set>
-							<set name='BombKeypadToAsk'><srai>XRest <get name='BombKeypadToAsk'/></srai></set>
+							<set var='glyph'><srai>XFirst <get name='KeypadToAsk'/></srai></set>
+							<set name='KeypadToAsk'><srai>XRest <get name='KeypadToAsk'/></srai></set>
 
-							<set var='columnIndex1'><srai>XFirst <get name='BombKeypadColumns'/></srai></set>
-							<set var='columnIndex2'><srai>XRest <get name='BombKeypadColumns'/></srai></set>
+							<set var='columnIndex1'><srai>XFirst <get name='KeypadColumns'/></srai></set>
+							<set var='columnIndex2'><srai>XRest <get name='KeypadColumns'/></srai></set>
 
 							<set var='contains'><srai>XContains <star index='2'/> XS <map><name>KeypadColumns<star/></name><get var='columnIndex1'/></map></srai></set>
 							<condition var='contains'>
@@ -439,20 +439,20 @@
 			<pattern>KeypadPrompt</pattern>
 			<template>
 				<think>
-					<condition name='BombKeypadColumns'>
+					<condition name='KeypadColumns'>
 						<li value='unknown'>
 							<!-- Stage 2: Start by asking about glyphs that are in two columns.
 								If they say yes, we know that the correct column must be one of those columns. -->
-							<condition name='BombKeypadToAsk' value='nil'>
-								<set name='BombKeypadToAsk'><srai>XGlyphs <get name='RuleSeed'/> 1</srai></set>
+							<condition name='KeypadToAsk' value='nil'>
+								<set name='KeypadToAsk'><srai>XGlyphs <get name='RuleSeed'/> 1</srai></set>
 							</condition>
-							<set var='glyph'><srai>XFirst <get name='BombKeypadToAsk'/></srai></set>
-							<set name='BombKeypadToAsk'><srai>XRest <get name='BombKeypadToAsk'/></srai></set>
+							<set var='glyph'><srai>XFirst <get name='KeypadToAsk'/></srai></set>
+							<set name='KeypadToAsk'><srai>XRest <get name='KeypadToAsk'/></srai></set>
 						</li>
 						<li>
 							<!-- Stage 3: Try to figure out which column is the correct one by finding a glyph only in one. -->
-							<set var='glyph'><srai>XFirst <get name='BombKeypadToAsk'/></srai></set>
-							<set name='BombKeypadToAsk'><srai>XRest <get name='BombKeypadToAsk'/></srai></set>
+							<set var='glyph'><srai>XFirst <get name='KeypadToAsk'/></srai></set>
+							<set name='KeypadToAsk'><srai>XRest <get name='KeypadToAsk'/></srai></set>
 						</li>
 					</condition>
 					<set var='result'>
@@ -469,15 +469,15 @@
 		<category>
 			<pattern>KeypadResult Ask *</pattern>
 			<template>
-				Is there a <map name='KeypadGlyphDescription'><set name='BombKeypadAsking'><star/></set></map>?
+				Is there a <map name='KeypadGlyphDescription'><set name='KeypadAsking'><star/></set></map>?
 			</template>
 		</category>
 		<category>
 			<pattern>KeypadResult Tell *</pattern>
 			<template>
 				<think>
-					<set name='BombKeypadColumn'><star/></set>
-					<set name='topic'>bomb keypad column</set>
+					<set name='KeypadColumn'><star/></set>
+					<set name='topic'>keypad column</set>
 				</think>
 				<srai>KeypadOrderRead <star/></srai>
 			</template>
@@ -490,10 +490,10 @@
 				<think>
 					<set var='answer'><star/></set>
 					<condition var='answer' value='no'>
-						<set name='KeypadAbsent'><srai>XAppend <get name='BombKeypadAsking'/> <get name='KeypadAbsent'/></srai></set>
+						<set name='KeypadAbsent'><srai>XAppend <get name='KeypadAsking'/> <get name='KeypadAbsent'/></srai></set>
 					</condition>
 				</think>
-				<srai>KeypadResult <srai>Solver Keypad GlyphPresent <map name='ParseBoolean'><star/></map> <get name='BombKeypadAsking'/></srai></srai>
+				<srai>KeypadResult <srai>Solver Keypad GlyphPresent <map name='ParseBoolean'><star/></map> <get name='KeypadAsking'/></srai></srai>
 			</template>
 		</category>
 
@@ -503,18 +503,18 @@
 			<pattern>TellKeypadColumnItem <set>number</set></pattern>
 			<template>
 				Press the
-				<map name='KeypadGlyphDescription'><srai>XItem <get name='BombKeypadIndex'/> XS <get name='BombKeypadColumn'/></srai></map>,
+				<map name='KeypadGlyphDescription'><srai>XItem <get name='KeypadIndex'/> XS <get name='KeypadColumn'/></srai></map>,
 				if it is there. Then say 'OK'.
 			</template>
 		</category>
 
 		<category>
 			<pattern>OK ^</pattern>
-			<topic>bomb keypad column</topic>
+			<topic>keypad column</topic>
 			<template>
-				<condition name='BombKeypadIndex'>
+				<condition name='KeypadIndex'>
 					<li value='7'>The keypad should be finished now.</li>
-					<li><srai>TellKeypadColumnItem <set name='BombKeypadIndex'><map name='successor'><get name='BombKeypadIndex'/></map></set></srai></li>
+					<li><srai>TellKeypadColumnItem <set name='KeypadIndex'><map name='successor'><get name='KeypadIndex'/></map></set></srai></li>
 				</condition>
 			</template>
 		</category>

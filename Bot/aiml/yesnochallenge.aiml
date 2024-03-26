@@ -56,21 +56,17 @@
 
 	<category>
 		<pattern>YNCAskModule</pattern>
-		<topic>Bomb * ^</topic>
+		<topic>* ^</topic>
 		<template>Shall we disarm another <map name='ModuleDescription'><topicstar/></map>?</template>
 	</category>
 	<category>
 		<pattern>yes</pattern>
 		<that>Shall we disarm another *</that>
-		<topic>Bomb * ^</topic>
-		<template>
-			<srai>next instance</srai>
-		</template>
+		<template><srai>next instance</srai></template>
 	</category>
 	<category>
 		<pattern>no</pattern>
 		<that>Shall we disarm another *</that>
-		<topic>Bomb * ^</topic>
 		<template>
 			<srai>DeselectModule</srai>
 			<think><set name='topic'>Bomb</set></think>
@@ -116,7 +112,7 @@
 	<category>
 		<pattern>no</pattern>
 		<that>Is it *</that>
-		<topic>Bomb</topic>
+		<topic>root</topic>
 		<template><srai>YNCAskModuleListNext</srai></template>
 	</category>
 
@@ -161,7 +157,7 @@
 		<pattern>YNCSelectModule *</pattern>
 		<template>
 			<srai>DeselectModule</srai>
-			<think><set name='topic'>Bomb <map name='ModuleCode'><star/></map></set></think>
+			<think><set name='topic'><map name='ModuleCode'><star/></map></set></think>
 			<!-- Don't change grammar. -->
 			<srai>SelectModule YNC</srai>
 			<srai>InitModule</srai>

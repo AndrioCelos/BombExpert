@@ -5,7 +5,7 @@
 		<template>
 			<think>
 				<set name='SraixUnavailable'>true</set>
-				<set name='topic'>Bomb Mazes</set>
+				<set name='topic'>Mazes</set>
 
 				<test name='Maze Solver 1' expected='East'>Solver Maze 1 2 1 1 2 1</test>
 				<test name='Maze Solver 2' expected='North East East South South South South West North North West South South South East East East North North North East South South South East North North North North North West South West North'>

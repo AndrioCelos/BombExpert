@@ -4,12 +4,12 @@
 		<pattern>resume memory</pattern>
 		<template>
 			<srai>DeselectModule</srai>
-			<think><set name='topic'>Bomb Memory</set></think>
-			Stage <get name='BombMemoryStage'/>.
+			<think><set name='topic'>Memory</set></think>
+			Stage <get name='MemoryStage'/>.
 		</template>
 	</category>
 
-	<topic name='Bomb Memory ^'>
+	<topic name='Memory ^'>
 		<category>
 			<pattern>SelectModule</pattern>
 			<template>Read me the number on the display.</template>
@@ -19,7 +19,7 @@
 			<pattern>InitModule</pattern>
 			<template>
 				<think>
-					<set name='BombMemoryStage'>0</set>
+					<set name='MemoryStage'>0</set>
 					<set name='MemoryPos1'>unknown</set>
 					<set name='MemoryPos2'>unknown</set>
 					<set name='MemoryPos3'>unknown</set>
@@ -45,13 +45,13 @@
 		<category>
 			<pattern>MemoryRead <set>number</set></pattern>
 			<template>
-				<condition name='BombMemoryStage'>
+				<condition name='MemoryStage'>
 					<li value='5'>That should have been the last stage. Are we starting a new module?</li>
 					<li>
 						<think>
-							<set name='BombMemoryStage'><map name='successor'><get name='BombMemoryStage'/></map></set>
-							<srai>SouvenirPut Display <get name='BombMemoryStage'/> XS <star/></srai>
-							<set var='rule'><srai>Solver Memory GetRule <get name='BombMemoryStage'/> <star/></srai></set>
+							<set name='MemoryStage'><map name='successor'><get name='MemoryStage'/></map></set>
+							<srai>SouvenirPut Display <get name='MemoryStage'/> XS <star/></srai>
+							<set var='rule'><srai>Solver Memory GetRule <get name='MemoryStage'/> <star/></srai></set>
 							<set var='ruleType'><srai>XFirst <get var='rule'/></srai></set>
 							<set var='ruleParam'><srai>XRest <get var='rule'/></srai></set>
 						</think>
@@ -89,13 +89,13 @@
 		<category>
 			<pattern>MemoryRead <set>number</set> <set>number</set> <set>number</set> <set>number</set> <set>number</set></pattern>
 			<template>
-				<condition name='BombMemoryStage'>
+				<condition name='MemoryStage'>
 					<li value='5'>That should have been the last stage. Are we starting a new module?</li>
 					<li>
 						<think>
-							<set name='BombMemoryStage'><map name='successor'><get name='BombMemoryStage'/></map></set>
-							<srai>SouvenirPut Display <get name='BombMemoryStage'/> XS <star/></srai>
-							<set var='rule'><srai>Solver Memory GetRule <get name='BombMemoryStage'/> <star/></srai></set>
+							<set name='MemoryStage'><map name='successor'><get name='MemoryStage'/></map></set>
+							<srai>SouvenirPut Display <get name='MemoryStage'/> XS <star/></srai>
+							<set var='rule'><srai>Solver Memory GetRule <get name='MemoryStage'/> <star/></srai></set>
 							<set var='ruleType'><srai>XFirst <get var='rule'/></srai></set>
 							<set var='ruleParam'><srai>XRest <get var='rule'/></srai></set>
 
@@ -107,8 +107,8 @@
 							</condition>
 
 							<set var='label'><star><index><map name='successor'><get var='pos'/></map></index></star></set>
-							<srai>SouvenirPut Position <get name='BombMemoryStage'/> XS <set><name>MemoryPos<get name='BombMemoryStage'/></name><get var='pos'/></set></srai>
-							<srai>SouvenirPut Label <get name='BombMemoryStage'/> XS <set><name>MemoryLabel<get name='BombMemoryStage'/></name><get var='label'/></set></srai>
+							<srai>SouvenirPut Position <get name='MemoryStage'/> XS <set><name>MemoryPos<get name='MemoryStage'/></name><get var='pos'/></set></srai>
+							<srai>SouvenirPut Label <get name='MemoryStage'/> XS <set><name>MemoryLabel<get name='MemoryStage'/></name><get var='label'/></set></srai>
 						</think>
 						Press <get var='label'/>.
 					</li>
@@ -120,12 +120,12 @@
 			<pattern>PressPosition *</pattern>
 			<template>
 				Press the
-				<map name='ordinal'><srai>SouvenirPut Position <get name='BombMemoryStage'/> XS
-					<set><name>MemoryPos<get name='BombMemoryStage'/></name><star/></set>
+				<map name='ordinal'><srai>SouvenirPut Position <get name='MemoryStage'/> XS
+					<set><name>MemoryPos<get name='MemoryStage'/></name><star/></set>
 				</srai></map>
 				position.
 				<condition name='YesNoChallenge' value='true'>
-					<condition name='BombMemoryStage'>
+					<condition name='MemoryStage'>
 						<li value='5'>Solved?</li>
 						<li>Is the label odd?</li>
 					</condition>
@@ -136,11 +136,11 @@
 			<pattern>PressLabel *</pattern>
 			<template>
 				Press the label
-				<srai>SouvenirPut Label <get name='BombMemoryStage'/> XS
-					<set><name>MemoryLabel<get name='BombMemoryStage'/></name><star/></set>
+				<srai>SouvenirPut Label <get name='MemoryStage'/> XS
+					<set><name>MemoryLabel<get name='MemoryStage'/></name><star/></set>
 				</srai>.
 				<condition name='YesNoChallenge' value='true'>
-					<condition name='BombMemoryStage'>
+					<condition name='MemoryStage'>
 						<li value='5'>Solved?</li>
 						<li>Is it in the right half?</li>
 					</condition>
@@ -163,7 +163,7 @@
 			<pattern><set>number</set></pattern>
 			<that>What stage number are we on</that>
 			<template>
-				<think><set name='BombMemoryStage'><map name='predecessor'><star/></map></set></think>
+				<think><set name='MemoryStage'><map name='predecessor'><star/></map></set></think>
 				OK. Read the number on the display.
 			</template>
 		</category>
@@ -177,8 +177,8 @@
 			<pattern>position <set>number</set></pattern>
 			<template>
 				<think>
-					<srai>SouvenirPut Position <get name='BombMemoryStage'/> XS
-						<set><name>MemoryPos<get name='BombMemoryStage'/></name><star/></set>
+					<srai>SouvenirPut Position <get name='MemoryStage'/> XS
+						<set><name>MemoryPos<get name='MemoryStage'/></name><star/></set>
 					</srai>
 				</think>
 				<condition name='YesNoChallenge'>
@@ -195,8 +195,8 @@
 			<pattern>label <set>number</set></pattern>
 			<template>
 				<think>
-					<srai>SouvenirPut Label <get name='BombMemoryStage'/> XS
-						<set><name>MemoryLabel<get name='BombMemoryStage'/></name><star/></set>
+					<srai>SouvenirPut Label <get name='MemoryStage'/> XS
+						<set><name>MemoryLabel<get name='MemoryStage'/></name><star/></set>
 					</srai>
 				</think>
 				<condition name='YesNoChallenge'>

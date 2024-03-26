@@ -97,7 +97,7 @@ public class KeypadSolver : IModuleSolver {
 		}
 
 		List<int>? possibleColumns = null;
-		if (process.User.Predicates.TryGetValue("BombKeypadColumns", out var ruledColumnsString))
+		if (process.User.Predicates.TryGetValue("KeypadColumns", out var ruledColumnsString))
 			possibleColumns = ruledColumnsString.Split((char[]?) null, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToList();
 
 		// Process the response.
@@ -106,20 +106,20 @@ public class KeypadSolver : IModuleSolver {
 			// If any glyphs are known, skip to stage 3.
 			var glyphs = new List<Glyph>();
 			for (int i = 1; ; ++i) {
-				if (!process.User.Predicates.TryGetValue("BombKeypadGlyph" + i.ToString(), out var glyphString))
+				if (!process.User.Predicates.TryGetValue("KeypadGlyph" + i.ToString(), out var glyphString))
 					break;
 				glyphs.Add((Glyph) Enum.Parse(typeof(Glyph), glyphString, true));
 			}
 
 			if (glyphs.Count > 0) {
-				process.User.Predicates["BombKeypadStage"] = "3";
+				process.User.Predicates["KeypadStage"] = "3";
 				possibleColumns = Enumerable.Range(0, 6).Where(i => glyphs.All(g => columns[i].Contains(g))).ToList();
-				process.User.Predicates["BombKeypadColumns"] = string.Join(" ", possibleColumns);
+				process.User.Predicates["KeypadColumns"] = string.Join(" ", possibleColumns);
 			}
 		} else {
 			var boolString = words[2];
 			var glyphName = words[3];
-			process.User.Predicates["BombKeypadAsked"] = process.User.Predicates.TryGetValue("BombKeypadAsked", out var asked1) && asked1 != ""
+			process.User.Predicates["KeypadAsked"] = process.User.Predicates.TryGetValue("KeypadAsked", out var asked1) && asked1 != ""
 				? asked1 + " " + glyphName
 				: glyphName;
 
@@ -128,7 +128,7 @@ public class KeypadSolver : IModuleSolver {
 			if (bool.Parse(boolString)) {
 				if (possibleColumns == null) {
 					possibleColumns = Enumerable.Range(0, 6).Where(i => columns[i].Contains(glyph)).ToList();
-					process.User.Predicates["BombKeypadColumns"] = string.Join(" ", possibleColumns);
+					process.User.Predicates["KeypadColumns"] = string.Join(" ", possibleColumns);
 				} else {
 					possibleColumns.RemoveAll(i => !columns[i].Contains(glyph));
 				}
@@ -142,7 +142,7 @@ public class KeypadSolver : IModuleSolver {
 
 			// Choose a random glyph that hasn't already been asked.
 			var glyphs = GetGlyphsWithFrequency(columns, 2).ToList();
-			if (process.User.Predicates.TryGetValue("BombKeypadAsked", out var asked1) && asked1 != "") {
+			if (process.User.Predicates.TryGetValue("KeypadAsked", out var asked1) && asked1 != "") {
 				foreach (var glyph in from s in asked1.Split((char[]?) null, StringSplitOptions.RemoveEmptyEntries) where s != "unknown"
 									  select (Glyph) Enum.Parse(typeof(Glyph), s, true)) {
 					glyphs.Remove(glyph);
@@ -154,7 +154,7 @@ public class KeypadSolver : IModuleSolver {
 
 			// It is possible that we will run out of doubled glyphs. In this case, start asking about other glyphs.
 			glyphs = GetGlyphsWithFrequency(columns, 1).ToList();
-			if (process.User.Predicates.TryGetValue("BombKeypadAsked", out asked1) && asked1 != "") {
+			if (process.User.Predicates.TryGetValue("KeypadAsked", out asked1) && asked1 != "") {
 				foreach (var glyph in from s in asked1.Split((char[]?) null, StringSplitOptions.RemoveEmptyEntries) where s != "unknown"
 									  select (Glyph) Enum.Parse(typeof(Glyph), s, true)) {
 					glyphs.Remove(glyph);
@@ -169,7 +169,7 @@ public class KeypadSolver : IModuleSolver {
 			var glyphs = new List<Glyph>();
 
 			var askedGlyphs = new HashSet<Glyph>();
-			if (process.User.Predicates.TryGetValue("BombKeypadAsked", out var asked1) && asked1 != "") {
+			if (process.User.Predicates.TryGetValue("KeypadAsked", out var asked1) && asked1 != "") {
 				foreach (var glyph in from s in asked1.Split((char[]?) null, StringSplitOptions.RemoveEmptyEntries) where s != "unknown"
 									  select (Glyph) Enum.Parse(typeof(Glyph), s, true)) {
 					askedGlyphs.Add(glyph);

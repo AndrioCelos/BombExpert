@@ -5,27 +5,27 @@
 		<template>
 			<think>
 				<set name='SraixUnavailable'>true</set>
-				<set name='topic'>Bomb Button</set>
-				<set name='BombIndicatorsChecked'>CAR FRK</set>
+				<set name='topic'>Button</set>
+				<set name='IndicatorsChecked'>CAR FRK</set>
 
 				<test name='Button Initial 1-1' expected='Hold'>Solver Button blue Abort</test>
 				<test name='Button Initial 2-1' expected='NeedEdgework BatteryCount'>Solver Button red Detonate</test>
-				<set name='BombBatteryCount'>2</set>
+				<set name='BatteryCount'>2</set>
 				<test name='Button Initial 2-2' expected='Tap'>Solver Button red Detonate</test>
-				<set name='BombBatteryCount'>1</set>
+				<set name='BatteryCount'>1</set>
 				<test name='Button Initial 3-1' expected='NeedEdgework IndicatorLit CAR'>Solver Button white Detonate</test>
-				<set name='BombIndicatorLitCAR'>true</set>
+				<set name='IndicatorLitCAR'>true</set>
 				<test name='Button Initial 3-2' expected='Hold'>Solver Button white Detonate</test>
-				<set name='BombIndicatorLitCAR'>false</set>
-				<set name='BombBatteryCount'>unknown</set>
+				<set name='IndicatorLitCAR'>false</set>
+				<set name='BatteryCount'>unknown</set>
 				<test name='Button Initial 4-1' expected='NeedEdgework BatteryCount'>Solver Button red Hold</test>
-				<set name='BombBatteryCount'>3</set>
+				<set name='BatteryCount'>3</set>
 				<test name='Button Initial 4-2' expected='NeedEdgework IndicatorLit FRK'>Solver Button red Hold</test>
-				<set name='BombIndicatorLitFRK'>true</set>
-				<set name='BombBatteryCount'>2</set>
+				<set name='IndicatorLitFRK'>true</set>
+				<set name='BatteryCount'>2</set>
 				<test name='Button Initial 5-1' expected='Hold'>Solver Button yellow Hold</test>
-				<set name='BombBatteryCount'>3</set>
-				<set name='BombIndicatorLitFRK'>false</set>
+				<set name='BatteryCount'>3</set>
+				<set name='IndicatorLitFRK'>false</set>
 				<test name='Button Initial 6-1' expected='Tap'>Solver Button red Hold</test>
 				<test name='Button Initial 7-1' expected='Hold'>Solver Button red Press</test>
 			</think>
@@ -49,7 +49,7 @@
 		<template>
 			<think>
 				<srai>new bomb</srai>
-				<set name='topic'>Bomb Button</set>
+				<set name='topic'>Button</set>
 			</think>
 			<srai>defuse button</srai>
 			<test name='Button Conversation 1' regex='.*How many batteries.*'>white detonate</test>

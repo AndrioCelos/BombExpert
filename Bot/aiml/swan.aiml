@@ -7,11 +7,11 @@
 	<category>
 		<pattern>Swan reset</pattern>
 		<template>
-			OK. <set name='BombSwanResetCount'><map name='successor'><get name='BombSwanResetCount'/></map></set> resets so far.
+			OK. <set name='SwanResetCount'><map name='successor'><get name='SwanResetCount'/></map></set> resets so far.
 		</template>
 	</category>
 
-	<topic name='Bomb Swan'>
+	<topic name='Swan'>
 		<category>
 			<pattern>SelectModule</pattern>
 			<template>Is the keypad showing letters?</template>
@@ -23,8 +23,8 @@
 		</category>
 		<category>
 			<pattern>Yes</pattern>
-			<template>With <get name='BombSwanResetCount'/> resets, enter
-				<explode><map name='SwanSolutions'><get name='BombSwanResetCount'/></map></explode>.
+			<template>With <get name='SwanResetCount'/> resets, enter
+				<explode><map name='SwanSolutions'><get name='SwanResetCount'/></map></explode>.
 			</template>
 		</category>
 	</topic>

@@ -176,10 +176,10 @@ public class PasswordSolver : IModuleSolver {
 		var possiblePasswords = new List<string>(GetWords(int.Parse(words[0])));
 
 		for (int i = 0; i < 5; ++i) {
-			var found = process.User.Predicates.TryGetValue("BombPassword" + i.ToString(), out var s) && s != "" && s != "unknown";
+			var found = process.User.Predicates.TryGetValue("Password" + i.ToString(), out var s) && s != "" && s != "unknown";
 			if (!found) {
 				s = text;
-				process.User.Predicates["BombPassword" + i.ToString()] = s;
+				process.User.Predicates["Password" + i.ToString()] = s;
 			}
 			var chars = s!.Split((char[]?) null, StringSplitOptions.RemoveEmptyEntries).Select(s => char.ToLowerInvariant(s[0])).ToList();
 			possiblePasswords.RemoveAll(p => !chars.Contains(p[i]));

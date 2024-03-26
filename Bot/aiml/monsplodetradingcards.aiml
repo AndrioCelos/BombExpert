@@ -4,15 +4,15 @@
 		<pattern>MonsplodeTradingCardsEdgeworkCheck</pattern>
 		<template>
 			<think>
-				<set name='topic'>Bomb MonsplodeTradingCards</set>
+				<set name='topic'>MonsplodeTradingCards</set>
 			</think>
-			<condition name='BombSerial'>
+			<condition name='Serial'>
 				<li value='unknown'><srai>EdgeworkQuery Serial XS MonsplodeTradingCardsEdgeworkCheck</srai></li>
 				<li>
-					<condition name='BombIndicatorCount'>
+					<condition name='IndicatorCount'>
 						<li value='unknown'><srai>EdgeworkQuery Indicators XS MonsplodeTradingCardsEdgeworkCheck</srai></li>
 						<li>
-							<condition name='BombBatteryCount'>
+							<condition name='BatteryCount'>
 								<li value='unknown'><srai>EdgeworkQuery BatteryCount XS MonsplodeTradingCardsEdgeworkCheck</srai></li>
 								<li>Describe the first of your cards.</li>
 							</condition>
@@ -23,15 +23,15 @@
 		</template>
 	</category>
 
-	<topic name='Bomb MonsplodeTradingCards'>
+	<topic name='MonsplodeTradingCards'>
 		<category>
 			<pattern>InitModule</pattern>
 			<template>
 				<think>
-					<set name='BombMonsplodeTradingCards1'>unknown</set>
-					<set name='BombMonsplodeTradingCards2'>unknown</set>
-					<set name='BombMonsplodeTradingCards3'>unknown</set>
-					<set name='BombMonsplodeTradingCardsAsking'>1</set>
+					<set name='MonsplodeTradingCards1'>unknown</set>
+					<set name='MonsplodeTradingCards2'>unknown</set>
+					<set name='MonsplodeTradingCards3'>unknown</set>
+					<set name='MonsplodeTradingCardsAsking'>1</set>
 				</think>
 				<srai>MonsplodeTradingCardsEdgeworkCheck</srai>
 			</template>
@@ -51,32 +51,32 @@
 			<pattern>HandleCard *</pattern>
 			<template>
 				<think>
-					<set var='index'><get name='BombMonsplodeTradingCardsAsking'/></set>
+					<set var='index'><get name='MonsplodeTradingCardsAsking'/></set>
 					<set var='value'><srai>CalculateValue <star/></srai></set>
-					<set><name>BombMonsplodeTradingCards<get name='BombMonsplodeTradingCardsAsking'/></name><star/></set>
-					<set><name>BombMonsplodeTradingCardsValue<get name='BombMonsplodeTradingCardsAsking'/></name><get var='value'/></set>
-					<set name='BombMonsplodeTradingCardsAsking'><map name='successor'><get name='BombMonsplodeTradingCardsAsking'/></map></set>
+					<set><name>MonsplodeTradingCards<get name='MonsplodeTradingCardsAsking'/></name><star/></set>
+					<set><name>MonsplodeTradingCardsValue<get name='MonsplodeTradingCardsAsking'/></name><get var='value'/></set>
+					<set name='MonsplodeTradingCardsAsking'><map name='successor'><get name='MonsplodeTradingCardsAsking'/></map></set>
 				</think>
-				<condition name='BombMonsplodeTradingCardsAsking'>
+				<condition name='MonsplodeTradingCardsAsking'>
 					<li value='2'>
 						<think>
-							<set name='BombMonsplodeTradingCardsLowest'>1</set>
-							<set name='BombMonsplodeTradingCardsLowestValue'><get var='value'/></set>
+							<set name='MonsplodeTradingCardsLowest'>1</set>
+							<set name='MonsplodeTradingCardsLowestValue'><get var='value'/></set>
 						</think>
 						OK. Describe the second card.
 					</li>
 					<li value='3'><think><set var='hand'>true</set></think>OK. Describe the third card.</li>
 					<li value='4'><think><set var='hand'>true</set></think>OK. Describe the card on offer.</li>
 					<li>
-						<think><set var='compare'><srai>XCompareDigits <get var='value'/> XS <get name='BombMonsplodeTradingCardsLowestValue'/></srai></set></think>
+						<think><set var='compare'><srai>XCompareDigits <get var='value'/> XS <get name='MonsplodeTradingCardsLowestValue'/></srai></set></think>
 						<condition var='compare'>
 							<li value='-1'>Keep your cards.</li>
 							<li>
 								Trade away <srai>DescribeLowest</srai>.
 								<think>
-									<set><name>BombMonsplodeTradingCards<get name='BombMonsplodeTradingCardsLowest'/></name><star/></set>
+									<set><name>MonsplodeTradingCards<get name='MonsplodeTradingCardsLowest'/></name><star/></set>
 									<srai>CalculateLowest</srai>
-									<set name='BombMonsplodeTradingCardsAsking'>4</set>
+									<set name='MonsplodeTradingCardsAsking'>4</set>
 								</think>
 							</li>
 						</condition>
@@ -84,10 +84,10 @@
 				</condition>
 				<think>
 					<condition var='hand' value='true'>
-						<set var='compare'><srai>XCompareDigits <get var='value'/> XS <get name='BombMonsplodeTradingCardsLowestValue'/></srai></set>
+						<set var='compare'><srai>XCompareDigits <get var='value'/> XS <get name='MonsplodeTradingCardsLowestValue'/></srai></set>
 						<condition var='compare' value='-1'>
-							<set name='BombMonsplodeTradingCardsLowest'><get var='index'/></set>
-							<set name='BombMonsplodeTradingCardsLowestValue'><get var='value'/></set>
+							<set name='MonsplodeTradingCardsLowest'><get var='index'/></set>
+							<set name='MonsplodeTradingCardsLowestValue'><get var='value'/></set>
 						</condition>
 					</condition>
 				</think>
@@ -98,17 +98,17 @@
 			<pattern>CalculateLowest</pattern>
 			<template>
 				<think>
-					<set name='BombMonsplodeTradingCardsLowestValue'>100</set>
+					<set name='MonsplodeTradingCardsLowestValue'>100</set>
 					<set var='index'>1</set>
 					<condition var='index'>
 						<li value='4'></li>
 						<li>
-							<set var='card'><get><name>BombMonsplodeTradingCards<get var='index'/></name></get></set>
+							<set var='card'><get><name>MonsplodeTradingCards<get var='index'/></name></get></set>
 							<set var='value'><srai>CalculateValue <get var='card'/></srai></set>
-							<set var='compare'><srai>XCompareDigits <get var='value'/> XS <get name='BombMonsplodeTradingCardsLowestValue'/></srai></set>
+							<set var='compare'><srai>XCompareDigits <get var='value'/> XS <get name='MonsplodeTradingCardsLowestValue'/></srai></set>
 							<condition var='compare' value='-1'>
-								<set name='BombMonsplodeTradingCardsLowest'><get var='index'/></set>
-								<set name='BombMonsplodeTradingCardsLowestValue'><get var='value'/></set>
+								<set name='MonsplodeTradingCardsLowest'><get var='index'/></set>
+								<set name='MonsplodeTradingCardsLowestValue'><get var='value'/></set>
 							</condition>
 							<set var='index'><map name='successor'><get var='index'/></map></set>
 							<loop/>
@@ -122,7 +122,7 @@
 			<pattern>DescribeLowest</pattern>
 			<template>
 				<think>
-					<set var='card'><get><name>BombMonsplodeTradingCards<get name='BombMonsplodeTradingCardsLowest'/></name></get></set>
+					<set var='card'><get><name>MonsplodeTradingCards<get name='MonsplodeTradingCardsLowest'/></name></get></set>
 				</think>
 				<srai>XItem 1 XS <get var='card'/></srai>
 				<srai>XItem 2 XS <get var='card'/></srai>
@@ -150,7 +150,7 @@
 							<set var='value'><map name='MonsplodeTradingCardValue'><star/> <srai>GetSerialCategory</srai></map></set>
 
 							<!-- Indicators -->
-							<set var='indicators'><get name='BombIndicators'/></set>
+							<set var='indicators'><get name='Indicators'/></set>
 							<condition var='indicators'>
 								<li value='nil'></li>
 								<li>
@@ -159,7 +159,7 @@
 									<set var='contains'><srai>XContains <star index='2'/> XS <explode><get var='indicator'/></explode></srai></set>
 									<condition var='contains' value='true'>
 										<condition>
-											<name>BombIndicatorLit<get var='indicator'/></name>
+											<name>IndicatorLit<get var='indicator'/></name>
 											<li value='true'><set var='value'><map name='successor'><get var='value'/></map></set></li>
 											<li><set var='value'><map name='predecessor'><get var='value'/></map></set></li>
 										</condition>
@@ -169,10 +169,10 @@
 							</condition>
 
 							<!-- Batteries -->
-							<condition name='BombBatteryCount'>
+							<condition name='BatteryCount'>
 								<li value='0'></li>
 								<li>
-									<set var='compare'><srai>XCompareDigits <star index='3'/> XS <get name='BombBatteryCount'/></srai></set>
+									<set var='compare'><srai>XCompareDigits <star index='3'/> XS <get name='BatteryCount'/></srai></set>
 									<condition var='compare'>
 										<li value='-1'><set var='value'><map name='predecessor'><get var='value'/></map></set></li>
 										<li value='1'><set var='value'><map name='successor'><get var='value'/></map></set></li>
@@ -220,8 +220,8 @@
 		<category>
 			<pattern>GetSerialCategory</pattern>
 			<template>
-				<srai>IsLetterOrDigit <srai>XItem 1 XS <explode><get name='BombSerial'/></explode></srai></srai>
-				<srai>IsLetterOrDigit <srai>XItem 1 XS <explode><get name='BombSerial'/></explode></srai></srai>
+				<srai>IsLetterOrDigit <srai>XItem 1 XS <explode><get name='Serial'/></explode></srai></srai>
+				<srai>IsLetterOrDigit <srai>XItem 1 XS <explode><get name='Serial'/></explode></srai></srai>
 			</template>
 		</category>
 	</topic>

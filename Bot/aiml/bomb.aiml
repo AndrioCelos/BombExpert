@@ -4,9 +4,9 @@
 		<pattern>new bomb</pattern>
 		<template>
 			<think>
-				<set name='topic'>bomb</set>
+				<set name='topic'>unknown</set>
 				<srai>ResetEdgework</srai>
-				<set name='BombStrikeCount'>0</set>
+				<set name='StrikeCount'>0</set>
 				<set name='ModuleCount'>unknown</set>
 				<set name='NeedyModuleCount'>unknown</set>
 				<set name='SolveCount'>0</set>
@@ -19,40 +19,35 @@
 	</category>
 	<category>
 		<pattern>strike <set>number</set></pattern>
-		<topic>bomb *</topic>
 		<template>
-			<think><set name='BombStrikeCount'><star/></set></think>
+			<think><set name='StrikeCount'><star/></set></think>
 			OK
 		</template>
 	</category>
 	<category>
 		<pattern>strike zero</pattern>  <!-- In case the user said a strike by mistake. -->
-		<topic>bomb *</topic>
 		<template>
-			<think><set name='BombStrikeCount'>0</set></think>
+			<think><set name='StrikeCount'>0</set></think>
 			OK
 		</template>
 	</category>
 	<category>
 		<pattern>strike one</pattern>
-		<topic>bomb *</topic>
 		<template>
-			<think><set name='BombStrikeCount'>1</set></think>
+			<think><set name='StrikeCount'>1</set></think>
 			OK
 		</template>
 	</category>
 	<category>
 		<pattern>strike two</pattern>
-		<topic>bomb *</topic>
 		<template>
-			<think><set name='BombStrikeCount'>2</set></think>
+			<think><set name='StrikeCount'>2</set></think>
 			OK
 		</template>
 	</category>
 
 	<category>
 		<pattern>solved</pattern>
-		<topic>bomb *</topic>
 		<template>
 			<set name='SolveCount'>
 				<condition name='SolveCount'>
@@ -95,7 +90,7 @@
 		<template>
 			<!-- TODO: For now, this is unclear about whether the previous module was solved or not. This matters if we need to count solves, or for Souvenir with duplicate modules. -->
 			<srai>DeselectModule</srai>
-			<think><set name='topic'>Bomb <map name='ModuleCode'><star/></map></set></think>
+			<think><set name='topic'><map name='ModuleCode'><star/></map></set></think>
 			<oob><setgrammar><map name='ModuleCode'><star/></map></setgrammar></oob>
 			<srai>SelectModule</srai>
 			<srai>InitModule</srai>
@@ -118,7 +113,7 @@
 		<pattern>resume <set>module</set></pattern>
 		<template>
 			<srai>DeselectModule</srai>
-			<think><set name='topic'>Bomb <map name='ModuleCode'><star/></map></set></think>
+			<think><set name='topic'><map name='ModuleCode'><star/></map></set></think>
 			<oob><setgrammar><map name='ModuleCode'><star/></map></setgrammar></oob>
 			<srai>SelectModule</srai>
 		</template>
@@ -127,7 +122,6 @@
 	<!-- Called when the topic is changed to this module type. -->
 	<category>
 		<pattern>SelectModule</pattern>
-		<topic>Bomb * ^</topic>
 		<template><!-- Does nothing by default. --></template>
 	</category>
 	<!-- Called when the topic is changed from this module type. -->
@@ -138,7 +132,6 @@
 	<!-- Called when work is started on an instance of this module. -->
 	<category>
 		<pattern>InitModule</pattern>
-		<topic>Bomb * ^</topic>
 		<template><!-- Does nothing by default. --></template>
 	</category>
 
@@ -147,7 +140,7 @@
 		<pattern>next <set>module</set></pattern>
 		<template>
 			<srai>DeselectModule</srai>
-			<think><set name='topic'>Bomb <map name='ModuleCode'><star/></map></set></think>
+			<think><set name='topic'><map name='ModuleCode'><star/></map></set></think>
 			<srai>SelectModule</srai>
 			<srai>NewSouvenirStoreIndex</srai>
 			<srai>InitModule</srai>
@@ -292,7 +285,7 @@
 
 	<category>
 		<pattern>verify strikes</pattern>
-		<template><get name='BombStrikeCount'/></template>
+		<template><get name='StrikeCount'/></template>
 	</category>
 
 	<!-- Usage: OKRuleSeed <rule seed> -->

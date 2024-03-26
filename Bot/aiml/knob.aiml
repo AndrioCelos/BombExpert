@@ -32,7 +32,7 @@
 		</template>
 	</category>
 
-	<topic name='Bomb Knob'>
+	<topic name='Knob'>
 		<category>
 			<pattern>SelectModule</pattern>
 			<template><srai>KnobSetup</srai></template>

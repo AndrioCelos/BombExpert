@@ -275,7 +275,7 @@ public class ButtonSolver : IModuleSolver {
 						closeTags.Push("</condition>");
 						break;
 					case BatteriesCondition<ButtonData> batteriesCondition when batteriesCondition.Operation == Operations.MoreThan:
-						writer.WriteLine("<condition name='BombBatteryCount'>\n<li value='unknown'><set var='result'>NeedEdgework BatteryCount</set></li>");
+						writer.WriteLine("<condition name='BatteryCount'>\n<li value='unknown'><set var='result'>NeedEdgework BatteryCount</set></li>");
 						for (int j = 0; j <= batteriesCondition.Number; ++j)
 							writer.WriteLine($"<li value='{j}'></li>");
 						writer.WriteLine("<li>");
@@ -288,19 +288,19 @@ public class ButtonSolver : IModuleSolver {
 						closeTags.Push("</li>\n</condition>");
 						break;
 					case PortCondition<ButtonData> portCondition:
-						writer.WriteLine($"<condition name='BombPort{portCondition.PortType}'>\n<li value='true'>");
+						writer.WriteLine($"<condition name='Port{portCondition.PortType}'>\n<li value='true'>");
 						closeTags.Push($"</li>\n<li value='unknown'><set var='result'>NeedEdgework Port {portCondition.PortType}</set></li>\n</condition>");
 						break;
 					case EmptyPortPlateCondition<ButtonData>:
-						writer.WriteLine("<condition name='BombEmptyPortPlate'>\n<li value='true'>");
+						writer.WriteLine("<condition name='EmptyPortPlate'>\n<li value='true'>");
 						closeTags.Push("</li>\n<li value='unknown'><set var='result'>NeedEdgework EmptyPortPlate</set></li>\n</condition>");
 						break;
 					case SerialNumberStartsWithLetterCondition<ButtonData>:
-						writer.WriteLine("<condition name='BombSerialNumberStartsWithLetter'>\n<li value='true'>");
+						writer.WriteLine("<condition name='SerialNumberStartsWithLetter'>\n<li value='true'>");
 						closeTags.Push("</li>\n<li value='unknown'><set var='result'>NeedEdgework SerialNumberStartsWithLetter</set></li>\n</condition>");
 						break;
 					case SerialNumberParityCondition<ButtonData> serialNumberParityCondition:
-						writer.WriteLine($"<condition name='BombSerialNumberIsOdd'>\n<li value='{serialNumberParityCondition.Odd}'>");
+						writer.WriteLine($"<condition name='SerialNumberIsOdd'>\n<li value='{serialNumberParityCondition.Odd}'>");
 						closeTags.Push("</li>\n<li value='unknown'><set var='result'>NeedEdgework SerialNumberIsOdd</set></li>\n</condition>");
 						break;
 					default:

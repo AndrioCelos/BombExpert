@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <aiml>
-	<topic name='Bomb AdventureGame ^'>
+	<topic name='AdventureGame ^'>
 		<category>
 			<pattern>SelectModule</pattern>
 			<template>
@@ -30,7 +30,7 @@
 					<set name='AdventureGameEnemyStr'><star index='2'/></set>
 					<set name='AdventureGameEnemyDex'><star index='3'/></set>
 					<set name='AdventureGameEnemyInt'><star index='4'/></set>
-					<set name='topic'>Bomb AdventureGame Stats</set>
+					<set name='topic'>AdventureGame Stats</set>
 				</think>
 				Read the player stats.
 			</template>
@@ -171,7 +171,7 @@
 
 		<category>
 			<pattern>nil</pattern>
-			<topic>Bomb AdventureGame Stats ^</topic>
+			<topic>AdventureGame Stats ^</topic>
 			<template>
 				<!-- Check whether we have all the stats. -->
 				<think>
@@ -196,10 +196,10 @@
 
 		<category>
 			<pattern>StatsReceived</pattern>
-			<topic>Bomb AdventureGame Stats</topic>
+			<topic>AdventureGame Stats</topic>
 			<template>
 				<think>
-					<set name='topic'>Bomb AdventureGame Items</set>
+					<set name='topic'>AdventureGame Items</set>
 				</think>
 				Read the items.
 			</template>
@@ -217,7 +217,7 @@
 
 		<category>
 			<pattern>nil</pattern>
-			<topic>Bomb AdventureGame Items</topic>
+			<topic>AdventureGame Items</topic>
 			<template>
 				<!-- TODO: Better check with the defuser whether that's all the items -->
 				<srai>CalculateItemsToUse</srai>
@@ -402,7 +402,7 @@
 					<li value='golem'>false</li>
 					<li value='wizard'>false</li>
 					<li>
-						<condition name='BombBatteryCount'>
+						<condition name='BatteryCount'>
 							<li value='0'>true</li>
 							<li value='1'>true</li>
 							<li value='unknown'>NeedEdgework BatteryCount</li>
@@ -432,9 +432,9 @@
 				<condition name='AdventureGameEnemy'>
 					<li value='wizard'>false</li>
 					<li>
-						<condition name='BombSerialNumberLastDigit'>
+						<condition name='SerialNumberLastDigit'>
 							<li value='unknown'>NeedEdgework SerialNumberLastDigit</li>
-							<li><srai>XGt <get name='AdventureGameInt'/> XS <get name='BombSerialNumberLastDigit'/></srai></li>
+							<li><srai>XGt <get name='AdventureGameInt'/> XS <get name='SerialNumberLastDigit'/></srai></li>
 						</condition>
 					</li>
 				</condition>
@@ -452,16 +452,16 @@
 		<category>
 			<pattern>ShouldUseItem harddrive</pattern>
 			<template>
-				<condition name='BombPortPlateCount'>
+				<condition name='PortPlateCount'>
 					<li value='unknown'>NeedEdgework PortPlates</li>
 					<li>
 						<srai>XOr
-							<srai>XGt <get name='BombPortCountParallel'/> XS 1</srai> XS
-							<srai>XGt <get name='BombPortCountSerial'/> XS 1</srai> XS
-							<srai>XGt <get name='BombPortCountRJ45'/> XS 1</srai> XS
-							<srai>XGt <get name='BombPortCountDVID'/> XS 1</srai> XS
-							<srai>XGt <get name='BombPortCountPS2'/> XS 1</srai> XS
-							<srai>XGt <get name='BombPortCountStereoRCA'/> XS 1</srai>
+							<srai>XGt <get name='PortCountParallel'/> XS 1</srai> XS
+							<srai>XGt <get name='PortCountSerial'/> XS 1</srai> XS
+							<srai>XGt <get name='PortCountRJ45'/> XS 1</srai> XS
+							<srai>XGt <get name='PortCountDVID'/> XS 1</srai> XS
+							<srai>XGt <get name='PortCountPS2'/> XS 1</srai> XS
+							<srai>XGt <get name='PortCountStereoRCA'/> XS 1</srai>
 						</srai>
 					</li>
 				</condition>
@@ -479,9 +479,9 @@
 		<category>
 			<pattern>ShouldUseItem moonstone</pattern>
 			<template>
-				<condition name='BombIndicatorCountUnlit'>
+				<condition name='IndicatorCountUnlit'>
 					<li value='unknown'>NeedEdgework Indicators</li>
-					<li><srai>XGt <get name='BombIndicatorCountUnlit'/> XS 1</srai></li>
+					<li><srai>XGt <get name='IndicatorCountUnlit'/> XS 1</srai></li>
 				</condition>
 			</template>
 		</category>
@@ -513,9 +513,9 @@
 		<category>
 			<pattern>ShouldUseItem sunstone</pattern>
 			<template>
-				<condition name='BombIndicatorCountLit'>
+				<condition name='IndicatorCountLit'>
 					<li value='unknown'>NeedEdgework Indicators</li>
-					<li><srai>XGt <get name='BombIndicatorCountLit'/> XS 1</srai></li>
+					<li><srai>XGt <get name='IndicatorCountLit'/> XS 1</srai></li>
 				</condition>
 			</template>
 		</category>
@@ -545,11 +545,11 @@
 				<condition name='AdventureGameEnemy'>
 					<li value='troll'>true</li>
 					<li>
-						<condition name='BombSerialNumber'>
+						<condition name='SerialNumber'>
 							<li value='unknown'>NeedEdgework SerialNumber</li>
 							<li>
 								<think>
-									<set var='chars'><explode><get name='BombSerialNumber'/></explode></set>
+									<set var='chars'><explode><get name='SerialNumber'/></explode></set>
 									<condition var='digit'>
 										<li value='*'></li>
 										<li>

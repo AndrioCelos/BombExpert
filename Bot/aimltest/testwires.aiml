@@ -5,7 +5,7 @@
 		<template>
 			<think>
 				<srai>new bomb</srai>
-				<set name='topic'>Bomb Wires</set>
+				<set name='topic'>Wires</set>
 
 				<!-- Tests are named by [number of wires]-[manual rule number]-[test number] -->
 				<test name='Wires 3-1-1' expected='CutSecondWire'>Solver Wires blue blue white</test>
@@ -15,28 +15,28 @@
 				<test name='Wires 3-4-1' expected='CutLastWire'>Solver Wires red white blue</test>
 
 				<test name='Wires 4-1-1' expected='NeedEdgework SerialNumberIsOdd'>Solver Wires red red white yellow</test>
-				<set name='BombSerialNumberIsOdd'>true</set>
+				<set name='SerialNumberIsOdd'>true</set>
 				<test name='Wires 4-1-2' expected='CutSecondWire'>Solver Wires red red white yellow</test>
-				<set name='BombSerialNumberIsOdd'>false</set>
+				<set name='SerialNumberIsOdd'>false</set>
 				<test name='Wires 4-2-1' expected='CutFirstWire'>Solver Wires yellow yellow yellow yellow</test>
 				<test name='Wires 4-3-1' expected='CutFirstWire'>Solver Wires red red white blue</test>
 				<test name='Wires 4-4-1' expected='CutLastWire'>Solver Wires yellow yellow blue blue</test>
 				<test name='Wires 4-5-1' expected='CutSecondWire'>Solver Wires red red white yellow</test>
 
-				<set name='BombSerialNumberIsOdd'>unknown</set>
+				<set name='SerialNumberIsOdd'>unknown</set>
 				<test name='Wires 5-1-1' expected='NeedEdgework SerialNumberIsOdd'>Solver Wires white white white white black</test>
-				<set name='BombSerialNumberIsOdd'>true</set>
+				<set name='SerialNumberIsOdd'>true</set>
 				<test name='Wires 5-1-2' expected='CutFourthWire'>Solver Wires white white white white black</test>
-				<set name='BombSerialNumberIsOdd'>false</set>
+				<set name='SerialNumberIsOdd'>false</set>
 				<test name='Wires 5-2-1' expected='CutFirstWire'>Solver Wires yellow yellow red black black</test>
 				<test name='Wires 5-3-1' expected='CutSecondWire'>Solver Wires red red yellow yellow yellow</test>
 				<test name='Wires 5-4-1' expected='CutFirstWire'>Solver Wires red yellow black black black</test>
 
-				<set name='BombSerialNumberIsOdd'>unknown</set>
+				<set name='SerialNumberIsOdd'>unknown</set>
 				<test name='Wires 6-1-1' expected='NeedEdgework SerialNumberIsOdd'>Solver Wires white white white white white white</test>
-				<set name='BombSerialNumberIsOdd'>true</set>
+				<set name='SerialNumberIsOdd'>true</set>
 				<test name='Wires 6-1-2' expected='CutThirdWire'>Solver Wires white white white white white white</test>
-				<set name='BombSerialNumberIsOdd'>false</set>
+				<set name='SerialNumberIsOdd'>false</set>
 				<test name='Wires 6-2-1' expected='CutFourthWire'>Solver Wires yellow white white white white white</test>
 				<test name='Wires 6-3-1' expected='CutLastWire'>Solver Wires white white white white white white</test>
 				<test name='Wires 6-3-2' expected='CutLastWire'>Solver Wires yellow yellow white white white white</test>
@@ -50,7 +50,7 @@
 		<template>
 			<think>
 				<srai>new bomb</srai>
-				<set name='topic'>Bomb Wires</set>
+				<set name='topic'>Wires</set>
 			</think>
 			<test name='Wires Conversation 1' regex='.*last digit.*'>Red Red White Yellow</test>
 		</template>

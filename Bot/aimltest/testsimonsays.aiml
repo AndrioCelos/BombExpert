@@ -15,17 +15,17 @@
 				<test name='Simon Says Initial 3' regex='.*Tell me which colours flash, in order.'>defuse simon says</test>
 
 				<test name='Simon Says Mapping 1-1' expected='Press: blue, red, yellow, green.'>red blue green yellow</test>
-				<set name='BombStrikeCount'>1</set>
+				<set name='StrikeCount'>1</set>
 				<test name='Simon Says Mapping 1-2' expected='Press: yellow, green, blue, red.'>red blue green yellow</test>
-				<set name='BombStrikeCount'>2</set>
+				<set name='StrikeCount'>2</set>
 				<test name='Simon Says Mapping 1-3' expected='Press: green, red, yellow, blue.'>red blue green yellow</test>
 
-				<set name='BombSerialNumberHasVowel'>false</set>
-				<set name='BombStrikeCount'>0</set>
+				<set name='SerialNumberHasVowel'>false</set>
+				<set name='StrikeCount'>0</set>
 				<test name='Simon Says Mapping 2-1' expected='Press: blue, yellow, green, red.'>red blue green yellow</test>
-				<set name='BombStrikeCount'>1</set>
+				<set name='StrikeCount'>1</set>
 				<test name='Simon Says Mapping 2-2' expected='Press: red, blue, yellow, green.'>red blue green yellow</test>
-				<set name='BombStrikeCount'>2</set>
+				<set name='StrikeCount'>2</set>
 				<test name='Simon Says Mapping 2-3' expected='Press: yellow, green, blue, red.'>red blue green yellow</test>
 			</think>
 		</template>

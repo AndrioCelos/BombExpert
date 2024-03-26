@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml>
-	<topic name='Bomb ThirdBase ^'>
+	<topic name='ThirdBase ^'>
 		<category>
 			<pattern>InitModule</pattern>
 			<template>
 				<think>
-					<set name='topic'>Bomb ThirdBase</set>
+					<set name='topic'>ThirdBase</set>
 					<set name='ThirdBaseStage'>1</set>
 				</think>
 				Read the display as if it were not upside-down.
@@ -19,7 +19,7 @@
 
 		<category>
 			<pattern>HandleInput *</pattern>
-			<topic>Bomb ThirdBase</topic>
+			<topic>ThirdBase</topic>
 			<template>
 				<think>
 					<set var='result'><srai>XImplode <srai>XInvert <star/></srai></srai></set>
@@ -28,7 +28,7 @@
 					<li value='unknown'>That does not sound like a possible label. Try again.</li>
 					<li>
 						<srai>SouvenirPut Display<get name='ThirdBaseStage'/> XS <get var='result'/></srai>
-						<think><set name='topic'>Bomb ThirdBase Button</set></think>
+						<think><set name='topic'>ThirdBase Button</set></think>
 						Read the <map name='ThirdBaseButton'><get var='result'/></map> button.
 					</li>
 				</condition>
@@ -37,7 +37,7 @@
 
 		<category>
 			<pattern>HandleInput *</pattern>
-			<topic>Bomb ThirdBase Button</topic>
+			<topic>ThirdBase Button</topic>
 			<template>
 				<think>
 					<set var='result'><srai>XImplode <srai>XInvert <star/></srai></srai></set>
@@ -47,7 +47,7 @@
 					<li value='unknown'>That does not sound like a possible label. Try again.</li>
 					<li>
 						<think>
-							<set name='topic'>Bomb ThirdBase</set>
+							<set name='topic'>ThirdBase</set>
 							<set var='result'>nil</set>
 							<condition var='list'>
 								<li value='nil'></li>
@@ -80,7 +80,7 @@
 							<set name='ThirdBaseStage'>1</set>
 						</li>
 					</condition>
-					<set name='topic'>Bomb ThirdBase</set>
+					<set name='topic'>ThirdBase</set>
 				</think>
 				<srai><star/></srai>
 			</template>

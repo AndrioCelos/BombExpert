@@ -85,11 +85,11 @@
 		<pattern>ResetBatteries</pattern>
 		<template>
 			<think>
-				<set name='BombBatteryCount'>unknown</set>
-				<set name='BombBatteryHolderCount'>unknown</set>
-				<set name='BombBatteryCountAA'>unknown</set>
-				<set name='BombBatteryCountD'>unknown</set>
-				<set name='BombBatteriesKnown'>false</set>
+				<set name='BatteryCount'>unknown</set>
+				<set name='BatteryHolderCount'>unknown</set>
+				<set name='BatteryCountAA'>unknown</set>
+				<set name='BatteryCountD'>unknown</set>
+				<set name='BatteriesKnown'>false</set>
 			</think>
 		</template>
 	</category>
@@ -97,24 +97,24 @@
 		<pattern>ResetIndicators</pattern>
 		<template>
 			<think>
-				<set var='labels'><get name='BombIndicatorsChecked'/></set>
+				<set var='labels'><get name='IndicatorsChecked'/></set>
 				<condition var='labels'>
 					<li value='unknown'></li>
 					<li value='nil'></li>
 					<li>
 						<set var='label'><srai>XFirst <get var='labels'/></srai></set>
 						<set var='labels'><srai>XRest <get var='labels'/></srai></set>
-						<set><name>BombIndicatorLit<get var='label'/></name>unknown</set>
-						<set><name>BombIndicatorUnlit<get var='label'/></name>unknown</set>
+						<set><name>IndicatorLit<get var='label'/></name>unknown</set>
+						<set><name>IndicatorUnlit<get var='label'/></name>unknown</set>
 					</li>
 					<loop/>
 				</condition>
-				<set name='BombIndicators'>unknown</set>
-				<set name='BombIndicatorsChecked'>nil</set>
-				<set name='BombIndicatorCount'>unknown</set>
-				<set name='BombIndicatorCountLit'>unknown</set>
-				<set name='BombIndicatorCountUnlit'>unknown</set>
-				<set name='BombIndicatorsKnown'>false</set>
+				<set name='Indicators'>unknown</set>
+				<set name='IndicatorsChecked'>nil</set>
+				<set name='IndicatorCount'>unknown</set>
+				<set name='IndicatorCountLit'>unknown</set>
+				<set name='IndicatorCountUnlit'>unknown</set>
+				<set name='IndicatorsKnown'>false</set>
 			</think>
 		</template>
 	</category>
@@ -128,24 +128,24 @@
 					<li value='unknown'></li>
 					<li value='nil'></li>
 					<li>
-						<set><name>BombPort<get var='word'/></name>unknown</set>
-						<set><name>BombPortCount<get var='word'/></name>unknown</set>
+						<set><name>Port<get var='word'/></name>unknown</set>
+						<set><name>PortCount<get var='word'/></name>unknown</set>
 						<set var='types'><srai>XRest <get var='types'/></srai></set>
 						<set var='word'><srai>XFirst <get var='types'/></srai></set>
 						<loop/>
 					</li>
 				</condition>
-				<condition name='BombPortPlateCount'>
+				<condition name='PortPlateCount'>
 					<li value='unknown'></li>
 					<li value='0'></li>
 					<li>
-						<set><name>BombPortPlate<get name='BombPortPlateCount'/></name>unknown</set>
-						<set name='BombPortPlateCount'><map name='predecessor'><get name='BombPortPlateCount'/></map></set>
+						<set><name>PortPlate<get name='PortPlateCount'/></name>unknown</set>
+						<set name='PortPlateCount'><map name='predecessor'><get name='PortPlateCount'/></map></set>
 						<loop/>
 					</li>
 				</condition>
-				<set name='BombPortPlateCount'>unknown</set>
-				<set name='BombPortsKnown'>false</set>
+				<set name='PortPlateCount'>unknown</set>
+				<set name='PortsKnown'>false</set>
 			</think>
 		</template>
 	</category>
@@ -153,12 +153,12 @@
 		<pattern>ResetSerial</pattern>
 		<template>
 			<think>
-				<set name='BombSerialNumber'>unknown</set>
-				<set name='BombSerialNumberIsOdd'>unknown</set>
-				<set name='BombSerialNumberHasVowel'>unknown</set>
-				<set name='BombSerialNumberStartsWithLetter'>unknown</set>
-				<set name='BombSerialNumber2Letter'>unknown</set>
-				<set name='BombSerialNumberLastDigit'>unknown</set>
+				<set name='SerialNumber'>unknown</set>
+				<set name='SerialNumberIsOdd'>unknown</set>
+				<set name='SerialNumberHasVowel'>unknown</set>
+				<set name='SerialNumberStartsWithLetter'>unknown</set>
+				<set name='SerialNumber2Letter'>unknown</set>
+				<set name='SerialNumberLastDigit'>unknown</set>
 			</think>
 		</template>
 	</category>
@@ -170,7 +170,7 @@
 		<template>
 			<think>
 				<set name='EdgeworkCallbackTopic'><get name='topic'/></set>
-				<set name='topic'>Bomb Edgework <star index='2'/></set>
+				<set name='topic'>Edgework <star index='2'/></set>
 			</think>
 			<oob>EnableGrammar <star/></oob>
 		</template>
@@ -216,7 +216,7 @@
 	<category>
 		<pattern>EdgeworkKnown Batteries</pattern>
 		<template>
-			<condition name='BombBatteryCount'><li value='unknown'>false</li><li><condition name='BombBatteryHolderCount'><li value='unknown'>false</li><li>true</li></condition></li></condition>
+			<condition name='BatteryCount'><li value='unknown'>false</li><li><condition name='BatteryHolderCount'><li value='unknown'>false</li><li>true</li></condition></li></condition>
 		</template>
 	</category>
 	<category>
@@ -228,7 +228,7 @@
 	</category>
 	<category>
 		<pattern>EdgeworkKnown BatteryCount</pattern>
-		<template><condition name='BombBatteryCount'><li value='unknown'>false</li><li>true</li></condition></template>
+		<template><condition name='BatteryCount'><li value='unknown'>false</li><li>true</li></condition></template>
 	</category>
 	<category>
 		<pattern>EdgeworkQuery BatteryCount</pattern>
@@ -256,22 +256,22 @@
 		<pattern>EdgeworkQuery BatteryCountD</pattern>
 		<template><srai>EdgeworkQuery Batteries</srai></template>
 	</category>
-	<topic name='Bomb Edgework Batteries ^'>
+	<topic name='Edgework Batteries ^'>
 		<category>
 			<pattern>batteries <set>number</set> holders <set>number</set></pattern>
 			<template>
 				<think>
-					<set name='BombBatteryCount'><star/></set>
-					<set name='BombBatteryHolderCount'><star index='2'/></set>
+					<set name='BatteryCount'><star/></set>
+					<set name='BatteryHolderCount'><star index='2'/></set>
 					<!--
 						Calculate other values as follows:
 						A = 2B - 2H
 						D = 2H - B
 					-->
-					<set name='BombBatteryCountAA'>
+					<set name='BatteryCountAA'>
 						<srai>XMultiply <srai>XSubtract <star index='1'/> XS <star index='2'/></srai> XS 2</srai>
 					</set>
-					<set name='BombBatteryCountD'>
+					<set name='BatteryCountD'>
 						<srai>XSubtract <srai>XMultiply <star index='2'/> XS 2</srai> XS <star index='1'/></srai>
 					</set>
 				</think>
@@ -320,15 +320,15 @@
 		</category>
 		<category>
 			<pattern><set>number</set></pattern>
-			<topic>Bomb Edgework Batteries BatteryCount</topic>
+			<topic>Edgework Batteries BatteryCount</topic>
 			<template>
-				<think><set name='BombBatteryCount'><star/></set></think>
+				<think><set name='BatteryCount'><star/></set></think>
 				<srai>EdgeworkQueryCallback batteries</srai>
 			</template>
 		</category>
 		<category>
 			<pattern><set>number</set> batteries</pattern>
-			<topic>Bomb Edgework Batteries BatteryCount</topic>
+			<topic>Edgework Batteries BatteryCount</topic>
 			<template><sr/></template>
 		</category>
 
@@ -396,18 +396,18 @@
 	<category>
 		<pattern>verify batteries</pattern>
 		<template>
-			<condition name='BombBatteryCount'>
+			<condition name='BatteryCount'>
 				<li value='unknown'>unknown</li>
 				<li>
-					<get name='BombBatteryCount'/>
-					<condition name='BombBatteryCount'>
+					<get name='BatteryCount'/>
+					<condition name='BatteryCount'>
 						<li value='1'>battery</li>
 						<li>batteries</li>
 					</condition>
-					<condition name='BombBatteryHolderCount'>
+					<condition name='BatteryHolderCount'>
 						<li value='unknown'>.</li>
 						<li value='1'>in 1 holder.</li>
-						<li>in <get name='BombBatteryHolderCount'/> holders.</li>
+						<li>in <get name='BatteryHolderCount'/> holders.</li>
 					</condition>
 				</li>
 			</condition>
@@ -423,16 +423,16 @@
 	-->
 	<category>
 		<pattern>EdgeworkKnown Indicators</pattern>
-		<template><get name='BombIndicatorsKnown'/></template>
+		<template><get name='IndicatorsKnown'/></template>
 	</category>
 	<category>
 		<pattern>EdgeworkQuery Indicators</pattern>
 		<template>
 			<think>
-				<set name='BombIndicatorCount'>0</set>
-				<set name='BombIndicatorCountUnlit'>0</set>
-				<set name='BombIndicatorCountLit'>0</set>
-				<set name='BombIndicators'>nil</set>
+				<set name='IndicatorCount'>0</set>
+				<set name='IndicatorCountUnlit'>0</set>
+				<set name='IndicatorCountLit'>0</set>
+				<set name='Indicators'>nil</set>
 			</think>
 			<srai>EdgeworkQueryStart indicators Indicators</srai>
 			List the indicators on the bomb.
@@ -440,7 +440,7 @@
 	</category>
 	<category>
 		<pattern>EdgeworkKnown IndicatorLit *</pattern>
-		<template><condition><name>BombIndicatorLit<star/></name><li value='unknown'>false</li><li>true</li></condition></template>
+		<template><condition><name>IndicatorLit<star/></name><li value='unknown'>false</li><li>true</li></condition></template>
 	</category>
 	<category>
 		<pattern>EdgeworkQuery IndicatorLit *</pattern>
@@ -451,7 +451,7 @@
 	</category>
 	<category>
 		<pattern>EdgeworkKnown IndicatorUnlit *</pattern>
-		<template><condition><name>BombIndicatorUnlit<star/></name><li value='unknown'>false</li><li>true</li></condition></template>
+		<template><condition><name>IndicatorUnlit<star/></name><li value='unknown'>false</li><li>true</li></condition></template>
 	</category>
 	<category>
 		<pattern>EdgeworkQuery IndicatorUnlit *</pattern>
@@ -462,7 +462,7 @@
 	</category>
 	<category>
 		<pattern>EdgeworkKnown Indicator *</pattern>
-		<template><condition><name>BombIndicatorLit<star/></name><li value='unknown'>false</li><li>true</li></condition></template>
+		<template><condition><name>IndicatorLit<star/></name><li value='unknown'>false</li><li>true</li></condition></template>
 	</category>
 	<category>
 		<pattern>EdgeworkQuery Indicator *</pattern>
@@ -471,7 +471,7 @@
 			Is there any indicator labelled <star/>?
 		</template>
 	</category>
-	<topic name='Bomb Edgework Indicators'>
+	<topic name='Edgework Indicators'>
 		<category>
 			<pattern>lit *</pattern>
 			<template><srai>HandleIndicators true <star/></srai></template>
@@ -554,17 +554,17 @@
 					<condition var='label'>
 						<li value='unknown'><set var='error'>'<get var='description'/>' does not sound like a possible label.</set></li>
 						<li>
-							<condition name='BombIndicators' value='unknown'>
-								<set name='BombIndicators'>nil</set>
+							<condition name='Indicators' value='unknown'>
+								<set name='Indicators'>nil</set>
 							</condition>
-							<set name='BombIndicators'><srai>XAppend <get var='label'/> <get name='BombIndicators'/></srai></set>
-							<set><name>BombIndicatorLit<get var='label'/></name><star/></set>
-							<set name='BombIndicatorCount'><map name='successor'><get name='BombIndicatorCount'/></map></set>
+							<set name='Indicators'><srai>XAppend <get var='label'/> <get name='Indicators'/></srai></set>
+							<set><name>IndicatorLit<get var='label'/></name><star/></set>
+							<set name='IndicatorCount'><map name='successor'><get name='IndicatorCount'/></map></set>
 
 							<set var='lit'><star/></set>
 							<condition var='lit'>
-								<li value='true'><set name='BombIndicatorCountLit'><map name='successor'><get name='BombIndicatorCountLit'/></map></set></li>
-								<li><set name='BombIndicatorCountUnlit'><map name='successor'><get name='BombIndicatorCountUnlit'/></map></set></li>
+								<li value='true'><set name='IndicatorCountLit'><map name='successor'><get name='IndicatorCountLit'/></map></set></li>
+								<li><set name='IndicatorCountUnlit'><map name='successor'><get name='IndicatorCountUnlit'/></map></set></li>
 							</condition>
 						</li>
 					</condition>
@@ -583,57 +583,57 @@
 	</topic>
 	<category>
 		<pattern><set>YesOrNo</set></pattern>
-		<topic>Bomb Edgework Indicator * *</topic>
+		<topic>Edgework Indicator * *</topic>
 		<template>
 			<think>
 				<set var='answer'><map name='ParseBoolean'><star/></map></set>
 				<set var='state'><topicstar/></set>
 				<condition var='state'>
 					<li value='Any'>
-						<set><name>BombIndicator<topicstar index='2'/></name><get var='answer'/></set>
-						<set name='BombIndicatorsChecked'><srai>XAppend <topicstar index='2'/> <get name='BombIndicatorsChecked'/></srai></set>
+						<set><name>Indicator<topicstar index='2'/></name><get var='answer'/></set>
+						<set name='IndicatorsChecked'><srai>XAppend <topicstar index='2'/> <get name='IndicatorsChecked'/></srai></set>
 						<condition var='answer'>
 							<li value='true'>
 								<!-- If the indicator is present, add it to the list. -->
-								<set name='BombIndicators'><srai>XAppend <topicstar index='2'/> <get name='BombIndicators'/></srai></set>
+								<set name='Indicators'><srai>XAppend <topicstar index='2'/> <get name='Indicators'/></srai></set>
 								<!-- If we were previously told the indicator is not lit or unlit, we know it is in the opposite state. -->
 								<condition>
-									<li value='false'><name>BombIndicatorLit<topicstar index='2'/></name>
-										<set><name>BombIndicatorUnlit<topicstar index='2'/></name>true</set>
+									<li value='false'><name>IndicatorLit<topicstar index='2'/></name>
+										<set><name>IndicatorUnlit<topicstar index='2'/></name>true</set>
 									</li>
-									<li value='false'><name>BombIndicatorUnlit<topicstar index='2'/></name>
-										<set><name>BombIndicatorLit<topicstar index='2'/></name>true</set>
+									<li value='false'><name>IndicatorUnlit<topicstar index='2'/></name>
+										<set><name>IndicatorLit<topicstar index='2'/></name>true</set>
 									</li>
 								</condition>
 							</li>
 							<li>
-								<set><name>BombIndicatorLit<topicstar index='2'/></name>false</set>
-								<set><name>BombIndicatorUnlit<topicstar index='2'/></name>false</set>
+								<set><name>IndicatorLit<topicstar index='2'/></name>false</set>
+								<set><name>IndicatorUnlit<topicstar index='2'/></name>false</set>
 							</li>
 						</condition>
 					</li>
 					<li>
-						<set name='BombIndicatorsChecked'><srai>XAppend <topicstar index='2'/> <get name='BombIndicatorsChecked'/></srai></set>
+						<set name='IndicatorsChecked'><srai>XAppend <topicstar index='2'/> <get name='IndicatorsChecked'/></srai></set>
 						<condition var='answer'>
 							<li value='true'>
 								<!-- The indicator is present and in the asked state. -->
-								<set name='BombIndicators'><srai>XAppend <topicstar index='2'/> <get name='BombIndicators'/></srai></set>
-								<set><name>BombIndicator<topicstar index='2'/></name>true</set>
-								<set><name>BombIndicator<topicstar/><topicstar index='2'/></name>true</set>
-								<set><name>BombIndicator<map name='not'><topicstar/></map><topicstar index='2'/></name>false</set>
+								<set name='Indicators'><srai>XAppend <topicstar index='2'/> <get name='Indicators'/></srai></set>
+								<set><name>Indicator<topicstar index='2'/></name>true</set>
+								<set><name>Indicator<topicstar/><topicstar index='2'/></name>true</set>
+								<set><name>Indicator<map name='not'><topicstar/></map><topicstar index='2'/></name>false</set>
 							</li>
 							<li>
 								<!-- The indicator is either not present or in the opposite state. -->
-								<set><name>BombIndicator<topicstar/><topicstar index='2'/></name>false</set>
+								<set><name>Indicator<topicstar/><topicstar index='2'/></name>false</set>
 								<!-- If there's no lit or unlit indicator, it's not present. -->
 								<condition value='false'>
-									<name>BombIndicator<map name='not'><topicstar/></map><topicstar index='2'/></name>
-									<set><name>BombIndicator<topicstar index='2'/></name>false</set>
+									<name>Indicator<map name='not'><topicstar/></map><topicstar index='2'/></name>
+									<set><name>Indicator<topicstar index='2'/></name>false</set>
 								</condition>
 								<!-- If the indicator is present, it's in the opposite state. -->
-								<set var='present'><srai>XContains <topicstar index='2'/> XS <get name='BombIndicators'/></srai></set>
+								<set var='present'><srai>XContains <topicstar index='2'/> XS <get name='Indicators'/></srai></set>
 								<condition var='present' value='true'>
-									<set><name>BombIndicator<map name='not'><topicstar/></map><topicstar index='2'/></name>true</set>
+									<set><name>Indicator<map name='not'><topicstar/></map><topicstar index='2'/></name>true</set>
 								</condition>
 							</li>
 						</condition>
@@ -648,7 +648,7 @@
 		<pattern>verify indicators</pattern>
 		<template>
 			<think>
-				<set var='indicators'><get name='BombIndicators'/></set>
+				<set var='indicators'><get name='Indicators'/></set>
 				<set var='lit'></set>
 				<set var='unlit'></set>
 				<condition var='indicators'>
@@ -657,7 +657,7 @@
 						<set var='indicator'><srai>XFirst <get var='indicators'/></srai></set>
 						<set var='indicators'><srai>XRest <get var='indicators'/></srai></set>
 						<condition>
-							<name>BombIndicatorLit<get var='indicator'/></name>
+							<name>IndicatorLit<get var='indicator'/></name>
 							<li value='true'><set var='lit'><get var='lit'/> <get var='indicator'/></set></li>
 							<li value='false'><set var='unlit'><get var='unlit'/> <get var='indicator'/></set></li>
 						</condition>
@@ -684,21 +684,21 @@
 	-->
 	<category>
 		<pattern>EdgeworkKnown PortPlates</pattern>
-		<template><condition name='BombPortPlateCount'><li value='unknown'>false</li><li>true</li></condition></template>
+		<template><condition name='PortPlateCount'><li value='unknown'>false</li><li>true</li></condition></template>
 	</category>
 	<category>
 		<pattern>EdgeworkQuery PortPlates</pattern>
 		<template>
 			<think>
-				<set name='BombPortCount'>0</set>
-				<set name='BombPortPlateCount'>0</set>
+				<set name='PortCount'>0</set>
+				<set name='PortPlateCount'>0</set>
 				<set var='types'>Parallel Serial RJ45 DVID PS2 StereoRCA</set>
 				<set var='word'><srai>XFirst <get var='types'/></srai></set>
 				<condition var='word'>
 					<li value='nil'></li>
 					<li>
-						<set><name>BombPort<get var='word'/></name>false</set>
-						<set><name>BombPortCount<get var='word'/></name>0</set>
+						<set><name>Port<get var='word'/></name>false</set>
+						<set><name>PortCount<get var='word'/></name>0</set>
 						<set var='types'><srai>XRest <get var='types'/></srai></set>
 						<set var='word'><srai>XFirst <get var='types'/></srai></set>
 						<loop/>
@@ -711,7 +711,7 @@
 	</category>
 	<category>
 		<pattern>EdgeworkKnown Port *</pattern>
-		<template><condition><name>BombPort<star/></name><li value='unknown'>false</li><li>true</li></condition></template>
+		<template><condition><name>Port<star/></name><li value='unknown'>false</li><li>true</li></condition></template>
 	</category>
 	<category>
 		<pattern>EdgeworkQuery Port *</pattern>
@@ -722,7 +722,7 @@
 	</category>
 	<category>
 		<pattern>EdgeworkKnown EmptyPortPlate</pattern>
-		<template><condition name='BombEmptyPortPlate'><li value='unknown'>false</li><li>true</li></condition></template>
+		<template><condition name='EmptyPortPlate'><li value='unknown'>false</li><li>true</li></condition></template>
 	</category>
 	<category>
 		<pattern>EdgeworkQuery EmptyPortPlate</pattern>
@@ -731,7 +731,7 @@
 			Does the bomb have an empty port plate?
 		</template>
 	</category>
-	<topic name='Bomb Edgework PortPlates'>
+	<topic name='Edgework PortPlates'>
 		<category>
 			<pattern>plate *</pattern>
 			<template><srai>HandlePortPlates <star/></srai></template>
@@ -777,8 +777,8 @@
 									<set var='break'>true</set>
 								</li>
 								<li value='empty'>
-									<set name='BombPortPlateCount'><map name='successor'><get name='BombPortPlateCount'/></map></set>
-									<set><name>BombPortPlate<get name='BombPortPlateCount'/></name>nil</set>
+									<set name='PortPlateCount'><map name='successor'><get name='PortPlateCount'/></map></set>
+									<set><name>PortPlate<get name='PortPlateCount'/></name>nil</set>
 									<set var='words'><rest><get var='words'/></rest></set>
 									<set var='word'><first><get var='words'/></first></set>
 									<loop/>
@@ -803,9 +803,9 @@
 													<set var='break'>true</set>
 												</li>
 												<li>
-													<set><name>BombPort<get var='word'/></name>true</set>
-													<set name='BombPortCount'><map name='successor'><get name='BombPortCount'/></map></set>
-													<set><name>BombPortCount<get var='word'/></name><map name='successor'><get><name>BombPortCount<get var='word'/></name></get></map></set>
+													<set><name>Port<get var='word'/></name>true</set>
+													<set name='PortCount'><map name='successor'><get name='PortCount'/></map></set>
+													<set><name>PortCount<get var='word'/></name><map name='successor'><get><name>PortCount<get var='word'/></name></get></map></set>
 													<set var='plate'><get var='plate'/> <get var='word'/></set>
 													<set var='words'><rest><get var='words'/></rest></set>
 													<set var='word'><first><get var='words'/></first></set>
@@ -814,8 +814,8 @@
 											<loop/>
 										</li>
 									</condition>
-									<set name='BombPortPlateCount'><map name='successor'><get name='BombPortPlateCount'/></map></set>
-									<set><name>BombPortPlate<get name='BombPortPlateCount'/></name><get var='plate'/></set>
+									<set name='PortPlateCount'><map name='successor'><get name='PortPlateCount'/></map></set>
+									<set><name>PortPlate<get name='PortPlateCount'/></name><get var='plate'/></set>
 									<loop/>
 								</li>
 							</condition>
@@ -832,22 +832,22 @@
 	</topic>
 	<category>
 		<pattern><set>YesOrNo</set></pattern>
-		<topic>Bomb Edgework Port *</topic>
+		<topic>Edgework Port *</topic>
 		<template>
 			<think>
 				<set var='answer'><map name='ParseBoolean'><star/></map></set>
-				<set><name>BombPort<topicstar/></name><get var='answer'/></set>
+				<set><name>Port<topicstar/></name><get var='answer'/></set>
 			</think>
 			<srai>EdgeworkQueryCallback ports</srai>
 		</template>
 	</category>
 	<category>
 		<pattern><set>YesOrNo</set></pattern>
-		<topic>Bomb Edgework EmptyPortPlate</topic>
+		<topic>Edgework EmptyPortPlate</topic>
 		<template>
 			<think>
 				<set var='answer'><map name='ParseBoolean'><star/></map></set>
-				<set name='BombEmptyPortPlate'><get var='answer'/></set>
+				<set name='EmptyPortPlate'><get var='answer'/></set>
 			</think>
 			<srai>EdgeworkQueryCallback ports</srai>
 		</template>
@@ -856,7 +856,7 @@
 	<category>
 		<pattern>verify ports</pattern>
 		<template>
-			<condition name='BombPortPlateCount'>
+			<condition name='PortPlateCount'>
 				<li value='unknown'>
 					Ports are unknown.
 					<think>
@@ -867,7 +867,7 @@
 						<li value='nil'></li>
 						<li>
 							<condition>
-								<name>BombPort<get var='word'/></name>
+								<name>Port<get var='word'/></name>
 								<li value='true'>There is a <map name='PortDescription'><get var='word'/></map> port.</li>
 								<li value='false'>There are no <map name='PortDescription'><get var='word'/></map> ports.</li>
 							</condition>
@@ -883,12 +883,12 @@
 				<li>
 					<think>
 						<set var='i'>1</set>
-						<set var='rem'><get name='BombPortPlateCount'/></set>
+						<set var='rem'><get name='PortPlateCount'/></set>
 					</think>
 					<condition var='rem'>
 						<li value='0'></li>
 						<li>
-							<think><set var='plate'><get><name>BombPortPlate<get var='i'/></name></get></set></think>
+							<think><set var='plate'><get><name>PortPlate<get var='i'/></name></get></set></think>
 							Port plate <get var='i'/>:
 							<condition var='plate'>
 								<li value='nil'>empty</li>
@@ -928,7 +928,7 @@
 	-->
 	<category>
 		<pattern>EdgeworkKnown SerialNumber</pattern>
-		<template><condition name='BombSerialNumber'><li value='unknown'>false</li><li>true</li></condition></template>
+		<template><condition name='SerialNumber'><li value='unknown'>false</li><li>true</li></condition></template>
 	</category>
 	<category>
 		<pattern>EdgeworkQuery SerialNumber</pattern>
@@ -947,7 +947,7 @@
 	</category>
 	<category>
 		<pattern>EdgeworkKnown SerialNumberLastDigit</pattern>
-		<template><condition name='BombSerialNumberLastDigit'><li value='unknown'>false</li><li>true</li></condition></template>
+		<template><condition name='SerialNumberLastDigit'><li value='unknown'>false</li><li>true</li></condition></template>
 	</category>
 	<category>
 		<pattern>EdgeworkQuery SerialNumberLastDigit</pattern>
@@ -958,7 +958,7 @@
 	</category>
 	<category>
 		<pattern>EdgeworkKnown SerialNumberIsOdd</pattern>
-		<template><condition name='BombSerialNumberIsOdd'><li value='unknown'>false</li><li>true</li></condition></template>
+		<template><condition name='SerialNumberIsOdd'><li value='unknown'>false</li><li>true</li></condition></template>
 	</category>
 	<category>
 		<pattern>EdgeworkQuery SerialNumberIsOdd</pattern>
@@ -974,7 +974,7 @@
 	</category>
 	<category>
 		<pattern>EdgeworkKnown SerialNumberStartsWithLetter</pattern>
-		<template><condition name='BombSerialNumberStartsWithLetter'><li value='unknown'>false</li><li>true</li></condition></template>
+		<template><condition name='SerialNumberStartsWithLetter'><li value='unknown'>false</li><li>true</li></condition></template>
 	</category>
 	<category>
 		<pattern>EdgeworkQuery SerialNumberStartsWithLetter</pattern>
@@ -985,7 +985,7 @@
 	</category>
 	<category>
 		<pattern>EdgeworkKnown SerialNumberHasVowel</pattern>
-		<template><condition name='BombSerialNumberHasVowel'><li value='unknown'>false</li><li>true</li></condition></template>
+		<template><condition name='SerialNumberHasVowel'><li value='unknown'>false</li><li>true</li></condition></template>
 	</category>
 	<category>
 		<pattern>EdgeworkQuery SerialNumberHasVowel</pattern>
@@ -994,7 +994,7 @@
 			Does the serial number contain a vowel?
 		</template>
 	</category>
-	<topic name='Bomb Edgework Serial ^'>
+	<topic name='Edgework Serial ^'>
 		<category>
 			<pattern><set>LetterOrDigit</set> <set>LetterOrDigit</set> <set>LetterOrDigit</set> <set>LetterOrDigit</set> <set>LetterOrDigit</set> <set>LetterOrDigit</set></pattern>
 			<template><srai>SetSerialNumber <star index='1'/> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/> <star index='6'/></srai></template>
@@ -1024,43 +1024,43 @@
 				<condition var='valid'>
 					<li value='true'>
 						<think>
-							<set name='BombSerialNumber'><get var='char1'/><get var='char2'/><get var='char3'/><get var='char4'/><get var='char5'/><get var='char6'/></set>
-							<set name='BombSerialNumberLastDigit'><get var='char6'/></set>
+							<set name='SerialNumber'><get var='char1'/><get var='char2'/><get var='char3'/><get var='char4'/><get var='char5'/><get var='char6'/></set>
+							<set name='SerialNumberLastDigit'><get var='char6'/></set>
 
 							<condition var='char6'>
-								<li value='1'><set name='BombSerialNumberIsOdd'>true</set></li>
-								<li value='3'><set name='BombSerialNumberIsOdd'>true</set></li>
-								<li value='5'><set name='BombSerialNumberIsOdd'>true</set></li>
-								<li value='7'><set name='BombSerialNumberIsOdd'>true</set></li>
-								<li value='9'><set name='BombSerialNumberIsOdd'>true</set></li>
-								<li><set name='BombSerialNumberIsOdd'>false</set></li>
+								<li value='1'><set name='SerialNumberIsOdd'>true</set></li>
+								<li value='3'><set name='SerialNumberIsOdd'>true</set></li>
+								<li value='5'><set name='SerialNumberIsOdd'>true</set></li>
+								<li value='7'><set name='SerialNumberIsOdd'>true</set></li>
+								<li value='9'><set name='SerialNumberIsOdd'>true</set></li>
+								<li><set name='SerialNumberIsOdd'>false</set></li>
 							</condition>
 
 							<set var='category'><srai>IsLetterOrDigit <get var='char1'/></srai></set>
 							<condition var='category'>
-								<li value='letter'><set name='BombSerialNumberStartsWithLetter'>true</set></li>
-								<li><set name='BombSerialNumberStartsWithLetter'>false</set></li>
+								<li value='letter'><set name='SerialNumberStartsWithLetter'>true</set></li>
+								<li><set name='SerialNumberStartsWithLetter'>false</set></li>
 							</condition>
 
 							<set var='category'><srai>IsLetterOrDigit <get var='char2'/></srai></set>
 							<condition var='category'>
-								<li value='letter'><set name='BombSerialNumber2Letter'>true</set></li>
-								<li><set name='BombSerialNumber2Letter'>false</set></li>
+								<li value='letter'><set name='SerialNumber2Letter'>true</set></li>
+								<li><set name='SerialNumber2Letter'>false</set></li>
 							</condition>
 
-							<set var='chars'><explode><get name='BombSerialNumber'/></explode></set>
-							<set name='BombSerialNumberHasVowel'>false</set>
+							<set var='chars'><explode><get name='SerialNumber'/></explode></set>
+							<set name='SerialNumberHasVowel'>false</set>
 							<condition var='chars'>
 								<li value='nil'></li>
 								<li>
 									<set var='char'><srai>XFirst <get var='chars'/></srai></set>
 									<set var='chars'><srai>XRest <get var='chars'/></srai></set>
 									<condition var='char'>
-										<li value='A'><set name='BombSerialNumberHasVowel'>true</set><set var='chars'>nil</set></li>
-										<li value='E'><set name='BombSerialNumberHasVowel'>true</set><set var='chars'>nil</set></li>
-										<li value='I'><set name='BombSerialNumberHasVowel'>true</set><set var='chars'>nil</set></li>
-										<li value='O'><set name='BombSerialNumberHasVowel'>true</set><set var='chars'>nil</set></li>
-										<li value='U'><set name='BombSerialNumberHasVowel'>true</set><set var='chars'>nil</set></li>
+										<li value='A'><set name='SerialNumberHasVowel'>true</set><set var='chars'>nil</set></li>
+										<li value='E'><set name='SerialNumberHasVowel'>true</set><set var='chars'>nil</set></li>
+										<li value='I'><set name='SerialNumberHasVowel'>true</set><set var='chars'>nil</set></li>
+										<li value='O'><set name='SerialNumberHasVowel'>true</set><set var='chars'>nil</set></li>
+										<li value='U'><set name='SerialNumberHasVowel'>true</set><set var='chars'>nil</set></li>
 									</condition>
 									<loop/>
 								</li>
@@ -1075,27 +1075,27 @@
 
 		<category>
 			<pattern><set>YesOrNo</set></pattern>
-			<topic>Bomb Edgework Serial *</topic>
+			<topic>Edgework Serial *</topic>
 			<template>
 				<think>
-					<set><name>BombSerialNumber<topicstar/></name><map name='ParseBoolean'><star/></map></set>
+					<set><name>SerialNumber<topicstar/></name><map name='ParseBoolean'><star/></map></set>
 				</think>
 				<srai>EdgeworkQueryCallback serialnumber</srai>
 			</template>
 		</category>
 		<category>
 			<pattern><set>number</set></pattern>
-			<topic>Bomb Edgework Serial LastDigit</topic>
+			<topic>Edgework Serial LastDigit</topic>
 			<template>
 				<think>
-					<set name='BombSerialNumberLastDigit'><star/></set>
-					<condition name='BombSerialNumberLastDigit'>
-						<li value='1'><set name='BombSerialNumberIsOdd'>true</set></li>
-						<li value='3'><set name='BombSerialNumberIsOdd'>true</set></li>
-						<li value='5'><set name='BombSerialNumberIsOdd'>true</set></li>
-						<li value='7'><set name='BombSerialNumberIsOdd'>true</set></li>
-						<li value='9'><set name='BombSerialNumberIsOdd'>true</set></li>
-						<li><set name='BombSerialNumberIsOdd'>false</set></li>
+					<set name='SerialNumberLastDigit'><star/></set>
+					<condition name='SerialNumberLastDigit'>
+						<li value='1'><set name='SerialNumberIsOdd'>true</set></li>
+						<li value='3'><set name='SerialNumberIsOdd'>true</set></li>
+						<li value='5'><set name='SerialNumberIsOdd'>true</set></li>
+						<li value='7'><set name='SerialNumberIsOdd'>true</set></li>
+						<li value='9'><set name='SerialNumberIsOdd'>true</set></li>
+						<li><set name='SerialNumberIsOdd'>false</set></li>
 					</condition>
 				</think>
 				<srai>EdgeworkQueryCallback serialnumber</srai>
@@ -1105,23 +1105,23 @@
 	<category>
 		<pattern>verify serial</pattern>
 		<template>
-			The serial number is <get name='BombSerialNumber'/>.
-			<condition name='BombSerialNumber'>
+			The serial number is <get name='SerialNumber'/>.
+			<condition name='SerialNumber'>
 				<li value='unknown'>
-					<condition name='BombSerialNumberLastDigit'>
+					<condition name='SerialNumberLastDigit'>
 						<li value='unknown'>
-							<condition name='BombSerialNumberIsOdd'>
+							<condition name='SerialNumberIsOdd'>
 								<li value='true'>The serial number is odd.</li>
 								<li value='false'>The serial number is even.</li>
 							</condition>
 						</li>
-						<li>The last digit is <get name='BombSerialNumberLastDigit'/>.</li>
+						<li>The last digit is <get name='SerialNumberLastDigit'/>.</li>
 					</condition>
-					<condition name='BombSerialNumberHasVowel'>
+					<condition name='SerialNumberHasVowel'>
 						<li value='true'>The serial number has a vowel.</li>
 						<li value='false'>The serial number does not have a vowel.</li>
 					</condition>
-					<condition name='BombSerialNumberStartsWithLetter'>
+					<condition name='SerialNumberStartsWithLetter'>
 						<li value='true'>The serial number starts with a letter.</li>
 						<li value='false'>The serial number starts with a digit.</li>
 					</condition>
@@ -1170,7 +1170,7 @@
 		<pattern>EdgeworkQuery UnsolvedCount</pattern>
 		<template><srai>EdgeworkQuery NeedyModuleCount</srai></template>
 	</category>
-	<topic name='Bomb Edgework ModuleCount ^'>
+	<topic name='Edgework ModuleCount ^'>
 		<category>
 			<pattern><set>number</set></pattern>
 			<template>

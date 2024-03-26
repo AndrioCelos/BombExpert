@@ -4,7 +4,7 @@
 		<pattern>reset wire sequence</pattern>
 		<template>
 			<srai>DeselectModule</srai>
-			<think><set name='topic'>Bomb WireSequence</set></think>
+			<think><set name='topic'>WireSequence</set></think>
 			<srai>InitModule</srai>
 			OK
 		</template>
@@ -14,7 +14,7 @@
 		<pattern>resume wire sequence</pattern>
 		<template>
 			<srai>DeselectModule</srai>
-			<think><set name='topic'>Bomb WireSequence</set></think>
+			<think><set name='topic'>WireSequence</set></think>
 			OK
 		</template>
 	</category>
@@ -40,7 +40,7 @@
 		<template><srai>resume wire sequence</srai></template>
 	</category>
 
-	<topic name='Bomb WireSequence'>
+	<topic name='WireSequence'>
 		<category>
 			<pattern>SelectModule</pattern>
 			<template>Ready for Wire Sequence.</template>
@@ -54,9 +54,9 @@
 			<pattern>InitModule</pattern>
 			<template>
 				<think>
-					<set name='BombWireSequenceRedWires'>0</set>
-					<set name='BombWireSequenceBlueWires'>0</set>
-					<set name='BombWireSequenceBlackWires'>0</set>
+					<set name='WireSequenceRedWires'>0</set>
+					<set name='WireSequenceBlueWires'>0</set>
+					<set name='WireSequenceBlackWires'>0</set>
 				</think>
 			</template>
 		</category>
@@ -119,23 +119,23 @@
 				<!-- Calculate which wires to cut. -->
 				<think>
 					<!-- Developing this was fun.  - Andrio -->
-					<set name='BombComplicatedWires'><star/></set>
+					<set name='ComplicatedWires'><star/></set>
 					<set var='input'><star/></set>
 					<set var='toCutCount'>0</set>
 					<set var='toNotCutCount'>0</set>
 					<set var='redCount'>0</set>
-					<set var='redTotalCount'><get name='BombWireSequenceRedWires'/></set>
+					<set var='redTotalCount'><get name='WireSequenceRedWires'/></set>
 					<set var='redToCut'>nil</set>
 					<set var='redToCutCount'>0</set>
 					<set var='redToNotCutCount'>0</set>
 					<set var='blueToCut'>nil</set>
 					<set var='blueCount'>0</set>
-					<set var='blueTotalCount'><get name='BombWireSequenceBlueWires'/></set>
+					<set var='blueTotalCount'><get name='WireSequenceBlueWires'/></set>
 					<set var='blueToCutCount'>0</set>
 					<set var='blueToNotCutCount'>0</set>
 					<set var='blackToCut'>nil</set>
 					<set var='blackCount'>0</set>
-					<set var='blackTotalCount'><get name='BombWireSequenceBlackWires'/></set>
+					<set var='blackTotalCount'><get name='WireSequenceBlackWires'/></set>
 					<set var='blackToCutCount'>0</set>
 					<set var='blackToNotCutCount'>0</set>
 					<set var='colour'>unknown</set>
@@ -223,9 +223,9 @@
 							<srai>SouvenirPut WireSequence XS Red XS <get var='redTotalCount'/></srai>
 							<srai>SouvenirPut WireSequence XS Blue XS <get var='blueTotalCount'/></srai>
 							<srai>SouvenirPut WireSequence XS Black XS <get var='blackTotalCount'/></srai>
-							<set name='BombWireSequenceRedWires'><get var='redTotalCount'/></set>
-							<set name='BombWireSequenceBlueWires'><get var='blueTotalCount'/></set>
-							<set name='BombWireSequenceBlackWires'><get var='blackTotalCount'/></set>
+							<set name='WireSequenceRedWires'><get var='redTotalCount'/></set>
+							<set name='WireSequenceBlueWires'><get var='blueTotalCount'/></set>
+							<set name='WireSequenceBlackWires'><get var='blackTotalCount'/></set>
 						</think>
 						<condition var='toNotCutCount'>
 							<li value='0'>
@@ -328,9 +328,9 @@
 			<pattern>YNCWireColour *</pattern>
 			<template>
 				<think>
-					<set var='total'><map name='successor'><get><name>BombWireSequence<star/>Wires</name></get></map></set>
-					<set><name>BombWireSequence<star/>Wires</name><get var='total'/></set>
-					<set var='allWires'><srai>XAdd <srai>XAdd <get name='BombWireSequenceRedWires'/> XS <get name='BombWireSequenceBlueWires'/></srai> XS <get name='BombWireSequenceBlackWires'/></srai></set>
+					<set var='total'><map name='successor'><get><name>WireSequence<star/>Wires</name></get></map></set>
+					<set><name>WireSequence<star/>Wires</name><get var='total'/></set>
+					<set var='allWires'><srai>XAdd <srai>XAdd <get name='WireSequenceRedWires'/> XS <get name='WireSequenceBlueWires'/></srai> XS <get name='WireSequenceBlackWires'/></srai></set>
 				</think>
 				<srai>YNCRead <srai>Solver WireSequence GetRule <star/> <get var='total'/></srai></srai>
 				<condition var='allWires'>

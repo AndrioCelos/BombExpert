@@ -280,19 +280,19 @@ public class WiresSolver : IModuleSolver {
 							closeTags.Push("</condition>");
 							break;
 						case Conditions.SerialNumberStartsWithLetterCondition<Colour[]> _:
-							builder.AppendLine("<condition name='BombSerialNumberStartsWithLetter'>\n<li value='true'>");
+							builder.AppendLine("<condition name='SerialNumberStartsWithLetter'>\n<li value='true'>");
 							closeTags.Push("</li>\n<li value='unknown'><set var='result'>NeedEdgework SerialNumberStartsWithLetter</set></li>\n</condition>");
 							break;
 						case Conditions.SerialNumberParityCondition<Colour[]> _:
-							builder.AppendLine("<condition name='BombSerialNumberIsOdd'>\n<li value='true'>");
+							builder.AppendLine("<condition name='SerialNumberIsOdd'>\n<li value='true'>");
 							closeTags.Push("</li>\n<li value='unknown'><set var='result'>NeedEdgework SerialNumberIsOdd</set></li>\n</condition>");
 							break;
 						case Conditions.PortCondition<Colour[]> portCondition:
-							builder.AppendLine($"<condition name='BombPort{portCondition.PortType}'>\n<li value='true'>");
+							builder.AppendLine($"<condition name='Port{portCondition.PortType}'>\n<li value='true'>");
 							closeTags.Push($"</li>\n<li value='unknown'><set var='result'>NeedEdgework Port {portCondition.PortType}</set></li>\n</condition>");
 							break;
 						case Conditions.EmptyPortPlateCondition<Colour[]> _:
-							builder.AppendLine("<condition name='BombEmptyPortPlate'>\n<li value='true'>");
+							builder.AppendLine("<condition name='EmptyPortPlate'>\n<li value='true'>");
 							closeTags.Push("</li>\n<li value='unknown'><set var='result'>NeedEdgework EmptyPortPlate</set></li>\n</condition>");
 							break;
 						default:

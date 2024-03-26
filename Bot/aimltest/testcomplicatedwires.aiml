@@ -42,7 +42,7 @@
 		<template>
 			<think>
 				<srai>new bomb</srai>
-				<set name='topic'>Bomb ComplicatedWires</set>
+				<set name='topic'>ComplicatedWires</set>
 			</think>
 			<test name='Complicated Wires Conversation 1' regex='.*How many batteries are there.*'>Red light star then red blue light star then red blue light star then nothing</test>
 		</template>

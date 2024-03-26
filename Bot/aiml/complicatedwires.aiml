@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml>
-	<topic name='Bomb ComplicatedWires'>
+	<topic name='ComplicatedWires'>
 		<category>
 			<pattern>SelectModule</pattern>
 			<template>
@@ -256,21 +256,21 @@
 				<think><set var='instruction'><map><name>ComplicatedWires<star/></name><star index='2'/></map></set></think>
 				<condition var='instruction'>
 					<li value='S'>
-						<condition name='BombSerialNumberIsOdd'>
+						<condition name='SerialNumberIsOdd'>
 							<li value='true'>false</li>
 							<li value='false'>true</li>
 							<li value='unknown'>NeedEdgework SerialNumberIsOdd</li>
 						</condition>
 					</li>
 					<li value='P'>
-						<condition name='BombPortParallel'>
+						<condition name='PortParallel'>
 							<li value='true'>true</li>
 							<li value='false'>false</li>
 							<li value='unknown'>NeedEdgework Port Parallel</li>
 						</condition>
 					</li>
 					<li value='B'>
-						<condition name='BombBatteryCount'>
+						<condition name='BatteryCount'>
 							<li value='0'>false</li>
 							<li value='1'>false</li>
 							<li value='unknown'>NeedEdgework BatteryCount</li>

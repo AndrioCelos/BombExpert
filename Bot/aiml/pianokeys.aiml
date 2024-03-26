@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <aiml>
-	<topic name='Bomb PianoKeys'>
+	<topic name='PianoKeys'>
 		<category>
 			<pattern>SelectModule</pattern>
 			<template>Read the symbols on the display.</template>
@@ -39,7 +39,7 @@
 				<think><set var='match'><srai>XContains Flat XS <get name='PianoKeysSymbols'/></srai></set></think>
 				<condition var='match'>
 					<li value='true'>
-						<condition name='BombSerialNumberIsOdd'>
+						<condition name='SerialNumberIsOdd'>
 							<li value='false'>Final Fantasy: <srai>ReadSong Bb Bb Bb Bb Gb Ab Bb Ab Bb</srai></li>
 							<li value='unknown'><srai>EdgeworkQuery SerialNumberIsOdd XS CheckRule 1</srai></li>
 							<li><srai>CheckRule 2</srai></li>
@@ -56,7 +56,7 @@
 				<think><set var='match'><srai>XOr <srai>XContains CommonTime XS <get name='PianoKeysSymbols'/></srai> XS <srai>XContains Sharp XS <get name='PianoKeysSymbols'/></srai></srai></set></think>
 				<condition var='match'>
 					<li value='true'>
-						<condition name='BombBatteryHolderCount'>
+						<condition name='BatteryHolderCount'>
 							<li value='0'><srai>CheckRule 3</srai></li>
 							<li value='1'><srai>CheckRule 3</srai></li>
 							<li value='unknown'><srai>EdgeworkQuery Batteries XS CheckRule 2</srai></li>
@@ -85,7 +85,7 @@
 				<think><set var='match'><srai>XOr <srai>XContains CutCommonTime XS <get name='PianoKeysSymbols'/></srai> XS <srai>XContains Turn XS <get name='PianoKeysSymbols'/></srai></srai></set></think>
 				<condition var='match'>
 					<li value='true'>
-						<condition name='BombPortStereoRCA'>
+						<condition name='PortStereoRCA'>
 							<li value='true'>Jurassic Park: <srai>ReadSong Bb A Bb F Eb Bb A Bb F Eb</srai></li>
 							<li value='unknown'><srai>EdgeworkQuery Port StereoRCA XS CheckRule 4</srai></li>
 							<li><srai>CheckRule 5</srai></li>
@@ -102,7 +102,7 @@
 				<think><set var='match'><srai>XContains CClef XS <get name='PianoKeysSymbols'/></srai></set></think>
 				<condition var='match'>
 					<li value='true'>
-						<condition name='BombIndicatorLitSND'>
+						<condition name='IndicatorLitSND'>
 							<li value='true'>Super Mario: <srai>ReadSong E E E C E G G</srai></li>
 							<li value='unknown'><srai>EdgeworkQuery IndicatorLit SND XS CheckRule 5</srai></li>
 							<li><srai>CheckRule 6</srai></li>
@@ -123,7 +123,7 @@
 				</srai></set></think>
 				<condition var='match'>
 					<li value='true'>
-						<condition name='BombBatteryHolderCount'>
+						<condition name='BatteryHolderCount'>
 							<li value='0'><srai>CheckRule 7</srai></li>
 							<li value='1'><srai>CheckRule 7</srai></li>
 							<li value='2'><srai>CheckRule 7</srai></li>
@@ -153,11 +153,11 @@
 				<think><set var='match'><srai>XOr <srai>XContains CutCommonTime XS <get name='PianoKeysSymbols'/></srai> XS <srai>XContains Mordent XS <get name='PianoKeysSymbols'/></srai></srai></set></think>
 				<condition var='match'>
 					<li value='true'>
-						<condition name='BombSerialNumber'>
+						<condition name='SerialNumber'>
 							<li value='unknown'><srai>EdgeworkQuery SerialNumber XS CheckRule 8</srai></li>
 							<li>
 								<think>
-									<set var='chars'><explode><get name='BombSerialNumber'/></explode></set>
+									<set var='chars'><explode><get name='SerialNumber'/></explode></set>
 									<set var='match'><srai>XOr
 										<srai>XContains 3 XS <get var='chars'/></srai> XS
 										<srai>XContains 7 XS <get var='chars'/></srai> XS

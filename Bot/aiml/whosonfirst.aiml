@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml>
-	<topic name='Bomb WhosOnFirst ^'>
+	<topic name='WhosOnFirst ^'>
 		<category>
 			<pattern>InitModule</pattern>
 			<template>
 				<think>
-					<set name='topic'>Bomb WhosOnFirst Display</set>
+					<set name='topic'>WhosOnFirst Display</set>
 					<set name='WhosOnFirstStage'>1</set>
 				</think>
 			</template>
@@ -240,7 +240,7 @@
 
 		<category>
 			<pattern>*</pattern>
-			<topic>Bomb WhosOnFirst Display</topic>
+			<topic>WhosOnFirst Display</topic>
 			<template><srai>HandleDisplay <srai>Parse <star/></srai></srai></template>
 		</category>
 
@@ -262,7 +262,7 @@
 					<li value='unknown'>That does not sound like a possible label. Try again.</li>
 					<li>
 						<srai>SouvenirPut Display<get name='WhosOnFirstStage'/> XS <star/></srai>
-						<think><set name='topic'>Bomb WhosOnFirst Button</set></think>
+						<think><set name='topic'>WhosOnFirst Button</set></think>
 						Read the text on the <get var='result'/> button.
 						<condition name='YesNoChallenge' value='true'>Are there exactly 4 letters?</condition>
 					</li>
@@ -272,7 +272,7 @@
 
 		<category>
 			<pattern>*</pattern>
-			<topic>Bomb WhosOnFirst Button</topic>
+			<topic>WhosOnFirst Button</topic>
 			<template><srai>HandleButton <srai>Parse <star/></srai></srai></template>
 		</category>
 
@@ -298,13 +298,13 @@
 							<li value='true'>
 								<think>
 									<set name='WhosOnFirstButtonList'><get var='list'/></set>
-									<set name='topic'>Bomb WhosOnFirst ButtonList</set>
+									<set name='topic'>WhosOnFirst ButtonList</set>
 								</think>
 								Press the first label that exists: <srai>YNCReadButton</srai>
 							</li>
 							<li>
 								<think>
-									<set name='topic'>Bomb WhosOnFirst</set>
+									<set name='topic'>WhosOnFirst</set>
 									<set var='result'>nil</set>
 									<condition var='list'>
 										<li value='nil'></li>
@@ -339,7 +339,7 @@
 							<set name='WhosOnFirstStage'>1</set>
 						</li>
 					</condition>
-					<set name='topic'>Bomb WhosOnFirst Display</set>
+					<set name='topic'>WhosOnFirst Display</set>
 				</think>
 				<sr/>
 			</template>
@@ -482,7 +482,7 @@
 		<category>
 			<pattern>yes</pattern>
 			<that>Is it *</that>
-			<topic>Bomb WhosOnFirst Button</topic>
+			<topic>WhosOnFirst Button</topic>
 			<template><srai>HandleButton <first><get name='WhosOnFirstYNCDisplayList'/></first></srai></template>
 		</category>
 		<category>
@@ -495,7 +495,7 @@
 		</category>
 	</topic>
 
-	<topic name='Bomb WhosOnFirst Button'>
+	<topic name='WhosOnFirst Button'>
 		<category>
 			<pattern>yes</pattern>
 			<that>Are there exactly 4 letters</that>
@@ -611,7 +611,7 @@
 		</category>
 	</topic>
 
-	<topic name='Bomb WhosOnFirst ButtonList'>
+	<topic name='WhosOnFirst ButtonList'>
 		<category>
 			<pattern>YNCReadButton</pattern>
 			<template>
@@ -626,7 +626,7 @@
 		<category>
 			<pattern>yes</pattern>
 			<template>
-				<think><set name='topic'>Bomb WhosOnFirst</set></think>
+				<think><set name='topic'>WhosOnFirst</set></think>
 				<condition name='WhosOnFirstStage'>
 					<li value='1'><think><set name='WhosOnFirstStage'>2</set></think><srai>SelectModule YNC</srai></li>
 					<li value='2'><think><set name='WhosOnFirstStage'>3</set></think><srai>SelectModule YNC</srai></li>

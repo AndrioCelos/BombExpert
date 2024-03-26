@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml>
-	<topic name='Bomb SimonSays'>
+	<topic name='SimonSays'>
 		<category>
 			<pattern>SelectModule</pattern>
 			<template><srai>EdgeworkQuery SerialNumberHasVowel XS SimonCallback</srai></template>
@@ -27,7 +27,7 @@
 				<think>
 					<srai>SouvenirPut Colours XS <star/></srai>
 					<set var='list'>
-						<srai>Solver SimonSays <get name='BombSerialNumberHasVowel'/> <get name='BombStrikeCount'/> <star/></srai>
+						<srai>Solver SimonSays <get name='SerialNumberHasVowel'/> <get name='StrikeCount'/> <star/></srai>
 					</set>
 					<set var='result'><srai>XFirst <get var='list'/></srai></set>
 					<set var='list'><srai>XRest <get var='list'/></srai></set>
@@ -81,7 +81,7 @@
 			<template>
 				<think>
 					<set var='result'>
-						<map><name>SimonSays<star/></name><get name='BombSerialNumberHasVowel'/> <condition name='BombStrikeCount'>
+						<map><name>SimonSays<star/></name><get name='SerialNumberHasVowel'/> <condition name='StrikeCount'>
 								<li value='0'>0</li>
 								<li value='1'>1</li>
 								<li>2</li>

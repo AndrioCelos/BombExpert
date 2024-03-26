@@ -35,7 +35,7 @@
 	<!-- Stores a key-value pair in the current Souvenir store for the module type from the current topic. Returns the value. -->
 	<category>
 		<pattern>SouvenirPut * XS *</pattern>
-		<topic>Bomb * ^</topic>
+		<topic>* ^</topic>
 		<template><srai>SouvenirPut <topicstar/> XS <star/> XS <star index='2'/></srai></template>
 	</category>
 
@@ -69,7 +69,7 @@
 	<!-- Allocates and returns a new Souvenir store index for the module type from the current topic. -->
 	<category>
 		<pattern>NewSouvenirStoreIndex</pattern>
-		<topic>Bomb * ^</topic>
+		<topic>* ^</topic>
 		<template><srai>NewSouvenirStoreIndex <topicstar/></srai></template>
 	</category>
 	<!-- Usage: NewSouvenirStoreIndex [module] -->
@@ -96,7 +96,7 @@
 		<template><set name='SouvenirCurrent'><map name='successor'><get name='SouvenirCurrent'/></map></set></template>
 	</category>
 
-	<topic name='Bomb Souvenir'>
+	<topic name='Souvenir'>
 		<category>
 			<pattern>SelectModule</pattern>
 			<template>Ready for Souvenir.</template>

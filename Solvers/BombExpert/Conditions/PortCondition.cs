@@ -1,6 +1,6 @@
 ﻿using Aiml;
 
-namespace BombExpert.Conditions; 
+namespace BombExpert.Conditions;
 public class PortCondition<TData>(PortType portType, bool exactKey) : Condition<TData>(
 	exactKey ? "Port" + portType : "Port",
 	$"Port {portType}",
@@ -11,7 +11,7 @@ public class PortCondition<TData>(PortType portType, bool exactKey) : Condition<
 	public PortCondition(PortType portType) : this(portType, false) { }
 
 	public override ConditionResult Query(RequestProcess process, TData data)
-		=> bool.TryParse(process.User.GetPredicate("BombPort" + this.PortType), out var result)
+		=> bool.TryParse(process.User.GetPredicate("Port" + this.PortType), out var result)
 			? result
 			: ConditionResult.Unknown("NeedEdgework Port " + this.PortType);
 }

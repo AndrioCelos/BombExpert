@@ -2,7 +2,7 @@
 using Aiml;
 using static BombExpert.Conditions.Operations;
 
-namespace BombExpert.Conditions; 
+namespace BombExpert.Conditions;
 public enum Operations {
 	LessThan,
 	LessThanOrEqualTo,
@@ -21,7 +21,7 @@ public class BatteriesCondition<TData>(Operations operation, int number) : Condi
 	public int Number { get; } = number;
 
 	public override ConditionResult Query(RequestProcess process, TData data) {
-		var s = process.User.GetPredicate("BombBatteryCount").ToLower();
+		var s = process.User.GetPredicate("BatteryCount").ToLower();
 		if (s == "unknown") return ConditionResult.Unknown("NeedEdgework BatteryCount");
 
 		var batteries = int.Parse(s);

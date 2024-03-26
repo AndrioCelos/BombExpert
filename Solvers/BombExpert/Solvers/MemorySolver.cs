@@ -92,8 +92,8 @@ public class MemorySolver : IModuleSolver {
 		public static Instruction Position4 { get; } = new Instruction("3", 4, "press the button in the fourth position", (p, n) => n[4]);
 		public static Instruction PressDigit(int digit) => new("4", digit, $"press the button labelled “{digit}”", (p, n) => digit);
 		public static Instruction PressPositionFromStage(int stage) => new("5", stage, $"press the button in the same position as you pressed in stage {stage}",
-			(p, n) => n[int.Parse(p.User.GetPredicate("BombMemoryPosition" + stage))]);
+			(p, n) => n[int.Parse(p.User.GetPredicate("MemoryPosition" + stage))]);
 		public static Instruction PressLabelFromStage(int stage) => new("6", stage, $"press the button with the same label as you pressed in stage {stage}",
-			(p, n) => int.Parse(p.User.GetPredicate("BombMemoryLabel" + stage)));
+			(p, n) => int.Parse(p.User.GetPredicate("MemoryLabel" + stage)));
 	}
 }

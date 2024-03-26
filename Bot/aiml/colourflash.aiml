@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml>
-	<topic name='Bomb ColourFlash'>
+	<topic name='ColourFlash'>
 		<category>
 			<pattern>SelectModule</pattern>
 			<template>Tell me the colour of the last word.</template>

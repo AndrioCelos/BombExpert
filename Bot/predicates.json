@@ -5,12 +5,12 @@
 	"Fast": "true",
 
 	// Bomb properties: the 'new bomb' category should reset these.
-	"BombStrikeCount": "0",
+	"StrikeCount": "0",
 	"SolveCount": "0",
-	"BombBatteriesKnown": "false",
-	"BombIndicatorsChecked": "nil",
-	"BombIndicatorsKnown": "false",
-	"BombPortsKnown": "false",
+	"BatteriesKnown": "false",
+	"IndicatorsChecked": "nil",
+	"IndicatorsKnown": "false",
+	"PortsKnown": "false",
 
 	// Rule seed carries over between bombs until explicitly reset.
 	"RuleSeed": "1",
@@ -18,5 +18,5 @@
 	"SouvenirCurrent": "0",
 	"SouvenirModules": "nil",
 
-	"topic": "bomb"
+	"topic": "root"
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml>
-	<topic name='Bomb Hexamaze'>
+	<topic name='Hexamaze'>
 		<category>
 			<pattern>InitModule</pattern>
 			<template>Locate the pawn and markings.</template>

@@ -64,17 +64,17 @@ public class ComplicatedWiresSolver : IModuleSolver {
 			case Instruction.Cut: cut = true; break;
 			case Instruction.DoNotCut: cut = false; break;
 			case Instruction.CutIfSerialNumberEven:
-				var predicate = process.User.GetPredicate("BombSerialNumberIsOdd");
+				var predicate = process.User.GetPredicate("SerialNumberIsOdd");
 				if (predicate.Equals("unknown", StringComparison.CurrentCultureIgnoreCase)) return "NeedEdgework SerialNumberIsOdd";
 				cut = !bool.Parse(predicate);
 				break;
 			case Instruction.CutIfParallelPort:
-				predicate = process.User.GetPredicate("BombPortParallel");
+				predicate = process.User.GetPredicate("PortParallel");
 				if (predicate.Equals("unknown", StringComparison.CurrentCultureIgnoreCase)) return "NeedEdgework Port Parallel";
 				cut = bool.Parse(predicate);
 				break;
 			case Instruction.CutIfTwoOrMoreBatteries:
-				predicate = process.User.GetPredicate("BombBatteryCount");
+				predicate = process.User.GetPredicate("BatteryCount");
 				if (predicate.Equals("unknown", StringComparison.CurrentCultureIgnoreCase)) return "NeedEdgework BatteryCount";
 				cut = int.Parse(predicate) >= 2;
 				break;

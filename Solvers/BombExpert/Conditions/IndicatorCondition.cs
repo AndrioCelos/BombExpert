@@ -9,7 +9,7 @@ public class IndicatorCondition<TData>(bool? state, string label) : Condition<TD
 ) {
 	public bool? State { get; } = state;
 	public string Label { get; } = label;
-	public string Predicate => $"BombIndicator{this.State switch { true => "Lit", false => "Unlit", null => "" }}{this.Label}";
+	public string Predicate => $"Indicator{this.State switch { true => "Lit", false => "Unlit", null => "" }}{this.Label}";
 	public string EdgeworkQuery => $"Indicator{this.State switch { true => "Lit", false => "Unlit", null => "" }} {this.Label}";
 
 	public static IndicatorCondition<TData> Lit(string label) => new(true, label);

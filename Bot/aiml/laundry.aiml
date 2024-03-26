@@ -5,7 +5,7 @@
 		<template>
 			<srai>DeselectModule</srai>
 			<think>
-				<set name='topic'>Bomb Laundry</set>
+				<set name='topic'>Laundry</set>
 				<set name='LaundrySolves'>unknown</set>
 			</think>
 			<srai>EdgeworkQuery ModuleCount XS LaundryCallback 1</srai>
@@ -16,7 +16,7 @@
 		<template>
 			<srai>DeselectModule</srai>
 			<think>
-				<set name='topic'>Bomb Laundry</set>
+				<set name='topic'>Laundry</set>
 				<set name='LaundrySolves'><star/></set>
 			</think>
 			<srai>EdgeworkQuery ModuleCount XS LaundryCallback 1</srai>
@@ -48,11 +48,11 @@
 		<template>
 			<think>
 				<condition name='LaundrySolves' value='unknown'><set name='LaundrySolves'><get name='SolveCount'/></set></condition>
-				<set var='itemIndex'><srai>X0Mod <srai>XAdd <srai>UnsolvedModuleCount <get name='LaundrySolves'/></srai> XS <srai>XCount <get name='BombIndicators'/></srai></srai> XS 6</srai></set>
-				<set var='materialIndex'><srai>X0Mod <calculate><get name='BombPortCount'/> + <get name='LaundrySolves'/> - <get name='BombBatteryHolderCount'/></calculate> XS 6</srai></set>
-				<set var='colourIndex'><srai>X0Mod <calculate><get name='BombSerialNumberLastDigit'/> + <get name='BombBatteryCount'/></calculate> XS 6</srai></set>
+				<set var='itemIndex'><srai>X0Mod <srai>XAdd <srai>UnsolvedModuleCount <get name='LaundrySolves'/></srai> XS <srai>XCount <get name='Indicators'/></srai></srai> XS 6</srai></set>
+				<set var='materialIndex'><srai>X0Mod <calculate><get name='PortCount'/> + <get name='LaundrySolves'/> - <get name='BatteryHolderCount'/></calculate> XS 6</srai></set>
+				<set var='colourIndex'><srai>X0Mod <calculate><get name='SerialNumberLastDigit'/> + <get name='BatteryCount'/></calculate> XS 6</srai></set>
 
-				<set var='unicornValues'><get name='BombBatteryCount'/> <get name='BombBatteryHolderCount'/> <get name='BombIndicatorLitBOB'/></set>
+				<set var='unicornValues'><get name='BatteryCount'/> <get name='BatteryHolderCount'/> <get name='IndicatorLitBOB'/></set>
 			</think>
 			<condition var='unicornValues'>
 				<li value='4 2 true'>
@@ -153,7 +153,7 @@
 											<li>
 												<set var='materialLetter'><first><get var='materialLetters'/></first></set>
 												<set var='materialLetters'><rest><get var='materialLetters'/></rest></set>
-												<set var='c'><srai>XContains <get var='materialLetter'/> XS <explode><get name='BombSerialNumber'/></explode></srai></set>
+												<set var='c'><srai>XContains <get var='materialLetter'/> XS <explode><get name='SerialNumber'/></explode></srai></set>
 												<condition var='c' value='true'><set var='specialOverride2'>true</set></condition>
 												<loop/>
 											</li>

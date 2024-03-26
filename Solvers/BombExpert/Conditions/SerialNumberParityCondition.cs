@@ -1,6 +1,6 @@
 ﻿using Aiml;
 
-namespace BombExpert.Conditions; 
+namespace BombExpert.Conditions;
 public class SerialNumberParityCondition<TData>(bool odd) : Condition<TData>(
 	$"SerialNumberIs{(odd ? "Odd" : "Even")}",
 	$"SerialNumberIs{(odd ? "Odd" : "Even")}",
@@ -9,7 +9,7 @@ public class SerialNumberParityCondition<TData>(bool odd) : Condition<TData>(
 	public bool Odd { get; } = odd;
 
 	public override ConditionResult Query(RequestProcess process, TData data)
-		=> bool.TryParse(process.User.GetPredicate("BombSerialNumberIsOdd"), out var result)
+		=> bool.TryParse(process.User.GetPredicate("SerialNumberIsOdd"), out var result)
 			? result == this.Odd
 			: ConditionResult.Unknown("NeedEdgework SerialNumberIsOdd");
 }
