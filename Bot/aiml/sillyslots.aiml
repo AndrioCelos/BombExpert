@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml>
 	<topic name='SillySlots'>
-		<category>
-			<pattern>SelectModule</pattern>
+		<category><pattern>SelectModule</pattern>
 			<template>
 				Read the keyword, then the slots.
 			</template>
 		</category>
 
-		<category>
-			<pattern>InitModule</pattern>
+		<category><pattern>InitModule</pattern>
 			<template>
 				<think>
 					<set name='SillySlotsStage'>1</set>
@@ -17,18 +15,15 @@
 			</template>
 		</category>
 
-		<category>
-			<pattern><set>SillySlotsWord</set> <set>colour</set> <set>SillySlotsSymbol</set> <set>colour</set> <set>SillySlotsSymbol</set> <set>colour</set> <set>SillySlotsSymbol</set></pattern>
+		<category><pattern><set>SillySlotsWord</set> <set>colour</set> <set>SillySlotsSymbol</set> <set>colour</set> <set>SillySlotsSymbol</set> <set>colour</set> <set>SillySlotsSymbol</set></pattern>
 			<template><srai>ProcessInput <star/> XS <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/> <star index='6'/> <star index='7'/></srai></template>
 		</category>
-		<category>
-			<pattern><set>SillySlotsWord</set> <set>colour</set> <set>colour</set> <set>colour</set> <set>SillySlotsSymbol</set> <set>SillySlotsSymbol</set> <set>SillySlotsSymbol</set></pattern>
+		<category><pattern><set>SillySlotsWord</set> <set>colour</set> <set>colour</set> <set>colour</set> <set>SillySlotsSymbol</set> <set>SillySlotsSymbol</set> <set>SillySlotsSymbol</set></pattern>
 			<template><srai>ProcessInput <star/> XS <star index='2'/> <star index='5'/> <star index='3'/> <star index='6'/> <star index='4'/> <star index='7'/></srai></template>
 		</category>
 
 		<!-- Usage: ProcessInput [keyword] XS [colour] [symbol] [colour] [symbol] [colour] [symbol] -->
-		<category>
-			<pattern>ProcessInput <set>SillySlotsWord</set> XS *</pattern>
+		<category><pattern>ProcessInput <set>SillySlotsWord</set> XS *</pattern>
 			<template>
 				<think>
 					<set var='ruleNum'>1</set>
@@ -60,8 +55,7 @@
 			</template>
 		</category>
 
-		<category>
-			<pattern>CheckRule 1 <set>SillySlotsWord</set> XS *</pattern>
+		<category><pattern>CheckRule 1 <set>SillySlotsWord</set> XS *</pattern>
 			<template>
 				<think>
 					<set var='count'>
@@ -74,8 +68,7 @@
 				</condition>
 			</template>
 		</category>
-		<category>
-			<pattern>CheckRule 2 <set>SillySlotsWord</set> XS *</pattern>
+		<category><pattern>CheckRule 2 <set>SillySlotsWord</set> XS *</pattern>
 			<template>
 				<think>
 					<set var='count'>
@@ -102,8 +95,7 @@
 				</condition>
 			</template>
 		</category>
-		<category>
-			<pattern>CheckRule 3 <set>SillySlotsWord</set> XS *</pattern>
+		<category><pattern>CheckRule 3 <set>SillySlotsWord</set> XS *</pattern>
 			<template>
 				<think>
 					<set var='count'>
@@ -117,8 +109,7 @@
 				</condition>
 			</template>
 		</category>
-		<category>
-			<pattern>CheckRule 4 <set>SillySlotsWord</set> XS *</pattern>
+		<category><pattern>CheckRule 4 <set>SillySlotsWord</set> XS *</pattern>
 			<template>
 				<think>
 					<set var='counts'>
@@ -132,8 +123,7 @@
 				</condition>
 			</template>
 		</category>
-		<category>
-			<pattern>CheckRule 5 <set>SillySlotsWord</set> XS *</pattern>
+		<category><pattern>CheckRule 5 <set>SillySlotsWord</set> XS *</pattern>
 			<template>
 				<think>
 					<set var='result'>true</set>
@@ -178,8 +168,7 @@
 				<get var='result'/>
 			</template>
 		</category>
-		<category>
-			<pattern>CheckRule 6 <set>SillySlotsWord</set> XS *</pattern>
+		<category><pattern>CheckRule 6 <set>SillySlotsWord</set> XS *</pattern>
 			<template>
 				<think>
 					<set var='counts'>
@@ -194,8 +183,7 @@
 				</condition>
 			</template>
 		</category>
-		<category>
-			<pattern>CheckRule 7 <set>SillySlotsWord</set> XS *</pattern>
+		<category><pattern>CheckRule 7 <set>SillySlotsWord</set> XS *</pattern>
 			<template>
 				<think>
 					<set var='count'>
@@ -219,8 +207,7 @@
 				</condition>
 			</template>
 		</category>
-		<category>
-			<pattern>CheckRule 8 <set>SillySlotsWord</set> XS *</pattern>
+		<category><pattern>CheckRule 8 <set>SillySlotsWord</set> XS *</pattern>
 			<template>
 				<think>
 					<set var='c1'><srai>XItem 1 XS <star index='2'/></srai></set>
@@ -256,8 +243,7 @@
 				</condition>
 			</template>
 		</category>
-		<category>
-			<pattern>CheckRule 9 <set>SillySlotsWord</set> XS *</pattern>
+		<category><pattern>CheckRule 9 <set>SillySlotsWord</set> XS *</pattern>
 			<template>
 				<think>
 					<set var='c1'><srai>XItem 1 XS <star index='2'/></srai></set>
@@ -293,8 +279,7 @@
 				</condition>
 			</template>
 		</category>
-		<category>
-			<pattern>CheckRule 10 <set>SillySlotsWord</set> XS *</pattern>
+		<category><pattern>CheckRule 10 <set>SillySlotsWord</set> XS *</pattern>
 			<template>
 				<think>
 					<set var='count'>
@@ -326,8 +311,7 @@
 		</category>
 
 		<!-- Usage: CountSlots [colour]|_ [symbol]|_ XS [slots ...] -->
-		<category>
-			<pattern>CountSlots * * XS <set>colour</set> <set>SillySlotsSymbol</set> <set>colour</set> <set>SillySlotsSymbol</set> <set>colour</set> <set>SillySlotsSymbol</set></pattern>
+		<category><pattern>CountSlots * * XS <set>colour</set> <set>SillySlotsSymbol</set> <set>colour</set> <set>SillySlotsSymbol</set> <set>colour</set> <set>SillySlotsSymbol</set></pattern>
 			<template>
 				<think>
 					<set var='m1'><srai>MatchSlot <star index='1'/> <star index='2'/> XS <star index='3'/> <star index='4'/></srai></set>
@@ -337,13 +321,11 @@
 				<srai>XCountMatch true XS <get var='m1'/> <get var='m2'/> <get var='m3'/></srai>
 			</template>
 		</category>
-		<category>
-			<pattern>CountSlots * * XS *</pattern>
+		<category><pattern>CountSlots * * XS *</pattern>
 			<template>0</template>
 		</category>
 
-		<category>
-			<pattern>PositionOfSlot * * XS <set>colour</set> <set>SillySlotsSymbol</set> <set>colour</set> <set>SillySlotsSymbol</set> <set>colour</set> <set>SillySlotsSymbol</set></pattern>
+		<category><pattern>PositionOfSlot * * XS <set>colour</set> <set>SillySlotsSymbol</set> <set>colour</set> <set>SillySlotsSymbol</set> <set>colour</set> <set>SillySlotsSymbol</set></pattern>
 			<template>
 				<think>
 					<set var='m1'><srai>MatchSlot <star index='1'/> <star index='2'/> XS <star index='3'/> <star index='4'/></srai></set>
@@ -367,8 +349,7 @@
 			</template>
 		</category>
 
-		<category>
-			<pattern>MatchSlot * * XS <set>colour</set> <set>SillySlotsSymbol</set></pattern>
+		<category><pattern>MatchSlot * * XS <set>colour</set> <set>SillySlotsSymbol</set></pattern>
 			<template>
 				<think>
 					<set var='c'><star index='1'/></set>
@@ -388,8 +369,7 @@
 		</category>
 	</topic>
 
-	<category>
-		<pattern>SouvenirInput SillySlots XS <set>number</set></pattern>
+	<category><pattern>SouvenirInput SillySlots XS <set>number</set></pattern>
 		<template>
 			Stage 1 was <srai>SillySlotsFormat <srai>SouvenirGet SillySlots XS <star/> XS 1</srai></srai>.
 			Stage 2 was <srai>SillySlotsFormat <srai>SouvenirGet SillySlots XS <star/> XS 2</srai></srai>.
@@ -397,20 +377,17 @@
 			Stage 4 was <srai>SillySlotsFormat <srai>SouvenirGet SillySlots XS <star/> XS 4</srai></srai>.
 		</template>
 	</category>
-	<category>
-		<pattern>SouvenirInput SillySlots XS <set>number</set> XS stage <set>number</set></pattern>
+	<category><pattern>SouvenirInput SillySlots XS <set>number</set> XS stage <set>number</set></pattern>
 		<template><srai>SillySlotsFormat <srai>SouvenirGet SillySlots XS <star/> XS <star index='2'/></srai></srai></template>
 	</category>
-	<category>
-		<pattern>SillySlotsFormat <set>colour</set> <set>SillySlotsSymbol</set> <set>colour</set> <set>SillySlotsSymbol</set> <set>colour</set> <set>SillySlotsSymbol</set></pattern>
+	<category><pattern>SillySlotsFormat <set>colour</set> <set>SillySlotsSymbol</set> <set>colour</set> <set>SillySlotsSymbol</set> <set>colour</set> <set>SillySlotsSymbol</set></pattern>
 		<template>
 			<star index='1'/> <star index='2'/>,
 			<star index='3'/> <star index='4'/>,
 			<star index='5'/> <star index='6'/>
 		</template>
 	</category>
-	<category>
-		<pattern>SillySlotsFormat unknown</pattern>
+	<category><pattern>SillySlotsFormat unknown</pattern>
 		<template>unknown</template>
 	</category>
 </aiml>

@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml>
 	<topic name='Hexamaze'>
-		<category>
-			<pattern>InitModule</pattern>
+		<category><pattern>InitModule</pattern>
 			<template>Locate the pawn and markings.</template>
 		</category>
 
 		<!-- Treat 'next maze' in maze modules other than vanilla Maze as referring to this module instead. -->
-		<category>
-			<pattern>next maze</pattern>
+		<category><pattern>next maze</pattern>
 			<template>next instance</template>
 		</category>
-		<category>
-			<pattern>new maze</pattern>
+		<category><pattern>new maze</pattern>
 			<template>next instance</template>
 		</category>
 
-		<category>
-			<pattern>*</pattern>
+		<category><pattern>*</pattern>
 			<template>
 				<think>
 					<set var='words'><star/></set>
@@ -161,8 +157,7 @@
 		</category>
 	</topic>
 
-	<category>
-		<pattern>SouvenirInput Hexamaze XS <set>number</set></pattern>
+	<category><pattern>SouvenirInput Hexamaze XS <set>number</set></pattern>
 		<template><srai>SouvenirGet Hexamaze XS <star/> XS PawnColour</srai></template>
 	</category>
 </aiml>

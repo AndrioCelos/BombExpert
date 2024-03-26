@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml>
-	<category>
-		<pattern>defuse laundry</pattern>
+	<category><pattern>defuse laundry</pattern>
 		<template>
 			<srai>DeselectModule</srai>
 			<think>
@@ -11,8 +10,7 @@
 			<srai>EdgeworkQuery ModuleCount XS LaundryCallback 1</srai>
 		</template>
 	</category>
-	<category>
-		<pattern>defuse laundry for <set>number</set> ^</pattern>
+	<category><pattern>defuse laundry for <set>number</set> ^</pattern>
 		<template>
 			<srai>DeselectModule</srai>
 			<think>
@@ -22,29 +20,23 @@
 			<srai>EdgeworkQuery ModuleCount XS LaundryCallback 1</srai>
 		</template>
 	</category>
-	<category>
-		<pattern>LaundryCallback 1</pattern>
+	<category><pattern>LaundryCallback 1</pattern>
 		<template><srai>EdgeworkQuery NeedyModuleCount XS LaundryCallback 2</srai></template>
 	</category>
-	<category>
-		<pattern>LaundryCallback 2</pattern>
+	<category><pattern>LaundryCallback 2</pattern>
 		<template><srai>EdgeworkQuery Batteries XS LaundryCallback 3</srai></template>
 	</category>
-	<category>
-		<pattern>LaundryCallback 3</pattern>
+	<category><pattern>LaundryCallback 3</pattern>
 		<template><srai>EdgeworkQuery Indicators XS LaundryCallback 4</srai></template>
 	</category>
-	<category>
-		<pattern>LaundryCallback 4</pattern>
+	<category><pattern>LaundryCallback 4</pattern>
 		<template><srai>EdgeworkQuery PortPlates XS LaundryCallback 5</srai></template>
 	</category>
-	<category>
-		<pattern>LaundryCallback 5</pattern>
+	<category><pattern>LaundryCallback 5</pattern>
 		<template><srai>EdgeworkQuery SerialNumber XS LaundryCallback 6</srai></template>
 	</category>
 
-	<category>
-		<pattern>LaundryCallback 6</pattern>
+	<category><pattern>LaundryCallback 6</pattern>
 		<template>
 			<think>
 				<condition name='LaundrySolves' value='unknown'><set name='LaundrySolves'><get name='SolveCount'/></set></condition>

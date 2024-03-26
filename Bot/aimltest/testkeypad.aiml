@@ -1,7 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <aiml version='2.1'>
-	<category>
-		<pattern>XTest KeypadTests 1</pattern>
+	<category><pattern>XTest KeypadTests 1</pattern>
 		<template>
 			<think>
 				<set name='SraixUnavailable'>true</set>
@@ -29,8 +28,7 @@
 		</template>
 	</category>
 
-	<category>
-		<pattern>XTest Keypad Conversation 1</pattern>
+	<category><pattern>XTest Keypad Conversation 1</pattern>
 		<template>
 			<think>
 				<srai>new bomb</srai>
@@ -39,32 +37,25 @@
 			<test name='Keypad Conversation 1' expected='OK. Describe the second glyph.'>A backward C with a dot</test>
 		</template>
 	</category>
-	<category>
-		<pattern>XTest Keypad Conversation 2</pattern>
+	<category><pattern>XTest Keypad Conversation 2</pattern>
 		<template><test name='Keypad Conversation 2' expected='OK. Describe the third glyph.'>A backward E with dots</test></template>
 	</category>
-	<category>
-		<pattern>XTest Keypad Conversation 3</pattern>
+	<category><pattern>XTest Keypad Conversation 3</pattern>
 		<template><test name='Keypad Conversation 3' expected='OK. Describe the last glyph.'>A loop the loop</test></template>
 	</category>
-	<category>
-		<pattern>XTest Keypad Conversation 4</pattern>
+	<category><pattern>XTest Keypad Conversation 4</pattern>
 		<template><test name='Keypad Conversation 4' expected='&lt;oob&gt;SetGrammar keypadOK&lt;/oob&gt; Press the backward E. Then say OK.'>An upside-down question mark</test></template>
 	</category>
-	<category>
-		<pattern>XTest Keypad Conversation 5</pattern>
+	<category><pattern>XTest Keypad Conversation 5</pattern>
 		<template><test name='Keypad Conversation 5' expected='Press the backward C. Then say OK.'>OK</test></template>
 	</category>
-	<category>
-		<pattern>XTest Keypad Conversation 6</pattern>
+	<category><pattern>XTest Keypad Conversation 6</pattern>
 		<template><test name='Keypad Conversation 6' expected='Press the cursive loop. Then say OK.'>OK</test></template>
 	</category>
-	<category>
-		<pattern>XTest Keypad Conversation 7</pattern>
+	<category><pattern>XTest Keypad Conversation 7</pattern>
 		<template><test name='Keypad Conversation 7' expected='Press the upside-down question mark. Then say OK.'>OK</test></template>
 	</category>
-	<category>
-		<pattern>XTest Keypad Conversation 8</pattern>
+	<category><pattern>XTest Keypad Conversation 8</pattern>
 		<template><test name='Keypad Conversation 8' expected='The keypad should be finished now.'>OK</test></template>
 	</category>
 </aiml>

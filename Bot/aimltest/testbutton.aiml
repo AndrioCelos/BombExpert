@@ -1,7 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <aiml version='2.1'>
-	<category>
-		<pattern>XTest ButtonTests 1</pattern>
+	<category><pattern>XTest ButtonTests 1</pattern>
 		<template>
 			<think>
 				<set name='SraixUnavailable'>true</set>
@@ -33,8 +32,7 @@
 			Keep holding it, and tell me what colour light appears.
 		</template>
 	</category>
-	<category>
-		<pattern>XTest ButtonTests 2</pattern>
+	<category><pattern>XTest ButtonTests 2</pattern>
 		<template>
 			<think>
 				<test name='Button Holding 1' expected='ReleaseOnTimerDigit 4'>Solver Button blue</test>
@@ -44,8 +42,7 @@
 			</think>
 		</template>
 	</category>
-	<category>
-		<pattern>XTest ButtonTests Conversation 1</pattern>
+	<category><pattern>XTest ButtonTests Conversation 1</pattern>
 		<template>
 			<think>
 				<srai>new bomb</srai>
@@ -57,8 +54,7 @@
 			<test name='Button Conversation 3' regex='.*hold the button.*'>Yes</test>
 		</template>
 	</category>
-	<category>
-		<pattern>XTest ButtonTests Conversation 2</pattern>
+	<category><pattern>XTest ButtonTests Conversation 2</pattern>
 		<template><test name='Button Conversation 4' regex='.*When any digit on the timer is a 4, release the button.*'>Blue</test></template>
 	</category>
 </aiml>

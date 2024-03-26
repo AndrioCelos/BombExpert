@@ -1,7 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <aiml version='2.1'>
-	<category>
-		<pattern>XTest UtilsTests 1</pattern>
+	<category><pattern>XTest UtilsTests 1</pattern>
 		<template>
 			<think>
 				<test name='Item 1' expected='alfa'>XItem 1 XS alfa bravo charlie</test>

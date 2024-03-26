@@ -244,8 +244,7 @@ public class ButtonSolver : IModuleSolver {
 		using var writer = new StreamWriter(Path.Combine(path, "aiml", $"button{ruleSeed}.aiml"));
 		writer.Write("<?xml version='1.0' encoding='UTF-8'?>\n" +
 			"<aiml version='2.0'>\n" +
-			"<category>\n" +
-			$"<pattern>SolverFallback Button {ruleSeed} <set>BombColours</set> <set>ButtonLabels</set></pattern>\n" +
+			$"<category><pattern>SolverFallback Button {ruleSeed} <set>BombColours</set> <set>ButtonLabels</set></pattern>\n" +
 			"<template>\n" +
 			"<think>\n" +
 			"<set var='colour'><star/></set>\n" +
@@ -318,8 +317,7 @@ public class ButtonSolver : IModuleSolver {
 		writer.WriteLine("</template>");
 		writer.WriteLine("</category>");
 
-		writer.WriteLine("<category>");
-		writer.WriteLine($"<pattern>SolverFallback Button {ruleSeed} <set>BombColours</set></pattern>");
+		writer.WriteLine($"<category><pattern>SolverFallback Button {ruleSeed} <set>BombColours</set></pattern>");
 		writer.WriteLine("<template>");
 		writer.WriteLine("<think><set var='colour'><star/></set></think>");
 		writer.WriteLine("<condition var='colour'>");

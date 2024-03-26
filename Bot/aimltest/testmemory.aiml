@@ -1,7 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <aiml version='2.1'>
-	<category>
-		<pattern>XTest Memory 1</pattern>
+	<category><pattern>XTest Memory 1</pattern>
 		<template>
 			<think>
 				<srai>defuse memory</srai>

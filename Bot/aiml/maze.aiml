@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml>
 	<topic name='Maze ^'>
-		<category>
-			<pattern>SelectModule</pattern>
+		<category><pattern>SelectModule</pattern>
 			<template>Locate a green circle.</template>
 		</category>
 
-		<category>
-			<pattern><set>LetterOrNato</set> <set>number</set></pattern>
+		<category><pattern><set>LetterOrNato</set> <set>number</set></pattern>
 			<template><srai><map name='LetterToNumber'><star/></map> <star index='2'/></srai></template>
 		</category>
 
-		<category>
-			<pattern><set>number</set> <set>number</set></pattern>
+		<category><pattern><set>number</set> <set>number</set></pattern>
 			<template>
 				<think>
 					<set name='MazeCircleX'><star index='1'/></set>
@@ -22,8 +19,7 @@
 				Locate the white dot. <condition name='YesNoChallenge' value='true'><srai>YNCGetGridSpace</srai></condition>
 			</template>
 		</category>
-		<category>
-			<pattern><set>number</set> <set>number</set></pattern>
+		<category><pattern><set>number</set> <set>number</set></pattern>
 			<topic>Maze Start</topic>
 			<template>
 				<think>
@@ -34,8 +30,7 @@
 				Locate the red triangle. <condition name='YesNoChallenge' value='true'><srai>YNCGetGridSpace</srai></condition>
 			</template>
 		</category>
-		<category>
-			<pattern><set>number</set> <set>number</set></pattern>
+		<category><pattern><set>number</set> <set>number</set></pattern>
 			<topic>Maze Goal</topic>
 			<template>
 				<think>
@@ -99,153 +94,124 @@
 			</template>
 		</category>
 
-		<category>
-			<pattern>SelectModule YNC</pattern>
+		<category><pattern>SelectModule YNC</pattern>
 			<template>Is there a circle in the top row?</template>
 		</category>
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Is there a circle in the top row</that>
 			<template>Is it on the left half?</template>
 		</category>
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Is it on the left half</that>
 			<template>Is it in the corner?</template>
 		</category>
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Is it in the corner</that>
 			<template><srai>1 1</srai></template>
 		</category>
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Is it in the corner</that>
 			<template><srai>2 1</srai></template>
 		</category>
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Is it on the left half</that>
 			<template>Is it in the fifth column?</template>
 		</category>
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Is it in the fifth column</that>
 			<template><srai>5 1</srai></template>
 		</category>
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Is it in the fifth column</that>
 			<template><srai>4 1</srai></template>
 		</category>
 
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Is there a circle in the top row</that>
 			<template>Is there a circle in the leftmost column?</template>
 		</category>
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Is there a circle in the leftmost column</that>
 			<template>Is it in the top half?</template>
 		</category>
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Is it in the top half</that>
 			<template><srai>1 2</srai></template>
 		</category>
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Is it in the top half</that>
 			<template><srai>1 5</srai></template>
 		</category>
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Is there a circle in the leftmost column</that>
 			<template>Is there a circle in the rightmost column?</template>
 		</category>
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Is there a circle in the rightmost column</that>
 			<template><srai>6 4</srai></template>
 		</category>
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Is there a circle in the rightmost column</that>
 			<template>Is there a circle in the bottom row?</template>
 		</category>
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Is there a circle in the bottom row</that>
 			<template><srai>4 6</srai></template>
 		</category>
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Is there a circle in the bottom row</that>
 			<template><srai>5 2</srai></template>
 		</category>
 
-		<category>
-			<pattern>YNCGetGridSpace</pattern>
+		<category><pattern>YNCGetGridSpace</pattern>
 			<template>Is it in the right half?</template>
 		</category>
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Is it in the right half</that>
 			<template>Is it in column 4?</template>
 		</category>
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Is it in the right half</that>
 			<template>Is it in column 1?</template>
 		</category>
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Is it in the bottom half</that>
 			<template>Is it in row 4?</template>
 		</category>
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Is it in the bottom half</that>
 			<template>Is it in row 1?</template>
 		</category>
 
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Is it in * <set>number</set></that>
 			<template><srai>YNC<thatstar/> <thatstar index='2'/></srai></template>
 		</category>
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Is it in * 2</that>
 			<template><srai>YNC<thatstar/> 3</srai></template>
 		</category>
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Is it in * 5</that>
 			<template><srai>YNC<thatstar/> 6</srai></template>
 		</category>
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Is it in * <set>number</set></that>
 			<template>Is it in <thatstar/> <map name='successor'><thatstar index='2'/></map>?</template>
 		</category>
 
-		<category>
-			<pattern>YNCColumn *</pattern>
+		<category><pattern>YNCColumn *</pattern>
 			<template>
 				<think><set name='MazeColumn'><star/></set></think>
 				Is it in the bottom half?
 			</template>
 		</category>
-		<category>
-			<pattern>YNCRow *</pattern>
+		<category><pattern>YNCRow *</pattern>
 			<template><srai><get name='MazeColumn'/> <star/></srai></template>
 		</category>
 	</topic>
 
-	<category>
-		<pattern>SouvenirInput Maze XS <set>number</set></pattern>
+	<category><pattern>SouvenirInput Maze XS <set>number</set></pattern>
 		<template><map name='NatoEncode'><map name='NumberToLetter'><srai>SouvenirGet Maze XS <star/> XS StartX</srai></map></map> <srai>SouvenirGet Maze XS <star/> XS StartY</srai></template>
 	</category>
 </aiml>

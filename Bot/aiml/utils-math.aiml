@@ -2,8 +2,7 @@
 <aiml version='2.1'>
 	<!-- Usage: XAdd [a] XS [b] -->
 	<!-- Returns a + b. a and b must both be integers. -->
-	<category>
-		<pattern>XAdd * XS *</pattern>
+	<category><pattern>XAdd * XS *</pattern>
 		<template>
 			<condition name='CanCalculate'>
 				<li value='true'><calculate><denormalize><star/></denormalize> + <denormalize><star index='2'/></denormalize></calculate></li>
@@ -12,8 +11,7 @@
 			</condition>
 		</template>
 	</category>
-	<category>
-		<pattern>XAddInner <set>number</set> XS <set>number</set></pattern>
+	<category><pattern>XAddInner <set>number</set> XS <set>number</set></pattern>
 		<template>
 			<think>
 				<set var='a'><star/></set>
@@ -30,23 +28,19 @@
 			<get var='a'/>
 		</template>
 	</category>
-	<category>
-		<pattern>XAddInner dash <set>number</set> XS <set>number</set></pattern>
+	<category><pattern>XAddInner dash <set>number</set> XS <set>number</set></pattern>
 		<template><srai>XSubtractInner <star index='2'/> XS <star/></srai></template>
 	</category>
-	<category>
-		<pattern>XAddInner <set>number</set> XS dash <set>number</set></pattern>
+	<category><pattern>XAddInner <set>number</set> XS dash <set>number</set></pattern>
 		<template><srai>XSubtractInner <star/> XS <star index='2'/></srai></template>
 	</category>
-	<category>
-		<pattern>XAddInner dash <set>number</set> XS dash <set>number</set></pattern>
+	<category><pattern>XAddInner dash <set>number</set> XS dash <set>number</set></pattern>
 		<template>-<srai>XAddInner <star/> XS <star index='2'/></srai></template>
 	</category>
 
 	<!-- Usage: XSubtract [a] XS [b] -->
 	<!-- Returns a - b. a and b must both be integers. -->
-	<category>
-		<pattern>XSubtract * XS *</pattern>
+	<category><pattern>XSubtract * XS *</pattern>
 		<template>
 			<condition name='CanCalculate'>
 				<li value='true'><calculate><denormalize><star/></denormalize> - <denormalize><star index='2'/></denormalize></calculate></li>
@@ -55,8 +49,7 @@
 			</condition>
 		</template>
 	</category>
-	<category>
-		<pattern>XSubtractInner <set>number</set> XS <set>number</set></pattern>
+	<category><pattern>XSubtractInner <set>number</set> XS <set>number</set></pattern>
 		<template>
 			<think>
 				<set var='a'><star/></set>
@@ -73,23 +66,19 @@
 			<get var='a'/>
 		</template>
 	</category>
-	<category>
-		<pattern>XSubtractInner dash <set>number</set> XS <set>number</set></pattern>
+	<category><pattern>XSubtractInner dash <set>number</set> XS <set>number</set></pattern>
 		<template>-<srai>XAddInner <star/> XS <star index='2'/></srai></template>
 	</category>
-	<category>
-		<pattern>XSubtractInner <set>number</set> XS dash <set>number</set></pattern>
+	<category><pattern>XSubtractInner <set>number</set> XS dash <set>number</set></pattern>
 		<template><srai>XAddInner <star/> XS <star index='2'/></srai></template>
 	</category>
-	<category>
-		<pattern>XSubtractInner dash <set>number</set> XS dash <set>number</set></pattern>
+	<category><pattern>XSubtractInner dash <set>number</set> XS dash <set>number</set></pattern>
 		<template><srai>XSubtractInner <star index='2'/> XS <star/></srai></template>
 	</category>
 
 	<!-- Usage: XMultiply [a] XS [b] -->
 	<!-- Returns a * b. a and b must both be integers. -->
-	<category>
-		<pattern>XMultiply * XS *</pattern>
+	<category><pattern>XMultiply * XS *</pattern>
 		<template>
 			<condition name='CanCalculate'>
 				<li value='true'><calculate><denormalize><star/></denormalize> * <denormalize><star index='2'/></denormalize></calculate></li>
@@ -98,8 +87,7 @@
 			</condition>
 		</template>
 	</category>
-	<category>
-		<pattern>XMultiplyInner <set>number</set> XS <set>number</set></pattern>
+	<category><pattern>XMultiplyInner <set>number</set> XS <set>number</set></pattern>
 		<template>
 			<think>
 				<set var='a'><star/></set>
@@ -117,23 +105,19 @@
 			<get var='product'/>
 		</template>
 	</category>
-	<category>
-		<pattern>XMultiplyInner dash <set>number</set> XS <set>number</set></pattern>
+	<category><pattern>XMultiplyInner dash <set>number</set> XS <set>number</set></pattern>
 		<template>-<srai>XMultiplyInner <star/> XS <star index='2'/></srai></template>
 	</category>
-	<category>
-		<pattern>XMultiplyInner <set>number</set> XS dash <set>number</set></pattern>
+	<category><pattern>XMultiplyInner <set>number</set> XS dash <set>number</set></pattern>
 		<template>-<srai>XMultiplyInner <star/> XS <star index='2'/></srai></template>
 	</category>
-	<category>
-		<pattern>XMultiplyInner dash <set>number</set> XS dash <set>number</set></pattern>
+	<category><pattern>XMultiplyInner dash <set>number</set> XS dash <set>number</set></pattern>
 		<template><srai>XMultiplyInner <star/> XS <star index='2'/></srai></template>
 	</category>
 
 	<!-- Usage: X0Mod [a] XS [b] -->
 	<!-- Returns a mod b. The result is always between 0 and (b - 1). -->
-	<category>
-		<pattern>X0Mod * XS *</pattern>
+	<category><pattern>X0Mod * XS *</pattern>
 		<template>
 			<think>
 				<set var='c'><calculate><star/> % <star index='2'/></calculate></set>
@@ -148,8 +132,7 @@
 
 	<!-- Usage: X1Mod [a] XS [b] -->
 	<!-- Returns a 1mod b using one-based modulus. The result is always between 1 and b. -->
-	<category>
-		<pattern>X1Mod * XS *</pattern>
+	<category><pattern>X1Mod * XS *</pattern>
 		<template>
 			<think>
 				<set var='c'><calculate><star/> % <star index='2'/></calculate></set>
@@ -167,32 +150,26 @@
 		</template>
 	</category>
 
-	<category>
-		<pattern>IsLetterOrDigit <set>number</set></pattern>
+	<category><pattern>IsLetterOrDigit <set>number</set></pattern>
 		<template>digit</template>
 	</category>
-	<category>
-		<pattern>IsLetterOrDigit *</pattern>
+	<category><pattern>IsLetterOrDigit *</pattern>
 		<template>letter</template>
 	</category>
 
-	<category>
-		<pattern>IsNumber *</pattern>
+	<category><pattern>IsNumber *</pattern>
 		<template><srai>XIsNumber <star/></srai></template>
 	</category>
-	<category>
-		<pattern>XIsNumber <set>number</set></pattern>
+	<category><pattern>XIsNumber <set>number</set></pattern>
 		<template>true</template>
 	</category>
-	<category>
-		<pattern>XIsNumber *</pattern>
+	<category><pattern>XIsNumber *</pattern>
 		<template>false</template>
 	</category>
 
 		<!-- Usage: XCompareDigits [a] XS [b] -->
 	<!-- Returns -1 if a < b, 0 if a = b, 1 if a > b. O(max(a, b)). a and b must be non-negative. -->
-	<category>
-		<pattern>XCompareDigits * XS *</pattern>
+	<category><pattern>XCompareDigits * XS *</pattern>
 		<template>
 			<think>
 				<set var='a'><star/></set>
@@ -219,8 +196,7 @@
 
 	<!-- Usage: XEq [a] XS [b] -->
 	<!-- Returns true if both arguments are equal; false otherwise. -->
-	<category>
-		<pattern>XEq ^ XS ^</pattern>
+	<category><pattern>XEq ^ XS ^</pattern>
 		<template>
 			<think><set var='a'><star/></set></think>
 			<condition var='a'>
@@ -232,8 +208,7 @@
 
 	<!-- Usage: XGt [a] XS [b] -->
 	<!-- Returns true if a > b; false otherwise. -->
-	<category>
-		<pattern>XGt <set>number</set> XS <set>number</set></pattern>
+	<category><pattern>XGt <set>number</set> XS <set>number</set></pattern>
 		<template>
 			<think>
 				<set var='0'>0</set>
@@ -253,21 +228,17 @@
 			</condition>
 		</template>
 	</category>
-	<category>
-		<pattern>XGt <set>number</set> XS dash <set>number</set></pattern>
+	<category><pattern>XGt <set>number</set> XS dash <set>number</set></pattern>
 		<template>true</template>
 	</category>
-	<category>
-		<pattern>XGt dash <set>number</set> XS <set>number</set></pattern>
+	<category><pattern>XGt dash <set>number</set> XS <set>number</set></pattern>
 		<template>false</template>
 	</category>
-	<category>
-		<pattern>XGt dash <set>number</set> XS dash <set>number</set></pattern>
+	<category><pattern>XGt dash <set>number</set> XS dash <set>number</set></pattern>
 		<template><srai>XGt <star index='2'/> XS <star/></srai></template>
 	</category>
 
-	<category>
-		<pattern>CheckCalculate *</pattern>
+	<category><pattern>CheckCalculate *</pattern>
 		<template>
 			<think>
 				<set var='test'><calculate>1 + 2</calculate></set>

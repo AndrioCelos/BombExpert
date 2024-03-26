@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml>
-	<category>
-		<pattern>MonsplodeTradingCardsEdgeworkCheck</pattern>
+	<category><pattern>MonsplodeTradingCardsEdgeworkCheck</pattern>
 		<template>
 			<think>
 				<set name='topic'>MonsplodeTradingCards</set>
@@ -24,8 +23,7 @@
 	</category>
 
 	<topic name='MonsplodeTradingCards'>
-		<category>
-			<pattern>InitModule</pattern>
+		<category><pattern>InitModule</pattern>
 			<template>
 				<think>
 					<set name='MonsplodeTradingCards1'>unknown</set>
@@ -38,17 +36,14 @@
 		</category>
 
 		<!-- Card format: [Monsplode name] [print letter] [print number] [rarity] [foil] [bent corners] -->
-		<category>
-			<pattern><set>MonsplodeTradingCard</set> <set>NATO</set> <set>number</set> <set>MonsplodeTradingCardRarity</set> <set>number</set></pattern>
+		<category><pattern><set>MonsplodeTradingCard</set> <set>NATO</set> <set>number</set> <set>MonsplodeTradingCardRarity</set> <set>number</set></pattern>
 			<template><srai>HandleCard <map name='MonsplodeTradingCardParse'><star/></map> <map name='NATO'><star index='2'/></map> <star index='3'/> <map name='MonsplodeTradingCardParse'><star index='4'/></map> false <star index='5'/></srai></template>
 		</category>
-		<category>
-			<pattern><set>MonsplodeTradingCard</set> <set>NATO</set> <set>number</set> <set>MonsplodeTradingCardRarity</set> foil <set>number</set></pattern>
+		<category><pattern><set>MonsplodeTradingCard</set> <set>NATO</set> <set>number</set> <set>MonsplodeTradingCardRarity</set> foil <set>number</set></pattern>
 			<template><srai>HandleCard <map name='MonsplodeTradingCardParse'><star/></map> <map name='NATO'><star index='2'/></map> <star index='3'/> <map name='MonsplodeTradingCardParse'><star index='4'/></map> true <star index='5'/></srai></template>
 		</category>
 
-		<category>
-			<pattern>HandleCard *</pattern>
+		<category><pattern>HandleCard *</pattern>
 			<template>
 				<think>
 					<set var='index'><get name='MonsplodeTradingCardsAsking'/></set>
@@ -94,8 +89,7 @@
 			</template>
 		</category>
 
-		<category>
-			<pattern>CalculateLowest</pattern>
+		<category><pattern>CalculateLowest</pattern>
 			<template>
 				<think>
 					<set name='MonsplodeTradingCardsLowestValue'>100</set>
@@ -118,8 +112,7 @@
 			</template>
 		</category>
 
-		<category>
-			<pattern>DescribeLowest</pattern>
+		<category><pattern>DescribeLowest</pattern>
 			<template>
 				<think>
 					<set var='card'><get><name>MonsplodeTradingCards<get name='MonsplodeTradingCardsLowest'/></name></get></set>
@@ -130,8 +123,7 @@
  			</template>
 		</category>
 
-		<category>
-			<pattern>CalculateValue * * * * * *</pattern>
+		<category><pattern>CalculateValue * * * * * *</pattern>
 			<template>
 				<think>
 					<set var='printVersion'><star index='2'/><star index='3'/></set>
@@ -217,8 +209,7 @@
 			</template>
 		</category>
 
-		<category>
-			<pattern>GetSerialCategory</pattern>
+		<category><pattern>GetSerialCategory</pattern>
 			<template>
 				<srai>IsLetterOrDigit <srai>XItem 1 XS <explode><get name='Serial'/></explode></srai></srai>
 				<srai>IsLetterOrDigit <srai>XItem 1 XS <explode><get name='Serial'/></explode></srai></srai>

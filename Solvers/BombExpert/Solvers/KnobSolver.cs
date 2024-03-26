@@ -154,8 +154,7 @@ public class KnobSolver : IModuleSolver {
 		writer.WriteLine("<?xml version='1.0' encoding='UTF-8'?>");
 		writer.WriteLine("<aiml version='2.0'>");
 
-		writer.WriteLine("<category>");
-		writer.WriteLine($"<pattern>SolverFallback Knob {ruleSeed} GetPattern</pattern>");
+		writer.WriteLine($"<category><pattern>SolverFallback Knob {ruleSeed} GetPattern</pattern>");
 
 		var countPattern = GetCountPattern(rules);
 		if (countPattern is not null) {
@@ -168,8 +167,7 @@ public class KnobSolver : IModuleSolver {
 				var counts = string.Join(" ", countPattern.Select(s => $"{s}:{patterns.First(e => e.name.Equals(s, StringComparison.InvariantCultureIgnoreCase)).indices.Count(i => rule.Lights[i])}"));
 
 				if (used.Add(counts)) {
-					writer.WriteLine("<category>");
-					writer.WriteLine($"<pattern>SolverFallback Knob {ruleSeed} Counts {counts}</pattern>");
+					writer.WriteLine($"<category><pattern>SolverFallback Knob {ruleSeed} Counts {counts}</pattern>");
 					writer.WriteLine($"<template>{rule.Position}</template>");
 					writer.WriteLine("</category>");
 				}
@@ -185,16 +183,14 @@ public class KnobSolver : IModuleSolver {
 				var lights = string.Join(" ", indices.Select(j => j + ":" + (rule.Lights[j] ? "on" : "off")));
 
 				if (used.Add(lights)) {
-					writer.WriteLine("<category>");
-					writer.WriteLine($"<pattern>SolverFallback Knob {ruleSeed} Lights {lights}</pattern>");
+					writer.WriteLine($"<category><pattern>SolverFallback Knob {ruleSeed} Lights {lights}</pattern>");
 					writer.WriteLine($"<template>{rule.Position}</template>");
 					writer.WriteLine("</category>");
 				}
 			}
 		}
 
-		writer.WriteLine("<category>");
-		writer.WriteLine($"<pattern>SolverFallback Knob {ruleSeed} Lights *</pattern>");
+		writer.WriteLine($"<category><pattern>SolverFallback Knob {ruleSeed} Lights *</pattern>");
 		writer.WriteLine($"<template>unknown</template>");
 		writer.WriteLine("</category>");
 		writer.WriteLine("</aiml>");

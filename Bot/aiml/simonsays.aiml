@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml>
 	<topic name='SimonSays'>
-		<category>
-			<pattern>SelectModule</pattern>
+		<category><pattern>SelectModule</pattern>
 			<template><srai>EdgeworkQuery SerialNumberHasVowel XS SimonCallback</srai></template>
 		</category>
 
-		<category>
-			<pattern>SimonCallback</pattern>
+		<category><pattern>SimonCallback</pattern>
 			<template>
 				<condition name='YesNoChallenge'>
 					<li value='true'><srai>SimonPromptYNC</srai></li>
@@ -21,8 +19,7 @@
 
 		<!-- Usage: SimonSaysInput [colours ...] -->
 		<!-- Tells the user what to press. -->
-		<category>
-			<pattern>SimonSaysInput *</pattern>
+		<category><pattern>SimonSaysInput *</pattern>
 			<template>
 				<think>
 					<srai>SouvenirPut Colours XS <star/></srai>
@@ -47,8 +44,7 @@
 
 		<!-- Usage: Solver SimonSays [vowel] [strikes] [colours ...] -->
 		<!-- Returns a list of mapped colours that the Defuser must press. -->
-		<category>
-			<pattern>SolverFallback SimonSays <set>number</set> * * *</pattern>
+		<category><pattern>SolverFallback SimonSays <set>number</set> * * *</pattern>
 			<template>
 				<think>
 					<set var='result'><srai>SimonSaysMap <star/> red</srai></set>
@@ -76,8 +72,7 @@
 
 		<!-- Usage: SimonSaysMap [rule seed] [colour] -->
 		<!-- Returns the correct Simon Says mapping for the specified colour. -->
-		<category>
-			<pattern>SimonSaysMap <set>number</set> *</pattern>
+		<category><pattern>SimonSaysMap <set>number</set> *</pattern>
 			<template>
 				<think>
 					<set var='result'>
@@ -95,83 +90,67 @@
 			</template>
 		</category>
 
-		<category>
-			<pattern><set>BombColours</set></pattern>
+		<category><pattern><set>BombColours</set></pattern>
 			<template><srai>SimonSaysInput <star index='1'/></srai></template>
 		</category>
-		<category>
-			<pattern><set>BombColours</set> <set>BombColours</set></pattern>
+		<category><pattern><set>BombColours</set> <set>BombColours</set></pattern>
 			<template><srai>SimonSaysInput <star index='1'/> <star index='2'/></srai></template>
 		</category>
-		<category>
-			<pattern><set>BombColours</set> <set>BombColours</set> <set>BombColours</set></pattern>
+		<category><pattern><set>BombColours</set> <set>BombColours</set> <set>BombColours</set></pattern>
 			<template><srai>SimonSaysInput <star index='1'/> <star index='2'/> <star index='3'/></srai></template>
 		</category>
-		<category>
-			<pattern><set>BombColours</set> <set>BombColours</set> <set>BombColours</set> <set>BombColours</set></pattern>
+		<category><pattern><set>BombColours</set> <set>BombColours</set> <set>BombColours</set> <set>BombColours</set></pattern>
 			<template><srai>SimonSaysInput <star index='1'/> <star index='2'/> <star index='3'/> <star index='4'/></srai></template>
 		</category>
-		<category>
-			<pattern><set>BombColours</set> <set>BombColours</set> <set>BombColours</set> <set>BombColours</set> <set>BombColours</set></pattern>
+		<category><pattern><set>BombColours</set> <set>BombColours</set> <set>BombColours</set> <set>BombColours</set> <set>BombColours</set></pattern>
 			<template><srai>SimonSaysInput <star index='1'/> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/></srai></template>
 		</category>
-		<category>
-			<pattern><set>BombColours</set> <set>BombColours</set> <set>BombColours</set> <set>BombColours</set> <set>BombColours</set> <set>BombColours</set></pattern>
+		<category><pattern><set>BombColours</set> <set>BombColours</set> <set>BombColours</set> <set>BombColours</set> <set>BombColours</set> <set>BombColours</set></pattern>
 			<template><srai>SimonSaysInput <star index='1'/> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/> <star index='6'/></srai></template>
 		</category>
 	</topic>
 
-	<category>
-		<pattern>SimonPromptYNC</pattern>
+	<category><pattern>SimonPromptYNC</pattern>
 		<template>
 			<!-- TODO: For both this and normal play, we should describe the mapping rather than ask for colours. -->
 			Did red or blue flash?
 		</template>
 	</category>
 
-	<category>
-		<pattern>yes</pattern>
+	<category><pattern>yes</pattern>
 		<that>Did red or blue flash</that>
 		<template>Did red flash?</template>
 	</category>
-	<category>
-		<pattern>no</pattern>
+	<category><pattern>no</pattern>
 		<that>Did red or blue flash</that>
 		<template>Did green flash?</template>
 	</category>
 
-	<category>
-		<pattern>yes</pattern>
+	<category><pattern>yes</pattern>
 		<that>Did <set>colour</set> flash</that>
 		<template><srai><thatstar/></srai></template>
 	</category>
-	<category>
-		<pattern>no</pattern>
+	<category><pattern>no</pattern>
 		<that>Did red flash</that>
 		<template>blue</template>
 	</category>
-	<category>
-		<pattern>no</pattern>
+	<category><pattern>no</pattern>
 		<that>Did green flash</that>
 		<template>yellow</template>
 	</category>
 
-	<category>
-		<pattern>no</pattern>
+	<category><pattern>no</pattern>
 		<that>Solved</that>
 		<template><srai>SimonPromptYNC</srai></template>
 	</category>
 
-	<category>
-		<pattern>SouvenirInput SimonSays XS <set>number</set></pattern>
+	<category><pattern>SouvenirInput SimonSays XS <set>number</set></pattern>
 		<template><srai>SouvenirGet SimonSays XS <star/> XS Colours</srai></template>
 	</category>
-	<category>
-		<pattern>SouvenirInput SimonSays XS <set>number</set> XS <set>number</set></pattern>
+	<category><pattern>SouvenirInput SimonSays XS <set>number</set> XS <set>number</set></pattern>
 		<template><srai>XItem <star index='2'/> XS <srai>SouvenirGet SimonSays XS <star/> XS Colours</srai></srai></template>
 	</category>
-	<category>
-		<pattern>SouvenirInput SimonSays XS <set>number</set> XS <set>ordinal</set></pattern>
+	<category><pattern>SouvenirInput SimonSays XS <set>number</set> XS <set>ordinal</set></pattern>
 		<template><srai>XItem <map name='OrdinalToNumber'><star index='2'/></map> XS <srai>SouvenirGet SimonSays XS <star/> XS Colours</srai></srai></template>
 	</category>
 </aiml>

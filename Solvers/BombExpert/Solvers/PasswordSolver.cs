@@ -160,8 +160,7 @@ public class PasswordSolver : IModuleSolver {
 		using var writer = new StreamWriter(Path.Combine(path, "aiml", $"password{ruleSeed}.aiml"));
 		writer.WriteLine("<?xml version='1.0' encoding='UTF-8'?>");
 		writer.WriteLine("<aiml version='2.0'>");
-		writer.WriteLine("<category>");
-		writer.WriteLine($"<pattern>SolverFallback Password {ruleSeed} GetPasswords</pattern>");
+		writer.WriteLine($"<category><pattern>SolverFallback Password {ruleSeed} GetPasswords</pattern>");
 		writer.WriteLine($"<template>{string.Join(" ", words)}</template>");
 		writer.WriteLine("</category>");
 		writer.WriteLine("</aiml>");

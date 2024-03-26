@@ -1,25 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml>
 	<topic name='ColourFlash'>
-		<category>
-			<pattern>SelectModule</pattern>
+		<category><pattern>SelectModule</pattern>
 			<template>Tell me the colour of the last word.</template>
 		</category>
 
-		<category>
-			<pattern><set>colour</set></pattern>
+		<category><pattern><set>colour</set></pattern>
 			<template>
 				<think><srai>SouvenirPut Colour XS <star/></srai></think>
 				<srai>Solver ColourFlash Condition <set name='ColourFlashColour'><star/></set> <set name='ColourFlashRuleIndex'>1</set></srai>?
 			</template>
 		</category>
 
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<template><srai>Solver ColourFlash Instruction <get name='ColourFlashColour'/> <get name='ColourFlashRuleIndex'/></srai></template>
 		</category>
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<template>
 				<think>
 					<set var='result'>
@@ -136,8 +132,7 @@
 		</category>
 	</topic>
 
-	<category>
-		<pattern>SouvenirInput ColourFlash XS <set>number</set></pattern>
+	<category><pattern>SouvenirInput ColourFlash XS <set>number</set></pattern>
 		<template><srai>SouvenirGet ColourFlash XS <star/> XS Colour</srai></template>
 	</category>
 </aiml>

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml>
 	<topic name='listening'>
-		<category>
-			<pattern>SelectModule</pattern>
+		<category><pattern>SelectModule</pattern>
 			<template>Describe the sound.</template>
 		</category>
 
@@ -78,14 +77,12 @@
 		<category><pattern>shatter ^</pattern><template><srai>ListeningCode Star Dollar Star Dollar Star</srai></template></category>
 		<category><pattern>shattering ^</pattern><template><srai>ListeningCode Star Dollar Star Dollar Star</srai></template></category>
 
-		<category>
-			<pattern>ListeningCode *</pattern>
+		<category><pattern>ListeningCode *</pattern>
 			<template><srai>SouvenirPut Code XS <star/></srai></template>
 		</category>
 	</topic>
 
-	<category>
-		<pattern>SouvenirInput Listening XS <set>number</set></pattern>
+	<category><pattern>SouvenirInput Listening XS <set>number</set></pattern>
 		<template><srai>SouvenirGet Listening XS <star/> XS Code</srai></template>
 	</category>
 </aiml>

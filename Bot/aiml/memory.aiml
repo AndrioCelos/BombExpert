@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml>
-	<category>
-		<pattern>resume memory</pattern>
+	<category><pattern>resume memory</pattern>
 		<template>
 			<srai>DeselectModule</srai>
 			<think><set name='topic'>Memory</set></think>
@@ -10,13 +9,11 @@
 	</category>
 
 	<topic name='Memory ^'>
-		<category>
-			<pattern>SelectModule</pattern>
+		<category><pattern>SelectModule</pattern>
 			<template>Read me the number on the display.</template>
 		</category>
 
-		<category>
-			<pattern>InitModule</pattern>
+		<category><pattern>InitModule</pattern>
 			<template>
 				<think>
 					<set name='MemoryStage'>0</set>
@@ -34,16 +31,13 @@
 			</template>
 		</category>
 
-		<category>
-			<pattern><set>number</set></pattern>
+		<category><pattern><set>number</set></pattern>
 			<template><srai>MemoryRead <explode><star/></explode></srai></template>
 		</category>
-		<category>
-			<pattern><set>number</set> <set>number</set> <set>number</set> <set>number</set> <set>number</set></pattern>
+		<category><pattern><set>number</set> <set>number</set> <set>number</set> <set>number</set> <set>number</set></pattern>
 			<template><srai>MemoryRead <star index='1'/> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/></srai></template>
 		</category>
-		<category>
-			<pattern>MemoryRead <set>number</set></pattern>
+		<category><pattern>MemoryRead <set>number</set></pattern>
 			<template>
 				<condition name='MemoryStage'>
 					<li value='5'>That should have been the last stage. Are we starting a new module?</li>
@@ -86,8 +80,7 @@
 				</condition>
 			</template>
 		</category>
-		<category>
-			<pattern>MemoryRead <set>number</set> <set>number</set> <set>number</set> <set>number</set> <set>number</set></pattern>
+		<category><pattern>MemoryRead <set>number</set> <set>number</set> <set>number</set> <set>number</set> <set>number</set></pattern>
 			<template>
 				<condition name='MemoryStage'>
 					<li value='5'>That should have been the last stage. Are we starting a new module?</li>
@@ -116,8 +109,7 @@
 			</template>
 		</category>
 
-		<category>
-			<pattern>PressPosition *</pattern>
+		<category><pattern>PressPosition *</pattern>
 			<template>
 				Press the
 				<map name='ordinal'><srai>SouvenirPut Position <get name='MemoryStage'/> XS
@@ -132,8 +124,7 @@
 				</condition>
 			</template>
 		</category>
-		<category>
-			<pattern>PressLabel *</pattern>
+		<category><pattern>PressLabel *</pattern>
 			<template>
 				Press the label
 				<srai>SouvenirPut Label <get name='MemoryStage'/> XS
@@ -148,33 +139,28 @@
 			</template>
 		</category>
 
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Are we starting a new module</that>
 			<template><srai>next Memory</srai></template>
 		</category>
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Are we starting a new module</that>
 			<template>I have lost track. What stage number are we on?</template>
 		</category>
 
-		<category>
-			<pattern><set>number</set></pattern>
+		<category><pattern><set>number</set></pattern>
 			<that>What stage number are we on</that>
 			<template>
 				<think><set name='MemoryStage'><map name='predecessor'><star/></map></set></think>
 				OK. Read the number on the display.
 			</template>
 		</category>
-		<category>
-			<pattern>stage <set>number</set></pattern>
+		<category><pattern>stage <set>number</set></pattern>
 			<that>What stage number are we on</that>
 			<template><sr/></template>
 		</category>
 
-		<category>
-			<pattern>position <set>number</set></pattern>
+		<category><pattern>position <set>number</set></pattern>
 			<template>
 				<think>
 					<srai>SouvenirPut Position <get name='MemoryStage'/> XS
@@ -187,12 +173,10 @@
 				</condition>
 			</template>
 		</category>
-		<category>
-			<pattern><set>ordinal</set> position</pattern>
+		<category><pattern><set>ordinal</set> position</pattern>
 			<template><srai>position <map name='OrdinalToNumber'><star/></map></srai></template>
 		</category>
-		<category>
-			<pattern>label <set>number</set></pattern>
+		<category><pattern>label <set>number</set></pattern>
 			<template>
 				<think>
 					<srai>SouvenirPut Label <get name='MemoryStage'/> XS
@@ -205,96 +189,77 @@
 				</condition>
 			</template>
 		</category>
-		<category>
-			<pattern>* was *</pattern>
+		<category><pattern>* was *</pattern>
 			<template><srai><star/> <star index='2'/></srai></template>
 		</category>
-		<category>
-			<pattern>* is *</pattern>
+		<category><pattern>* is *</pattern>
 			<template><srai><star/> <star index='2'/></srai></template>
 		</category>
-		<category>
-			<pattern>the * was *</pattern>
+		<category><pattern>the * was *</pattern>
 			<template><srai><star/> <star index='2'/></srai></template>
 		</category>
-		<category>
-			<pattern>the * is *</pattern>
+		<category><pattern>the * is *</pattern>
 			<template><srai><star/> <star index='2'/></srai></template>
 		</category>
 
-		<category>
-			<pattern>SelectModule YNC</pattern>
+		<category><pattern>SelectModule YNC</pattern>
 			<template>Is the display odd?</template>
 		</category>
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Is the ^ display odd</that>
 			<template>Is it 3?</template>
 		</category>
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Is the ^ display odd</that>
 			<template>Is it 4?</template>
 		</category>
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Is it <set>number</set></that>
 			<template><srai><thatstar/></srai></template>
 		</category>
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Is it <set>number</set></that>
 			<template><srai><map name='predecessor'><map name='predecessor'><thatstar/></map></map></srai></template>
 		</category>
 
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Is the label odd</that>
 			<template>Is the label 3?</template>
 		</category>
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Is the label odd</that>
 			<template>Is the label 4?</template>
 		</category>
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Is the label <set>number</set></that>
 			<template><srai>label <thatstar/></srai></template>
 		</category>
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Is the label <set>number</set></that>
 			<template><srai>label <map name='predecessor'><map name='predecessor'><thatstar/></map></map></srai></template>
 		</category>
 
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Is it in the right half</that>
 			<template>Is it the rightmost button?</template>
 		</category>
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Is it in the right half</that>
 			<template>Is it the leftmost button?</template>
 		</category>
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Is it the leftmost button</that>
 			<template><srai>position 1</srai></template>
 		</category>
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Is it the leftmost button</that>
 			<template><srai>position 2</srai></template>
 		</category>
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Is it the rightmost button</that>
 			<template><srai>position 4</srai></template>
 		</category>
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Is it the rightmost button</that>
 			<template><srai>position 3</srai></template>
 		</category>
@@ -302,8 +267,7 @@
 		<!-- Usage: Solver Memory GetRule [stage] [display] -->
 		<!-- Returns one of the following rule types, along with a number: -->
 		<!-- Position [n], Label [n], SamePosition [stage], SameLabel [stage] -->
-		<category>
-			<pattern>SolverFallback Memory <set>number</set> GetRule *</pattern>
+		<category><pattern>SolverFallback Memory <set>number</set> GetRule *</pattern>
 			<template>
 				<think><set var='test'><map><name>Memory<star/></name>1 1</map></set></think>
 				<condition var='test'>
@@ -314,8 +278,7 @@
 		</category>
 	</topic>
 
-	<category>
-		<pattern>SouvenirInput Memory XS <set>number</set></pattern>
+	<category><pattern>SouvenirInput Memory XS <set>number</set></pattern>
 		<template>
 			Displays were <srai>SouvenirGet Memory XS <star/> XS Display 1</srai>,
 				<srai>SouvenirGet Memory XS <star/> XS Display 2</srai>,
@@ -334,16 +297,13 @@
 				<srai>SouvenirGet Memory XS <star/> XS Label 5</srai>.
 		</template>
 	</category>
-	<category>
-		<pattern>SouvenirInput Memory XS <set>number</set> XS display <set>number</set></pattern>
+	<category><pattern>SouvenirInput Memory XS <set>number</set> XS display <set>number</set></pattern>
 		<template><srai>SouvenirGet Memory XS <star/> XS display <star index='2'/></srai></template>
 	</category>
-	<category>
-		<pattern>SouvenirInput Memory XS <set>number</set> XS position <set>number</set></pattern>
+	<category><pattern>SouvenirInput Memory XS <set>number</set> XS position <set>number</set></pattern>
 		<template><srai>SouvenirGet Memory XS <star/> XS position <star index='2'/></srai></template>
 	</category>
-	<category>
-		<pattern>SouvenirInput Memory XS <set>number</set> XS label <set>number</set></pattern>
+	<category><pattern>SouvenirInput Memory XS <set>number</set> XS label <set>number</set></pattern>
 		<template><srai>SouvenirGet Memory XS <star/> XS label <star index='2'/></srai></template>
 	</category>
 </aiml>

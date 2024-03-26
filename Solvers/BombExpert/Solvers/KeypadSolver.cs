@@ -200,8 +200,7 @@ public class KeypadSolver : IModuleSolver {
 			writer.WriteLine("<?xml version='1.0' encoding='UTF-8'?>");
 			writer.WriteLine("<aiml version='2.0'>");
 			for (int i = 1; i <= 2; ++i) {
-				writer.WriteLine("<category>");
-				writer.WriteLine($"<pattern>XGlyphs {ruleSeed} {i}</pattern>");
+				writer.WriteLine($"<category><pattern>XGlyphs {ruleSeed} {i}</pattern>");
 				writer.WriteLine($"<template>{string.Join(" ", GetGlyphsWithFrequency(columns, i))}</template>");
 				writer.WriteLine("</category>");
 			}

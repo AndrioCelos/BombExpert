@@ -1,25 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml>
-	<category>
-		<pattern>say again</pattern>
+	<category><pattern>say again</pattern>
 		<template><response/></template>
 	</category>
-	<category>
-		<pattern>SraixFailed</pattern>
+	<category><pattern>SraixFailed</pattern>
 		<template>SolverError</template>
 	</category>
 
-	<category>
-		<pattern>veemo</pattern>
+	<category><pattern>veemo</pattern>
 		<template>Woomy!</template>
 	</category>
 
-	<category>
-		<pattern>PartialInput</pattern>
+	<category><pattern>PartialInput</pattern>
 		<template></template>
 	</category>
-	<category>
-		<pattern>PartialInput *</pattern>
+	<category><pattern>PartialInput *</pattern>
 		<template></template>
 	</category>
 </aiml>

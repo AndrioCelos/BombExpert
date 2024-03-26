@@ -1,41 +1,34 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <aiml version='2.0'>
 	<!-- Categories to manually trigger edgework queries. -->
-	<category>
-		<pattern>ManualEdgeworkQuery nil</pattern>
+	<category><pattern>ManualEdgeworkQuery nil</pattern>
 		<template>OK.</template>
 	</category>
-	<category>
-		<pattern>ManualEdgeworkQuery * ^</pattern>
+	<category><pattern>ManualEdgeworkQuery * ^</pattern>
 		<template>
 			<srai>EdgeworkQuery <star/> XS ManualEdgeworkQuery <star index='2'/></srai>
 		</template>
 	</category>
 
-	<category>
-		<pattern>edgework</pattern>
+	<category><pattern>edgework</pattern>
 		<template><srai>ManualEdgeworkQuery Batteries Indicators PortPlates SerialNumber</srai></template>
 	</category>
-	<category>
-		<pattern>batteries</pattern>
+	<category><pattern>batteries</pattern>
 		<template>
 			<srai>EdgeworkQuery Batteries XS ManualEdgeworkQuery nil</srai>
 		</template>
 	</category>
-	<category>
-		<pattern>indicators</pattern>
+	<category><pattern>indicators</pattern>
 		<template>
 			<srai>EdgeworkQuery Indicators XS ManualEdgeworkQuery nil</srai>
 		</template>
 	</category>
-	<category>
-		<pattern>ports</pattern>
+	<category><pattern>ports</pattern>
 		<template>
 			<srai>EdgeworkQuery PortPlates XS ManualEdgeworkQuery nil</srai>
 		</template>
 	</category>
-	<category>
-		<pattern>serial number</pattern>
+	<category><pattern>serial number</pattern>
 		<template>
 			<srai>EdgeworkQuery SerialNumber XS ManualEdgeworkQuery nil</srai>
 		</template>
@@ -72,8 +65,7 @@
 		BombSerialNumber2Letter   Boolean
 	-->
 
-	<category>
-		<pattern>ResetEdgework</pattern>
+	<category><pattern>ResetEdgework</pattern>
 		<template>
 			<srai>ResetBatteries</srai>
 			<srai>ResetIndicators</srai>
@@ -81,8 +73,7 @@
 			<srai>ResetSerial</srai>
 		</template>
 	</category>
-	<category>
-		<pattern>ResetBatteries</pattern>
+	<category><pattern>ResetBatteries</pattern>
 		<template>
 			<think>
 				<set name='BatteryCount'>unknown</set>
@@ -93,8 +84,7 @@
 			</think>
 		</template>
 	</category>
-	<category>
-		<pattern>ResetIndicators</pattern>
+	<category><pattern>ResetIndicators</pattern>
 		<template>
 			<think>
 				<set var='labels'><get name='IndicatorsChecked'/></set>
@@ -118,8 +108,7 @@
 			</think>
 		</template>
 	</category>
-	<category>
-		<pattern>ResetPorts</pattern>
+	<category><pattern>ResetPorts</pattern>
 		<template>
 			<think>
 				<set var='types'>Parallel Serial RJ45 DVID PS2 StereoRCA</set>
@@ -149,8 +138,7 @@
 			</think>
 		</template>
 	</category>
-	<category>
-		<pattern>ResetSerial</pattern>
+	<category><pattern>ResetSerial</pattern>
 		<template>
 			<think>
 				<set name='SerialNumber'>unknown</set>
@@ -165,8 +153,7 @@
 
 	<!-- Usage: EdgeworkQueryStart <grammar> <topic ...> -->
 	<!-- Sets up an edgework query. Must not be used inside a <think> element. -->
-	<category>
-		<pattern>EdgeworkQueryStart * *</pattern>
+	<category><pattern>EdgeworkQueryStart * *</pattern>
 		<template>
 			<think>
 				<set name='EdgeworkCallbackTopic'><get name='topic'/></set>
@@ -177,8 +164,7 @@
 	</category>
 	<!-- Usage: EdgeworkQueryStart <grammar> -->
 	<!-- Ends an edgework query. -->
-	<category>
-		<pattern>EdgeworkQueryCallback *</pattern>
+	<category><pattern>EdgeworkQueryCallback *</pattern>
 		<template>
 			<think><set name='topic'><get name='EdgeworkCallbackTopic'/></set></think>
 			<oob>DisableGrammar <star/></oob>
@@ -194,8 +180,7 @@
 		will be called.
 		If a category is specified, EdgeworkCallback will be set to this category.
 	-->
-	<category>
-		<pattern>EdgeworkQuery _ XS *</pattern>
+	<category><pattern>EdgeworkQuery _ XS *</pattern>
 		<template>
 			<think>
 				<set name='EdgeworkCallback'><star index='2'/></set>
@@ -213,25 +198,21 @@
 			Batteries - asks for the number of batteries and holders
 			BatteryCount - asks for the number of batteries
 	-->
-	<category>
-		<pattern>EdgeworkKnown Batteries</pattern>
+	<category><pattern>EdgeworkKnown Batteries</pattern>
 		<template>
 			<condition name='BatteryCount'><li value='unknown'>false</li><li><condition name='BatteryHolderCount'><li value='unknown'>false</li><li>true</li></condition></li></condition>
 		</template>
 	</category>
-	<category>
-		<pattern>EdgeworkQuery Batteries</pattern>
+	<category><pattern>EdgeworkQuery Batteries</pattern>
 		<template>
 			<srai>EdgeworkQueryStart batteries Batteries</srai>
 			How many batteries and holders are there?
 		</template>
 	</category>
-	<category>
-		<pattern>EdgeworkKnown BatteryCount</pattern>
+	<category><pattern>EdgeworkKnown BatteryCount</pattern>
 		<template><condition name='BatteryCount'><li value='unknown'>false</li><li>true</li></condition></template>
 	</category>
-	<category>
-		<pattern>EdgeworkQuery BatteryCount</pattern>
+	<category><pattern>EdgeworkQuery BatteryCount</pattern>
 		<template>
 			<srai>EdgeworkQueryStart batteries Batteries BatteryCount</srai>
 			<condition name='YesNoChallenge'>
@@ -240,25 +221,20 @@
 			</condition>
 		</template>
 	</category>
-	<category>
-		<pattern>EdgeworkKnown BatteryCountAA</pattern>
+	<category><pattern>EdgeworkKnown BatteryCountAA</pattern>
 		<template><srai>EdgeworkKnown Batteries</srai></template>
 	</category>
-	<category>
-		<pattern>EdgeworkQuery BatteryCountAA</pattern>
+	<category><pattern>EdgeworkQuery BatteryCountAA</pattern>
 		<template><srai>EdgeworkQuery Batteries</srai></template>
 	</category>
-	<category>
-		<pattern>EdgeworkKnown BatteryCountD</pattern>
+	<category><pattern>EdgeworkKnown BatteryCountD</pattern>
 		<template><srai>EdgeworkKnown Batteries</srai></template>
 	</category>
-	<category>
-		<pattern>EdgeworkQuery BatteryCountD</pattern>
+	<category><pattern>EdgeworkQuery BatteryCountD</pattern>
 		<template><srai>EdgeworkQuery Batteries</srai></template>
 	</category>
 	<topic name='Edgework Batteries ^'>
-		<category>
-			<pattern>batteries <set>number</set> holders <set>number</set></pattern>
+		<category><pattern>batteries <set>number</set> holders <set>number</set></pattern>
 			<template>
 				<think>
 					<set name='BatteryCount'><star/></set>
@@ -278,56 +254,44 @@
 				<srai>EdgeworkQueryCallback batteries</srai>
 			</template>
 		</category>
-		<category>
-			<pattern><set>number</set> batteries in <set>number</set> holders</pattern>
+		<category><pattern><set>number</set> batteries in <set>number</set> holders</pattern>
 			<template><srai>batteries <star/> holders <star index='2'/></srai></template>
 		</category>
-		<category>
-			<pattern><set>number</set> battery in <set>number</set> holders</pattern>
+		<category><pattern><set>number</set> battery in <set>number</set> holders</pattern>
 			<template><srai>batteries <star/> holders <star index='2'/></srai></template>
 		</category>
-		<category>
-			<pattern><set>number</set> batteries in <set>number</set> holder</pattern>
+		<category><pattern><set>number</set> batteries in <set>number</set> holder</pattern>
 			<template><srai>batteries <star/> holders <star index='2'/></srai></template>
 		</category>
-		<category>
-			<pattern><set>number</set> battery in <set>number</set> holder</pattern>
+		<category><pattern><set>number</set> battery in <set>number</set> holder</pattern>
 			<template><srai>batteries <star/> holders <star index='2'/></srai></template>
 		</category>
-		<category>
-			<pattern><set>number</set> in <set>number</set> holders</pattern>
+		<category><pattern><set>number</set> in <set>number</set> holders</pattern>
 			<template><srai>batteries <star/> holders <star index='2'/></srai></template>
 		</category>
-		<category>
-			<pattern><set>number</set> in <set>number</set> holder</pattern>
+		<category><pattern><set>number</set> in <set>number</set> holder</pattern>
 			<template><srai>batteries <star/> holders <star index='2'/></srai></template>
 		</category>
-		<category>
-			<pattern><set>number</set> in <set>number</set></pattern>
+		<category><pattern><set>number</set> in <set>number</set></pattern>
 			<template><srai>batteries <star/> holders <star index='2'/></srai></template>
 		</category>
-		<category>
-			<pattern>1 battery</pattern>
+		<category><pattern>1 battery</pattern>
 			<template><srai>batteries 1 holders 1</srai></template>
 		</category>
-		<category>
-			<pattern>0</pattern>
+		<category><pattern>0</pattern>
 			<template><srai>batteries 0 holders 0</srai></template>
 		</category>
-		<category>
-			<pattern>none</pattern>
+		<category><pattern>none</pattern>
 			<template><srai>batteries 0 holders 0</srai></template>
 		</category>
-		<category>
-			<pattern><set>number</set></pattern>
+		<category><pattern><set>number</set></pattern>
 			<topic>Edgework Batteries BatteryCount</topic>
 			<template>
 				<think><set name='BatteryCount'><star/></set></think>
 				<srai>EdgeworkQueryCallback batteries</srai>
 			</template>
 		</category>
-		<category>
-			<pattern><set>number</set> batteries</pattern>
+		<category><pattern><set>number</set> batteries</pattern>
 			<topic>Edgework Batteries BatteryCount</topic>
 			<template><sr/></template>
 		</category>
@@ -346,55 +310,45 @@
 			 9:  0.064%
 			10:  0.013%
 		-->
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Are there exactly <set>number</set> batteries</that>
 			<template><srai><thatstar/></srai></template>
 		</category>
 
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>^ Are there at least 2 batteries</that>
 			<template>Are there at least 4 batteries?</template>
 		</category>
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Are there at least 4 batteries</that>
 			<template>Are there exactly 4 batteries?</template>
 		</category>
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Are there exactly <set>number</set> batteries</that>
 			<template>Are there exactly <map name='successor'><thatstar/></map> batteries?</template>
 		</category>
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Are there at least 4 batteries</that>
 			<template>Are there exactly 3 batteries?</template>
 		</category>
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Are there exactly 3 batteries</that>
 			<template><srai>2</srai></template>
 		</category>
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>^ Are there at least 2 batteries</that>
 			<template>Is there a single battery?</template>
 		</category>
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Is there a single battery</that>
 			<template><srai>1</srai></template>
 		</category>
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Is there a single battery</that>
 			<template><srai>0</srai></template>
 		</category>
 	</topic>
-	<category>
-		<pattern>verify batteries</pattern>
+	<category><pattern>verify batteries</pattern>
 		<template>
 			<condition name='BatteryCount'>
 				<li value='unknown'>unknown</li>
@@ -421,12 +375,10 @@
 			IndicatorLit <label> - asks whether there is a lit indicator with this label.
 			IndicatorUnlit <label> - asks whether there is an unlit indicator with this label.
 	-->
-	<category>
-		<pattern>EdgeworkKnown Indicators</pattern>
+	<category><pattern>EdgeworkKnown Indicators</pattern>
 		<template><get name='IndicatorsKnown'/></template>
 	</category>
-	<category>
-		<pattern>EdgeworkQuery Indicators</pattern>
+	<category><pattern>EdgeworkQuery Indicators</pattern>
 		<template>
 			<think>
 				<set name='IndicatorCount'>0</set>
@@ -438,89 +390,71 @@
 			List the indicators on the bomb.
 		</template>
 	</category>
-	<category>
-		<pattern>EdgeworkKnown IndicatorLit *</pattern>
+	<category><pattern>EdgeworkKnown IndicatorLit *</pattern>
 		<template><condition><name>IndicatorLit<star/></name><li value='unknown'>false</li><li>true</li></condition></template>
 	</category>
-	<category>
-		<pattern>EdgeworkQuery IndicatorLit *</pattern>
+	<category><pattern>EdgeworkQuery IndicatorLit *</pattern>
 		<template>
 			<srai>EdgeworkQueryStart indicators Indicator Lit <star/></srai>
 			Is there a lit indicator labelled <star/>?
 		</template>
 	</category>
-	<category>
-		<pattern>EdgeworkKnown IndicatorUnlit *</pattern>
+	<category><pattern>EdgeworkKnown IndicatorUnlit *</pattern>
 		<template><condition><name>IndicatorUnlit<star/></name><li value='unknown'>false</li><li>true</li></condition></template>
 	</category>
-	<category>
-		<pattern>EdgeworkQuery IndicatorUnlit *</pattern>
+	<category><pattern>EdgeworkQuery IndicatorUnlit *</pattern>
 		<template>
 			<srai>EdgeworkQueryStart indicators Indicator Unlit <star/></srai>
 			Is there an unlit indicator labelled <star/>?
 		</template>
 	</category>
-	<category>
-		<pattern>EdgeworkKnown Indicator *</pattern>
+	<category><pattern>EdgeworkKnown Indicator *</pattern>
 		<template><condition><name>IndicatorLit<star/></name><li value='unknown'>false</li><li>true</li></condition></template>
 	</category>
-	<category>
-		<pattern>EdgeworkQuery Indicator *</pattern>
+	<category><pattern>EdgeworkQuery Indicator *</pattern>
 		<template>
 			<srai>EdgeworkQueryStart indicators Indicator Any <star/></srai>
 			Is there any indicator labelled <star/>?
 		</template>
 	</category>
 	<topic name='Edgework Indicators'>
-		<category>
-			<pattern>lit *</pattern>
+		<category><pattern>lit *</pattern>
 			<template><srai>HandleIndicators true <star/></srai></template>
 		</category>
-		<category>
-			<pattern>unlit *</pattern>
+		<category><pattern>unlit *</pattern>
 			<template><srai>HandleIndicators false <star/></srai></template>
 		</category>
-		<category>
-			<pattern>a *</pattern>
+		<category><pattern>a *</pattern>
 			<template><sr/></template>
 		</category>
-		<category>
-			<pattern>an *</pattern>
+		<category><pattern>an *</pattern>
 			<template><sr/></template>
 		</category>
-		<category>
-			<pattern>there is a *</pattern>
+		<category><pattern>there is a *</pattern>
 			<template><sr/></template>
 		</category>
-		<category>
-			<pattern>there is an *</pattern>
+		<category><pattern>there is an *</pattern>
 			<template><sr/></template>
 		</category>
-		<category>
-			<pattern>none</pattern>
+		<category><pattern>none</pattern>
 			<template><srai>done</srai></template>
 		</category>
-		<category>
-			<pattern>there are none</pattern>
+		<category><pattern>there are none</pattern>
 			<template><srai>done</srai></template>
 		</category>
-		<category>
-			<pattern>no indicators</pattern>
+		<category><pattern>no indicators</pattern>
 			<template><srai>done</srai></template>
 		</category>
-		<category>
-			<pattern>there are no indicators</pattern>
+		<category><pattern>there are no indicators</pattern>
 			<template><srai>done</srai></template>
 		</category>
-		<category>
-			<pattern>done</pattern>
+		<category><pattern>done</pattern>
 			<template><srai>EdgeworkQueryCallback indicators</srai></template>
 		</category>
 
 		<!-- Usage: HandleIndicators true|false <label> [more indicators ...] -->
 		<!-- Records the specified list of indicators. -->
-		<category>
-			<pattern>HandleIndicators * *</pattern>
+		<category><pattern>HandleIndicators * *</pattern>
 			<template>
 				<think>
 					<set var='words'><star index='2'/></set>
@@ -581,8 +515,7 @@
 			</template>
 		</category>
 	</topic>
-	<category>
-		<pattern><set>YesOrNo</set></pattern>
+	<category><pattern><set>YesOrNo</set></pattern>
 		<topic>Edgework Indicator * *</topic>
 		<template>
 			<think>
@@ -644,8 +577,7 @@
 		</template>
 	</category>
 
-	<category>
-		<pattern>verify indicators</pattern>
+	<category><pattern>verify indicators</pattern>
 		<template>
 			<think>
 				<set var='indicators'><get name='Indicators'/></set>
@@ -682,12 +614,10 @@
 			Port <type> - asks whether there is a port of the specified type.
 			EmptyPortPlate - asks whether there is an empty port plate.
 	-->
-	<category>
-		<pattern>EdgeworkKnown PortPlates</pattern>
+	<category><pattern>EdgeworkKnown PortPlates</pattern>
 		<template><condition name='PortPlateCount'><li value='unknown'>false</li><li>true</li></condition></template>
 	</category>
-	<category>
-		<pattern>EdgeworkQuery PortPlates</pattern>
+	<category><pattern>EdgeworkQuery PortPlates</pattern>
 		<template>
 			<think>
 				<set name='PortCount'>0</set>
@@ -709,59 +639,47 @@
 			List the port plates on the bomb.
 		</template>
 	</category>
-	<category>
-		<pattern>EdgeworkKnown Port *</pattern>
+	<category><pattern>EdgeworkKnown Port *</pattern>
 		<template><condition><name>Port<star/></name><li value='unknown'>false</li><li>true</li></condition></template>
 	</category>
-	<category>
-		<pattern>EdgeworkQuery Port *</pattern>
+	<category><pattern>EdgeworkQuery Port *</pattern>
 		<template>
 			<srai>EdgeworkQueryStart ports Port <star/></srai>
 			Does the bomb have a <star/> port?
 		</template>
 	</category>
-	<category>
-		<pattern>EdgeworkKnown EmptyPortPlate</pattern>
+	<category><pattern>EdgeworkKnown EmptyPortPlate</pattern>
 		<template><condition name='EmptyPortPlate'><li value='unknown'>false</li><li>true</li></condition></template>
 	</category>
-	<category>
-		<pattern>EdgeworkQuery EmptyPortPlate</pattern>
+	<category><pattern>EdgeworkQuery EmptyPortPlate</pattern>
 		<template>
 			<srai>EdgeworkQueryStart ports EmptyPortPlate</srai>
 			Does the bomb have an empty port plate?
 		</template>
 	</category>
 	<topic name='Edgework PortPlates'>
-		<category>
-			<pattern>plate *</pattern>
+		<category><pattern>plate *</pattern>
 			<template><srai>HandlePortPlates <star/></srai></template>
 		</category>
-		<category>
-			<pattern>empty *</pattern>
+		<category><pattern>empty *</pattern>
 			<template><srai>HandlePortPlates empty <star/></srai></template>
 		</category>
-		<category>
-			<pattern>no ports</pattern>
+		<category><pattern>no ports</pattern>
 			<template><srai>done</srai></template>
 		</category>
-		<category>
-			<pattern>none</pattern>
+		<category><pattern>none</pattern>
 			<template><srai>done</srai></template>
 		</category>
-		<category>
-			<pattern>there are none</pattern>
+		<category><pattern>there are none</pattern>
 			<template><srai>done</srai></template>
 		</category>
-		<category>
-			<pattern>there are no ports</pattern>
+		<category><pattern>there are no ports</pattern>
 			<template><srai>done</srai></template>
 		</category>
-		<category>
-			<pattern>done</pattern>
+		<category><pattern>done</pattern>
 			<template><srai>EdgeworkQueryCallback ports</srai></template>
 		</category>
-		<category>
-			<pattern>HandlePortPlates *</pattern>
+		<category><pattern>HandlePortPlates *</pattern>
 			<template>
 				<think>
 					<set var='words'><srai>ParsePortList <star/></srai></set>
@@ -830,8 +748,7 @@
 			</template>
 		</category>
 	</topic>
-	<category>
-		<pattern><set>YesOrNo</set></pattern>
+	<category><pattern><set>YesOrNo</set></pattern>
 		<topic>Edgework Port *</topic>
 		<template>
 			<think>
@@ -841,8 +758,7 @@
 			<srai>EdgeworkQueryCallback ports</srai>
 		</template>
 	</category>
-	<category>
-		<pattern><set>YesOrNo</set></pattern>
+	<category><pattern><set>YesOrNo</set></pattern>
 		<topic>Edgework EmptyPortPlate</topic>
 		<template>
 			<think>
@@ -853,8 +769,7 @@
 		</template>
 	</category>
 
-	<category>
-		<pattern>verify ports</pattern>
+	<category><pattern>verify ports</pattern>
 		<template>
 			<condition name='PortPlateCount'>
 				<li value='unknown'>
@@ -926,42 +841,34 @@
 			SerialNumberStartsWithLetter - asks whether the first character is a letter.
 			SerialNumberHasVowel - asks whether the serial number has a vowel. (Y is not a vowel.)
 	-->
-	<category>
-		<pattern>EdgeworkKnown SerialNumber</pattern>
+	<category><pattern>EdgeworkKnown SerialNumber</pattern>
 		<template><condition name='SerialNumber'><li value='unknown'>false</li><li>true</li></condition></template>
 	</category>
-	<category>
-		<pattern>EdgeworkQuery SerialNumber</pattern>
+	<category><pattern>EdgeworkQuery SerialNumber</pattern>
 		<template>
 			<srai>EdgeworkQueryStart serialnumber Serial</srai>
 			What is the serial number of the bomb?
 		</template>
 	</category>
-	<category>
-		<pattern>EdgeworkKnown Serial</pattern>
+	<category><pattern>EdgeworkKnown Serial</pattern>
 		<template><srai>EdgeworkKnown Serial</srai></template>
 	</category>
-	<category>
-		<pattern>EdgeworkQuery Serial</pattern>
+	<category><pattern>EdgeworkQuery Serial</pattern>
 		<template><srai>EdgeworkQuery SerialNumber</srai></template>
 	</category>
-	<category>
-		<pattern>EdgeworkKnown SerialNumberLastDigit</pattern>
+	<category><pattern>EdgeworkKnown SerialNumberLastDigit</pattern>
 		<template><condition name='SerialNumberLastDigit'><li value='unknown'>false</li><li>true</li></condition></template>
 	</category>
-	<category>
-		<pattern>EdgeworkQuery SerialNumberLastDigit</pattern>
+	<category><pattern>EdgeworkQuery SerialNumberLastDigit</pattern>
 		<template>
 			<srai>EdgeworkQueryStart serialnumber Serial LastDigit</srai>
 			What is the last digit of the serial number of the bomb?
 		</template>
 	</category>
-	<category>
-		<pattern>EdgeworkKnown SerialNumberIsOdd</pattern>
+	<category><pattern>EdgeworkKnown SerialNumberIsOdd</pattern>
 		<template><condition name='SerialNumberIsOdd'><li value='unknown'>false</li><li>true</li></condition></template>
 	</category>
-	<category>
-		<pattern>EdgeworkQuery SerialNumberIsOdd</pattern>
+	<category><pattern>EdgeworkQuery SerialNumberIsOdd</pattern>
 		<template>
 			<condition name='YesNoChallenge'>
 				<li value='true'>
@@ -972,35 +879,29 @@
 			</condition>
 		</template>
 	</category>
-	<category>
-		<pattern>EdgeworkKnown SerialNumberStartsWithLetter</pattern>
+	<category><pattern>EdgeworkKnown SerialNumberStartsWithLetter</pattern>
 		<template><condition name='SerialNumberStartsWithLetter'><li value='unknown'>false</li><li>true</li></condition></template>
 	</category>
-	<category>
-		<pattern>EdgeworkQuery SerialNumberStartsWithLetter</pattern>
+	<category><pattern>EdgeworkQuery SerialNumberStartsWithLetter</pattern>
 		<template>
 			<srai>EdgeworkQueryStart serialnumber Serial StartsWithLetter</srai>
 			Does the serial number start with a letter?
 		</template>
 	</category>
-	<category>
-		<pattern>EdgeworkKnown SerialNumberHasVowel</pattern>
+	<category><pattern>EdgeworkKnown SerialNumberHasVowel</pattern>
 		<template><condition name='SerialNumberHasVowel'><li value='unknown'>false</li><li>true</li></condition></template>
 	</category>
-	<category>
-		<pattern>EdgeworkQuery SerialNumberHasVowel</pattern>
+	<category><pattern>EdgeworkQuery SerialNumberHasVowel</pattern>
 		<template>
 			<srai>EdgeworkQueryStart serialnumber Serial HasVowel</srai>
 			Does the serial number contain a vowel?
 		</template>
 	</category>
 	<topic name='Edgework Serial ^'>
-		<category>
-			<pattern><set>LetterOrDigit</set> <set>LetterOrDigit</set> <set>LetterOrDigit</set> <set>LetterOrDigit</set> <set>LetterOrDigit</set> <set>LetterOrDigit</set></pattern>
+		<category><pattern><set>LetterOrDigit</set> <set>LetterOrDigit</set> <set>LetterOrDigit</set> <set>LetterOrDigit</set> <set>LetterOrDigit</set> <set>LetterOrDigit</set></pattern>
 			<template><srai>SetSerialNumber <star index='1'/> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/> <star index='6'/></srai></template>
 		</category>
-		<category>
-			<pattern>SetSerialNumber * * * * * *</pattern>
+		<category><pattern>SetSerialNumber * * * * * *</pattern>
 			<template>
 				<think>
 					<set var='char1'><map name='NATO'><star index='1'/></map></set>
@@ -1073,8 +974,7 @@
 			</template>
 		</category>
 
-		<category>
-			<pattern><set>YesOrNo</set></pattern>
+		<category><pattern><set>YesOrNo</set></pattern>
 			<topic>Edgework Serial *</topic>
 			<template>
 				<think>
@@ -1083,8 +983,7 @@
 				<srai>EdgeworkQueryCallback serialnumber</srai>
 			</template>
 		</category>
-		<category>
-			<pattern><set>number</set></pattern>
+		<category><pattern><set>number</set></pattern>
 			<topic>Edgework Serial LastDigit</topic>
 			<template>
 				<think>
@@ -1102,8 +1001,7 @@
 			</template>
 		</category>
 	</topic>
-	<category>
-		<pattern>verify serial</pattern>
+	<category><pattern>verify serial</pattern>
 		<template>
 			The serial number is <get name='SerialNumber'/>.
 			<condition name='SerialNumber'>
@@ -1129,8 +1027,7 @@
 			</condition>
 		</template>
 	</category>
-	<category>
-		<pattern>verify serial number</pattern>
+	<category><pattern>verify serial number</pattern>
 		<template><srai>verify serial</srai></template>
 	</category>
 
@@ -1140,39 +1037,32 @@
 		NeedyModuleCount - number of needy modules
 		SolveCount - number of solved modules
 	-->
-	<category>
-		<pattern>EdgeworkKnown NeedyModuleCount</pattern>
+	<category><pattern>EdgeworkKnown NeedyModuleCount</pattern>
 		<template><condition name='NeedyModuleCount'><li value='unknown'>false</li><li>true</li></condition></template>
 	</category>
-	<category>
-		<pattern>EdgeworkQuery NeedyModuleCount</pattern>
+	<category><pattern>EdgeworkQuery NeedyModuleCount</pattern>
 		<template>
 			<srai>EdgeworkQueryStart modulecount ModuleCount NeedyModuleCount</srai>
 			How many needy modules are there?
 		</template>
 	</category>
-	<category>
-		<pattern>EdgeworkKnown ModuleCount</pattern>
+	<category><pattern>EdgeworkKnown ModuleCount</pattern>
 		<template><condition name='ModuleCount'><li value='unknown'>false</li><li>true</li></condition></template>
 	</category>
-	<category>
-		<pattern>EdgeworkQuery ModuleCount</pattern>
+	<category><pattern>EdgeworkQuery ModuleCount</pattern>
 		<template>
 			<srai>EdgeworkQueryStart modulecount ModuleCount ModuleCount</srai>
 			How many modules are there?
 		</template>
 	</category>
-	<category>
-		<pattern>EdgeworkKnown UnsolvedCount</pattern>
+	<category><pattern>EdgeworkKnown UnsolvedCount</pattern>
 		<template><srai>EdgeworkKnown NeedyModuleCount</srai></template>
 	</category>
-	<category>
-		<pattern>EdgeworkQuery UnsolvedCount</pattern>
+	<category><pattern>EdgeworkQuery UnsolvedCount</pattern>
 		<template><srai>EdgeworkQuery NeedyModuleCount</srai></template>
 	</category>
 	<topic name='Edgework ModuleCount ^'>
-		<category>
-			<pattern><set>number</set></pattern>
+		<category><pattern><set>number</set></pattern>
 			<template>
 				<think>
 					<set><name><topicstar/></name><star/></set>

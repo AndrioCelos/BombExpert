@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml>
 	<topic name='SimonStates'>
-		<category>
-			<pattern>InitModule</pattern>
+		<category><pattern>InitModule</pattern>
 			<template>
 				<think>
 					<set name='SimonStatesStage'>unknown</set>
@@ -12,27 +11,22 @@
 			</template>
 		</category>
 
-		<category>
-			<pattern>red ^</pattern>
+		<category><pattern>red ^</pattern>
 			<template><srai>SimonStatesInput <input/></srai></template>
 		</category>
-		<category>
-			<pattern>yellow ^</pattern>
+		<category><pattern>yellow ^</pattern>
 			<template><srai>SimonStatesInput <input/></srai></template>
 		</category>
-		<category>
-			<pattern>green ^</pattern>
+		<category><pattern>green ^</pattern>
 			<template><srai>SimonStatesInput <input/></srai></template>
 		</category>
-		<category>
-			<pattern>blue ^</pattern>
+		<category><pattern>blue ^</pattern>
 			<template><srai>SimonStatesInput <input/></srai></template>
 		</category>
 
 		<!-- Usage: SimonStatesInput [colours ...] -->
 		<!-- Tells the user what to press. -->
-		<category>
-			<pattern>SimonStatesInput *</pattern>
+		<category><pattern>SimonStatesInput *</pattern>
 			<template>
 				<think><set var='count'><srai>XCount <star/></srai></set></think>
 				<condition name='SimonStatesStage'>
@@ -62,8 +56,7 @@
 
 		<!-- Usage: Solver SimonStates [stage] XS [flashing colours ...] XS [input sequence ...] -->
 		<!-- Returns a list of mapped colours that the Defuser must press. -->
-		<category>
-			<pattern>Solver SimonStates 1 XS * XS ^</pattern>
+		<category><pattern>Solver SimonStates 1 XS * XS ^</pattern>
 			<template>
 				<think><set var='count'><srai>XCount <star/></srai></set></think>
 				<condition var='count'>
@@ -86,8 +79,7 @@
 				</condition>
 			</template>
 		</category>
-		<category>
-			<pattern>Solver SimonStates 2 XS * XS ^</pattern>
+		<category><pattern>Solver SimonStates 2 XS * XS ^</pattern>
 			<template>
 				<think><set var='count'><srai>XCount <star/></srai></set></think>
 				<condition var='count'>
@@ -112,8 +104,7 @@
 				</condition>
 			</template>
 		</category>
-		<category>
-			<pattern>Solver SimonStates 3 XS * XS ^</pattern>
+		<category><pattern>Solver SimonStates 3 XS * XS ^</pattern>
 			<template>
 				<think><set var='count'><srai>XCount <star/></srai></set></think>
 				<condition var='count'>
@@ -144,8 +135,7 @@
 				</condition>
 			</template>
 		</category>
-		<category>
-			<pattern>Solver SimonStates 4 XS * XS ^</pattern>
+		<category><pattern>Solver SimonStates 4 XS * XS ^</pattern>
 			<template>
 				<think>
 					<set var='count'><srai>XCount <star/></srai></set>
@@ -182,8 +172,7 @@
 			</template>
 		</category>
 
-		<category>
-			<pattern>HighestPriority *</pattern>
+		<category><pattern>HighestPriority *</pattern>
 			<template>
 				<think>
 					<set var='colours'><get name='SimonStatesPriority'/></set>
@@ -203,8 +192,7 @@
 				<get var='colour'/>
 			</template>
 		</category>
-		<category>
-			<pattern>LowestPriority *</pattern>
+		<category><pattern>LowestPriority *</pattern>
 			<template>
 				<think>
 					<set var='colours'><srai>XReverse <get name='SimonStatesPriority'/></srai></set>
@@ -224,8 +212,7 @@
 				<get var='colour'/>
 			</template>
 		</category>
-		<category>
-			<pattern>NotIn *</pattern>
+		<category><pattern>NotIn *</pattern>
 			<template>
 				<think><set var='colours'>red yellow green blue</set></think>
 				<condition var='colours'>
@@ -242,8 +229,7 @@
 				</condition>
 			</template>
 		</category>
-		<category>
-			<pattern>HighestPriorityNotPressed * XS *</pattern>
+		<category><pattern>HighestPriorityNotPressed * XS *</pattern>
 			<template>
 				<think>
 					<set var='colours'><get name='SimonStatesPriority'/></set>
@@ -265,16 +251,14 @@
 		</category>
 	</topic>
 
-	<category>
-		<pattern>SouvenirInput SimonStates XS <set>number</set></pattern>
+	<category><pattern>SouvenirInput SimonStates XS <set>number</set></pattern>
 		<template>
 			Stage 1 was <srai>SouvenirGet SimonStates XS <star/> XS Input 1</srai>.
 			Stage 2 was <srai>SouvenirGet SimonStates XS <star/> XS Input 2</srai>.
 			Stage 3 was <srai>SouvenirGet SimonStates XS <star/> XS Input 3</srai>.
 		</template>
 	</category>
-	<category>
-		<pattern>SouvenirInput SimonStates XS <set>number</set> XS stage <set>number</set></pattern>
+	<category><pattern>SouvenirInput SimonStates XS <set>number</set> XS stage <set>number</set></pattern>
 		<template><srai>SouvenirGet SimonStates XS <star/> XS Input <star index='2'/></srai></template>
 	</category>
 </aiml>

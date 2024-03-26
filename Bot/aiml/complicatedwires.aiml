@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml>
 	<topic name='ComplicatedWires'>
-		<category>
-			<pattern>SelectModule</pattern>
+		<category><pattern>SelectModule</pattern>
 			<template>
 				<condition name='Fast'>
 					<li value='true'>Complicated Wires.</li>
@@ -19,8 +18,7 @@
 		<category><pattern>nothing ^</pattern><template><srai>ProcessInput nothing <star/></srai></template></category>
 		<category><pattern>plain ^</pattern><template><srai>ProcessInput plain <star/></srai></template></category>
 
-		<category>
-			<pattern>ProcessInput *</pattern>
+		<category><pattern>ProcessInput *</pattern>
 			<template>
 				<think>
 					<set var='input'><star/></set>
@@ -170,88 +168,75 @@
 			</template>
 		</category>
 
-		<category>
-			<pattern>SelectModule YNC</pattern>
+		<category><pattern>SelectModule YNC</pattern>
 			<template>
 				<think><set name='ComplicatedWiresFlags'>nil</set></think>
 				Is the first wire red?
 			</template>
 		</category>
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Is the * wire red</that>
 			<template>
 				<think><set name='ComplicatedWiresFlags'><srai>XAppend red <get name='ComplicatedWiresFlags'/></srai></set></think>
 				<srai>YNCContinue</srai>
 			</template>
 		</category>
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Is the wire blue</that>
 			<template>
 				<think><set name='ComplicatedWiresFlags'><srai>XAppend blue <get name='ComplicatedWiresFlags'/></srai></set></think>
 				<srai>YNCContinue</srai>
 			</template>
 		</category>
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Is the light on</that>
 			<template>
 				<think><set name='ComplicatedWiresFlags'><srai>XAppend light <get name='ComplicatedWiresFlags'/></srai></set></think>
 				<srai>YNCContinue</srai>
 			</template>
 		</category>
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Is there a star</that>
 			<template>
 				<think><set name='ComplicatedWiresFlags'><srai>XAppend star <get name='ComplicatedWiresFlags'/></srai></set></think>
 				<srai>YNCContinue</srai>
 			</template>
 		</category>
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<template><srai>YNCContinue</srai></template>
 		</category>
-		<category>
-			<pattern>YNCContinue</pattern>
+		<category><pattern>YNCContinue</pattern>
 			<that>Is the * wire red</that>
 			<template>Is the wire blue?</template>
 		</category>
-		<category>
-			<pattern>YNCContinue</pattern>
+		<category><pattern>YNCContinue</pattern>
 			<that>Is the wire blue</that>
 			<template>Is the light on?</template>
 		</category>
-		<category>
-			<pattern>YNCContinue</pattern>
+		<category><pattern>YNCContinue</pattern>
 			<that>Is the light on</that>
 			<template>Is there a star?</template>
 		</category>
-		<category>
-			<pattern>YNCContinue</pattern>
+		<category><pattern>YNCContinue</pattern>
 			<that>Is there a star</that>
 			<template><srai>ProcessInput <condition name='ComplicatedWiresFlags'><li value='nil'>plain</li><li><get name='ComplicatedWiresFlags'/></li></condition></srai></template>
 		</category>
 
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Is there another wire</that>
 			<template>
 				<think><set name='ComplicatedWiresFlags'>nil</set></think>
 				Is the next wire red?
 			</template>
 		</category>
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Is there another wire</that>
 			<template><srai>YNCAskModule</srai></template>
 		</category>
 
 		<!-- Usage: Solver ComplicatedWires [flags] -->
 		<!-- Returns true or false depending on whether the specified wire should be cut, or an error code. -->
-		<category>
-			<pattern>SolverFallback ComplicatedWires <set>number</set> ^</pattern>
+		<category><pattern>SolverFallback ComplicatedWires <set>number</set> ^</pattern>
 			<template>
 				<think><set var='instruction'><map><name>ComplicatedWires<star/></name><star index='2'/></map></set></think>
 				<condition var='instruction'>

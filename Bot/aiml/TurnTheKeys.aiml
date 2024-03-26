@@ -1,12 +1,10 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <aiml version='2.1'>
-	<category>
-		<pattern>we have Turn the Keys</pattern>
+	<category><pattern>we have Turn the Keys</pattern>
 		<template>Begin with <set name='TurnTheKeysModule'>Password</set>.</template>
 	</category>
 
-	<category>
-		<pattern>next module</pattern>
+	<category><pattern>next module</pattern>
 		<template>
 			<set name='TurnTheKeysModule'>
 				<condition name='TurnTheKeysModule'>

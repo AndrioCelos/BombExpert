@@ -1,7 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <aiml version='2.1'>
-	<category>
-		<pattern>XTest ComplicatedWires 1</pattern>
+	<category><pattern>XTest ComplicatedWires 1</pattern>
 		<template>
 			<think>
 				<set name='SraixUnavailable'>true</set>
@@ -11,8 +10,7 @@
 			<test name='Complicated Wires 1-1' regex='.*last digit.*'>white then red then blue then red blue</test>
 		</template>
 	</category>
-	<category>
-		<pattern>XTest ComplicatedWires 2</pattern>
+	<category><pattern>XTest ComplicatedWires 2</pattern>
 		<template>
 			<think>
 				<test name='Complicated Wires 1-2' regex='.*Cut the first wire.'>1</test>
@@ -20,14 +18,12 @@
 			<test name='Complicated Wires 2-1' regex='(?i).*parallel port.*'>star light then star red blue</test>
 		</template>
 	</category>
-	<category>
-		<pattern>XTest ComplicatedWires 3</pattern>
+	<category><pattern>XTest ComplicatedWires 3</pattern>
 		<template>
 			<test name='Complicated Wires 2-2' regex='.*How many batteries are there.*'>yes</test>
 		</template>
 	</category>
-	<category>
-		<pattern>XTest ComplicatedWires 4</pattern>
+	<category><pattern>XTest ComplicatedWires 4</pattern>
 		<template>
 			<think>
 				<test name='Complicated Wires 2-3' regex='.*Cut both wires.'>2</test>
@@ -37,8 +33,7 @@
 		</template>
 	</category>
 
-	<category>
-		<pattern>XTest ComplicatedWires Conversation 1</pattern>
+	<category><pattern>XTest ComplicatedWires Conversation 1</pattern>
 		<template>
 			<think>
 				<srai>new bomb</srai>
@@ -47,8 +42,7 @@
 			<test name='Complicated Wires Conversation 1' regex='.*How many batteries are there.*'>Red light star then red blue light star then red blue light star then nothing</test>
 		</template>
 	</category>
-	<category>
-		<pattern>XTest ComplicatedWires Conversation 2</pattern>
+	<category><pattern>XTest ComplicatedWires Conversation 2</pattern>
 		<template><test name='Complicated Wires Conversation 2' regex='.*Cut the following wires: the first wire, the fourth wire.'>3</test></template>
 	</category>
 </aiml>

@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml>
 	<topic name='keypad ^'>
-		<category>
-			<pattern>SelectModule</pattern>
+		<category><pattern>SelectModule</pattern>
 			<template>Describe one of the symbols.</template>
 		</category>
-		<category>
-			<pattern>SelectModule YNC</pattern>
+		<category><pattern>SelectModule YNC</pattern>
 			<template>
 				<think><set name='KeypadStage'>2</set></think>
 				<srai>KeypadResult <srai>Solver Keypad Start</srai></srai>
 			</template>
 		</category>
 
-		<category>
-			<pattern>InitModule</pattern>
+		<category><pattern>InitModule</pattern>
 			<template>
 				<think>
 					<condition name='KeypadStage'>
@@ -35,8 +32,7 @@
 			</template>
 		</category>
 
-		<category>
-			<pattern>*</pattern>
+		<category><pattern>*</pattern>
 			<topic>keypad</topic>
 			<template>
 				<think><set var='valid'><srai>KeypadAppendGlyphDescription <star/></srai></set></think>
@@ -90,8 +86,7 @@
 			</template>
 		</category>
 
-		<category>
-			<pattern>* then *</pattern>
+		<category><pattern>* then *</pattern>
 			<topic>keypad</topic>
 			<template>
 				<think><set var='valid'><srai>KeypadAppendGlyphDescription <star/></srai></set></think>
@@ -114,8 +109,7 @@
 			</template>
 		</category>
 
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Want to use the yes-no strategy</that>
 			<template>
 				<think>
@@ -126,14 +120,12 @@
 				<srai>KeypadResult <srai>Solver Keypad Start</srai></srai>
 			</template>
 		</category>
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Want to use the yes-no strategy</that>
 			<template><srai>NextSymbolPrompt</srai></template>
 		</category>
 
-		<category>
-			<pattern>NextSymbolPrompt</pattern>
+		<category><pattern>NextSymbolPrompt</pattern>
 			<template>
 				<condition name='KeypadAsking'>
 					<li value='1'>OK. Describe the first symbol.</li>
@@ -148,18 +140,15 @@
 
 		<!-- Usage: XGlyphs [rule seed] [n] -->
 		<!-- Returns a list of glyphs that appear on exactly n columns. -->
-		<category>
-			<pattern>XGlyphs 1 1</pattern>
+		<category><pattern>XGlyphs 1 1</pattern>
 			<template>Copyright FilledStar Omega Pumpkin SquigglyN AT Ae MeltedThree NWithHat Dragon RightC Tracks</template>
 		</category>
-		<category>
-			<pattern>XGlyphs 1 2</pattern>
+		<category><pattern>XGlyphs 1 2</pattern>
 			<template>HollowStar SmileyFace DoubleK SquidKnife HookN Six Euro QuestionMark Paragraph LeftC Pitchfork Cursive Balloon UpsideDownY BT</template>
 		</category>
 
 		<!-- Usage: KeypadAppendGlyphDescription [user description ...] -->
-		<category>
-			<pattern>KeypadAppendGlyphDescription *</pattern>
+		<category><pattern>KeypadAppendGlyphDescription *</pattern>
 			<template>
 				<think><set var='glyph'><srai>GetKeypadGlyphName <star/></srai></set></think>
 				<condition var='glyph'>
@@ -181,8 +170,7 @@
 
 		<!-- Usage: KeypadDescribe [glyph] -->
 		<!-- Returns a user-friendly description for the specified glyph identifier. -->
-		<category>
-			<pattern>KeypadDescribe *</pattern>
+		<category><pattern>KeypadDescribe *</pattern>
 			<template>
 				<condition>
 					<name>KeypadDescription<star/></name>
@@ -194,8 +182,7 @@
 
 		<!-- Usage: Solver Keypad Keypad [4 glyphs] -->
 		<!-- Returns the glyphs in the order they should be pressed. -->
-		<category>
-			<pattern>SolverFallback Keypad <set>number</set> Keypad * * * *</pattern>
+		<category><pattern>SolverFallback Keypad <set>number</set> Keypad * * * *</pattern>
 			<template>
 				<think>
 					<!-- Find which column contains these glyphs. -->
@@ -256,8 +243,7 @@
 
 		<!-- Usage: Solver Keypad CheckKeypad [glyphs ...] -->
 		<!-- Returns true if there is a matching column, or false otherwise. -->
-		<category>
-			<pattern>SolverFallback Keypad <set>number</set> CheckKeypad *</pattern>
+		<category><pattern>SolverFallback Keypad <set>number</set> CheckKeypad *</pattern>
 			<template>
 				<think>
 					<set var='result'>true</set>
@@ -304,8 +290,7 @@
 
 		<!-- Usage: KeypadOrderRead -->
 		<!-- Tells the Defuser the order to press the buttons. -->
-		<category>
-			<pattern>KeypadOrderRead *</pattern>
+		<category><pattern>KeypadOrderRead *</pattern>
 			<template>
 				<think><set var='column'><star/></set></think>
 				<condition var='column'>
@@ -338,21 +323,18 @@
 			</template>
 		</category>
 
-		<category>
-			<pattern>SolverFallback Keypad <set>number</set> Start ^</pattern>
+		<category><pattern>SolverFallback Keypad <set>number</set> Start ^</pattern>
 			<template>
 				<think><set name='KeypadToAsk'><srai>XGlyphs <get name='RuleSeed'/> 2</srai></set></think>
 				<srai>KeypadPrompt</srai>
 			</template>
 		</category>
 
-		<category>
-			<pattern>SolverFallback Keypad <set>number</set> GlyphPresent false *</pattern>
+		<category><pattern>SolverFallback Keypad <set>number</set> GlyphPresent false *</pattern>
 			<template><srai>KeypadPrompt</srai></template>
 		</category>
 
-		<category>
-			<pattern>SolverFallback Keypad <set>number</set> GlyphPresent true *</pattern>
+		<category><pattern>SolverFallback Keypad <set>number</set> GlyphPresent true *</pattern>
 			<template>
 				<think>
 					<condition name='KeypadColumns'>
@@ -435,8 +417,7 @@
 
 		<!-- Usage: KeypadPrompt -->
 		<!-- Asks the Defuser whether a glyph is on the keypad. Also sets the BombKeypadAsking predicate to this glyph. -->
-		<category>
-			<pattern>KeypadPrompt</pattern>
+		<category><pattern>KeypadPrompt</pattern>
 			<template>
 				<think>
 					<condition name='KeypadColumns'>
@@ -466,14 +447,12 @@
 			</template>
 		</category>
 
-		<category>
-			<pattern>KeypadResult Ask *</pattern>
+		<category><pattern>KeypadResult Ask *</pattern>
 			<template>
 				Is there a <map name='KeypadGlyphDescription'><set name='KeypadAsking'><star/></set></map>?
 			</template>
 		</category>
-		<category>
-			<pattern>KeypadResult Tell *</pattern>
+		<category><pattern>KeypadResult Tell *</pattern>
 			<template>
 				<think>
 					<set name='KeypadColumn'><star/></set>
@@ -483,8 +462,7 @@
 			</template>
 		</category>
 
-		<category>
-			<pattern><set>YesOrNo</set></pattern>
+		<category><pattern><set>YesOrNo</set></pattern>
 			<that>^ Is there a *</that>
 			<template>
 				<think>
@@ -499,8 +477,7 @@
 
 		<!-- Usage: TellKeypadColumnItem -->
 		<!-- Tells the user to press the next item on the column. -->
-		<category>
-			<pattern>TellKeypadColumnItem <set>number</set></pattern>
+		<category><pattern>TellKeypadColumnItem <set>number</set></pattern>
 			<template>
 				Press the
 				<map name='KeypadGlyphDescription'><srai>XItem <get name='KeypadIndex'/> XS <get name='KeypadColumn'/></srai></map>,
@@ -508,8 +485,7 @@
 			</template>
 		</category>
 
-		<category>
-			<pattern>OK ^</pattern>
+		<category><pattern>OK ^</pattern>
 			<topic>keypad column</topic>
 			<template>
 				<condition name='KeypadIndex'>

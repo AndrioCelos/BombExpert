@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml>
-	<category>
-		<pattern>reset wire sequence</pattern>
+	<category><pattern>reset wire sequence</pattern>
 		<template>
 			<srai>DeselectModule</srai>
 			<think><set name='topic'>WireSequence</set></think>
@@ -10,8 +9,7 @@
 		</template>
 	</category>
 
-	<category>
-		<pattern>resume wire sequence</pattern>
+	<category><pattern>resume wire sequence</pattern>
 		<template>
 			<srai>DeselectModule</srai>
 			<think><set name='topic'>WireSequence</set></think>
@@ -19,39 +17,31 @@
 		</template>
 	</category>
 
-	<category>
-		<pattern>resume wire sequences</pattern>
+	<category><pattern>resume wire sequences</pattern>
 		<template><srai>resume wire sequence</srai></template>
 	</category>
-	<category>
-		<pattern>resume panels</pattern>
+	<category><pattern>resume panels</pattern>
 		<template><srai>resume wire sequence</srai></template>
 	</category>
-	<category>
-		<pattern>resume wire panels</pattern>
+	<category><pattern>resume wire panels</pattern>
 		<template><srai>resume wire sequence</srai></template>
 	</category>
-	<category>
-		<pattern>resume sequence</pattern>
+	<category><pattern>resume sequence</pattern>
 		<template><srai>resume wire sequence</srai></template>
 	</category>
-	<category>
-		<pattern>resume sequences</pattern>
+	<category><pattern>resume sequences</pattern>
 		<template><srai>resume wire sequence</srai></template>
 	</category>
 
 	<topic name='WireSequence'>
-		<category>
-			<pattern>SelectModule</pattern>
+		<category><pattern>SelectModule</pattern>
 			<template>Ready for Wire Sequence.</template>
 		</category>
-		<category>
-			<pattern>SelectModule YNC</pattern>
+		<category><pattern>SelectModule YNC</pattern>
 			<template>Is the first wire red?</template>
 		</category>
 
-		<category>
-			<pattern>InitModule</pattern>
+		<category><pattern>InitModule</pattern>
 			<template>
 				<think>
 					<set name='WireSequenceRedWires'>0</set>
@@ -61,60 +51,50 @@
 			</template>
 		</category>
 
-		<category>
-			<pattern>new sequence</pattern>
+		<category><pattern>new sequence</pattern>
 			<template><srai>next instance</srai></template>
 		</category>
-		<category>
-			<pattern>next sequence</pattern>
+		<category><pattern>next sequence</pattern>
 			<template><srai>next instance</srai></template>
 		</category>
 
-		<category>
-			<pattern>red *</pattern>
+		<category><pattern>red *</pattern>
 			<template>
 				<srai>ProcessInput red <star/></srai>
 			</template>
 		</category>
-		<category>
-			<pattern>blue *</pattern>
+		<category><pattern>blue *</pattern>
 			<template>
 				<srai>ProcessInput blue <star/></srai>
 			</template>
 		</category>
-		<category>
-			<pattern>black *</pattern>
+		<category><pattern>black *</pattern>
 			<template>
 				<srai>ProcessInput black <star/></srai>
 			</template>
 		</category>
-		<category>
-			<pattern>A *</pattern>
+		<category><pattern>A *</pattern>
 			<template>
 				<srai>ProcessInput A <star/></srai>
 			</template>
 		</category>
-		<category>
-			<pattern>B *</pattern>
+		<category><pattern>B *</pattern>
 			<template>
 				<srai>ProcessInput B <star/></srai>
 			</template>
 		</category>
-		<category>
-			<pattern>C *</pattern>
+		<category><pattern>C *</pattern>
 			<template>
 				<srai>ProcessInput C <star/></srai>
 			</template>
 		</category>
-		<category>
-			<pattern><set>NATO</set> *</pattern>
+		<category><pattern><set>NATO</set> *</pattern>
 			<template>
 				<srai>ProcessInput <star/> <star index='2'/></srai>
 			</template>
 		</category>
 
-		<category>
-			<pattern>ProcessInput *</pattern>
+		<category><pattern>ProcessInput *</pattern>
 			<template>
 				<!-- Calculate which wires to cut. -->
 				<think>
@@ -298,34 +278,28 @@
 			</template>
 		</category>
 
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Is there another wire</that>
 			<template>Is the wire red?</template>
 		</category>
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Is there another wire</that>
 			<template><srai>YNCAskModule</srai></template>
 		</category>
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Is the ^ wire <set>colour</set></that>
 			<template><srai>YNCWireColour <thatstar index='2'/></srai></template>
 		</category>
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Is the ^ wire red</that>
 			<template>Is the wire blue?</template>
 		</category>
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Is the wire blue</that>
 			<template><srai>YNCWireColour black</srai></template>
 		</category>
 
-		<category>
-			<pattern>YNCWireColour *</pattern>
+		<category><pattern>YNCWireColour *</pattern>
 			<template>
 				<think>
 					<set var='total'><map name='successor'><get><name>WireSequence<star/>Wires</name></get></map></set>
@@ -341,27 +315,22 @@
 			</template>
 		</category>
 
-		<category>
-			<pattern>YNCRead nil</pattern>
+		<category><pattern>YNCRead nil</pattern>
 			<template>Do not cut the wire.</template>
 		</category>
-		<category>
-			<pattern>YNCRead *</pattern>
+		<category><pattern>YNCRead *</pattern>
 			<template>Cut if connected to <star/>.</template>
 		</category>
-		<category>
-			<pattern>YNCRead * *</pattern>
+		<category><pattern>YNCRead * *</pattern>
 			<template>Cut if connected to <star/> or <star index='2'/>.</template>
 		</category>
-		<category>
-			<pattern>YNCRead * * *</pattern>
+		<category><pattern>YNCRead * * *</pattern>
 			<template>Cut the wire.</template>
 		</category>
 
 		<!-- Usage: Solver WireSequence [red count] [blue count] [black count] [colour] [letter] -->
 		<!-- Returns true if this wire should be cut, or false otherwise. -->
-		<category>
-			<pattern>SolverFallback WireSequence <set>number</set> * * * * *</pattern>
+		<category><pattern>SolverFallback WireSequence <set>number</set> * * * * *</pattern>
 			<template>
 				<think>
 					<set var='redCount'><star index='2'/></set>
@@ -376,24 +345,20 @@
 		</category>
 	</topic>
 
-	<category>
-		<pattern>SouvenirInput WireSequence XS <set>number</set></pattern>
+	<category><pattern>SouvenirInput WireSequence XS <set>number</set></pattern>
 		<template>
 			<srai>SouvenirGet WireSequence XS <star/> XS Red</srai> red,
 			<srai>SouvenirGet WireSequence XS <star/> XS Blue</srai> blue,
 			<srai>SouvenirGet WireSequence XS <star/> XS Black</srai> black.
 		</template>
 	</category>
-	<category>
-		<pattern>SouvenirInput WireSequence XS <set>number</set> XS red</pattern>
+	<category><pattern>SouvenirInput WireSequence XS <set>number</set> XS red</pattern>
 		<template><srai>SouvenirGet WireSequence XS <star/> XS red</srai> red.</template>
 	</category>
-	<category>
-		<pattern>SouvenirInput WireSequence XS <set>number</set> XS blue</pattern>
+	<category><pattern>SouvenirInput WireSequence XS <set>number</set> XS blue</pattern>
 		<template><srai>SouvenirGet WireSequence XS <star/> XS blue</srai> blue.</template>
 	</category>
-	<category>
-		<pattern>SouvenirInput WireSequence XS <set>number</set> XS black</pattern>
+	<category><pattern>SouvenirInput WireSequence XS <set>number</set> XS black</pattern>
 		<template><srai>SouvenirGet WireSequence XS <star/> XS black</srai> black.</template>
 	</category>
 </aiml>

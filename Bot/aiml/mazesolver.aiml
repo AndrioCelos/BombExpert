@@ -141,8 +141,7 @@
 		</template>
 	</category>
 
-	<category>
-		<pattern>MazeSolver OpenSetDequeue * * * ^</pattern>
+	<category><pattern>MazeSolver OpenSetDequeue * * * ^</pattern>
 		<template>
 			<think>
 				<set name='MazeSolverX'><star index='1'/></set>
@@ -153,8 +152,7 @@
 		</template>
 	</category>
 
-	<category>
-		<pattern>MazeSolver GoalCheck</pattern>
+	<category><pattern>MazeSolver GoalCheck</pattern>
 		<template>
 			<condition name='MazeSolverX'>
 				<li><value><get name='MazeSolverGoalX'/></value>

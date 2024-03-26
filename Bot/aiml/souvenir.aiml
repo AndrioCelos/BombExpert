@@ -10,8 +10,7 @@
 
 	<!-- Usage: SouvenirGet [module] XS [key] -->
 	<!-- Gets the value associated with the specified key in the current Souvenir store for the specified module type. -->
-	<category>
-		<pattern>SouvenirGet * XS *</pattern>
+	<category><pattern>SouvenirGet * XS *</pattern>
 		<template>
 			<get><name>Souvenir <srai>CurrentSouvenirStoreIndex <star/></srai> <star index='2'/></name></get>
 		</template>
@@ -19,8 +18,7 @@
 
 	<!-- Usage: SouvenirGet [module] XS [n] XS [key] -->
 	<!-- Gets the value associated with the specified key in the nth Souvenir store for the specified module type. -->
-	<category>
-		<pattern>SouvenirGet * XS <set>number</set> XS *</pattern>
+	<category><pattern>SouvenirGet * XS <set>number</set> XS *</pattern>
 		<template>
 			<think>
 				<set var='storeId'><srai>XItem <star index='2'/> XS <get><name>SouvenirStores <star/></name></get></srai></set>
@@ -33,16 +31,14 @@
 
 	<!-- Usage: SouvenirPut [key] XS [value] -->
 	<!-- Stores a key-value pair in the current Souvenir store for the module type from the current topic. Returns the value. -->
-	<category>
-		<pattern>SouvenirPut * XS *</pattern>
+	<category><pattern>SouvenirPut * XS *</pattern>
 		<topic>* ^</topic>
 		<template><srai>SouvenirPut <topicstar/> XS <star/> XS <star index='2'/></srai></template>
 	</category>
 
 	<!-- Usage: SouvenirPut [module] XS [key] XS [value] -->
 	<!-- Stores a key-value pair in the current Souvenir store for the specified module type. Returns the value. -->
-	<category>
-		<pattern>SouvenirPut * XS * XS *</pattern>
+	<category><pattern>SouvenirPut * XS * XS *</pattern>
 		<template>
 			<think><gossip>Recording for Souvenir store <star/> (<srai>CurrentSouvenirStoreIndex <star/></srai>): <star index='2'/> = <star index='3'/></gossip></think>
 			<set><name>Souvenir <srai>CurrentSouvenirStoreIndex <star/></srai> <star index='2'/></name><star index='3'/></set>
@@ -51,8 +47,7 @@
 
 	<!-- Usage: CurrentSouvenirStoreIndex [module] -->
 	<!-- Returns the current Souvenir store index for the specified module type, or allocates a new one if none exists. -->
-	<category>
-		<pattern>CurrentSouvenirStoreIndex *</pattern>
+	<category><pattern>CurrentSouvenirStoreIndex *</pattern>
 		<template>
 			<condition>
 				<name>SouvenirStores <star/></name>
@@ -67,15 +62,13 @@
 	</category>
 	<!-- Usage: NewSouvenirStoreIndex -->
 	<!-- Allocates and returns a new Souvenir store index for the module type from the current topic. -->
-	<category>
-		<pattern>NewSouvenirStoreIndex</pattern>
+	<category><pattern>NewSouvenirStoreIndex</pattern>
 		<topic>* ^</topic>
 		<template><srai>NewSouvenirStoreIndex <topicstar/></srai></template>
 	</category>
 	<!-- Usage: NewSouvenirStoreIndex [module] -->
 	<!-- Allocates and returns a new Souvenir store index for the specified module type. -->
-	<category>
-		<pattern>NewSouvenirStoreIndex *</pattern>
+	<category><pattern>NewSouvenirStoreIndex *</pattern>
 		<template>
 			<set var='index'><srai>NextSouvenirStoreIndex</srai></set>
 			<think>
@@ -91,31 +84,25 @@
 		</template>
 	</category>
 
-	<category>
-		<pattern>NextSouvenirStoreIndex</pattern>
+	<category><pattern>NextSouvenirStoreIndex</pattern>
 		<template><set name='SouvenirCurrent'><map name='successor'><get name='SouvenirCurrent'/></map></set></template>
 	</category>
 
 	<topic name='Souvenir'>
-		<category>
-			<pattern>SelectModule</pattern>
+		<category><pattern>SelectModule</pattern>
 			<template>Ready for Souvenir.</template>
 		</category>
 
-		<category>
-			<pattern><set>module</set></pattern>
+		<category><pattern><set>module</set></pattern>
 			<template><srai>SouvenirInput <map name='ModuleCode'><star/></map> XS 1</srai></template>
 		</category>
-		<category>
-			<pattern><set>module</set> *</pattern>
+		<category><pattern><set>module</set> *</pattern>
 			<template><srai>SouvenirInput <map name='ModuleCode'><star/></map> XS 1 XS <star index='2'/></srai></template>
 		</category>
-		<category>
-			<pattern><set>module</set> <set>number</set></pattern>
+		<category><pattern><set>module</set> <set>number</set></pattern>
 			<template><srai>SouvenirInput <map name='ModuleCode'><star/></map> XS <star index='2'/></srai></template>
 		</category>
-		<category>
-			<pattern><set>module</set> <set>number</set> *</pattern>
+		<category><pattern><set>module</set> <set>number</set> *</pattern>
 			<template><srai>SouvenirInput <map name='ModuleCode'><star/></map> XS <star index='2'/> XS <star index='3'/></srai></template>
 		</category>
 

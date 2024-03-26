@@ -1,7 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <aiml version='2.1'>
-	<category>
-		<pattern>XTest WiresTests</pattern>
+	<category><pattern>XTest WiresTests</pattern>
 		<template>
 			<think>
 				<srai>new bomb</srai>
@@ -45,8 +44,7 @@
 		</template>
 	</category>
 
-	<category>
-		<pattern>XTest Wires Conversation 1</pattern>
+	<category><pattern>XTest Wires Conversation 1</pattern>
 		<template>
 			<think>
 				<srai>new bomb</srai>
@@ -55,8 +53,7 @@
 			<test name='Wires Conversation 1' regex='.*last digit.*'>Red Red White Yellow</test>
 		</template>
 	</category>
-	<category>
-		<pattern>XTest Wires Conversation 2</pattern>
+	<category><pattern>XTest Wires Conversation 2</pattern>
 		<template><test name='Wires Conversation 2' regex='.*Cut the second wire.'>1</test></template>
 	</category>
 </aiml>

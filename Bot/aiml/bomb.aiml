@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml>
-	<category>
-		<pattern>new bomb</pattern>
+	<category><pattern>new bomb</pattern>
 		<template>
 			<think>
 				<set name='topic'>unknown</set>
@@ -17,37 +16,32 @@
 			<oob>SetGrammar bomb</oob><oob>SetPartialInput false</oob> OK
 		</template>
 	</category>
-	<category>
-		<pattern>strike <set>number</set></pattern>
+	<category><pattern>strike <set>number</set></pattern>
 		<template>
 			<think><set name='StrikeCount'><star/></set></think>
 			OK
 		</template>
 	</category>
-	<category>
-		<pattern>strike zero</pattern>  <!-- In case the user said a strike by mistake. -->
+	<category><pattern>strike zero</pattern>  <!-- In case the user said a strike by mistake. -->
 		<template>
 			<think><set name='StrikeCount'>0</set></think>
 			OK
 		</template>
 	</category>
-	<category>
-		<pattern>strike one</pattern>
+	<category><pattern>strike one</pattern>
 		<template>
 			<think><set name='StrikeCount'>1</set></think>
 			OK
 		</template>
 	</category>
-	<category>
-		<pattern>strike two</pattern>
+	<category><pattern>strike two</pattern>
 		<template>
 			<think><set name='StrikeCount'>2</set></think>
 			OK
 		</template>
 	</category>
 
-	<category>
-		<pattern>solved</pattern>
+	<category><pattern>solved</pattern>
 		<template>
 			<set name='SolveCount'>
 				<condition name='SolveCount'>
@@ -57,8 +51,7 @@
 			</set> solves so far.
 		</template>
 	</category>
-	<category>
-		<pattern>SolvableModuleCount</pattern>
+	<category><pattern>SolvableModuleCount</pattern>
 		<template>
 			<condition name='SolvableModuleCount'>
 				<li value='unknown'>unknown</li>
@@ -66,12 +59,10 @@
 			</condition>
 		</template>
 	</category>
-	<category>
-		<pattern>UnsolvedModuleCount</pattern>
+	<category><pattern>UnsolvedModuleCount</pattern>
 		<template><srai>UnsolvedModuleCount <get name='SolveCount'/></srai></template>
 	</category>
-	<category>
-		<pattern>UnsolvedModuleCount <set>number</set></pattern>
+	<category><pattern>UnsolvedModuleCount <set>number</set></pattern>
 		<template>
 			<condition name='ModuleCount'>
 				<li value='unknown'>unknown</li>
@@ -85,8 +76,7 @@
 		</template>
 	</category>
 
-	<category>
-		<pattern>start <set>module</set></pattern>
+	<category><pattern>start <set>module</set></pattern>
 		<template>
 			<!-- TODO: For now, this is unclear about whether the previous module was solved or not. This matters if we need to count solves, or for Souvenir with duplicate modules. -->
 			<srai>DeselectModule</srai>
@@ -96,21 +86,17 @@
 			<srai>InitModule</srai>
 		</template>
 	</category>
-	<category>
-		<pattern><set>module</set></pattern>
+	<category><pattern><set>module</set></pattern>
 		<template><srai>start <star/></srai></template>
 	</category>
-	<category>
-		<pattern>begin <set>module</set></pattern>
+	<category><pattern>begin <set>module</set></pattern>
 		<template><srai>start <star/></srai></template>
 	</category>
-	<category>
-		<pattern>defuse <set>module</set></pattern>
+	<category><pattern>defuse <set>module</set></pattern>
 		<template><srai>start <star/></srai></template>
 	</category>
 
-	<category>
-		<pattern>resume <set>module</set></pattern>
+	<category><pattern>resume <set>module</set></pattern>
 		<template>
 			<srai>DeselectModule</srai>
 			<think><set name='topic'><map name='ModuleCode'><star/></map></set></think>
@@ -120,24 +106,20 @@
 	</category>
 
 	<!-- Called when the topic is changed to this module type. -->
-	<category>
-		<pattern>SelectModule</pattern>
+	<category><pattern>SelectModule</pattern>
 		<template><!-- Does nothing by default. --></template>
 	</category>
 	<!-- Called when the topic is changed from this module type. -->
-	<category>
-		<pattern>DeselectModule</pattern>
+	<category><pattern>DeselectModule</pattern>
 		<template><!-- Does nothing by default. --></template>
 	</category>
 	<!-- Called when work is started on an instance of this module. -->
-	<category>
-		<pattern>InitModule</pattern>
+	<category><pattern>InitModule</pattern>
 		<template><!-- Does nothing by default. --></template>
 	</category>
 
 	<!-- next [module] starts a new instance of the specified module. -->
-	<category>
-		<pattern>next <set>module</set></pattern>
+	<category><pattern>next <set>module</set></pattern>
 		<template>
 			<srai>DeselectModule</srai>
 			<think><set name='topic'><map name='ModuleCode'><star/></map></set></think>
@@ -146,25 +128,20 @@
 			<srai>InitModule</srai>
 		</template>
 	</category>
-	<category>
-		<pattern>next is <set>module</set></pattern>
+	<category><pattern>next is <set>module</set></pattern>
 		<template><srai>next <star/></srai></template>
 	</category>
-	<category>
-		<pattern>new <set>module</set></pattern>
+	<category><pattern>new <set>module</set></pattern>
 		<template><srai>next <star/></srai></template>
 	</category>
 	<!-- 'next instance' starts a new instance of the selected module type. -->
-	<category>
-		<pattern>next one</pattern>
+	<category><pattern>next one</pattern>
 		<template><srai>next instance</srai></template>
 	</category>
-	<category>
-		<pattern>new instance</pattern>
+	<category><pattern>new instance</pattern>
 		<template><srai>next instance</srai></template>
 	</category>
-	<category>
-		<pattern>next instance</pattern>
+	<category><pattern>next instance</pattern>
 		<template>
 			<think><srai>NewSouvenirStoreIndex</srai></think>
 			<srai>InitModule</srai>
@@ -173,8 +150,7 @@
 	</category>
 	<!-- 'next module' asks for the next module type on the Turn the Keys list. -->
 
-	<category>
-		<pattern>rule seed <set>number</set></pattern>
+	<category><pattern>rule seed <set>number</set></pattern>
 		<template>
 			<think>
 				<condition name='SraixUnavailable'>
@@ -191,34 +167,28 @@
 			</condition>
 		</template>
 	</category>
-	<category>
-		<pattern>rule seed <set>number</set> *</pattern>
+	<category><pattern>rule seed <set>number</set> *</pattern>
 		<template><srai>rule seed <star/><star index='2'/></srai></template>
 	</category>
 
-	<category>
-		<pattern>WHY NOT</pattern>
+	<category><pattern>WHY NOT</pattern>
 		<that>This rule seed cannot be used at the moment</that>
 		<template>I do not have access to the C# library, and AIML scripts for this rule seed have not been provided.</template>
 	</category>
-	<category>
-		<pattern>WHY</pattern>
+	<category><pattern>WHY</pattern>
 		<that>This rule seed cannot be used at the moment</that>
 		<template><srai>WHY NOT</srai></template>
 	</category>
-	<category>
-		<pattern>WHY IS THAT</pattern>
+	<category><pattern>WHY IS THAT</pattern>
 		<that>This rule seed cannot be used at the moment</that>
 		<template><srai>WHY NOT</srai></template>
 	</category>
-	<category>
-		<pattern>HOW COME</pattern>
+	<category><pattern>HOW COME</pattern>
 		<that>This rule seed cannot be used at the moment</that>
 		<template><srai>WHY NOT</srai></template>
 	</category>
 
-	<category>
-		<pattern>solver test</pattern>
+	<category><pattern>solver test</pattern>
 		<!-- A simple test to make sure the library is loaded properly. -->
 		<template>
 			<think>
@@ -237,27 +207,22 @@
 		</template>
 	</category>
 
-	<category>
-		<pattern>verification code</pattern>
+	<category><pattern>verification code</pattern>
 		<template>The verification code is 2 4 1.</template>
 	</category>
-	<category>
-		<pattern>verify code</pattern>
+	<category><pattern>verify code</pattern>
 		<template><srai>verification code</srai></template>
 	</category>
 
 	<!-- Recursive categories for decoding NATO alphabet strings, such as 'Alfa Bravo Charlie' -->
-	<category>
-		<pattern>DecodeNato <set>NATO</set></pattern>
+	<category><pattern>DecodeNato <set>NATO</set></pattern>
 		<template><map name='NATO'><star/></map></template>
 	</category>
-	<category>
-		<pattern>DecodeNato <set>NATO</set> *</pattern>
+	<category><pattern>DecodeNato <set>NATO</set> *</pattern>
 		<template><map name='NATO'><star/></map><srai>DecodeNato <star index='2'/></srai></template>
 	</category>
 
-	<category>
-		<pattern>EncodeNATO *</pattern>
+	<category><pattern>EncodeNATO *</pattern>
 		<template>
 			<think>
 				<set var='chars'><explode><star/></explode></set>
@@ -278,24 +243,20 @@
 
 
 	<!-- Verification -->
-	<category>
-		<pattern>verify rule seed</pattern>
+	<category><pattern>verify rule seed</pattern>
 		<template>The rule seed is <explode><get name='RuleSeed'/></explode>.</template>
 	</category>
 
-	<category>
-		<pattern>verify strikes</pattern>
+	<category><pattern>verify strikes</pattern>
 		<template><get name='StrikeCount'/></template>
 	</category>
 
 	<!-- Usage: OKRuleSeed <rule seed> -->
 	<!-- Returns true if we can play with the specified rule seed without the C# library. -->
-	<category>
-		<pattern>OKRuleSeed 1</pattern>
+	<category><pattern>OKRuleSeed 1</pattern>
 		<template>true</template>
 	</category>
-	<category>
-		<pattern>OKRuleSeed *</pattern>
+	<category><pattern>OKRuleSeed *</pattern>
 		<template>false</template>
 	</category>
 
@@ -313,8 +274,7 @@
 		All solvers must take the rule seed as the first word of their input.
 		This will not be included in usage hints for the Solver categories.
 	-->
-	<category>
-		<pattern>Solver * ^</pattern>
+	<category><pattern>Solver * ^</pattern>
 		<template>
 			<think>
 				<set var='params'><star index='2'/></set>
@@ -343,8 +303,7 @@
 
 	<!-- Usage: SolverFallback <module> <rule seed> [parameters ...] -->
 	<!-- Fallback solver placeholder in case no fallback solver is available. -->
-	<category>
-		<pattern>SolverFallback * * ^</pattern>
+	<category><pattern>SolverFallback * * ^</pattern>
 		<template>
 			<think><gossip>No solver available for module <star/> and rule seed <star index='2'/>.</gossip></think>
 			NoSolver

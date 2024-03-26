@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml>
 	<topic name='WhosOnFirst ^'>
-		<category>
-			<pattern>InitModule</pattern>
+		<category><pattern>InitModule</pattern>
 			<template>
 				<think>
 					<set name='topic'>WhosOnFirst Display</set>
@@ -11,249 +10,189 @@
 			</template>
 		</category>
 
-		<category>
-			<pattern>SelectModule</pattern>
+		<category><pattern>SelectModule</pattern>
 			<template>Read the display.</template>
 		</category>
 
-		<category>
-			<pattern>Parse *</pattern>
+		<category><pattern>Parse *</pattern>
 			<template><srai>Parse2 <star/></srai></template>
 		</category>
-		<category>
-			<pattern>Parse <set>NATO</set></pattern>
+		<category><pattern>Parse <set>NATO</set></pattern>
 			<template><srai>Parse2 <srai>DecodeNato <star/></srai></srai></template>
 		</category>
-		<category>
-			<pattern>Parse <set>NATO</set> <set>NATO</set></pattern>
+		<category><pattern>Parse <set>NATO</set> <set>NATO</set></pattern>
 			<template><srai>Parse2 <srai>DecodeNato <star/> <star index='2'/></srai></srai></template>
 		</category>
-		<category>
-			<pattern>Parse <set>NATO</set> <set>NATO</set> <set>NATO</set></pattern>
+		<category><pattern>Parse <set>NATO</set> <set>NATO</set> <set>NATO</set></pattern>
 			<template><srai>Parse2 <srai>DecodeNato <star/> <star index='2'/> <star index='3'/></srai></srai></template>
 		</category>
-		<category>
-			<pattern>Parse <set>NATO</set> <set>NATO</set> <set>NATO</set> <set>NATO</set></pattern>
+		<category><pattern>Parse <set>NATO</set> <set>NATO</set> <set>NATO</set> <set>NATO</set></pattern>
 			<template><srai>Parse2 <srai>DecodeNato <star/> <star index='2'/> <star index='3'/> <star index='4'/></srai></srai></template>
 		</category>
-		<category>
-			<pattern>Parse <set>NATO</set> <set>NATO</set> <set>NATO</set> <set>NATO</set> <set>NATO</set></pattern>
+		<category><pattern>Parse <set>NATO</set> <set>NATO</set> <set>NATO</set> <set>NATO</set> <set>NATO</set></pattern>
 			<template><srai>Parse2 <srai>DecodeNato <star/> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/></srai></srai></template>
 		</category>
-		<category>
-			<pattern>Parse <set>NATO</set> <set>NATO</set> <set>NATO</set> <set>NATO</set> <set>NATO</set> <set>NATO</set></pattern>
+		<category><pattern>Parse <set>NATO</set> <set>NATO</set> <set>NATO</set> <set>NATO</set> <set>NATO</set> <set>NATO</set></pattern>
 			<template><srai>Parse2 <srai>DecodeNato <star/> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/> <star index='6'/></srai></srai></template>
 		</category>
-		<category>
-			<pattern>Parse <set>NATO</set> <set>NATO</set> <set>NATO</set> <set>NATO</set> <set>NATO</set> <set>NATO</set> <set>NATO</set></pattern>
+		<category><pattern>Parse <set>NATO</set> <set>NATO</set> <set>NATO</set> <set>NATO</set> <set>NATO</set> <set>NATO</set> <set>NATO</set></pattern>
 			<template><srai>Parse2 <srai>DecodeNato <star/> <star index='2'/> <star index='3'/> <star index='4'/> <star index='5'/> <star index='6'/> <star index='7'/></srai></srai></template>
 		</category>
-		<category>
-			<pattern>Parse the *</pattern>
+		<category><pattern>Parse the *</pattern>
 			<template><srai>Parse <star/></srai></template>
 		</category>
-		<category>
-			<pattern>Parse it is *</pattern>
+		<category><pattern>Parse it is *</pattern>
 			<template><srai>Parse <star/></srai></template>
 		</category>
-		<category>
-			<pattern>Parse word is *</pattern>
+		<category><pattern>Parse word is *</pattern>
 			<template><srai>Parse <star/></srai></template>
 		</category>
-		<category>
-			<pattern>Parse display is *</pattern>
+		<category><pattern>Parse display is *</pattern>
 			<template><srai>Parse <star/></srai></template>
 		</category>
-		<category>
-			<pattern>Parse label is *</pattern>
+		<category><pattern>Parse label is *</pattern>
 			<template><srai>Parse <star/></srai></template>
 		</category>
-		<category>
-			<pattern>Parse it says *</pattern>
+		<category><pattern>Parse it says *</pattern>
 			<template><srai>Parse <star/></srai></template>
 		</category>
-		<category>
-			<pattern>Parse word says *</pattern>
+		<category><pattern>Parse word says *</pattern>
 			<template><srai>Parse <star/></srai></template>
 		</category>
-		<category>
-			<pattern>Parse display says *</pattern>
+		<category><pattern>Parse display says *</pattern>
 			<template><srai>Parse <star/></srai></template>
 		</category>
-		<category>
-			<pattern>Parse label says *</pattern>
+		<category><pattern>Parse label says *</pattern>
 			<template><srai>Parse <star/></srai></template>
 		</category>
-		<category>
-			<pattern>Parse it says blank</pattern>
+		<category><pattern>Parse it says blank</pattern>
 			<template><srai>Parse2 blank</srai></template>
 		</category>
-		<category>
-			<pattern>Parse word is blank</pattern>
+		<category><pattern>Parse word is blank</pattern>
 			<template><srai>Parse2 blank</srai></template>
 		</category>
-		<category>
-			<pattern>Parse display says blank</pattern>
+		<category><pattern>Parse display says blank</pattern>
 			<template><srai>Parse2 blank</srai></template>
 		</category>
-		<category>
-			<pattern>Parse label is blank</pattern>
+		<category><pattern>Parse label is blank</pattern>
 			<template><srai>Parse2 blank</srai></template>
 		</category>
-		<category>
-			<pattern>Parse label says blank</pattern>
+		<category><pattern>Parse label says blank</pattern>
 			<template><srai>Parse2 blank</srai></template>
 		</category>
-		<category>
-			<pattern>Parse it says nothing</pattern>
+		<category><pattern>Parse it says nothing</pattern>
 			<template><srai>Parse2 nothing</srai></template>
 		</category>
-		<category>
-			<pattern>Parse the word is nothing</pattern>
+		<category><pattern>Parse the word is nothing</pattern>
 			<template><srai>Parse2 nothing</srai></template>
 		</category>
-		<category>
-			<pattern>Parse display says nothing</pattern>
+		<category><pattern>Parse display says nothing</pattern>
 			<template><srai>Parse2 nothing</srai></template>
 		</category>
-		<category>
-			<pattern>Parse label says nothing</pattern>
+		<category><pattern>Parse label says nothing</pattern>
 			<template><srai>Parse2 nothing</srai></template>
 		</category>
-		<category>
-			<pattern>Parse * with *</pattern>
+		<category><pattern>Parse * with *</pattern>
 			<template><srai>Parse <star/> <star index='2'/></srai></template>
 		</category>
-		<category>
-			<pattern>Parse * with a *</pattern>
+		<category><pattern>Parse * with a *</pattern>
 			<template><srai>Parse <star/> <star index='2'/></srai></template>
 		</category>
-		<category>
-			<pattern>Parse * with an *</pattern>
+		<category><pattern>Parse * with an *</pattern>
 			<template><srai>Parse <star/> <star index='2'/></srai></template>
 		</category>
-		<category>
-			<pattern>Parse blank</pattern>
+		<category><pattern>Parse blank</pattern>
 			<template>Error Please specify 'word blank' or 'empty'.</template>
 		</category>
-		<category>
-			<pattern>Parse nothing</pattern>
+		<category><pattern>Parse nothing</pattern>
 			<template>Error Please specify 'word nothing' or 'empty'.</template>
 		</category>
-		<category>
-			<pattern>Parse led</pattern>
+		<category><pattern>Parse led</pattern>
 			<template>Error Please spell it or specify 'led no A', 'lead A' or 'leed language'.</template>
 		</category>
-		<category>
-			<pattern>Parse lead</pattern>
+		<category><pattern>Parse lead</pattern>
 			<template>Error Please spell it or specify 'led no A', 'lead A' or 'leed language'.</template>
 		</category>
-		<category>
-			<pattern>Parse leed</pattern>
+		<category><pattern>Parse leed</pattern>
 			<template>Error Please spell it or specify 'led no A', 'lead A' or 'leed language'.</template>
 		</category>
-		<category>
-			<pattern>Parse red</pattern>
+		<category><pattern>Parse red</pattern>
 			<template>Error Please spell it or specify 'red colour', 'read a book' or 'reed instrument'.</template>
 		</category>
-		<category>
-			<pattern>Parse read</pattern>
+		<category><pattern>Parse read</pattern>
 			<template>Error Please spell it or specify 'red colour', 'read a book' or 'reed instrument'.</template>
 		</category>
-		<category>
-			<pattern>Parse reed</pattern>
+		<category><pattern>Parse reed</pattern>
 			<template>Error Please spell it or specify 'red colour', 'read a book' or 'reed instrument'.</template>
 		</category>
-		<category>
-			<pattern>Parse you</pattern>
+		<category><pattern>Parse you</pattern>
 			<template>Error Please spell it or specify 'word you' or 'letter u'.</template>
 		</category>
-		<category>
-			<pattern>Parse u</pattern>
+		<category><pattern>Parse u</pattern>
 			<template>Error Please spell it or specify 'word you' or 'letter u'.</template>
 		</category>
-		<category>
-			<pattern>Parse your</pattern>
+		<category><pattern>Parse your</pattern>
 			<template>Error Please specify 'your no apostrophe' or 'you're apostrophe'.</template>
 		</category>
-		<category>
-			<pattern>Parse you're</pattern>
+		<category><pattern>Parse you're</pattern>
 			<template>Error Please specify 'your no apostrophe' or 'you're apostrophe'.</template>
 		</category>
-		<category>
-			<pattern>Parse you are</pattern>
+		<category><pattern>Parse you are</pattern>
 			<template>Error Please specify 'words you are' or 'letters u r'.</template>
 		</category>
-		<category>
-			<pattern>Parse ur</pattern>
+		<category><pattern>Parse ur</pattern>
 			<template>Error Please specify 'words you are' or 'letters u r'.</template>
 		</category>
-		<category>
-			<pattern>Parse u r</pattern>
+		<category><pattern>Parse u r</pattern>
 			<template>Error Please specify 'words you are' or 'letters u r'.</template>
 		</category>
-		<category>
-			<pattern>Parse there</pattern>
+		<category><pattern>Parse there</pattern>
 			<template>Error Please spell it or specify 'there location', 'their possessive' or 'they're apostrophe'.</template>
 		</category>
-		<category>
-			<pattern>Parse their</pattern>
+		<category><pattern>Parse their</pattern>
 			<template>Error Please spell it or specify 'there location', 'their possessive' or 'they're apostrophe'.</template>
 		</category>
-		<category>
-			<pattern>Parse they're</pattern>
+		<category><pattern>Parse they're</pattern>
 			<template>Error Please spell it or specify 'there location', 'their possessive' or 'they're apostrophe'.</template>
 		</category>
-		<category>
-			<pattern>Parse see</pattern>
+		<category><pattern>Parse see</pattern>
 			<template>Error Please spell it or specify 'word see', 'letter c' or 'Cee Spain'.</template>
 		</category>
-		<category>
-			<pattern>Parse c</pattern>
+		<category><pattern>Parse c</pattern>
 			<template>Error Please spell it or specify 'word see', 'letter c' or 'Cee Spain'.</template>
 		</category>
-		<category>
-			<pattern>Parse cee</pattern>
+		<category><pattern>Parse cee</pattern>
 			<template>Error Please spell it or specify 'word see', 'letter c' or 'Cee Spain'.</template>
 		</category>
-		<category>
-			<pattern>Parse sea</pattern>  <!-- Not a possible display, but here in case of confused speech recognition -->
+		<category><pattern>Parse sea</pattern>  <!-- Not a possible display, but here in case of confused speech recognition -->
 			<template>Error Please spell it or specify 'word see', 'letter c' or 'Cee Spain'.</template>
 		</category>
-		<category>
-			<pattern>Parse what</pattern>
+		<category><pattern>Parse what</pattern>
 			<template>Error Please specify 'what question' or 'what no question'.</template>
 		</category>
-		<category>
-			<pattern>Parse2 *</pattern>
+		<category><pattern>Parse2 *</pattern>
 			<template><map name='WhosOnFirstParse'><star/></map></template>
 		</category>
 
-		<category>
-			<pattern>SolverFallback WhosOnFirst <set>number</set> Display *</pattern>
+		<category><pattern>SolverFallback WhosOnFirst <set>number</set> Display *</pattern>
 			<template><map><name>WhosOnFirstButton<star/></name><star index='2'/></map></template>
 		</category>
-		<category>
-			<pattern>SolverFallback WhosOnFirst <set>number</set> Button *</pattern>
+		<category><pattern>SolverFallback WhosOnFirst <set>number</set> Button *</pattern>
 			<template><map><name>WhosOnFirstList<star/></name><star index='2'/></map></template>
 		</category>
 
-		<category>
-			<pattern>*</pattern>
+		<category><pattern>*</pattern>
 			<topic>WhosOnFirst Display</topic>
 			<template><srai>HandleDisplay <srai>Parse <star/></srai></srai></template>
 		</category>
 
-		<category>
-			<pattern>HandleDisplay Error *</pattern>
+		<category><pattern>HandleDisplay Error *</pattern>
 			<template><star/></template>
 		</category>
-		<category>
-			<pattern>HandleDisplay unknown</pattern>
+		<category><pattern>HandleDisplay unknown</pattern>
 			<template>That does not sound like a possible label. Try again.</template>
 		</category>
-		<category>
-			<pattern>HandleDisplay *</pattern>
+		<category><pattern>HandleDisplay *</pattern>
 			<template>
 				<think>
 					<set var='result'><srai>Solver WhosOnFirst Display <star/></srai></set>
@@ -270,22 +209,18 @@
 			</template>
 		</category>
 
-		<category>
-			<pattern>*</pattern>
+		<category><pattern>*</pattern>
 			<topic>WhosOnFirst Button</topic>
 			<template><srai>HandleButton <srai>Parse <star/></srai></srai></template>
 		</category>
 
-		<category>
-			<pattern>HandleButton Error *</pattern>
+		<category><pattern>HandleButton Error *</pattern>
 			<template><star/></template>
 		</category>
-		<category>
-			<pattern>HandleButton unknown</pattern>
+		<category><pattern>HandleButton unknown</pattern>
 			<template>That does not sound like a possible label. Try again.</template>
 		</category>
-		<category>
-			<pattern>HandleButton *</pattern>
+		<category><pattern>HandleButton *</pattern>
 			<template>
 				<think>
 					<set var='list'><srai>Solver WhosOnFirst Button <star/></srai></set>
@@ -327,8 +262,7 @@
 			</template>
 		</category>
 
-		<category>
-			<pattern>next stage ^</pattern>
+		<category><pattern>next stage ^</pattern>
 			<template>
 				<think>
 					<condition name='WhosOnFirstStage'>
@@ -344,129 +278,105 @@
 				<sr/>
 			</template>
 		</category>
-		<category>
-			<pattern>new stage ^</pattern>
+		<category><pattern>new stage ^</pattern>
 			<template><srai>next stage <star/></srai></template>
 		</category>
 
-		<category>
-			<pattern>SelectModule YNC</pattern>
+		<category><pattern>SelectModule YNC</pattern>
 			<template>Are there at least 5 letters?</template>
 		</category>
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Are there at least 5 letters</that>
 			<template>Are there at least 6 letters?</template>
 		</category>
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Are there at least 6 letters</that>
 			<template>Are there 7 letters?</template>
 		</category>
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Are there 7 letters</that>
 			<template><srai>YNCAskDisplayList DISPLAY NOTHING THEY_ARE</srai></template>
 		</category>
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Are there 7 letters</that>
 			<template><srai>YNCAskDisplayList HOLD_ON THEY_RE YOU_ARE</srai></template>
 		</category>
 
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Are there at least 6 letters</that>
 			<template>Is the first letter a T?</template>
 		</category>
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Is the first letter a T</that>
 			<template><srai>YNCAskDisplayList THEIR THERE</srai></template>
 		</category>
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Is the first letter a T</that>
 			<template><srai>YNCAskDisplayList BLANK FIRST YOU_RE</srai></template>
 		</category>
 
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Are there at least 5 letters</that>
 			<template>Are there 4 letters?</template>
 		</category>
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Are there 4 letters</that>
 			<template>Is there an E?</template>
 		</category>
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Is there an E</that>
 			<template>Is the first letter an L?</template>
 		</category>
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Is the first letter an L</that>
 			<template><srai>YNCAskDisplayList LEAD LEED</srai></template>
 		</category>
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Is the first letter an L</that>
 			<template><srai>YNCAskDisplayList READ REED</srai></template>
 		</category>
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Is there an E</that>
 			<template><srai>YNCAskDisplayList OKAY SAYS YOUR</srai></template>
 		</category>
 
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Are there 4 letters</that>
 			<template>Are there 3 letters?</template>
 		</category>
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Are there 3 letters</that>
 			<template>Is there exactly one E?</template>
 		</category>
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Is there exactly one E</that>
 			<template><srai>YNCAskDisplayList LED RED YES</srai></template>
 		</category>
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Is there exactly one E</that>
 			<template><srai>YNCAskDisplayList YOU SEE CEE</srai></template>
 		</category>
 
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Are there 3 letters</that>
 			<template>Are there 2 letters?</template>
 		</category>
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Are there 2 letters</that>
 			<template><srai>YNCAskDisplayList NO UR</srai></template>
 		</category>
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Are there 2 letters</that>
 			<template><srai>YNCAskDisplayList C empty</srai></template>
 		</category>
 
-		<category>
-			<pattern>YNCAskDisplayList *</pattern>
+		<category><pattern>YNCAskDisplayList *</pattern>
 			<template>
 				<think><set name='WhosOnFirstYNCDisplayList'><star/></set></think>
 				<srai>YNCAskDisplayListNext</srai>
 			</template>
 		</category>
-		<category>
-			<pattern>YNCAskDisplayListNext</pattern>
+		<category><pattern>YNCAskDisplayListNext</pattern>
 			<template>
 				<condition name='WhosOnFirstYNCDisplayList'>
 					<li value='nil'>Unknown Display</li>
@@ -474,19 +384,16 @@
 				</condition>
 			</template>
 		</category>
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Is it *</that>
 			<template><srai>HandleDisplay <first><get name='WhosOnFirstYNCDisplayList'/></first></srai></template>
 		</category>
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Is it *</that>
 			<topic>WhosOnFirst Button</topic>
 			<template><srai>HandleButton <first><get name='WhosOnFirstYNCDisplayList'/></first></srai></template>
 		</category>
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Is it *</that>
 			<template>
 				<think><set name='WhosOnFirstYNCDisplayList'><rest><get name='WhosOnFirstYNCDisplayList'/></rest></set></think>
@@ -496,124 +403,101 @@
 	</topic>
 
 	<topic name='WhosOnFirst Button'>
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Are there exactly 4 letters</that>
 			<template>Is the first letter between S and Z?</template>
 		</category>
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Is the first letter between S and Z</that>
 			<template>Is the first letter a W?</template>
 		</category>
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Is the first letter a W</that>
 			<template><srai>YNCAskDisplayList WAIT WHAT WHAT_</srai></template>
 		</category>
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Is the first letter a W</that>
 			<template>Is the first letter a U?</template>
 		</category>
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Is the first letter a U</that>
 			<template><srai>YNCAskDisplayList UH_UH UHHH</srai></template>
 		</category>
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Is the first letter a U</that>
 			<template><srai>YNCAskDisplayList SURE YOUR</srai></template>
 		</category>
 
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Is the first letter between S and Z</that>
 			<template>Is the first letter an L?</template>
 		</category>
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Is the first letter an L</that>
 			<template><srai>YNCAskDisplayList LEFT LIKE</srai></template>
 		</category>
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Is the first letter an L</that>
 			<template>Is the first letter after L?</template>
 		</category>
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Is the first letter after L</that>
 			<template><srai>YNCAskDisplayList NEXT OKAY</srai></template>
 		</category>
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Is the first letter after L</that>
 			<template><srai>YNCAskDisplayList DONE HOLD</srai></template>
 		</category>
 
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Are there exactly 4 letters</that>
 			<template>Are there exactly 5 letters?</template>
 		</category>
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Are there exactly 5 letters</that>
 			<template>Is the first letter between R and Z?</template>
 		</category>
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Is the first letter between R and Z</that>
 			<template>Is the first letter an R?</template>
 		</category>
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Is the first letter an R</that>
 			<template><srai>YNCAskDisplayList READY RIGHT</srai></template>
 		</category>
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Is the first letter an R</that>
 			<template><srai>YNCAskDisplayList UH_HUH YOU_RE</srai></template>
 		</category>
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Is the first letter between R and Z</that>
 			<template><srai>YNCAskDisplayList BLANK FIRST PRESS</srai></template>
 		</category>
 
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Are there exactly 5 letters</that>
 			<template>Are there at least 6 letters?</template>
 		</category>
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Are there at least 6 letters</that>
 			<template><srai>YNCAskDisplayList MIDDLE YOU_ARE NOTHING</srai></template>
 		</category>
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Are there at least 6 letters</that>
 			<template>Are there exactly 3 letters?</template>
 		</category>
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<that>Are there exactly 3 letters</that>
 			<template><srai>YNCAskDisplayList YES YOU</srai></template>
 		</category>
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<that>Are there exactly 3 letters</that>
 			<template><srai>YNCAskDisplayList NO UR U</srai></template>
 		</category>
 	</topic>
 
 	<topic name='WhosOnFirst ButtonList'>
-		<category>
-			<pattern>YNCReadButton</pattern>
+		<category><pattern>YNCReadButton</pattern>
 			<template>
 				<condition name='WhosOnFirstButtonList'>
 					<li value='nil'>Unknown Button</li>
@@ -623,8 +507,7 @@
 				</condition>
 			</template>
 		</category>
-		<category>
-			<pattern>yes</pattern>
+		<category><pattern>yes</pattern>
 			<template>
 				<think><set name='topic'>WhosOnFirst</set></think>
 				<condition name='WhosOnFirstStage'>
@@ -634,8 +517,7 @@
 				</condition>
 			</template>
 		</category>
-		<category>
-			<pattern>no</pattern>
+		<category><pattern>no</pattern>
 			<template>
 				<think><set name='WhosOnFirstButtonList'><rest><get name='WhosOnFirstButtonList'/></rest></set></think>
 				<srai>YNCReadButton</srai>
@@ -643,28 +525,24 @@
 		</category>
 	</topic>
 
-	<category>
-		<pattern>SouvenirInput WhosOnFirst XS <set>number</set></pattern>
+	<category><pattern>SouvenirInput WhosOnFirst XS <set>number</set></pattern>
 		<template>
 			Stage 1 was <map name='WhosOnFirstButtonDescription'><srai>SouvenirGet WhosOnFirst XS <star/> XS Display1</srai></map>.
 			Stage 2 was <map name='WhosOnFirstButtonDescription'><srai>SouvenirGet WhosOnFirst XS <star/> XS Display2</srai></map>.
 			Stage 3 was <map name='WhosOnFirstButtonDescription'><srai>SouvenirGet WhosOnFirst XS <star/> XS Display3</srai></map>.
 		</template>
 	</category>
-	<category>
-		<pattern>SouvenirInput WhosOnFirst XS <set>number</set> XS <set>number</set></pattern>
+	<category><pattern>SouvenirInput WhosOnFirst XS <set>number</set> XS <set>number</set></pattern>
 		<template>
 			Stage <star index='2'/> was <map name='WhosOnFirstButtonDescription'><srai>SouvenirGet WhosOnFirst XS <star/> XS Display<star index='2'/></srai></map>.
 		</template>
 	</category>
-	<category>
-		<pattern>SouvenirInput WhosOnFirst XS <set>number</set> XS <set>ordinal</set></pattern>
+	<category><pattern>SouvenirInput WhosOnFirst XS <set>number</set> XS <set>ordinal</set></pattern>
 		<template>
 			Stage <map name='OrdinalToNumber'><star index='2'/></map> was <map name='WhosOnFirstButtonDescription'><srai>SouvenirGet WhosOnFirst XS <star/> XS Display<map name='OrdinalToNumber'><star index='2'/></map></srai></map>.
 		</template>
 	</category>
-	<category>
-		<pattern>SouvenirInput WhosOnFirst XS <set>number</set> XS stage <set>number</set></pattern>
+	<category><pattern>SouvenirInput WhosOnFirst XS <set>number</set> XS stage <set>number</set></pattern>
 		<template><srai>SouvenirInput WhosOnFirst XS <star/> XS <star index='2'/></srai></template>
 	</category>
 </aiml>

@@ -1,22 +1,18 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <aiml version='2.1'>
-	<category>
-		<pattern>$yes</pattern>
+	<category><pattern>$yes</pattern>
 		<that>^ Solved</that>
 		<template><srai>YNCAskModule</srai></template>
 	</category>
 
-	<category>
-		<pattern>yes and defused</pattern>
+	<category><pattern>yes and defused</pattern>
 		<template>Well done.</template>
 	</category>
-	<category>
-		<pattern>defused</pattern>
+	<category><pattern>defused</pattern>
 		<template>Well done.</template>
 	</category>
 
-	<category>
-		<pattern>begin the yes no challenge</pattern>
+	<category><pattern>begin the yes no challenge</pattern>
 		<template>
 			<think><set name='YesNoChallenge'>true</set></think>
 			<oob><setgrammar>ync</setgrammar></oob>
@@ -24,29 +20,25 @@
 		</template>
 	</category>
 
-	<category>
-		<pattern>YNC <set>module</set></pattern>
+	<category><pattern>YNC <set>module</set></pattern>
 		<template>
 			<think><set name='YesNoChallenge'>true</set></think>
 			<srai>YNCSelectModule <star/></srai>
 		</template>
 	</category>
 
-	<category>
-		<pattern>YNCAskNeedyModule</pattern>
+	<category><pattern>YNCAskNeedyModule</pattern>
 		<template>Is the needy module a Knob?</template>
 	</category>
 
-	<category>
-		<pattern>yes</pattern>
+	<category><pattern>yes</pattern>
 		<that>^ Is the needy module a Knob</that>
 		<template>
 			<think><set name='NeedyModules'>knob</set></think>
 			<srai>YNCAskModule</srai>
 		</template>
 	</category>
-	<category>
-		<pattern>no</pattern>
+	<category><pattern>no</pattern>
 		<that>^ Is the needy module a Knob</that>
 		<template>
 			<think><set name='NeedyModules'>nil</set></think>
@@ -54,18 +46,15 @@
 		</template>
 	</category>
 
-	<category>
-		<pattern>YNCAskModule</pattern>
+	<category><pattern>YNCAskModule</pattern>
 		<topic>* ^</topic>
 		<template>Shall we disarm another <map name='ModuleDescription'><topicstar/></map>?</template>
 	</category>
-	<category>
-		<pattern>yes</pattern>
+	<category><pattern>yes</pattern>
 		<that>Shall we disarm another *</that>
 		<template><srai>next instance</srai></template>
 	</category>
-	<category>
-		<pattern>no</pattern>
+	<category><pattern>no</pattern>
 		<that>Shall we disarm another *</that>
 		<template>
 			<srai>DeselectModule</srai>
@@ -74,15 +63,13 @@
 		</template>
 	</category>
 
-	<category>
-		<pattern>YNCAskModuleList *</pattern>
+	<category><pattern>YNCAskModuleList *</pattern>
 		<template>
 			<think><set name='YNCModuleList'><star/></set></think>
 			<srai>YNCAskModuleListNext</srai>
 		</template>
 	</category>
-	<category>
-		<pattern>YNCAskModuleListNext</pattern>
+	<category><pattern>YNCAskModuleListNext</pattern>
 		<template>
 			<condition name='YNCModuleList'>
 				<li value='nil'>Unknown module</li>
@@ -94,67 +81,55 @@
 		</template>
 	</category>
 
-	<category>
-		<pattern>yes</pattern>
+	<category><pattern>yes</pattern>
 		<that>Is it <set>module</set></that>
 		<template><srai>YNCSelectModule <thatstar/></srai></template>
 	</category>
-	<category>
-		<pattern>yes</pattern>
+	<category><pattern>yes</pattern>
 		<that>Is it a <set>module</set></that>
 		<template><srai>YNCSelectModule <thatstar/></srai></template>
 	</category>
-	<category>
-		<pattern>yes</pattern>
+	<category><pattern>yes</pattern>
 		<that>Is it an <set>module</set></that>
 		<template><srai>YNCSelectModule <thatstar/></srai></template>
 	</category>
-	<category>
-		<pattern>no</pattern>
+	<category><pattern>no</pattern>
 		<that>Is it *</that>
 		<topic>root</topic>
 		<template><srai>YNCAskModuleListNext</srai></template>
 	</category>
 
-	<category>
-		<pattern>YNCAskModule</pattern>
+	<category><pattern>YNCAskModule</pattern>
 		<template>Does the module have wires?</template>
 	</category>
-	<category>
-		<pattern>yes</pattern>
+	<category><pattern>yes</pattern>
 		<that>^ Does the module have wires</that>
 		<template><srai>YNCAskModuleList Wires ComplicatedWires WireSequence</srai></template>
 	</category>
 
-	<category>
-		<pattern>no</pattern>
+	<category><pattern>no</pattern>
 		<that>^ Does the module have wires</that>
 		<template>Does it have a digital display?</template>
 	</category>
-	<category>
-		<pattern>yes</pattern>
+	<category><pattern>yes</pattern>
 		<that>Does it have a digital display</that>
 		<template>Does it have a stage indicator?</template>
 	</category>
-	<category>
-		<pattern>yes</pattern>
+	<category><pattern>yes</pattern>
 		<that>Does it have a stage indicator</that>
 		<template><srai>YNCAskModuleList Memory WhosOnFirst</srai></template>
 	</category>
-	<category>
-		<pattern>no</pattern>
+	<category><pattern>no</pattern>
 		<that>Does it have a stage indicator</that>
 		<template><srai>YNCAskModuleList Password Maze MorseCode</srai></template>
 	</category>
 
-	<category>
-		<pattern>no</pattern>
+	<category><pattern>no</pattern>
 		<that>Does it have a digital display</that>
 		<template><srai>YNCAskModuleList Button Keypad SimonSays</srai></template>
 	</category>
 
-	<category>
-		<pattern>YNCSelectModule *</pattern>
+	<category><pattern>YNCSelectModule *</pattern>
 		<template>
 			<srai>DeselectModule</srai>
 			<think><set name='topic'><map name='ModuleCode'><star/></map></set></think>
@@ -164,8 +139,7 @@
 		</template>
 	</category>
 
-	<category>
-		<pattern>SelectModule YNC</pattern>
+	<category><pattern>SelectModule YNC</pattern>
 		<template><srai>SelectModule</srai></template>
 	</category>
 </aiml>

@@ -1,14 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <aiml version='2.1'>
-	<category>
-		<pattern>XTest SimonSays 1</pattern>
+	<category><pattern>XTest SimonSays 1</pattern>
 		<template>
 			<test name='Simon Says Initial 1' regex='.*vowel.*'>defuse simon says</test>
 		</template>
 	</category>
 
-	<category>
-		<pattern>XTest SimonSays 2</pattern>
+	<category><pattern>XTest SimonSays 2</pattern>
 		<template>
 			<think>
 				<test name='Simon Says Initial 2' regex='.*Tell me which colours flash, in order.'>yes</test>

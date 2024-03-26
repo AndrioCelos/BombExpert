@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml>
 	<topic name='ThirdBase ^'>
-		<category>
-			<pattern>InitModule</pattern>
+		<category><pattern>InitModule</pattern>
 			<template>
 				<think>
 					<set name='topic'>ThirdBase</set>
@@ -12,13 +11,11 @@
 			</template>
 		</category>
 
-		<category>
-			<pattern><set>LetterOrDigit</set> <set>LetterOrDigit</set> <set>LetterOrDigit</set> <set>LetterOrDigit</set></pattern>
+		<category><pattern><set>LetterOrDigit</set> <set>LetterOrDigit</set> <set>LetterOrDigit</set> <set>LetterOrDigit</set></pattern>
 			<template><srai>HandleInput <map name='NATO'><star index='1'/></map> <map name='NATO'><star index='2'/></map> <map name='NATO'><star index='3'/></map> <map name='NATO'><star index='4'/></map></srai></template>
 		</category>
 
-		<category>
-			<pattern>HandleInput *</pattern>
+		<category><pattern>HandleInput *</pattern>
 			<topic>ThirdBase</topic>
 			<template>
 				<think>
@@ -35,8 +32,7 @@
 			</template>
 		</category>
 
-		<category>
-			<pattern>HandleInput *</pattern>
+		<category><pattern>HandleInput *</pattern>
 			<topic>ThirdBase Button</topic>
 			<template>
 				<think>
@@ -68,8 +64,7 @@
 			</template>
 		</category>
 
-		<category>
-			<pattern>next stage ^</pattern>
+		<category><pattern>next stage ^</pattern>
 			<template>
 				<think>
 					<condition name='ThirdBaseStage'>
@@ -85,60 +80,49 @@
 				<srai><star/></srai>
 			</template>
 		</category>
-		<category>
-			<pattern>new stage ^</pattern>
+		<category><pattern>new stage ^</pattern>
 			<template><srai>next stage <star/></srai></template>
 		</category>
 
-		<category>
-			<pattern>XImplode <set>LetterOrDigit</set> <set>LetterOrDigit</set> <set>LetterOrDigit</set> <set>LetterOrDigit</set></pattern>
+		<category><pattern>XImplode <set>LetterOrDigit</set> <set>LetterOrDigit</set> <set>LetterOrDigit</set> <set>LetterOrDigit</set></pattern>
 			<template><star index='1'/><star index='2'/><star index='3'/><star index='4'/></template>
 		</category>
 
-		<category>
-			<pattern>XInvert *</pattern>
+		<category><pattern>XInvert *</pattern>
 			<template><srai>XInvert <explode><star/></explode></srai></template>
 		</category>
-		<category>
-			<pattern>XInvert <set>LetterOrDigit</set> *</pattern>
+		<category><pattern>XInvert <set>LetterOrDigit</set> *</pattern>
 			<template><srai>XInvert <star index='2'/></srai> <srai>XInvert <star/></srai></template>
 		</category>
-		<category>
-			<pattern>XInvert <set>LetterOrDigit</set></pattern>
+		<category><pattern>XInvert <set>LetterOrDigit</set></pattern>
 			<template><star/></template>
 		</category>
-		<category>
-			<pattern>XInvert 6</pattern>
+		<category><pattern>XInvert 6</pattern>
 			<template>9</template>
 		</category>
-		<category>
-			<pattern>XInvert 9</pattern>
+		<category><pattern>XInvert 9</pattern>
 			<template>6</template>
 		</category>
 	</topic>
 
-	<category>
-		<pattern>SouvenirInput ThirdBase XS <set>number</set></pattern>
+	<category><pattern>SouvenirInput ThirdBase XS <set>number</set></pattern>
 		<template>
 			Stage 1 was <srai>EncodeNato <srai>SouvenirGet ThirdBase XS <star/> XS Display1</srai></srai>.
 			Stage 2 was <srai>EncodeNato <srai>SouvenirGet ThirdBase XS <star/> XS Display2</srai></srai>.
 			Stage 3 was <srai>EncodeNato <srai>SouvenirGet ThirdBase XS <star/> XS Display3</srai></srai>.
 		</template>
 	</category>
-	<category>
-		<pattern>SouvenirInput ThirdBase XS <set>number</set> XS <set>number</set></pattern>
+	<category><pattern>SouvenirInput ThirdBase XS <set>number</set> XS <set>number</set></pattern>
 		<template>
 			Stage <star index='2'/> was <srai>EncodeNato <srai>SouvenirGet ThirdBase XS <star/> XS Display<star index='2'/></srai></srai>.
 		</template>
 	</category>
-	<category>
-		<pattern>SouvenirInput ThirdBase XS <set>number</set> XS <set>ordinal</set></pattern>
+	<category><pattern>SouvenirInput ThirdBase XS <set>number</set> XS <set>ordinal</set></pattern>
 		<template>
 			Stage <map name='OrdinalToNumber'><star index='2'/></map> was <srai>EncodeNato <srai>SouvenirGet ThirdBase XS <star/> XS Display<map name='OrdinalToNumber'><star index='2'/></map></srai></srai>.
 		</template>
 	</category>
-	<category>
-		<pattern>SouvenirInput ThirdBase XS <set>number</set> XS stage <set>number</set></pattern>
+	<category><pattern>SouvenirInput ThirdBase XS <set>number</set> XS stage <set>number</set></pattern>
 		<template><srai>SouvenirInput ThirdBase XS <star/> XS <star index='2'/></srai></template>
 	</category>
 </aiml>

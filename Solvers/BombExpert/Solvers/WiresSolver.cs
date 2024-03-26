@@ -248,10 +248,10 @@ public class WiresSolver : IModuleSolver {
 				_ => ""
 			});
 
-			builder.Append($"<category>\n<!-- {wireCount} wires -->\n<pattern>SolverFallback Wires {ruleSeed}");
+			builder.Append($"<category><pattern>SolverFallback Wires {ruleSeed}");
 			for (int j = 0; j < wireCount; ++j)
 				builder.Append(" <set>BombColours</set>");
-			builder.AppendLine("</pattern>\n<template>\n<think>\n<set var='result'>unknown</set>");
+			builder.AppendLine($"</pattern><!-- {wireCount} wires -->\n<template>\n<think>\n<set var='result'>unknown</set>");
 
 			var otherwise = false;
 			foreach (var rule in rules[i]) {
@@ -279,11 +279,11 @@ public class WiresSolver : IModuleSolver {
 							}
 							closeTags.Push("</condition>");
 							break;
-						case Conditions.SerialNumberStartsWithLetterCondition<Colour[]> _:
+						case Conditions.SerialNumberStartsWithLetterCondition<Colour[]>:
 							builder.AppendLine("<condition name='SerialNumberStartsWithLetter'>\n<li value='true'>");
 							closeTags.Push("</li>\n<li value='unknown'><set var='result'>NeedEdgework SerialNumberStartsWithLetter</set></li>\n</condition>");
 							break;
-						case Conditions.SerialNumberParityCondition<Colour[]> _:
+						case Conditions.SerialNumberParityCondition<Colour[]>:
 							builder.AppendLine("<condition name='SerialNumberIsOdd'>\n<li value='true'>");
 							closeTags.Push("</li>\n<li value='unknown'><set var='result'>NeedEdgework SerialNumberIsOdd</set></li>\n</condition>");
 							break;
@@ -291,7 +291,7 @@ public class WiresSolver : IModuleSolver {
 							builder.AppendLine($"<condition name='Port{portCondition.PortType}'>\n<li value='true'>");
 							closeTags.Push($"</li>\n<li value='unknown'><set var='result'>NeedEdgework Port {portCondition.PortType}</set></li>\n</condition>");
 							break;
-						case Conditions.EmptyPortPlateCondition<Colour[]> _:
+						case Conditions.EmptyPortPlateCondition<Colour[]>:
 							builder.AppendLine("<condition name='EmptyPortPlate'>\n<li value='true'>");
 							closeTags.Push("</li>\n<li value='unknown'><set var='result'>NeedEdgework EmptyPortPlate</set></li>\n</condition>");
 							break;

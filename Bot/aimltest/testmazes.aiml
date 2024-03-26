@@ -1,7 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <aiml version='2.1'>
-	<category>
-		<pattern>XTest Mazes 1</pattern>
+	<category><pattern>XTest Mazes 1</pattern>
 		<template>
 			<think>
 				<set name='SraixUnavailable'>true</set>
@@ -17,16 +16,13 @@
 		</template>
 	</category>
 
-	<category>
-		<pattern>XTest Maze Conversation 1</pattern>
+	<category><pattern>XTest Maze Conversation 1</pattern>
 		<template><test name='Maze Conversation 1' expected='Locate the white dot.'>3 4</test></template>
 	</category>
-	<category>
-		<pattern>XTest Maze Conversation 2</pattern>
+	<category><pattern>XTest Maze Conversation 2</pattern>
 		<template><test name='Maze Conversation 2' expected='Locate the red triangle.'>5 1</test></template>
 	</category>
-	<category>
-		<pattern>XTest Maze Conversation 3</pattern>
+	<category><pattern>XTest Maze Conversation 3</pattern>
 		<template><test name='Maze Conversation 3' expected='Take these steps: East, South 3 times, West, North, West 3 times.'>2 3</test></template>
 	</category>
 </aiml>

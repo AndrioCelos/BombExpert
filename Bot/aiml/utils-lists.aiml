@@ -2,32 +2,25 @@
 <aiml version='2.1'>
 	<!-- Usage: XItem [n] XS [list ...] -->
 	<!-- Returns the nth element of the list. -->
-	<category>
-		<pattern>XItem 1 XS * ^</pattern>
+	<category><pattern>XItem 1 XS * ^</pattern>
 		<template><star index='1'/></template>
 	</category>
-	<category>
-		<pattern>XItem 2 XS * * ^</pattern>
+	<category><pattern>XItem 2 XS * * ^</pattern>
 		<template><star index='2'/></template>
 	</category>
-	<category>
-		<pattern>XItem 3 XS * * * ^</pattern>
+	<category><pattern>XItem 3 XS * * * ^</pattern>
 		<template><star index='3'/></template>
 	</category>
-	<category>
-		<pattern>XItem 4 XS * * * * ^</pattern>
+	<category><pattern>XItem 4 XS * * * * ^</pattern>
 		<template><star index='4'/></template>
 	</category>
-	<category>
-		<pattern>XItem 5 XS * * * * * ^</pattern>
+	<category><pattern>XItem 5 XS * * * * * ^</pattern>
 		<template><star index='5'/></template>
 	</category>
-	<category>
-		<pattern>XItem 6 XS * * * * * * ^</pattern>
+	<category><pattern>XItem 6 XS * * * * * * ^</pattern>
 		<template><star index='6'/></template>
 	</category>
-	<category>
-		<pattern>XItem <set>number</set> XS ^</pattern>
+	<category><pattern>XItem <set>number</set> XS ^</pattern>
 		<template>
 			<think>
 				<set var='i'><star/></set>
@@ -54,12 +47,10 @@
 
 	<!-- Usage: XContains [element] XS [list ...] -->
 	<!-- Returns true if the element is in the list; false otherwise. -->
-	<category>
-		<pattern>XContains * XS</pattern>
+	<category><pattern>XContains * XS</pattern>
 		<template>false</template>
 	</category>
-	<category>
-		<pattern>XContains * XS *</pattern>
+	<category><pattern>XContains * XS *</pattern>
 		<template>
 			<think><set var='needle'><star/></set></think>
 			<condition var='needle'>
@@ -68,8 +59,7 @@
 			</condition>
 		</template>
 	</category>
-	<category>
-		<pattern>XContains * XS * *</pattern>
+	<category><pattern>XContains * XS * *</pattern>
 		<template>
 			<think><set var='needle'><star/></set></think>
 			<condition var='needle'>
@@ -79,8 +69,7 @@
 			</condition>
 		</template>
 	</category>
-	<category>
-		<pattern>XContains * XS * * *</pattern>
+	<category><pattern>XContains * XS * * *</pattern>
 		<template>
 			<think><set var='needle'><star/></set></think>
 			<condition var='needle'>
@@ -91,8 +80,7 @@
 			</condition>
 		</template>
 	</category>
-	<category>
-		<pattern>XContains * XS * * * *</pattern>
+	<category><pattern>XContains * XS * * * *</pattern>
 		<template>
 			<think><set var='needle'><star/></set></think>
 			<condition var='needle'>
@@ -104,8 +92,7 @@
 			</condition>
 		</template>
 	</category>
-	<category>
-		<pattern>XContains * XS * * * * *</pattern>
+	<category><pattern>XContains * XS * * * * *</pattern>
 		<template>
 			<think><set var='needle'><star/></set></think>
 			<condition var='needle'>
@@ -118,8 +105,7 @@
 			</condition>
 		</template>
 	</category>
-	<category>
-		<pattern>XContains * XS * * * * * * ^</pattern>
+	<category><pattern>XContains * XS * * * * * * ^</pattern>
 		<template>
 			<think><set var='needle'><star/></set></think>
 			<condition var='needle'>
@@ -136,70 +122,55 @@
 
 	<!-- Usage: XFirst [list ...] -->
 	<!-- Returns the first word of the list (equivalent to Program AB's first tag). -->
-	<category>
-		<pattern>XFirst * ^</pattern>
+	<category><pattern>XFirst * ^</pattern>
 		<template><star/></template>
 	</category>
-	<category>
-		<pattern>XFirst</pattern>
+	<category><pattern>XFirst</pattern>
 		<template>nil</template>
 	</category>
 
 	<!-- Usage: XRest [list ...] -->
 	<!-- Returns the part of the list after the first word (equivalent to Program AB's rest tag). -->
-	<category>
-		<pattern>XRest _ *</pattern>
+	<category><pattern>XRest _ *</pattern>
 		<template><star index='2'/></template>
 	</category>
-	<category>
-		<pattern>XRest ^</pattern>
+	<category><pattern>XRest ^</pattern>
 		<template>nil</template>
 	</category>
 
 	<!-- Usage: XLast [list ...] -->
 	<!-- Returns the last word of the list. -->
-	<category>
-		<pattern>XLast</pattern>
+	<category><pattern>XLast</pattern>
 		<template>nil</template>
 	</category>
-	<category>
-		<pattern>XLast *</pattern>
+	<category><pattern>XLast *</pattern>
 		<template><star index='1'/></template>
 	</category>
-	<category>
-		<pattern>XLast * *</pattern>
+	<category><pattern>XLast * *</pattern>
 		<template><star index='2'/></template>
 	</category>
-	<category>
-		<pattern>XLast * * *</pattern>
+	<category><pattern>XLast * * *</pattern>
 		<template><star index='3'/></template>
 	</category>
-	<category>
-		<pattern>XLast * * * *</pattern>
+	<category><pattern>XLast * * * *</pattern>
 		<template><star index='4'/></template>
 	</category>
-	<category>
-		<pattern>XLast * * * * *</pattern>
+	<category><pattern>XLast * * * * *</pattern>
 		<template><star index='5'/></template>
 	</category>
-	<category>
-		<pattern>XLast * * * * * *</pattern>
+	<category><pattern>XLast * * * * * *</pattern>
 		<template><star index='6'/></template>
 	</category>
-	<category>
-		<pattern>XLast * * * * * * *</pattern>
+	<category><pattern>XLast * * * * * * *</pattern>
 		<template><star index='7'/></template>
 	</category>
-	<category>
-		<pattern>XLast * * * * * * * *</pattern>
+	<category><pattern>XLast * * * * * * * *</pattern>
 		<template><star index='8'/></template>
 	</category>
-	<category>
-		<pattern>XLast * * * * * * * * *</pattern>
+	<category><pattern>XLast * * * * * * * * *</pattern>
 		<template><star index='9'/></template>
 	</category>
-	<category>
-		<pattern>XLast * * * * * * * * * *</pattern>
+	<category><pattern>XLast * * * * * * * * * *</pattern>
 		<template>
 			<think>
 				<set var='items'><star index='10'/></set>
@@ -219,61 +190,49 @@
 
 	<!-- Usage: XReverse [list ...] -->
 	<!-- Returns the words in reverse order. -->
-	<category>
-		<pattern>XReverse</pattern>
+	<category><pattern>XReverse</pattern>
 		<template>nil</template>
 	</category>
-	<category>
-		<pattern>XReverse *</pattern>
+	<category><pattern>XReverse *</pattern>
 		<template><star/></template>
 	</category>
-	<category>
-		<pattern>XReverse * *</pattern>
+	<category><pattern>XReverse * *</pattern>
 		<template><srai>XReverse <star index='2'/></srai> <star/></template>
 	</category>
 
 	<!-- Usage: XPrepend [element] [list ...] -->
 	<!-- Returns the list with the specified element prepended. -->
-	<category>
-		<pattern>XPrepend * nil</pattern>
+	<category><pattern>XPrepend * nil</pattern>
 		<template><star/></template>
 	</category>
-	<category>
-		<pattern>XPrepend *</pattern>
+	<category><pattern>XPrepend *</pattern>
 		<template><star/></template>
 	</category>
-	<category>
-		<pattern>XPrepend * *</pattern>
+	<category><pattern>XPrepend * *</pattern>
 		<template><star/> <star index='2'/></template>
 	</category>
 
 	<!-- Usage: XAppend [element] [list ...] -->
 	<!-- Returns the list with the specified element appended. -->
-	<category>
-		<pattern>XAppend * nil</pattern>
+	<category><pattern>XAppend * nil</pattern>
 		<template><star/></template>
 	</category>
-	<category>
-		<pattern>XAppend *</pattern>
+	<category><pattern>XAppend *</pattern>
 		<template><star/></template>
 	</category>
-	<category>
-		<pattern>XAppend * *</pattern>
+	<category><pattern>XAppend * *</pattern>
 		<template><star index='2'/> <star/></template>
 	</category>
 
 	<!-- Usage: XSetAdd [element] XS [set ...] -->
 	<!-- Returns the set with the specified element added if it was not already present. -->
-	<category>
-		<pattern>XSetAdd * XS nil</pattern>
+	<category><pattern>XSetAdd * XS nil</pattern>
 		<template><star/></template>
 	</category>
-	<category>
-		<pattern>XSetAdd * XS</pattern>
+	<category><pattern>XSetAdd * XS</pattern>
 		<template><star/></template>
 	</category>
-	<category>
-		<pattern>XSetAdd * XS *</pattern>
+	<category><pattern>XSetAdd * XS *</pattern>
 		<template>
 			<think><set var='contains'><srai>XContains <star/> XS <star index='2'/></srai></set></think>
 			<condition var='contains'>
@@ -285,8 +244,7 @@
 
 	<!-- Usage: XSetRemove [element] XS [set ...] -->
 	<!-- Returns the set with the specified element removed. -->
-	<category>
-		<pattern>XSetRemove * XS *</pattern>
+	<category><pattern>XSetRemove * XS *</pattern>
 		<template>
 			<think><set var='a'><star/></set></think>
 			<condition var='a'>
@@ -295,8 +253,7 @@
 			</condition>
 		</template>
 	</category>
-	<category>
-		<pattern>XSetRemove * XS * *</pattern>
+	<category><pattern>XSetRemove * XS * *</pattern>
 		<template>
 			<think><set var='a'><star/></set></think>
 			<condition var='a'>
@@ -308,52 +265,40 @@
 
 	<!-- Usage: XCount [list ...] -->
 	<!-- Returns the number of elements in the list. -->
-	<category>
-		<pattern>XCount</pattern>
+	<category><pattern>XCount</pattern>
 		<template>0</template>
 	</category>
-	<category>
-		<pattern>XCount nil</pattern>
+	<category><pattern>XCount nil</pattern>
 		<template>0</template>
 	</category>
-	<category>
-		<pattern>XCount *</pattern>
+	<category><pattern>XCount *</pattern>
 		<template>1</template>
 	</category>
-	<category>
-		<pattern>XCount * *</pattern>
+	<category><pattern>XCount * *</pattern>
 		<template>2</template>
 	</category>
-	<category>
-		<pattern>XCount * * *</pattern>
+	<category><pattern>XCount * * *</pattern>
 		<template>3</template>
 	</category>
-	<category>
-		<pattern>XCount * * * *</pattern>
+	<category><pattern>XCount * * * *</pattern>
 		<template>4</template>
 	</category>
-	<category>
-		<pattern>XCount * * * * *</pattern>
+	<category><pattern>XCount * * * * *</pattern>
 		<template>5</template>
 	</category>
-	<category>
-		<pattern>XCount * * * * * *</pattern>
+	<category><pattern>XCount * * * * * *</pattern>
 		<template>6</template>
 	</category>
-	<category>
-		<pattern>XCount * * * * * * *</pattern>
+	<category><pattern>XCount * * * * * * *</pattern>
 		<template>7</template>
 	</category>
-	<category>
-		<pattern>XCount * * * * * * * *</pattern>
+	<category><pattern>XCount * * * * * * * *</pattern>
 		<template>8</template>
 	</category>
-	<category>
-		<pattern>XCount * * * * * * * * *</pattern>
+	<category><pattern>XCount * * * * * * * * *</pattern>
 		<template>9</template>
 	</category>
-	<category>
-		<pattern>XCount * * * * * * * * * *</pattern>
+	<category><pattern>XCount * * * * * * * * * *</pattern>
 		<template>
 			<think>
 				<set var='result'>9</set>
@@ -373,12 +318,10 @@
 
 	<!-- Usage: XCountMatch [element] XS [list ...] -->
 	<!-- Returns the number of times the specified element occurs in the list. -->
-	<category>
-		<pattern>XCountMatch * XS</pattern>
+	<category><pattern>XCountMatch * XS</pattern>
 		<template>0</template>
 	</category>
-	<category>
-		<pattern>XCountMatch * XS *</pattern>
+	<category><pattern>XCountMatch * XS *</pattern>
 		<template>
 			<think>
 				<set var='list'><star index='2'/></set>
@@ -402,12 +345,10 @@
 
 	<!-- Usage: XIndex [element] XS [list ...] -->
 	<!-- Returns the index of the first occurrence of the specified element in the list, or 0 if not found. -->
-	<category>
-		<pattern>XIndex * XS</pattern>
+	<category><pattern>XIndex * XS</pattern>
 		<template>0</template>
 	</category>
-	<category>
-		<pattern>XIndex * XS *</pattern>
+	<category><pattern>XIndex * XS *</pattern>
 		<template>
 			<think>
 				<set var='list'><star index='2'/></set>
@@ -438,12 +379,10 @@
 
 	<!-- Usage: XLastIndex [element] XS [list ...] -->
 	<!-- Returns the index of the last occurrence of the specified element in the list, or 0 if not found. -->
-	<category>
-		<pattern>XLastIndex * XS</pattern>
+	<category><pattern>XLastIndex * XS</pattern>
 		<template>0</template>
 	</category>
-	<category>
-		<pattern>XLastIndex * XS *</pattern>
+	<category><pattern>XLastIndex * XS *</pattern>
 		<template>
 			<think>
 				<set var='list'><star index='2'/></set>
@@ -469,12 +408,10 @@
 
 	<!-- Usage: XImplode [list ...] -->
 	<!-- Concatenates all elements of the list. -->
-	<category>
-		<pattern>XImplode *</pattern>
+	<category><pattern>XImplode *</pattern>
 		<template><star/></template>
 	</category>
-	<category>
-		<pattern>XImplode * *</pattern>
+	<category><pattern>XImplode * *</pattern>
 		<template><star/><srai>XImplode <star index='2'/></srai></template>
 	</category>
 </aiml>
