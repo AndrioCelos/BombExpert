@@ -337,7 +337,7 @@ public class MorseCodeSolver : IModuleSolver {
 		StringBuilder? head = null;
 
 		// Parse the input.
-		for (int pos = 2; pos < inputWords.Length; ++pos) {
+		for (int pos = 1; pos < inputWords.Length; ++pos) {
 			bool start = false;
 			seq.Clear();
 
