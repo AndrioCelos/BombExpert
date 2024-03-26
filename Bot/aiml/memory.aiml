@@ -151,7 +151,7 @@
 		<category>
 			<pattern>yes</pattern>
 			<that>Are we starting a new module</that>
-			<template><srai>next set</srai></template>
+			<template><srai>next Memory</srai></template>
 		</category>
 		<category>
 			<pattern>no</pattern>
